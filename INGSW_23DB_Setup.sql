@@ -150,3 +150,80 @@ IF NOT EXISTS (SELECT * FROM DV_23DB WHERE IdTabla = 8)
 IF NOT EXISTS (SELECT * FROM DV_23DB WHERE IdTabla = 9)
     INSERT INTO DV_23DB VALUES (9, 'FamFam_23DB', 0, 0);
 GO
+
+-- Tablas del modulo de negocio (_62FD)
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Vuelo_62FD')
+CREATE TABLE Vuelo_62FD (
+    NroVuelo_62FD VARCHAR(10) NOT NULL CONSTRAINT PK_Vuelo_62FD PRIMARY KEY,
+    Origen_62FD VARCHAR(50) NOT NULL,
+    Destino_62FD VARCHAR(50) NOT NULL,
+    FechaHoraSalida_62FD DATETIME NOT NULL,
+    Matricula_62FD VARCHAR(10) NOT NULL,
+    Precio_62FD DECIMAL(10,2) NOT NULL,
+    EstadoVuelo_62FD VARCHAR(20) NOT NULL
+);
+
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Pasajero_62FD')
+CREATE TABLE Pasajero_62FD (
+    numeroDocumento_62FD VARCHAR(8) NOT NULL CONSTRAINT PK_Pasajero_62FD PRIMARY KEY,
+    Apellido_62FD VARCHAR(50) NOT NULL,
+    Nombre_62FD VARCHAR(50) NOT NULL,
+    FechaNacimiento_62FD DATE NOT NULL,
+    CorreoElectronico_62FD VARCHAR(100) NOT NULL,
+    Telefono_62FD VARCHAR(20) NOT NULL,
+    ContactoEmergencia_62FD VARCHAR(100) NOT NULL
+);
+
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Asiento_62FD')
+CREATE TABLE Asiento_62FD (
+    IdAsiento_62FD INT NOT NULL CONSTRAINT PK_Asiento_62FD PRIMARY KEY,
+    NroVuelo_62FD VARCHAR(10) NOT NULL CONSTRAINT FK_Asiento_62FD_Vuelo_62FD FOREIGN KEY REFERENCES Vuelo_62FD(NroVuelo_62FD),
+    NroAsiento_62FD VARCHAR(5) NOT NULL,
+    Clase_62FD VARCHAR(20) NOT NULL,
+    EstadoAsiento_62FD VARCHAR(20) NOT NULL
+);
+
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Reserva_62FD')
+CREATE TABLE Reserva_62FD (
+    CodReserva_62FD VARCHAR(10) NOT NULL CONSTRAINT PK_Reserva_62FD PRIMARY KEY,
+    NroVuelo_62FD VARCHAR(10) NOT NULL CONSTRAINT FK_Reserva_62FD_Vuelo_62FD FOREIGN KEY REFERENCES Vuelo_62FD(NroVuelo_62FD),
+    FechaReserva_62FD DATETIME NOT NULL,
+    MontoTotal_62FD DECIMAL(10,2) NOT NULL,
+    EstadoReserva_62FD VARCHAR(20) NOT NULL
+);
+
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'ReservaDetalle_62FD')
+CREATE TABLE ReservaDetalle_62FD (
+    IdDetalle_62FD INT NOT NULL CONSTRAINT PK_ReservaDetalle_62FD PRIMARY KEY,
+    CodReserva_62FD VARCHAR(10) NOT NULL CONSTRAINT FK_ReservaDetalle_62FD_Reserva_62FD FOREIGN KEY REFERENCES Reserva_62FD(CodReserva_62FD),
+    numeroDocumento_62FD VARCHAR(8) NOT NULL CONSTRAINT FK_ReservaDetalle_62FD_Pasajero_62FD FOREIGN KEY REFERENCES Pasajero_62FD(numeroDocumento_62FD),
+    IdAsiento_62FD INT NOT NULL CONSTRAINT FK_ReservaDetalle_62FD_Asiento_62FD FOREIGN KEY REFERENCES Asiento_62FD(IdAsiento_62FD),
+    Precio_62FD DECIMAL(10,2) NOT NULL
+);
+
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Pago_62FD')
+CREATE TABLE Pago_62FD (
+    CodPago_62FD VARCHAR(10) NOT NULL CONSTRAINT PK_Pago_62FD PRIMARY KEY,
+    CodReserva_62FD VARCHAR(10) NOT NULL CONSTRAINT FK_Pago_62FD_Reserva_62FD FOREIGN KEY REFERENCES Reserva_62FD(CodReserva_62FD),
+    MedioPago_62FD VARCHAR(20) NOT NULL,
+    EntidadFinanciera_62FD VARCHAR(50) NULL,
+    UltimosDigitos_62FD VARCHAR(4) NULL,
+    CodigoAutorizacion_62FD VARCHAR(20) NULL,
+    FechaOperacion_62FD DATETIME NOT NULL,
+    MontoTotal_62FD DECIMAL(10,2) NOT NULL,
+    EstadoPago_62FD VARCHAR(20) NOT NULL
+);
+
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Pasaje_62FD')
+CREATE TABLE Pasaje_62FD (
+    CodPasaje_62FD VARCHAR(10) NOT NULL CONSTRAINT PK_Pasaje_62FD PRIMARY KEY,
+    IdDetalle_62FD INT NOT NULL CONSTRAINT FK_Pasaje_62FD_ReservaDetalle_62FD FOREIGN KEY REFERENCES ReservaDetalle_62FD(IdDetalle_62FD),
+    FechaEmision_62FD DATETIME NOT NULL,
+    EstadoPasaje_62FD VARCHAR(20) NOT NULL
+);
+GO
+
+-- Restriccion de integridad: un mismo asiento no puede figurar en dos detalles
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'IX_ReservaDetalle_62FD_IdAsiento_62FD' AND object_id = OBJECT_ID('ReservaDetalle_62FD'))
+    CREATE UNIQUE NONCLUSTERED INDEX IX_ReservaDetalle_62FD_IdAsiento_62FD ON ReservaDetalle_62FD(IdAsiento_62FD);
+GO

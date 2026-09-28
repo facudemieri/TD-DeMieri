@@ -84,6 +84,18 @@
     <Compile Include="CrearFamilias_23DB.Designer.cs">
       <DependentUpon>CrearFamilias_23DB.cs</DependentUpon>
     </Compile>
+    <Compile Include="GenerarPasaje_62FD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerarPasaje_62FD.Designer.cs">
+      <DependentUpon>GenerarPasaje_62FD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenerarReserva_62FD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerarReserva_62FD.Designer.cs">
+      <DependentUpon>GenerarReserva_62FD.cs</DependentUpon>
+    </Compile>
     <Compile Include="GestionRespaldo_23DB.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,8 +120,20 @@
     <Compile Include="MenuPrincipal_23DB.Designer.cs">
       <DependentUpon>MenuPrincipal_23DB.cs</DependentUpon>
     </Compile>
+    <Compile Include="SeleccionarVuelo_62FD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeleccionarVuelo_62FD.Designer.cs">
+      <DependentUpon>SeleccionarVuelo_62FD.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegistrarPasajero_62FD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistrarPasajero_62FD.Designer.cs">
+      <DependentUpon>RegistrarPasajero_62FD.cs</DependentUpon>
+    </Compile>
     <Compile Include="RepararInconsistencia_23DB.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,6 +155,12 @@
     <EmbeddedResource Include="CrearFamilias_23DB.resx">
       <DependentUpon>CrearFamilias_23DB.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GenerarPasaje_62FD.resx">
+      <DependentUpon>GenerarPasaje_62FD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerarReserva_62FD.resx">
+      <DependentUpon>GenerarReserva_62FD.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GestionRespaldo_23DB.resx">
       <DependentUpon>GestionRespaldo_23DB.cs</DependentUpon>
     </EmbeddedResource>
@@ -143,6 +173,9 @@
     <EmbeddedResource Include="MenuPrincipal_23DB.resx">
       <DependentUpon>MenuPrincipal_23DB.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SeleccionarVuelo_62FD.resx">
+      <DependentUpon>SeleccionarVuelo_62FD.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -152,6 +185,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RegistrarPasajero_62FD.resx">
+      <DependentUpon>RegistrarPasajero_62FD.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RepararInconsistencia_23DB.resx">
       <DependentUpon>RepararInconsistencia_23DB.cs</DependentUpon>
     </EmbeddedResource>

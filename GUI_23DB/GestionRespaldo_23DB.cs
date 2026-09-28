@@ -1,5 +1,4 @@
-﻿using BLL_23DB;
-using Services_23DB;
+﻿using Services_23DB;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -63,7 +62,15 @@ namespace GUI_23DB
             try
             {
                 string rutaCompleta_23DB = respaldoBLL_23DB.GenerarBackup_23DB(txtRutaBackup.Text);
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Backup BD", 2);
+                // El backup ya se genero: un fallo de la bitacora no debe informarse como error del backup.
+                try
+                {
+                    eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Backup BD", 2);
+                }
+                catch(Exception exEvento_23DB)
+                {
+                    System.Diagnostics.Debug.WriteLine(exEvento_23DB);
+                }
                 MessageBox.Show($"Backup generado correctamente:\n{rutaCompleta_23DB}", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LimpiarCampos();
             }
@@ -97,7 +104,15 @@ namespace GUI_23DB
                 }
                 else
                 {
-                    eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Restore BD", 2);
+                    // La base ya se restauro: un fallo de la bitacora no debe informarse como error del restore.
+                    try
+                    {
+                        eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Restore BD", 2);
+                    }
+                    catch(Exception exEvento_23DB)
+                    {
+                        System.Diagnostics.Debug.WriteLine(exEvento_23DB);
+                    }
                     MessageBox.Show("Base de datos restaurada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarCampos();                    
                 }

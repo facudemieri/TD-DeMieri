@@ -47,7 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asiento_62FD.cs" />
+    <Compile Include="Factura_62FD.cs" />
+    <Compile Include="Pago_62FD.cs" />
+    <Compile Include="Pasajero_62FD.cs" />
+    <Compile Include="Pasaje_62FD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReservaDetalle_62FD.cs" />
+    <Compile Include="Reserva_62FD.cs" />
+    <Compile Include="Vuelo_62FD.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

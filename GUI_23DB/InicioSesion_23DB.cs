@@ -1,5 +1,4 @@
-﻿using BLL_23DB;
-using Services_23DB;
+﻿using Services_23DB;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -109,20 +108,53 @@ namespace GUI_23DB
 
             string nombreRol_23DB = usuarioBLL_23DB.ObtenerNombreRol_23DB(usuarioAutenticado_23DB.IdRol_23DB);
 
-            SessionManager_23DB.ObtenerInstancia_23DB().InicializarSesion_23DB(
-                usuarioAutenticado_23DB.DNI_23DB,
-                usuarioAutenticado_23DB.Login_23DB,
-                nombreRol_23DB
-            );
+            // El singleton rechaza la sesion si ya hay una activa (caso Relogin).
+            // Va antes que las operaciones accesorias para no registrar un Login
+            // que no ocurrio.
+            try
+            {
+                SessionManager_23DB.ObtenerInstancia_23DB().InicializarSesion_23DB(
+                    usuarioAutenticado_23DB.DNI_23DB,
+                    usuarioAutenticado_23DB.Login_23DB,
+                    nombreRol_23DB
+                );
+            }
+            catch(Exception ex_23DB)
+            {
+                MessageBox.Show(ex_23DB.Message, "Sesión activa", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if(EsRelogin_23DB)
+                {
+                    this.DialogResult = DialogResult.Cancel;
+                    this.Close();
+                }
+                return;
+            }
+
+            // Operaciones accesorias: un fallo no impide entrar, porque la
+            // autenticacion ya fue correcta.
+            try
+            {
+                usuarioBLL_23DB.ResetearIntentos_23DB(usuarioAutenticado_23DB.DNI_23DB);
+            }
+            catch(Exception ex_23DB)
+            {
+                System.Diagnostics.Debug.WriteLine(ex_23DB);
+            }
+
+            try
+            {
+                eventoBLL_23DB.RegistrarEvento_23DB(usuarioAutenticado_23DB.DNI_23DB, "Usuarios", "Login", 1);
+            }
+            catch(Exception ex_23DB)
+            {
+                System.Diagnostics.Debug.WriteLine(ex_23DB);
+            }
 
             string ultimoIdioma_23DB = usuarioAutenticado_23DB.UltimoIdioma_23DB;
             if(!string.IsNullOrEmpty(ultimoIdioma_23DB))
             {
                 SessionManager_23DB.ObtenerInstancia_23DB().UltimoIdioma_23DB = ultimoIdioma_23DB;
             }
-
-            usuarioBLL_23DB.ResetearIntentos_23DB(usuarioAutenticado_23DB.DNI_23DB);
-            eventoBLL_23DB.RegistrarEvento_23DB(usuarioAutenticado_23DB.DNI_23DB, "Usuarios", "Login", 1);
 
             if(EsRelogin_23DB)
             {

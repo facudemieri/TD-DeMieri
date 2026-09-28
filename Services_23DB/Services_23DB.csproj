@@ -37,7 +37,11 @@
     <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -47,18 +51,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CryptoManager_23DB.cs" />
-    <Compile Include="DV_23DB.cs" />
-    <Compile Include="Evento_23DB.cs" />
+    <Compile Include="Digito Verificador\DV_23DB.cs" />
+    <Compile Include="Evento\Evento_23DB.cs" />
+    <Compile Include="Composite\Usuario_23DB.cs" />
+    <Compile Include="Digito Verificador\DVBLL_23DB.cs" />
+    <Compile Include="Evento\EventoBLL_23DB.cs" />
+    <Compile Include="Composite\FamiliaBLL_23DB.cs" />
+    <Compile Include="Observer\IdiomaBLL_23DB.cs" />
+    <Compile Include="Composite\PatenteBLL_23DB.cs" />
+    <Compile Include="Respaldo\RespaldoBLL_23DB.cs" />
+    <Compile Include="Composite\RolBLL_23DB.cs" />
+    <Compile Include="Composite\UsuarioBLL_23DB.cs" />
+    <Compile Include="Digito Verificador\mapperDV_23DB.cs" />
+    <Compile Include="Evento\mapperEvento_23DB.cs" />
+    <Compile Include="Composite\mapperFamilia_23DB.cs" />
+    <Compile Include="Composite\mapperPatente_23DB.cs" />
+    <Compile Include="Respaldo\mapperRespaldo_23DB.cs" />
+    <Compile Include="Composite\mapperRol_23DB.cs" />
+    <Compile Include="Composite\mapperUsuario_23DB.cs" />
     <Compile Include="Composite\Familia_23DB.cs" />
+    <Compile Include="Composite\Patente_23DB.cs" />
+    <Compile Include="Composite\Rol_23DB.cs" />
     <Compile Include="Observer\IIdiomaObserver_23DB.cs" />
     <Compile Include="Observer\ISujeto_23DB.cs" />
     <Compile Include="Observer\Observer_23DB.cs" />
-    <Compile Include="Composite\Patente_23DB.cs" />
+    <Compile Include="Singleton\CryptoManager_23DB.cs" />
+    <Compile Include="Singleton\SessionManager_23DB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Composite\Rol_23DB.cs" />
-    <Compile Include="SessionManager_23DB.cs" />
-    <Compile Include="Usuario_23DB.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL_23DB\DAL_23DB.csproj">
+      <Project>{7e3a8c2b-ec05-4f9d-b413-f3f6a6c9955f}</Project>
+      <Name>DAL_23DB</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -91,6 +91,12 @@
         <File Id="DAL_23DB.pdb" Name="DAL_23DB.pdb" Source="GUI_23DB\bin\Debug\DAL_23DB.pdb" KeyPath="yes" />
       </Component>
 
+      <!-- Mapper_23DB.dll y su .pdb se quitaron del paquete: tras mover los
+           mappers de servicios a Services_23DB, el proyecto Mapper_23DB quedo
+           sin clases y GUI_23DB ya no lo arrastra a su carpeta de salida.
+           Volver a agregarlos cuando se pueble con los mappers de vuelos y
+           mantenimiento. -->
+
       <Component Id="CompItextsharpDll" Directory="INSTALLFOLDER" Guid="*">
         <File Id="itextsharp.dll" Name="itextsharp.dll" Source="GUI_23DB\bin\Debug\itextsharp.dll" KeyPath="yes" />
       </Component>

@@ -1,5 +1,4 @@
-﻿using BLL_23DB;
-using Services_23DB;
+﻿using Services_23DB;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,6 +30,8 @@ namespace GUI_23DB
             gestionDePerfilesToolStripMenuItem.Visible = patentes_23DB.Contains("Gestion de Perfiles");
             cambiarContraseñaToolStripMenuItem.Visible = patentes_23DB.Contains("Cambio de Clave");
             gestionDeRespaldosToolStripMenuItem.Visible = patentes_23DB.Contains("Gestion de Respaldo");
+            btnPasaje.Visible = patentes_23DB.Contains("Venta de Pasajes");
+
         }
 
         private EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
@@ -54,7 +55,7 @@ namespace GUI_23DB
 
         private void btnAdmin_Click(object sender, EventArgs e)
         {
-            cmsAdmin.Show(btnAdmin, new System.Drawing.Point(btnAdmin.Width, 0));
+            MessageBox.Show("Función en desarrollo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void cambiarContraseñaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -71,9 +72,7 @@ namespace GUI_23DB
 
         private void reloginToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string dni_23DB = SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB;
-            eventoBLL_23DB.RegistrarEvento_23DB(dni_23DB, "Usuarios", "Logout", 1);
-            SessionManager_23DB.ObtenerInstancia_23DB().CerrarSesion_23DB();
+
             InicioSesion_23DB login_23DB = new InicioSesion_23DB();
             login_23DB.EsRelogin_23DB = true;
             DialogResult resultado_23DB = login_23DB.ShowDialog();
@@ -87,12 +86,9 @@ namespace GUI_23DB
                 if(rol_23DB != null)
                 {
                     AplicarPatentes_23DB(rolBLL_23DB.ObtenerPatentesDeRol_23DB(rol_23DB.IdRol_23DB));
-                }                    
+                }
             }
-            else
-            {
-                this.Close();
-            }          
+
         }
 
         private void gestionDeUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -119,20 +115,30 @@ namespace GUI_23DB
             {
                 EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
                 string dni_23DB = SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB;
-                eventoBLL_23DB.RegistrarEvento_23DB(dni_23DB, "Usuarios", "Logout", 1);
+
+                try
+                {
+                    eventoBLL_23DB.RegistrarEvento_23DB(dni_23DB, "Usuarios", "Logout", 1);
+                }
+                catch(Exception ex_23DB)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex_23DB);
+                }
                 SessionManager_23DB.ObtenerInstancia_23DB().CerrarSesion_23DB();
                 Application.Exit();
             }
         }
 
-        private void btnAyuda_Click(object sender, EventArgs e)
+        private void btnAyuda_Click(object sender, EventArgs e) //admin nuevo
         {
-            MessageBox.Show("Función en desarrollo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            cmsAdmin.Show(btnAeronaves, new System.Drawing.Point(btnAeronaves.Width, 0));
+            
         }
 
         private void btnReportes_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Función en desarrollo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            cmsPasajes.Show(btnPasaje, new System.Drawing.Point(btnPasaje.Width, 0));
+
         }
 
         private void cmsAdmin_Opening(object sender, CancelEventArgs e)
@@ -212,7 +218,11 @@ namespace GUI_23DB
             {
                 AgregarMenuItemRecursivo_23DB(item_23DB, lista_23DB);
             }
-                
+            foreach(ToolStripItem item_23DB in cmsPasajes.Items)
+            {
+                AgregarMenuItemRecursivo_23DB(item_23DB, lista_23DB);
+            }
+
             return lista_23DB;
         }
 
@@ -262,6 +272,28 @@ namespace GUI_23DB
         {
             GestionRespaldo_23DB gestionRespaldo_23DB = new GestionRespaldo_23DB();
             gestionRespaldo_23DB.Show();
+        }
+
+        private void btnMantenimiento_Click(object sender, EventArgs e) //AYUDA
+        {
+            MessageBox.Show("Función en desarrollo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnReporte_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Función en desarrollo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void reservasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GenerarPasaje_62FD generarPasaje_62FD = new GenerarPasaje_62FD();
+            generarPasaje_62FD.Show();
+        }
+
+        private void vuelosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GenerarReserva_62FD generarReserva_62FD = new GenerarReserva_62FD();
+            generarReserva_62FD.Show();
         }
     }
 }

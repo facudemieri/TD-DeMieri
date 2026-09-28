@@ -50,24 +50,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DVBLL_23DB.cs" />
-    <Compile Include="EventoBLL_23DB.cs" />
-    <Compile Include="FamiliaBLL_23DB.cs" />
-    <Compile Include="IdiomaBLL_23DB.cs" />
-    <Compile Include="PatenteBLL_23DB.cs" />
-    <Compile Include="RespaldoBLL_23DB.cs" />
-    <Compile Include="RolBLL_23DB.cs" />
-    <Compile Include="UsuarioBLL_23DB.cs" />
+    <Compile Include="AsientoBLL_62FD.cs" />
+    <Compile Include="FacturaBLL_62FD.cs" />
+    <Compile Include="PagoBLL_62FD.cs" />
+    <Compile Include="PasajeBLL_62FD.cs" />
+    <Compile Include="PasajeroBLL_62FD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReservaBLL_62FD.cs" />
+    <Compile Include="VueloBLL_62FD.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BE_23DB\BE_23DB.csproj">
       <Project>{d16f6926-ef28-4061-8242-e46374092f75}</Project>
       <Name>BE_23DB</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DAL_23DB\DAL_23DB.csproj">
-      <Project>{74b86c20-5750-4324-83cf-6d0f33a217fa}</Project>
-      <Name>DAL_23DB</Name>
+    <ProjectReference Include="..\Mapper_23DB\Mapper_23DB.csproj">
+      <Project>{cfcaec7e-9a03-4013-976c-aa4a7071f6cf}</Project>
+      <Name>Mapper_23DB</Name>
     </ProjectReference>
     <ProjectReference Include="..\Services_23DB\Services_23DB.csproj">
       <Project>{8c3b7e21-469f-491a-b050-15825fcf308b}</Project>
