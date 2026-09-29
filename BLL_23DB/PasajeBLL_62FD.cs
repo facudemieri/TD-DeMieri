@@ -17,6 +17,11 @@ namespace BLL_23DB
         ReservaBLL_62FD reservaBLL_62FD = new ReservaBLL_62FD();
         AsientoBLL_62FD asientoBLL_62FD = new AsientoBLL_62FD();
         DVBLL_23DB dvBLL_23DB = new DVBLL_23DB();
+        private List<Pasaje_62FD> pasajesEmitidos_62FD = new List<Pasaje_62FD>();
+        public List<Pasaje_62FD> PasajesEmitidos_62FD
+        {
+            get { return pasajesEmitidos_62FD; }
+        }
 
         public Factura_62FD GenerarPasaje_62FD(Pago_62FD pago_62FD, Reserva_62FD reserva_62FD)
         {
@@ -24,6 +29,8 @@ namespace BLL_23DB
             {
                 throw new Exception("Los datos de pago son inválidos.");
             }
+
+            pasajesEmitidos_62FD.Clear();
 
             bool aprobado_62FD = pagoBLL_62FD.RegistrarPago_62FD(pago_62FD);
 
@@ -49,6 +56,7 @@ namespace BLL_23DB
                     throw new Exception("No se pudo emitir el pasaje.");
                 }
 
+                pasajesEmitidos_62FD.Add(pasaje_62FD);
                 asientoBLL_62FD.ActualizarEstado_62FD(detalle_62FD.IdAsiento_62FD, "Ocupado");
             }
 

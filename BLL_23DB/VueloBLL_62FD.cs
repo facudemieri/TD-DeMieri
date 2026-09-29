@@ -92,5 +92,33 @@ namespace BLL_23DB
             lista_62FD.Sort();
             return lista_62FD;
         }
+
+        public List<Vuelo_62FD> ObtenerTodosLosVuelos_62FD() 
+        {
+            List<Vuelo_62FD> vuelos_62FD = mapperVuelo_62FD.ObtenerTodosLosVuelos_62FD();
+            List<Vuelo_62FD> resultado_62FD = new List<Vuelo_62FD>();
+
+            foreach (Vuelo_62FD vuelo_62FD in vuelos_62FD)
+            {
+                if (vuelo_62FD.EstadoVuelo_62FD == "Cancelado")
+                {
+                    continue;
+                }
+
+                if (vuelo_62FD.FechaHoraSalida_62FD <= DateTime.Now)
+                {
+                    continue;
+                }
+
+                vuelo_62FD.AsientosDisponibles_62FD = mapperVuelo_62FD.ContarAsientosDisponibles_62FD(vuelo_62FD.NroVuelo_62FD);
+
+                if (vuelo_62FD.AsientosDisponibles_62FD > 0)
+                {
+                    resultado_62FD.Add(vuelo_62FD);
+                }
+            }
+
+            return resultado_62FD;
+        }
     }
 }

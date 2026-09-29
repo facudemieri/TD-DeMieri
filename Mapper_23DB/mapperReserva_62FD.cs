@@ -99,5 +99,30 @@ namespace Mapper_23DB
 
             return acc_62FD.Escribir_23DB("ActualizarEstadoReserva_62FD", sp_62FD);
         }
+
+        public List<Reserva_62FD> ObtenerReservasPendientes_62FD()
+        {
+            List<Reserva_62FD> lista_62FD = new List<Reserva_62FD>();
+
+            DataTable dt_62FD = acc_62FD.Leer_23DB("ObtenerReservasPendientes_62FD", null);
+
+            foreach (DataRow dr_62FD in dt_62FD.Rows)
+            {
+                Reserva_62FD reserva_62FD = new Reserva_62FD();
+
+                reserva_62FD.CodReserva_62FD = dr_62FD["CodReserva_62FD"].ToString();
+                reserva_62FD.NroVuelo_62FD = dr_62FD["NroVuelo_62FD"].ToString();
+                reserva_62FD.FechaReserva_62FD = DateTime.Parse(dr_62FD["FechaReserva_62FD"].ToString());
+                reserva_62FD.MontoTotal_62FD = decimal.Parse(dr_62FD["MontoTotal_62FD"].ToString());
+                reserva_62FD.EstadoReserva_62FD = dr_62FD["EstadoReserva_62FD"].ToString();
+                reserva_62FD.Ruta_62FD = dr_62FD["Origen_62FD"].ToString() + " -> " + dr_62FD["Destino_62FD"].ToString();
+                reserva_62FD.FechaHoraSalida_62FD = DateTime.Parse(dr_62FD["FechaHoraSalida_62FD"].ToString());
+                reserva_62FD.CantidadPasajeros_62FD = int.Parse(dr_62FD["CantidadPasajeros_62FD"].ToString());
+
+                lista_62FD.Add(reserva_62FD);
+            }
+
+            return lista_62FD;
+        }
     }
 }

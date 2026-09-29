@@ -72,5 +72,13 @@ namespace BE_23DB
             get { return fechaHoraSalida_62FD; }
             set { fechaHoraSalida_62FD = value; }
         }
+
+        private int cantidadPasajeros_62FD;
+
+        public int CantidadPasajeros_62FD
+        {
+            get { return cantidadPasajeros_62FD; }
+            set { cantidadPasajeros_62FD = value; }
+        }
     }
 }

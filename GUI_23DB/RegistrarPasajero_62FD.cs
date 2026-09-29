@@ -37,6 +37,8 @@ namespace GUI_23DB
         private void ModoAñadir()
         {
             lblEstado.Text = "Modo Añadir";
+            dateTimePicker1.Format = DateTimePickerFormat.Short;
+            dateTimePicker1.MinDate = DateTime.Now.Date.AddYears(-100);
             dateTimePicker1.MaxDate = DateTime.Now.Date.AddDays(-1);
         }
 

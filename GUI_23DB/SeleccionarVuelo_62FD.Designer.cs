@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -46,16 +46,16 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.lblEstado = new System.Windows.Forms.Label();
-            this.btnContinuar = new System.Windows.Forms.Button();
-            this.btnSalir = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.NroVuelo_62FD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ruta_62FD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FechaHoraSalida_62FD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AsientosDisponibles_62FD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Precio_62FD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblEstado = new System.Windows.Forms.Label();
+            this.btnContinuar = new System.Windows.Forms.Button();
+            this.btnSalir = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.statusStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -136,7 +136,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 28.32512F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 71.67487F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 182F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 306F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 307F));
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.cmbOrigen, 1, 0);
@@ -192,7 +192,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(276, 0);
+            this.label4.Location = new System.Drawing.Point(275, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(102, 17);
             this.label4.TabIndex = 4;
@@ -201,7 +201,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(276, 39);
+            this.label5.Location = new System.Drawing.Point(275, 39);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(160, 17);
             this.label5.TabIndex = 5;
@@ -209,14 +209,14 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(458, 3);
+            this.dateTimePicker1.Location = new System.Drawing.Point(457, 3);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(201, 23);
             this.dateTimePicker1.TabIndex = 8;
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(458, 42);
+            this.numericUpDown1.Location = new System.Drawing.Point(457, 42);
             this.numericUpDown1.Minimum = new decimal(new int[] {
             1,
             0,
@@ -249,6 +249,45 @@
             this.dataGridView1.Size = new System.Drawing.Size(878, 189);
             this.dataGridView1.TabIndex = 3;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            // 
+            // NroVuelo_62FD
+            // 
+            this.NroVuelo_62FD.DataPropertyName = "NroVuelo_62FD";
+            this.NroVuelo_62FD.HeaderText = "Nro Vuelo";
+            this.NroVuelo_62FD.Name = "NroVuelo_62FD";
+            this.NroVuelo_62FD.ReadOnly = true;
+            // 
+            // Ruta_62FD
+            // 
+            this.Ruta_62FD.DataPropertyName = "Ruta_62FD";
+            this.Ruta_62FD.HeaderText = "Ruta";
+            this.Ruta_62FD.Name = "Ruta_62FD";
+            this.Ruta_62FD.ReadOnly = true;
+            // 
+            // FechaHoraSalida_62FD
+            // 
+            this.FechaHoraSalida_62FD.DataPropertyName = "FechaHoraSalida_62FD";
+            this.FechaHoraSalida_62FD.HeaderText = "Fecha y Hora de Salida";
+            this.FechaHoraSalida_62FD.Name = "FechaHoraSalida_62FD";
+            this.FechaHoraSalida_62FD.ReadOnly = true;
+            // 
+            // AsientosDisponibles_62FD
+            // 
+            this.AsientosDisponibles_62FD.DataPropertyName = "AsientosDisponibles_62FD";
+            this.AsientosDisponibles_62FD.HeaderText = "Asientos Disponibles";
+            this.AsientosDisponibles_62FD.Name = "AsientosDisponibles_62FD";
+            this.AsientosDisponibles_62FD.ReadOnly = true;
+            // 
+            // Precio_62FD
+            // 
+            this.Precio_62FD.DataPropertyName = "Precio_62FD";
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle1.Format = "C2";
+            dataGridViewCellStyle1.NullValue = null;
+            this.Precio_62FD.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Precio_62FD.HeaderText = "Precio";
+            this.Precio_62FD.Name = "Precio_62FD";
+            this.Precio_62FD.ReadOnly = true;
             // 
             // lblEstado
             // 
@@ -304,45 +343,6 @@
             this.panel1.Size = new System.Drawing.Size(904, 46);
             this.panel1.TabIndex = 9;
             // 
-            // NroVuelo_62FD
-            // 
-            this.NroVuelo_62FD.DataPropertyName = "NroVuelo_62FD";
-            this.NroVuelo_62FD.HeaderText = "Nro Vuelo";
-            this.NroVuelo_62FD.Name = "NroVuelo_62FD";
-            this.NroVuelo_62FD.ReadOnly = true;
-            //
-            // Ruta_62FD
-            //
-            this.Ruta_62FD.DataPropertyName = "Ruta_62FD";
-            this.Ruta_62FD.HeaderText = "Ruta";
-            this.Ruta_62FD.Name = "Ruta_62FD";
-            this.Ruta_62FD.ReadOnly = true;
-            //
-            // FechaHoraSalida_62FD
-            //
-            this.FechaHoraSalida_62FD.DataPropertyName = "FechaHoraSalida_62FD";
-            this.FechaHoraSalida_62FD.HeaderText = "Fecha y Hora de Salida";
-            this.FechaHoraSalida_62FD.Name = "FechaHoraSalida_62FD";
-            this.FechaHoraSalida_62FD.ReadOnly = true;
-            //
-            // AsientosDisponibles_62FD
-            //
-            this.AsientosDisponibles_62FD.DataPropertyName = "AsientosDisponibles_62FD";
-            this.AsientosDisponibles_62FD.HeaderText = "Asientos Disponibles";
-            this.AsientosDisponibles_62FD.Name = "AsientosDisponibles_62FD";
-            this.AsientosDisponibles_62FD.ReadOnly = true;
-            // 
-            // Precio_62FD
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "C2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.Precio_62FD.DataPropertyName = "Precio_62FD";
-            this.Precio_62FD.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Precio_62FD.HeaderText = "Precio";
-            this.Precio_62FD.Name = "Precio_62FD";
-            this.Precio_62FD.ReadOnly = true;
-            // 
             // SeleccionarVuelo_62FD
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
@@ -365,6 +365,7 @@
             this.Name = "SeleccionarVuelo_62FD";
             this.Text = "Seleccionar Vuelo - AeroManager";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SeleccionarVuelo_62FD_FormClosing);
+            this.Load += new System.EventHandler(this.SeleccionarVuelo_62FD_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);

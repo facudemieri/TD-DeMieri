@@ -32,14 +32,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.txtEstadoReserva = new System.Windows.Forms.TextBox();
-            this.txtFechaHoraSalid = new System.Windows.Forms.TextBox();
             this.txtRuta = new System.Windows.Forms.TextBox();
             this.txtNroVuelo = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.txtFechaHoraSalid = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.txtEstadoReserva = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtCodReserva = new System.Windows.Forms.TextBox();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -56,24 +56,32 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.cmbMedioPago = new System.Windows.Forms.ComboBox();
             this.cmbEFinanciera = new System.Windows.Forms.ComboBox();
+            this.txtNroTarjeta = new System.Windows.Forms.MaskedTextBox();
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnImprimir = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label4 = new System.Windows.Forms.Label();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lblEstado = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.NumeroDocumento_62FD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NombreCompleto_62FD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NroAsiento_62FD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Clase_62FD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Precio_62FD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtNroTarjeta = new System.Windows.Forms.MaskedTextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblEstado = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.CodReserva_62FD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NroVuelo_62FD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ruta_62FD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FechaHoraSalida_62FD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CantidadPasajeros_62FD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MontoTotal_62FD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -82,6 +90,8 @@
             this.statusStrip1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -110,7 +120,7 @@
             // 
             this.groupBox1.Controls.Add(this.tableLayoutPanel1);
             this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 90);
+            this.groupBox1.Location = new System.Drawing.Point(12, 207);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(968, 114);
             this.groupBox1.TabIndex = 18;
@@ -123,7 +133,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.8046F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 59.1954F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 266F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 205F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 210F));
             this.tableLayoutPanel1.Controls.Add(this.txtRuta, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtNroVuelo, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
@@ -140,30 +150,16 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(930, 72);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // txtEstadoReserva
-            // 
-            this.txtEstadoReserva.Location = new System.Drawing.Point(727, 39);
-            this.txtEstadoReserva.Name = "txtEstadoReserva";
-            this.txtEstadoReserva.Size = new System.Drawing.Size(191, 23);
-            this.txtEstadoReserva.TabIndex = 27;
-            // 
-            // txtFechaHoraSalid
-            // 
-            this.txtFechaHoraSalid.Location = new System.Drawing.Point(727, 3);
-            this.txtFechaHoraSalid.Name = "txtFechaHoraSalid";
-            this.txtFechaHoraSalid.Size = new System.Drawing.Size(191, 23);
-            this.txtFechaHoraSalid.TabIndex = 25;
-            // 
             // txtRuta
             // 
-            this.txtRuta.Location = new System.Drawing.Point(190, 39);
+            this.txtRuta.Location = new System.Drawing.Point(188, 39);
             this.txtRuta.Name = "txtRuta";
             this.txtRuta.Size = new System.Drawing.Size(191, 23);
             this.txtRuta.TabIndex = 23;
             // 
             // txtNroVuelo
             // 
-            this.txtNroVuelo.Location = new System.Drawing.Point(190, 3);
+            this.txtNroVuelo.Location = new System.Drawing.Point(188, 3);
             this.txtNroVuelo.Name = "txtNroVuelo";
             this.txtNroVuelo.Size = new System.Drawing.Size(191, 23);
             this.txtNroVuelo.TabIndex = 21;
@@ -189,20 +185,34 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(461, 0);
+            this.label7.Location = new System.Drawing.Point(456, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(160, 17);
             this.label7.TabIndex = 6;
             this.label7.Text = "Fecha y Hora de Salida:";
             // 
+            // txtFechaHoraSalid
+            // 
+            this.txtFechaHoraSalid.Location = new System.Drawing.Point(722, 3);
+            this.txtFechaHoraSalid.Name = "txtFechaHoraSalid";
+            this.txtFechaHoraSalid.Size = new System.Drawing.Size(191, 23);
+            this.txtFechaHoraSalid.TabIndex = 25;
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(461, 36);
+            this.label8.Location = new System.Drawing.Point(456, 36);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(147, 17);
             this.label8.TabIndex = 7;
             this.label8.Text = "Estado de la Reserva:";
+            // 
+            // txtEstadoReserva
+            // 
+            this.txtEstadoReserva.Location = new System.Drawing.Point(722, 39);
+            this.txtEstadoReserva.Name = "txtEstadoReserva";
+            this.txtEstadoReserva.Size = new System.Drawing.Size(191, 23);
+            this.txtEstadoReserva.TabIndex = 27;
             // 
             // label6
             // 
@@ -236,7 +246,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(13, 572);
+            this.label9.Location = new System.Drawing.Point(13, 675);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(101, 19);
             this.label9.TabIndex = 1;
@@ -246,7 +256,7 @@
             // 
             this.lblMontoTotal.AutoSize = true;
             this.lblMontoTotal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMontoTotal.Location = new System.Drawing.Point(120, 575);
+            this.lblMontoTotal.Location = new System.Drawing.Point(120, 678);
             this.lblMontoTotal.Name = "lblMontoTotal";
             this.lblMontoTotal.Size = new System.Drawing.Size(15, 16);
             this.lblMontoTotal.TabIndex = 2;
@@ -256,7 +266,7 @@
             // 
             this.groupBox2.Controls.Add(this.tableLayoutPanel2);
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(12, 386);
+            this.groupBox2.Location = new System.Drawing.Point(12, 492);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(968, 173);
             this.groupBox2.TabIndex = 19;
@@ -269,7 +279,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.93548F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.06452F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 168F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 281F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 286F));
             this.tableLayoutPanel2.Controls.Add(this.txtCodSeguridad, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.label12, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label13, 0, 1);
@@ -291,7 +301,7 @@
             // 
             // txtCodSeguridad
             // 
-            this.txtCodSeguridad.Location = new System.Drawing.Point(198, 87);
+            this.txtCodSeguridad.Location = new System.Drawing.Point(195, 87);
             this.txtCodSeguridad.Name = "txtCodSeguridad";
             this.txtCodSeguridad.Size = new System.Drawing.Size(87, 23);
             this.txtCodSeguridad.TabIndex = 25;
@@ -317,7 +327,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(378, 0);
+            this.label14.Location = new System.Drawing.Point(373, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(132, 17);
             this.label14.TabIndex = 4;
@@ -326,7 +336,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(378, 42);
+            this.label15.Location = new System.Drawing.Point(373, 42);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(158, 17);
             this.label15.TabIndex = 5;
@@ -345,7 +355,7 @@
             // 
             this.dateTimePicker1.CustomFormat = "MM/yyyy";
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(546, 45);
+            this.dateTimePicker1.Location = new System.Drawing.Point(541, 45);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(191, 23);
             this.dateTimePicker1.TabIndex = 26;
@@ -353,7 +363,7 @@
             // cmbMedioPago
             // 
             this.cmbMedioPago.FormattingEnabled = true;
-            this.cmbMedioPago.Location = new System.Drawing.Point(198, 3);
+            this.cmbMedioPago.Location = new System.Drawing.Point(195, 3);
             this.cmbMedioPago.Name = "cmbMedioPago";
             this.cmbMedioPago.Size = new System.Drawing.Size(158, 25);
             this.cmbMedioPago.TabIndex = 27;
@@ -362,15 +372,23 @@
             // cmbEFinanciera
             // 
             this.cmbEFinanciera.FormattingEnabled = true;
-            this.cmbEFinanciera.Location = new System.Drawing.Point(198, 45);
+            this.cmbEFinanciera.Location = new System.Drawing.Point(195, 45);
             this.cmbEFinanciera.Name = "cmbEFinanciera";
             this.cmbEFinanciera.Size = new System.Drawing.Size(158, 25);
             this.cmbEFinanciera.TabIndex = 28;
             // 
+            // txtNroTarjeta
+            // 
+            this.txtNroTarjeta.Location = new System.Drawing.Point(541, 3);
+            this.txtNroTarjeta.Mask = "0000-0000-0000-0000";
+            this.txtNroTarjeta.Name = "txtNroTarjeta";
+            this.txtNroTarjeta.Size = new System.Drawing.Size(191, 23);
+            this.txtNroTarjeta.TabIndex = 29;
+            // 
             // btnAplicar
             // 
             this.btnAplicar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAplicar.Location = new System.Drawing.Point(460, 568);
+            this.btnAplicar.Location = new System.Drawing.Point(460, 671);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(107, 23);
             this.btnAplicar.TabIndex = 22;
@@ -381,7 +399,7 @@
             // btnImprimir
             // 
             this.btnImprimir.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImprimir.Location = new System.Drawing.Point(584, 568);
+            this.btnImprimir.Location = new System.Drawing.Point(584, 671);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(169, 23);
             this.btnImprimir.TabIndex = 23;
@@ -392,7 +410,7 @@
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(759, 568);
+            this.btnCancelar.Location = new System.Drawing.Point(759, 671);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(107, 23);
             this.btnCancelar.TabIndex = 24;
@@ -403,7 +421,7 @@
             // btnSalir
             // 
             this.btnSalir.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalir.Location = new System.Drawing.Point(873, 568);
+            this.btnSalir.Location = new System.Drawing.Point(873, 671);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(107, 23);
             this.btnSalir.TabIndex = 25;
@@ -417,7 +435,7 @@
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 664);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 750);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(994, 22);
             this.statusStrip1.TabIndex = 27;
@@ -430,11 +448,25 @@
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.Text = "Modo:";
             // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(326, 17);
+            this.toolStripStatusLabel2.Spring = true;
+            this.toolStripStatusLabel2.Text = "Usuario:";
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(326, 17);
+            this.toolStripStatusLabel3.Spring = true;
+            this.toolStripStatusLabel3.Text = "Fecha:";
+            // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.dataGridView1);
             this.groupBox3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(12, 221);
+            this.groupBox3.Location = new System.Drawing.Point(12, 327);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(968, 159);
             this.groupBox3.TabIndex = 28;
@@ -454,40 +486,6 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(904, 118);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(13, 612);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(164, 19);
-            this.label4.TabIndex = 29;
-            this.label4.Text = "Numero de Factura:";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(326, 17);
-            this.toolStripStatusLabel2.Spring = true;
-            this.toolStripStatusLabel2.Text = "Usuario:";
-            // 
-            // toolStripStatusLabel3
-            // 
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(326, 17);
-            this.toolStripStatusLabel3.Spring = true;
-            this.toolStripStatusLabel3.Text = "Fecha:";
-            // 
-            // lblEstado
-            // 
-            this.lblEstado.AutoSize = true;
-            this.lblEstado.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEstado.Location = new System.Drawing.Point(675, 612);
-            this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(14, 21);
-            this.lblEstado.TabIndex = 30;
-            this.lblEstado.Text = ".";
             // 
             // NumeroDocumento_62FD
             // 
@@ -519,20 +517,97 @@
             this.Precio_62FD.HeaderText = "Precio";
             this.Precio_62FD.Name = "Precio_62FD";
             // 
-            // txtNroTarjeta
+            // label4
             // 
-            this.txtNroTarjeta.Location = new System.Drawing.Point(546, 3);
-            this.txtNroTarjeta.Mask = "0000-0000-0000-0000";
-            this.txtNroTarjeta.Name = "txtNroTarjeta";
-            this.txtNroTarjeta.Size = new System.Drawing.Size(191, 23);
-            this.txtNroTarjeta.TabIndex = 29;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(13, 715);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(164, 19);
+            this.label4.TabIndex = 29;
+            this.label4.Text = "Numero de Factura:";
+            // 
+            // lblEstado
+            // 
+            this.lblEstado.AutoSize = true;
+            this.lblEstado.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEstado.Location = new System.Drawing.Point(675, 715);
+            this.lblEstado.Name = "lblEstado";
+            this.lblEstado.Size = new System.Drawing.Size(14, 21);
+            this.lblEstado.TabIndex = 30;
+            this.lblEstado.Text = ".";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.dataGridView2);
+            this.groupBox4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(12, 85);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(968, 116);
+            this.groupBox4.TabIndex = 19;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Reservas Pendientes";
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.CodReserva_62FD,
+            this.NroVuelo_62FD,
+            this.Ruta_62FD,
+            this.FechaHoraSalida_62FD,
+            this.CantidadPasajeros_62FD,
+            this.MontoTotal_62FD});
+            this.dataGridView2.Location = new System.Drawing.Point(16, 23);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridView2.Size = new System.Drawing.Size(642, 76);
+            this.dataGridView2.TabIndex = 0;
+            this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
+            // 
+            // CodReserva_62FD
+            // 
+            this.CodReserva_62FD.DataPropertyName = "CodReserva_62FD";
+            this.CodReserva_62FD.HeaderText = "Codigo";
+            this.CodReserva_62FD.Name = "CodReserva_62FD";
+            // 
+            // NroVuelo_62FD
+            // 
+            this.NroVuelo_62FD.DataPropertyName = "NroVuelo_62FD";
+            this.NroVuelo_62FD.HeaderText = "Vuelo";
+            this.NroVuelo_62FD.Name = "NroVuelo_62FD";
+            // 
+            // Ruta_62FD
+            // 
+            this.Ruta_62FD.DataPropertyName = "Ruta_62FD";
+            this.Ruta_62FD.HeaderText = "Ruta";
+            this.Ruta_62FD.Name = "Ruta_62FD";
+            // 
+            // FechaHoraSalida_62FD
+            // 
+            this.FechaHoraSalida_62FD.DataPropertyName = "FechaHoraSalida_62FD";
+            this.FechaHoraSalida_62FD.HeaderText = "Fecha de Salida";
+            this.FechaHoraSalida_62FD.Name = "FechaHoraSalida_62FD";
+            // 
+            // CantidadPasajeros_62FD
+            // 
+            this.CantidadPasajeros_62FD.DataPropertyName = "CantidadPasajeros_62FD";
+            this.CantidadPasajeros_62FD.HeaderText = "Pasajeros";
+            this.CantidadPasajeros_62FD.Name = "CantidadPasajeros_62FD";
+            // 
+            // MontoTotal_62FD
+            // 
+            this.MontoTotal_62FD.DataPropertyName = "MontoTotal_62FD";
+            this.MontoTotal_62FD.HeaderText = "Monto";
+            this.MontoTotal_62FD.Name = "MontoTotal_62FD";
             // 
             // GenerarPasaje_62FD
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(994, 686);
+            this.ClientSize = new System.Drawing.Size(994, 772);
             this.ControlBox = false;
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.lblEstado);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lblMontoTotal);
@@ -552,6 +627,7 @@
             this.Name = "GenerarPasaje_62FD";
             this.Text = "GenerarPasaje_62FD";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GenerarPasaje_62FD_FormClosing);
+            this.Load += new System.EventHandler(this.GenerarPasaje_62FD_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -564,6 +640,8 @@
             this.statusStrip1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -617,5 +695,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Clase_62FD;
         private System.Windows.Forms.DataGridViewTextBoxColumn Precio_62FD;
         private System.Windows.Forms.MaskedTextBox txtNroTarjeta;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CodReserva_62FD;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NroVuelo_62FD;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Ruta_62FD;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FechaHoraSalida_62FD;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CantidadPasajeros_62FD;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MontoTotal_62FD;
     }
 }

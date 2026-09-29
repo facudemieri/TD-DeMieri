@@ -37,6 +37,7 @@ namespace GUI_23DB
             cmbModulo.Items.Clear();
             cmbModulo.Items.Add("Usuarios");
             cmbModulo.Items.Add("Administrador");
+            cmbModulo.Items.Add("Pasajes");
             cmbModulo.SelectedIndex = -1;
         }
 
@@ -61,6 +62,9 @@ namespace GUI_23DB
             cmbEvento.Items.Add("Backup BD");
             cmbEvento.Items.Add("Restore BD");
             cmbEvento.Items.Add("Recalcular DV");
+            cmbEvento.Items.Add("Generar Reserva");
+            cmbEvento.Items.Add("Registrar Pasajero");
+            cmbEvento.Items.Add("Generar Pasaje");
             cmbEvento.SelectedIndex = -1;
         }
 

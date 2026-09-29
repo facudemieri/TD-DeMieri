@@ -175,6 +175,7 @@
   "GenerarPasaje_label15": "Fecha de Vencimiento:",
   "GenerarPasaje_label16": "Codigo de Seguridad:",
   "GenerarPasaje_groupBox3": "Pasajeros de la Reserva",
+  "GenerarPasaje_groupBox4": "Reservas Pendientes",
   "GenerarPasaje_btnAplicar": "Aplicar",
   "GenerarPasaje_btnImprimir": "Imprimir",
   "GenerarPasaje_btnCancelar": "Cancelar",

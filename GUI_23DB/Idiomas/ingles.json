@@ -175,6 +175,7 @@
   "GenerarPasaje_label15": "Expiration Date:",
   "GenerarPasaje_label16": "Security Code:",
   "GenerarPasaje_groupBox3": "Booking Passengers",
+  "GenerarPasaje_groupBox4": "Pending Bookings",
   "GenerarPasaje_btnAplicar": "Apply",
   "GenerarPasaje_btnImprimir": "Print",
   "GenerarPasaje_btnCancelar": "Cancel",

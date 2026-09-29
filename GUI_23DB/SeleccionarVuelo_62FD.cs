@@ -97,6 +97,8 @@ namespace GUI_23DB
             dateTimePicker1.Value = DateTime.Now;
             numericUpDown1.Value = 1;
             ModoConsulta_62FD();
+            listaVuelos_62FD = vueloBLL_62FD.ObtenerTodosLosVuelos_62FD();
+            CargarGrilla_62FD(listaVuelos_62FD);
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -172,6 +174,19 @@ namespace GUI_23DB
         private void btnCancelar_Click_1(object sender, EventArgs e)
         {
   
+        }
+
+        private void SeleccionarVuelo_62FD_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                listaVuelos_62FD = vueloBLL_62FD.ObtenerTodosLosVuelos_62FD();
+                CargarGrilla_62FD(listaVuelos_62FD);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar los vuelos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

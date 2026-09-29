@@ -108,5 +108,10 @@ namespace BLL_23DB
                 throw new Exception("No se pudo actualizar el estado de la reserva.");
             }
         }
+
+        public List<Reserva_62FD> ObtenerReservasPendientes_62FD()
+        {
+            return mapperReserva_62FD.ObtenerReservasPendientes_62FD();
+        }
     }
 }

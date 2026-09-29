@@ -33,7 +33,7 @@ namespace BLL_23DB
 
         public string GenerarNumeroFactura_62FD()
         {
-            return "0001-" + DateTime.Now.ToString("yyMMddHHmm");
+            return "0001-" + DateTime.Now.ToString("yyMMddHHmmss");
         }
     }
 }
