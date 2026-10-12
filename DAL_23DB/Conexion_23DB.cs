@@ -24,7 +24,7 @@ namespace DAL_23DB
                 }
             }
 
-            return $"Server={servidor_23DB};Database=INGSW_23DB;Integrated Security=True;";
+            return $"Server={servidor_23DB};Database=TD_62FD;Integrated Security=True;";
         }
     }
 }

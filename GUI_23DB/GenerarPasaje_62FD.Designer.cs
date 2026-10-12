@@ -101,7 +101,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(994, 46);
+            this.panel1.Size = new System.Drawing.Size(1243, 46);
             this.panel1.TabIndex = 17;
             // 
             // label1
@@ -120,46 +120,46 @@
             // 
             this.groupBox1.Controls.Add(this.tableLayoutPanel1);
             this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 207);
+            this.groupBox1.Location = new System.Drawing.Point(695, 85);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(968, 114);
+            this.groupBox1.Size = new System.Drawing.Size(407, 241);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de la Reserva";
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.8046F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 59.1954F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 266F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 210F));
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 46.34146F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 53.65854F));
             this.tableLayoutPanel1.Controls.Add(this.txtRuta, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtNroVuelo, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label7, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.txtFechaHoraSalid, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label8, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.txtEstadoReserva, 3, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(19, 22);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.txtFechaHoraSalid, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.txtEstadoReserva, 1, 3);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(15, 32);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(930, 72);
+            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.61111F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.38889F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 53F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(369, 172);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // txtRuta
             // 
-            this.txtRuta.Location = new System.Drawing.Point(188, 39);
+            this.txtRuta.Location = new System.Drawing.Point(174, 40);
             this.txtRuta.Name = "txtRuta";
             this.txtRuta.Size = new System.Drawing.Size(191, 23);
             this.txtRuta.TabIndex = 23;
             // 
             // txtNroVuelo
             // 
-            this.txtNroVuelo.Location = new System.Drawing.Point(188, 3);
+            this.txtNroVuelo.Location = new System.Drawing.Point(174, 3);
             this.txtNroVuelo.Name = "txtNroVuelo";
             this.txtNroVuelo.Size = new System.Drawing.Size(191, 23);
             this.txtNroVuelo.TabIndex = 21;
@@ -176,7 +176,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 36);
+            this.label3.Location = new System.Drawing.Point(3, 37);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(42, 17);
             this.label3.TabIndex = 1;
@@ -185,7 +185,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(456, 0);
+            this.label7.Location = new System.Drawing.Point(3, 76);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(160, 17);
             this.label7.TabIndex = 6;
@@ -193,7 +193,7 @@
             // 
             // txtFechaHoraSalid
             // 
-            this.txtFechaHoraSalid.Location = new System.Drawing.Point(722, 3);
+            this.txtFechaHoraSalid.Location = new System.Drawing.Point(174, 79);
             this.txtFechaHoraSalid.Name = "txtFechaHoraSalid";
             this.txtFechaHoraSalid.Size = new System.Drawing.Size(191, 23);
             this.txtFechaHoraSalid.TabIndex = 25;
@@ -201,7 +201,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(456, 36);
+            this.label8.Location = new System.Drawing.Point(3, 118);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(147, 17);
             this.label8.TabIndex = 7;
@@ -209,7 +209,7 @@
             // 
             // txtEstadoReserva
             // 
-            this.txtEstadoReserva.Location = new System.Drawing.Point(722, 39);
+            this.txtEstadoReserva.Location = new System.Drawing.Point(174, 121);
             this.txtEstadoReserva.Name = "txtEstadoReserva";
             this.txtEstadoReserva.Size = new System.Drawing.Size(191, 23);
             this.txtEstadoReserva.TabIndex = 27;
@@ -246,7 +246,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(13, 675);
+            this.label9.Location = new System.Drawing.Point(13, 508);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(101, 19);
             this.label9.TabIndex = 1;
@@ -256,7 +256,7 @@
             // 
             this.lblMontoTotal.AutoSize = true;
             this.lblMontoTotal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMontoTotal.Location = new System.Drawing.Point(120, 678);
+            this.lblMontoTotal.Location = new System.Drawing.Point(120, 511);
             this.lblMontoTotal.Name = "lblMontoTotal";
             this.lblMontoTotal.Size = new System.Drawing.Size(15, 16);
             this.lblMontoTotal.TabIndex = 2;
@@ -266,9 +266,9 @@
             // 
             this.groupBox2.Controls.Add(this.tableLayoutPanel2);
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(12, 492);
+            this.groupBox2.Location = new System.Drawing.Point(597, 332);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(968, 173);
+            this.groupBox2.Size = new System.Drawing.Size(614, 173);
             this.groupBox2.TabIndex = 19;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Medio de Pago";
@@ -276,10 +276,10 @@
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 4;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.93548F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.06452F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 168F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 286F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 51.28205F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 48.71795F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 164F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 143F));
             this.tableLayoutPanel2.Controls.Add(this.txtCodSeguridad, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.label12, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label13, 0, 1);
@@ -290,18 +290,18 @@
             this.tableLayoutPanel2.Controls.Add(this.cmbMedioPago, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.cmbEFinanciera, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.txtNroTarjeta, 3, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(19, 22);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(13, 22);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(825, 129);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(581, 129);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // txtCodSeguridad
             // 
-            this.txtCodSeguridad.Location = new System.Drawing.Point(195, 87);
+            this.txtCodSeguridad.Location = new System.Drawing.Point(143, 87);
             this.txtCodSeguridad.Name = "txtCodSeguridad";
             this.txtCodSeguridad.Size = new System.Drawing.Size(87, 23);
             this.txtCodSeguridad.TabIndex = 25;
@@ -327,7 +327,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(373, 0);
+            this.label14.Location = new System.Drawing.Point(276, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(132, 17);
             this.label14.TabIndex = 4;
@@ -336,7 +336,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(373, 42);
+            this.label15.Location = new System.Drawing.Point(276, 42);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(158, 17);
             this.label15.TabIndex = 5;
@@ -347,7 +347,7 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(3, 84);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(152, 17);
+            this.label16.Size = new System.Drawing.Size(83, 34);
             this.label16.TabIndex = 6;
             this.label16.Text = "Codigo de Seguridad:";
             // 
@@ -355,40 +355,40 @@
             // 
             this.dateTimePicker1.CustomFormat = "MM/yyyy";
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(541, 45);
+            this.dateTimePicker1.Location = new System.Drawing.Point(440, 45);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(191, 23);
+            this.dateTimePicker1.Size = new System.Drawing.Size(99, 23);
             this.dateTimePicker1.TabIndex = 26;
             // 
             // cmbMedioPago
             // 
             this.cmbMedioPago.FormattingEnabled = true;
-            this.cmbMedioPago.Location = new System.Drawing.Point(195, 3);
+            this.cmbMedioPago.Location = new System.Drawing.Point(143, 3);
             this.cmbMedioPago.Name = "cmbMedioPago";
-            this.cmbMedioPago.Size = new System.Drawing.Size(158, 25);
+            this.cmbMedioPago.Size = new System.Drawing.Size(127, 25);
             this.cmbMedioPago.TabIndex = 27;
             this.cmbMedioPago.SelectedIndexChanged += new System.EventHandler(this.cmbMedioPago_SelectedIndexChanged);
             // 
             // cmbEFinanciera
             // 
             this.cmbEFinanciera.FormattingEnabled = true;
-            this.cmbEFinanciera.Location = new System.Drawing.Point(195, 45);
+            this.cmbEFinanciera.Location = new System.Drawing.Point(143, 45);
             this.cmbEFinanciera.Name = "cmbEFinanciera";
-            this.cmbEFinanciera.Size = new System.Drawing.Size(158, 25);
+            this.cmbEFinanciera.Size = new System.Drawing.Size(127, 25);
             this.cmbEFinanciera.TabIndex = 28;
             // 
             // txtNroTarjeta
             // 
-            this.txtNroTarjeta.Location = new System.Drawing.Point(541, 3);
+            this.txtNroTarjeta.Location = new System.Drawing.Point(440, 3);
             this.txtNroTarjeta.Mask = "0000-0000-0000-0000";
             this.txtNroTarjeta.Name = "txtNroTarjeta";
-            this.txtNroTarjeta.Size = new System.Drawing.Size(191, 23);
+            this.txtNroTarjeta.Size = new System.Drawing.Size(132, 23);
             this.txtNroTarjeta.TabIndex = 29;
             // 
             // btnAplicar
             // 
             this.btnAplicar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAplicar.Location = new System.Drawing.Point(460, 671);
+            this.btnAplicar.Location = new System.Drawing.Point(691, 511);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.Size = new System.Drawing.Size(107, 23);
             this.btnAplicar.TabIndex = 22;
@@ -399,7 +399,7 @@
             // btnImprimir
             // 
             this.btnImprimir.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImprimir.Location = new System.Drawing.Point(584, 671);
+            this.btnImprimir.Location = new System.Drawing.Point(815, 511);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(169, 23);
             this.btnImprimir.TabIndex = 23;
@@ -410,7 +410,7 @@
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.Location = new System.Drawing.Point(759, 671);
+            this.btnCancelar.Location = new System.Drawing.Point(990, 511);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(107, 23);
             this.btnCancelar.TabIndex = 24;
@@ -421,7 +421,7 @@
             // btnSalir
             // 
             this.btnSalir.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalir.Location = new System.Drawing.Point(873, 671);
+            this.btnSalir.Location = new System.Drawing.Point(1104, 511);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(107, 23);
             this.btnSalir.TabIndex = 25;
@@ -435,30 +435,30 @@
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 750);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 587);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(994, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1243, 22);
             this.statusStrip1.TabIndex = 27;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(326, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(364, 17);
             this.toolStripStatusLabel1.Spring = true;
             this.toolStripStatusLabel1.Text = "Modo:";
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(326, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(364, 17);
             this.toolStripStatusLabel2.Spring = true;
             this.toolStripStatusLabel2.Text = "Usuario:";
             // 
             // toolStripStatusLabel3
             // 
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(326, 17);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(364, 17);
             this.toolStripStatusLabel3.Spring = true;
             this.toolStripStatusLabel3.Text = "Fecha:";
             // 
@@ -466,9 +466,9 @@
             // 
             this.groupBox3.Controls.Add(this.dataGridView1);
             this.groupBox3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(12, 327);
+            this.groupBox3.Location = new System.Drawing.Point(12, 332);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(968, 159);
+            this.groupBox3.Size = new System.Drawing.Size(579, 159);
             this.groupBox3.TabIndex = 28;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Pasajeros de la Reserva";
@@ -484,7 +484,7 @@
             this.Precio_62FD});
             this.dataGridView1.Location = new System.Drawing.Point(16, 23);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(904, 118);
+            this.dataGridView1.Size = new System.Drawing.Size(547, 118);
             this.dataGridView1.TabIndex = 0;
             // 
             // NumeroDocumento_62FD
@@ -521,7 +521,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(13, 715);
+            this.label4.Location = new System.Drawing.Point(13, 548);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(164, 19);
             this.label4.TabIndex = 29;
@@ -531,7 +531,7 @@
             // 
             this.lblEstado.AutoSize = true;
             this.lblEstado.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEstado.Location = new System.Drawing.Point(675, 715);
+            this.lblEstado.Location = new System.Drawing.Point(691, 548);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(14, 21);
             this.lblEstado.TabIndex = 30;
@@ -543,7 +543,7 @@
             this.groupBox4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(12, 85);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(968, 116);
+            this.groupBox4.Size = new System.Drawing.Size(677, 241);
             this.groupBox4.TabIndex = 19;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Reservas Pendientes";
@@ -561,7 +561,7 @@
             this.dataGridView2.Location = new System.Drawing.Point(16, 23);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridView2.Size = new System.Drawing.Size(642, 76);
+            this.dataGridView2.Size = new System.Drawing.Size(642, 198);
             this.dataGridView2.TabIndex = 0;
             this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
             // 
@@ -605,13 +605,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(994, 772);
+            this.ClientSize = new System.Drawing.Size(1243, 609);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.lblEstado);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lblMontoTotal);
-            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnSalir);
