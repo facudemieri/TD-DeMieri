@@ -28,19 +28,19 @@ namespace GUI_23DB
         {
             if(string.IsNullOrEmpty(txtPasswordActual.Text) || string.IsNullOrEmpty(txtPasswordNueva.Text) || string.IsNullOrEmpty(txtConfirmarPassword.Text))
             {
-                MessageBox.Show("Debe completar todos los campos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_CompletarTodosCampos"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if(txtPasswordNueva.Text != txtConfirmarPassword.Text)
             {
-                MessageBox.Show("Las contraseñas nuevas no coinciden.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ContrasenasNoCoinciden"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if(txtPasswordActual.Text == txtPasswordNueva.Text)
             {
-                MessageBox.Show("La nueva contraseña debe ser distinta a la actual.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ContrasenaIgualActual"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -49,12 +49,12 @@ namespace GUI_23DB
 
             if(!resultado_23DB)
             {
-                MessageBox.Show("La contraseña actual es incorrecta.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ContrasenaActualIncorrecta"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             eventoBLL_23DB.RegistrarEvento_23DB(dni_23DB, "Usuarios", "Cambiar Clave", 2);
-            MessageBox.Show("Contraseña actualizada correctamente. Debe iniciar sesión nuevamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ContrasenaActualizada"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             SessionManager_23DB.ObtenerInstancia_23DB().CerrarSesion_23DB();
             this.Close();
             
@@ -96,31 +96,19 @@ namespace GUI_23DB
 
         private void CambiarContraseña_23DB_Load(object sender, EventArgs e)
         {
-            lblLogin.Text = "LOGIN: " + SessionManager_23DB.ObtenerInstancia_23DB().Login_23DB;
+            MostrarTextos_23DB();
         }
 
         public void ActualizarIdioma_23DB(Dictionary<string, string> configuracion_23DB)
         {
-            string formName_23DB = "CambiarContraseña";
-            foreach(Control control_23DB in ObtenerTodosControles_23DB(this))
-            {
-                string clave_23DB = formName_23DB + "_" + control_23DB.Name;
-                if(configuracion_23DB.ContainsKey(clave_23DB))
-                {
-                    control_23DB.Text = configuracion_23DB[clave_23DB];
-                }                    
-            }
+            Traductor_23DB.AplicarIdioma_23DB(this, configuracion_23DB);
+            MostrarTextos_23DB();
         }
 
-        private List<Control> ObtenerTodosControles_23DB(Control control_23DB)
+        // lblLogin lleva el login de la sesión adentro: se arma con la clave y el dato, en el idioma activo
+        private void MostrarTextos_23DB()
         {
-            List<Control> lista_23DB = new List<Control>();
-            foreach(Control c_23DB in control_23DB.Controls)
-            {
-                lista_23DB.Add(c_23DB);
-                lista_23DB.AddRange(ObtenerTodosControles_23DB(c_23DB));
-            }
-            return lista_23DB;
+            lblLogin.Text = string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_LoginSesion"), SessionManager_23DB.ObtenerInstancia_23DB().Login_23DB);
         }
 
         private void CambiarContraseña_23DB_FormClosing(object sender, FormClosingEventArgs e)

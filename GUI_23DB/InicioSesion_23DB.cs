@@ -30,7 +30,7 @@ namespace GUI_23DB
         {
             if(string.IsNullOrEmpty(txtUsuario.Text) || string.IsNullOrEmpty(txtContraseña.Text))
             {
-                MessageBox.Show("Debe completar todos los campos.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_CompletarTodosCampos"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -55,7 +55,7 @@ namespace GUI_23DB
                 }
                 else
                 {
-                    MessageBox.Show("El sistema no está disponible en este momento. Contacte al administrador.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SistemaNoDisponible"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 
@@ -66,7 +66,7 @@ namespace GUI_23DB
 
             if(usuarioPorLogin_23DB == null)
             {
-                MessageBox.Show("Credenciales incorrectas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_CredencialesIncorrectas"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -78,13 +78,13 @@ namespace GUI_23DB
 
             if(usuarioPorLogin_23DB.Bloqueado_23DB)
             {
-                MessageBox.Show("Su cuenta está bloqueada. Contacte al administrador.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_CuentaBloqueada"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if(!usuarioPorLogin_23DB.Activo_23DB)
             {
-                MessageBox.Show("Su cuenta está deshabilitada. Contacte al administrador.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_CuentaDeshabilitada"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -99,10 +99,10 @@ namespace GUI_23DB
                 {
                     usuarioBLL_23DB.BloquearUsuario_23DB(usuarioPorLogin_23DB.DNI_23DB);
                     eventoBLL_23DB.RegistrarEvento_23DB(usuarioPorLogin_23DB.DNI_23DB, "Usuarios", "Bloqueo Automático por Intentos", 1);
-                    MessageBox.Show("Su cuenta ha sido bloqueada por demasiados intentos fallidos. Contacte al administrador.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_CuentaBloqueadaPorIntentos"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                MessageBox.Show($"Credenciales incorrectas. Intentos restantes: {3 - usuarioPorLogin_23DB.IntentosFallidos_23DB}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_IntentosRestantes"), 3 - usuarioPorLogin_23DB.IntentosFallidos_23DB), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -121,7 +121,7 @@ namespace GUI_23DB
             }
             catch(Exception ex_23DB)
             {
-                MessageBox.Show(ex_23DB.Message, "Sesión activa", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex_23DB.Message, IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_SesionActiva"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if(EsRelogin_23DB)
                 {
                     this.DialogResult = DialogResult.Cancel;

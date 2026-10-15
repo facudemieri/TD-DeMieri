@@ -25,6 +25,11 @@ namespace GUI_23DB
         private List<Pasaje_62FD> pasajesEmitidos_62FD = new List<Pasaje_62FD>();
         private Reserva_62FD reserva_62FD = null;
         private List<Reserva_62FD> listaReservas_62FD = new List<Reserva_62FD>();
+        private string claveEstado_62FD = null;
+        private string claveModo_62FD = null;
+        private DateTime fechaModo_62FD = DateTime.Now;
+        private string nroFacturaMostrada_62FD = null;
+
         public GenerarPasaje_62FD()
         {
             InitializeComponent();
@@ -38,8 +43,8 @@ namespace GUI_23DB
 
         private void ModoConsulta_62FD()
         {
-            lblEstado.Text = "Modo Consulta";
-            ActualizarBarraEstado_62FD("Consulta");
+            claveEstado_62FD = "Msg_ModoConsulta";
+            ActualizarBarraEstado_62FD("Msg_NombreModoConsulta"); 
 
             reserva_62FD = null;
 
@@ -49,7 +54,8 @@ namespace GUI_23DB
             txtEstadoReserva.Clear();
             dataGridView1.DataSource = null;
             lblMontoTotal.Text = "$ 0,00";
-            label4.Text = "";
+            nroFacturaMostrada_62FD = null; // label4 es el número de factura, se vacía al volver a consulta
+            MostrarTextosEstado_62FD();
 
             LimpiarDatosPago_62FD();
             groupBox2.Enabled = false;
@@ -67,11 +73,29 @@ namespace GUI_23DB
             dateTimePicker1.Value = DateTime.Now;
         }
 
-        private void ActualizarBarraEstado_62FD(string modo_62FD)
+ 
+        private void ActualizarBarraEstado_62FD(string claveModo_62FD)
         {
-            toolStripStatusLabel1.Text = "Modo: " + modo_62FD;
-            toolStripStatusLabel2.Text = "Usuario: " + SessionManager_23DB.ObtenerInstancia_23DB().Login_23DB;
-            toolStripStatusLabel3.Text = "Fecha: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+            this.claveModo_62FD = claveModo_62FD;
+            fechaModo_62FD = DateTime.Now; 
+            MostrarTextosEstado_62FD();
+        }
+
+        private void MostrarTextosEstado_62FD()
+        {
+            if(claveEstado_62FD != null)
+            {
+                lblEstado.Text = IdiomaBLL_23DB.ObtenerTexto_23DB(claveEstado_62FD);
+            }
+
+            label4.Text = nroFacturaMostrada_62FD == null ? string.Empty : string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_EtiquetaFactura"), nroFacturaMostrada_62FD);
+
+            if(claveModo_62FD != null)
+            {
+                toolStripStatusLabel1.Text = string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_BarraModo"), IdiomaBLL_23DB.ObtenerTexto_23DB(claveModo_62FD));
+                toolStripStatusLabel2.Text = string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_BarraUsuario"), SessionManager_23DB.ObtenerInstancia_23DB().Login_23DB);
+                toolStripStatusLabel3.Text = string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_BarraFecha"), fechaModo_62FD.ToString("dd/MM/yyyy HH:mm"));
+            }
         }
 
         private void CargarCombos_62FD()
@@ -89,27 +113,8 @@ namespace GUI_23DB
 
         public void ActualizarIdioma_23DB(Dictionary<string, string> configuracion_23DB)
         {
-            string formName_23DB = "GenerarPasaje";
-            foreach (Control control_23DB in ObtenerTodosControles_23DB(this))
-            {
-                string clave_23DB = formName_23DB + "_" + control_23DB.Name;
-                if (configuracion_23DB.ContainsKey(clave_23DB))
-                {
-                    control_23DB.Text = configuracion_23DB[clave_23DB];
-                }
-
-            }
-        }
-
-        private List<Control> ObtenerTodosControles_23DB(Control control_23DB)
-        {
-            List<Control> lista_23DB = new List<Control>();
-            foreach (Control c_23DB in control_23DB.Controls)
-            {
-                lista_23DB.Add(c_23DB);
-                lista_23DB.AddRange(ObtenerTodosControles_23DB(c_23DB));
-            }
-            return lista_23DB;
+            Traductor_23DB.AplicarIdioma_23DB(this, configuracion_23DB);
+            MostrarTextosEstado_62FD();
         }
 
         public void AplicarIdiomaActual_23DB()
@@ -128,7 +133,7 @@ namespace GUI_23DB
             {
                 if (string.IsNullOrEmpty(txtCodReserva.Text))
                 {
-                    MessageBox.Show("Debe ingresar un código de reserva.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_IngreseCodigoReserva"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
@@ -136,14 +141,14 @@ namespace GUI_23DB
 
                 if (reserva_62FD == null)
                 {
-                    MessageBox.Show("Reserva no válida o inexistente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ReservaInvalida"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     ModoConsulta_62FD();
                     return;
                 }
 
                 if (reserva_62FD.EstadoReserva_62FD != "Pendiente de Pago")
                 {
-                    MessageBox.Show("La reserva no se encuentra pendiente de pago.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ReservaNoPendiente"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     ModoConsulta_62FD();
                     return;
                 }
@@ -152,7 +157,7 @@ namespace GUI_23DB
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al buscar la reserva: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ErrorBuscarReserva"), ex.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -178,8 +183,8 @@ namespace GUI_23DB
 
         private void ModoCobro_62FD()
         {
-            lblEstado.Text = "Modo Cobro";
-            ActualizarBarraEstado_62FD("Cobro");
+            claveEstado_62FD = "Msg_ModoCobro";
+            ActualizarBarraEstado_62FD("Msg_NombreModoCobro"); 
 
             groupBox2.Enabled = true;
             btnAplicar.Enabled = true;
@@ -209,13 +214,13 @@ namespace GUI_23DB
             {
                 if (cmbMedioPago.SelectedIndex < 0)
                 {
-                    MessageBox.Show("Debe seleccionar un medio de pago.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SeleccioneMedioPago"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
                 if (reserva_62FD.EstadoReserva_62FD != "Pendiente de Pago")
                 {
-                    MessageBox.Show("La reserva no se encuentra pendiente de pago.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ReservaNoPendiente"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     ModoConsulta_62FD();
                     return;
                 }
@@ -236,12 +241,19 @@ namespace GUI_23DB
 
                 Factura_62FD factura_62FD = pasajeBLL_62FD.GenerarPasaje_62FD(pago_62FD, reserva_62FD);
 
+                if (factura_62FD == null)
+                {
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PagoRechazado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Pasajes", "Generar Pasaje", 2);
 
-                label4.Text = "Factura: " + factura_62FD.NroFactura_62FD; // label4 es el de Numero de Factura
+                nroFacturaMostrada_62FD = factura_62FD.NroFactura_62FD; // label4 es el de Numero de Factura
+                MostrarTextosEstado_62FD();
                 txtEstadoReserva.Text = "Confirmada";
 
-                MessageBox.Show("Pasajes generados correctamente. Factura: " + factura_62FD.NroFactura_62FD, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajesGenerados"), factura_62FD.NroFactura_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 facturaEmitida_62FD = factura_62FD;
                 pasajesEmitidos_62FD = pasajeBLL_62FD.PasajesEmitidos_62FD;
@@ -249,15 +261,15 @@ namespace GUI_23DB
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al generar el pasaje: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ErrorGenerarPasaje"), ex.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 ModoConsulta_62FD();
             }
         }
 
         private void ModoEmitido_62FD()
         {
-            lblEstado.Text = "Pasajes emitidos";
-            ActualizarBarraEstado_62FD("Pasajes emitidos");
+            claveEstado_62FD = "Msg_PasajesEmitidos";
+            ActualizarBarraEstado_62FD("Msg_NombreModoPasajesEmitidos"); 
 
             groupBox2.Enabled = false;
             btnAplicar.Enabled = false;
@@ -272,23 +284,30 @@ namespace GUI_23DB
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            SaveFileDialog dialogo_62FD = new SaveFileDialog();
-            dialogo_62FD.Filter = "Archivos PDF|*.pdf";
-            dialogo_62FD.FileName = "Reserva_" + reserva_62FD.CodReserva_62FD + ".pdf";
-
-            if (dialogo_62FD.ShowDialog() != DialogResult.OK)
-            {
-                return;
-            }
-
             try
             {
-                GenerarPDF_62FD(dialogo_62FD.FileName);
-                MessageBox.Show("Documento generado correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (facturaEmitida_62FD == null)
+                {
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SinComprobanteEmitido"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                string carpeta_62FD = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "AeroManager", "Comprobantes");
+
+                if (!Directory.Exists(carpeta_62FD))
+                {
+                    Directory.CreateDirectory(carpeta_62FD);
+                }
+
+                string ruta_62FD = Path.Combine(carpeta_62FD, "Comprobante_" + facturaEmitida_62FD.NroFactura_62FD + ".pdf");
+
+                GenerarPDF_62FD(ruta_62FD);
+
+                System.Diagnostics.Process.Start(ruta_62FD);
             }
             catch (Exception ex_62FD)
             {
-                MessageBox.Show("Error al generar el documento: " + ex_62FD.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ErrorGenerarDocumento"), ex_62FD.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -631,12 +650,12 @@ namespace GUI_23DB
 
                 if (listaReservas_62FD.Count == 0)
                 {
-                    MessageBox.Show("No hay reservas pendientes de pago.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SinReservasPendientes"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar las reservas: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ErrorCargarReservas"), ex.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -658,7 +677,7 @@ namespace GUI_23DB
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar la reserva: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ErrorCargarReserva"), ex.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

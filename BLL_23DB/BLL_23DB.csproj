@@ -50,14 +50,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsientoBLL_62FD.cs" />
-    <Compile Include="FacturaBLL_62FD.cs" />
-    <Compile Include="PagoBLL_62FD.cs" />
-    <Compile Include="PasajeBLL_62FD.cs" />
-    <Compile Include="PasajeroBLL_62FD.cs" />
+    <Compile Include="PN1\AsientoBLL_62FD.cs" />
+    <Compile Include="PN1\FacturaBLL_62FD.cs" />
+    <Compile Include="PN1\PagoBLL_62FD.cs" />
+    <Compile Include="PN1\PasajeBLL_62FD.cs" />
+    <Compile Include="PN1\PasajeroBLL_62FD.cs" />
+    <Compile Include="PN1\ReservaBLL_62FD.cs" />
+    <Compile Include="PN1\VueloBLL_62FD.cs" />
+    <Compile Include="PN2\AeronaveBLL_62FD.cs" />
+    <Compile Include="PN2\CertificacionBLL_62FD.cs" />
+    <Compile Include="PN2\IntervencionBLL_62FD.cs" />
+    <Compile Include="PN2\OrdenTrabajoBLL_62FD.cs" />
+    <Compile Include="PN2\RepuestoBLL_62FD.cs" />
+    <Compile Include="PN2\TareaBLL_62FD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReservaBLL_62FD.cs" />
-    <Compile Include="VueloBLL_62FD.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BE_23DB\BE_23DB.csproj">

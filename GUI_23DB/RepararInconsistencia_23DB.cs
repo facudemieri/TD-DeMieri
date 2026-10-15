@@ -33,7 +33,7 @@ namespace GUI_23DB
                 eventoBLL_23DB.RegistrarEvento_23DB(dni_23DB, "Administrador", "Recalcular DV", 1);
             }
 
-            MessageBox.Show("DV recalculado correctamente. Inicie sesión nuevamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_DvRecalculado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
@@ -65,8 +65,8 @@ namespace GUI_23DB
         private void RepararInconsistencia_23DB_Load(object sender, EventArgs e)
         {
             string tablas_23DB = string.Join(", ", inconsistencias_23DB.ConvertAll(i => i.NombreTabla_23DB));
-            string mensaje = $"Se ha detectado una inconsistencia en: {tablas_23DB}. Seleccione un camino.";
-            MessageBox.Show(mensaje, "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            string mensaje = string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_InconsistenciaDetectada"), tablas_23DB);
+            MessageBox.Show(mensaje, IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
 

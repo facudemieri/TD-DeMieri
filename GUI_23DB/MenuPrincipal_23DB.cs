@@ -39,8 +39,8 @@ namespace GUI_23DB
         private void CargarDatosSesion_23DB()
         {
             SessionManager_23DB sesion_23DB = SessionManager_23DB.ObtenerInstancia_23DB();
-            lblLoginMp.Text = "Bienvenido: " + sesion_23DB.Login_23DB;
-            lblRol.Text = "Rol: " + sesion_23DB.Rol_23DB;
+            lblLoginMp.Text = string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_Bienvenido"), sesion_23DB.Login_23DB);
+            lblRol.Text = string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_RolSesion"), sesion_23DB.Rol_23DB);
         }
 
         private void MenuPrincipal_23DB_Load(object sender, EventArgs e)
@@ -55,7 +55,7 @@ namespace GUI_23DB
 
         private void btnAdmin_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Función en desarrollo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FuncionEnDesarrollo"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void cambiarContraseñaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -110,7 +110,7 @@ namespace GUI_23DB
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            DialogResult resultado_23DB = MessageBox.Show("¿Está seguro que desea cerrar sesión?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult resultado_23DB = MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ConfirmarCerrarSesion"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Confirmar"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if(resultado_23DB == DialogResult.Yes)
             {
                 EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
@@ -160,83 +160,8 @@ namespace GUI_23DB
 
         public void ActualizarIdioma_23DB(Dictionary<string, string> configuracion_23DB)
         {
-            string formName_23DB = "MenuPrincipal";
-            foreach(Control control_23DB in ObtenerTodosControles_23DB(this))
-            {
-                if(control_23DB.Name == "lblLoginMp")
-                {
-                    if(configuracion_23DB.ContainsKey("MenuPrincipal_lblLoginMp"))
-                    {
-                        control_23DB.Text = configuracion_23DB["MenuPrincipal_lblLoginMp"] + ": " + SessionManager_23DB.ObtenerInstancia_23DB().Login_23DB;
-                    }                        
-                    continue;
-                }
-                if(control_23DB.Name == "lblRol")
-                {
-                    if(configuracion_23DB.ContainsKey("MenuPrincipal_lblRol"))
-                    { 
-                        control_23DB.Text = configuracion_23DB["MenuPrincipal_lblRol"] + ": " + SessionManager_23DB.ObtenerInstancia_23DB().Rol_23DB; 
-                    }
-                    continue;
-                }
-                string clave_23DB = formName_23DB + "_" + control_23DB.Name;
-                
-                if(configuracion_23DB.ContainsKey(clave_23DB))
-                { 
-                    control_23DB.Text = configuracion_23DB[clave_23DB]; 
-                }
-            }
-            foreach(ToolStripItem item_23DB in ObtenerTodosMenuItems_23DB())
-            {
-                string clave_23DB = formName_23DB + "_" + item_23DB.Name;
-                if(configuracion_23DB.ContainsKey(clave_23DB))
-                { 
-                    item_23DB.Text = configuracion_23DB[clave_23DB];
-                }
-            }
-        }
-
-        private List<Control> ObtenerTodosControles_23DB(Control control_23DB)
-        {
-            List<Control> lista_23DB = new List<Control>();
-            foreach(Control c_23DB in control_23DB.Controls)
-            {
-                lista_23DB.Add(c_23DB);
-                lista_23DB.AddRange(ObtenerTodosControles_23DB(c_23DB));
-            }
-            return lista_23DB;
-        }
-
-        private List<ToolStripItem> ObtenerTodosMenuItems_23DB()
-        {
-            List<ToolStripItem> lista_23DB = new List<ToolStripItem>();
-            foreach(ToolStripItem item_23DB in cmsUsuario.Items)
-            {
-                AgregarMenuItemRecursivo_23DB(item_23DB, lista_23DB);
-            }           
-            foreach(ToolStripItem item_23DB in cmsAdmin.Items)
-            {
-                AgregarMenuItemRecursivo_23DB(item_23DB, lista_23DB);
-            }
-            foreach(ToolStripItem item_23DB in cmsPasajes.Items)
-            {
-                AgregarMenuItemRecursivo_23DB(item_23DB, lista_23DB);
-            }
-
-            return lista_23DB;
-        }
-
-        private void AgregarMenuItemRecursivo_23DB(ToolStripItem item_23DB, List<ToolStripItem> lista_23DB)
-        {
-            lista_23DB.Add(item_23DB);
-            
-            if(item_23DB is ToolStripMenuItem menuItem_23DB)
-            {
-                foreach(ToolStripItem hijo_23DB in menuItem_23DB.DropDownItems)
-                {
-                    AgregarMenuItemRecursivo_23DB(hijo_23DB, lista_23DB);
-                }
-            }
+            Traductor_23DB.AplicarIdioma_23DB(this, configuracion_23DB, cmsUsuario, cmsAdmin, cmsPasajes);
+            CargarDatosSesion_23DB(); // lblLoginMp y lblRol llevan datos de la sesión, los arma el formulario
         }
 
         private void MenuPrincipal_23DB_FormClosing(object sender, FormClosingEventArgs e)
@@ -276,12 +201,12 @@ namespace GUI_23DB
 
         private void btnMantenimiento_Click(object sender, EventArgs e) //AYUDA
         {
-            MessageBox.Show("Función en desarrollo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FuncionEnDesarrollo"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnReporte_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Función en desarrollo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FuncionEnDesarrollo"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void reservasToolStripMenuItem_Click(object sender, EventArgs e)

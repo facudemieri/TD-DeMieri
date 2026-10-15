@@ -25,27 +25,7 @@ namespace GUI_23DB
 
         public void ActualizarIdioma_23DB(Dictionary<string, string> configuracion_23DB)
         {
-            string formName_23DB = "CambiarIdioma";
-            foreach(Control control_23DB in ObtenerTodosControles_23DB(this))
-            {
-                string clave_23DB = formName_23DB + "_" + control_23DB.Name;
-                if(configuracion_23DB.ContainsKey(clave_23DB))
-                {
-                    control_23DB.Text = configuracion_23DB[clave_23DB];
-                }
-                   
-            }
-        }
-
-        private List<Control> ObtenerTodosControles_23DB(Control control_23DB)
-        {
-            List<Control> lista_23DB = new List<Control>();
-            foreach(Control c_23DB in control_23DB.Controls)
-            {
-                lista_23DB.Add(c_23DB);
-                lista_23DB.AddRange(ObtenerTodosControles_23DB(c_23DB));
-            }
-            return lista_23DB;
+            Traductor_23DB.AplicarIdioma_23DB(this, configuracion_23DB);
         }
 
         private void CambiarIdioma_23DB_FormClosing(object sender, FormClosingEventArgs e)
@@ -56,7 +36,7 @@ namespace GUI_23DB
         {
             if(cmbIdioma.SelectedIndex < 0)
             {
-                MessageBox.Show("Debe seleccionar un idioma.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SeleccioneIdioma"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -65,12 +45,14 @@ namespace GUI_23DB
 
             if(idiomaSeleccionado_23DB == idiomaActual_23DB)
             {
-                MessageBox.Show("El idioma seleccionado ya está en uso.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_IdiomaEnUso"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            idiomaBLL_23DB.CambiarIdioma_23DB(idiomaSeleccionado_23DB);
+            // la sesión se actualiza ANTES de notificar, para que ObtenerTexto_23DB ya
+            // devuelva el idioma nuevo cuando los formularios reconstruyen sus textos dinámicos
             SessionManager_23DB.ObtenerInstancia_23DB().UltimoIdioma_23DB = idiomaSeleccionado_23DB;
+            idiomaBLL_23DB.CambiarIdioma_23DB(idiomaSeleccionado_23DB);
 
             UsuarioBLL_23DB usuarioBLL_23DB = new UsuarioBLL_23DB();
             usuarioBLL_23DB.ActualizarUltimoIdioma_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, idiomaSeleccionado_23DB);
@@ -78,7 +60,7 @@ namespace GUI_23DB
             EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
             eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Usuarios", "Cambiar Idioma", 2);
 
-            MessageBox.Show("Idioma cambiado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_IdiomaCambiado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 

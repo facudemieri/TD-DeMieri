@@ -82,6 +82,7 @@ namespace GUI_23DB
         {
             List<Evento_23DB> lista_23DB = eventoBLL_23DB.ObtenerEventos_23DB();
             dgvBitacoraEventos.DataSource = lista_23DB;
+            Traductor_23DB.TraducirGrilla_23DB(dgvBitacoraEventos, "AuditoriaEventos"); // las columnas autogeneradas se recrean en cada carga
         }
 
 
@@ -89,7 +90,7 @@ namespace GUI_23DB
         {
             if(dgvBitacoraEventos.Rows.Count == 0)
             {
-                MessageBox.Show("No hay datos para imprimir.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SinDatosImprimir"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -148,12 +149,12 @@ namespace GUI_23DB
                     doc_23DB.Add(tabla_23DB);
                     doc_23DB.Close();
 
-                    MessageBox.Show("PDF generado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PdfGenerado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     System.Diagnostics.Process.Start(saveDialog_23DB.FileName);
                 }
                 catch(Exception ex_23DB)
                 {
-                    MessageBox.Show("Error al generar el PDF: " + ex_23DB.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ErrorGenerarPdf"), ex_23DB.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -162,13 +163,13 @@ namespace GUI_23DB
         {
             if(dtpFechaInicio.Value > dtpFechaFin.Value)
             {
-                MessageBox.Show("La fecha de inicio no puede ser mayor a la fecha fin.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FechaInicioMayorFin"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if(dtpFechaFin.Value > DateTime.Now.Date)
             {
-                MessageBox.Show("La fecha fin no puede ser posterior a la fecha actual.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FechaFinPosterior"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -180,10 +181,11 @@ namespace GUI_23DB
             List<Evento_23DB> lista_23DB = eventoBLL_23DB.FiltrarEventos_23DB(dni_23DB, dtpFechaInicio.Value.Date, dtpFechaFin.Value.Date, modulo_23DB, evento_23DB, criticidad_23DB);
 
             dgvBitacoraEventos.DataSource = lista_23DB;
+            Traductor_23DB.TraducirGrilla_23DB(dgvBitacoraEventos, "AuditoriaEventos"); // las columnas autogeneradas se recrean en cada carga
 
             if(lista_23DB.Count == 0)
             { 
-                MessageBox.Show("No se encontraron eventos con los criterios ingresados.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SinEventos"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -232,8 +234,6 @@ namespace GUI_23DB
             dtpFechaFin.MaxDate = DateTime.Now.Date;
         }
 
-        private bool actualizandoFecha_23DB = false;
-
         private void dtpFechaInicio_ValueChanged(object sender, EventArgs e)
         {
          
@@ -246,26 +246,7 @@ namespace GUI_23DB
 
         public void ActualizarIdioma_23DB(Dictionary<string, string> configuracion_23DB)
         {
-            string formName_23DB = "AuditoriaEventos";
-            foreach(Control control_23DB in ObtenerTodosControles_23DB(this))
-            {
-                string clave_23DB = formName_23DB + "_" + control_23DB.Name;
-                if(configuracion_23DB.ContainsKey(clave_23DB))
-                {
-                    control_23DB.Text = configuracion_23DB[clave_23DB];
-                }                    
-            }
-        }
-
-        private List<Control> ObtenerTodosControles_23DB(Control control_23DB)
-        {
-            List<Control> lista_23DB = new List<Control>();
-            foreach(Control c_23DB in control_23DB.Controls)
-            {
-                lista_23DB.Add(c_23DB);
-                lista_23DB.AddRange(ObtenerTodosControles_23DB(c_23DB));
-            }
-            return lista_23DB;
+            Traductor_23DB.AplicarIdioma_23DB(this, configuracion_23DB);
         }
 
         private void AuditoriaEventos_23DB_FormClosing(object sender, FormClosingEventArgs e)

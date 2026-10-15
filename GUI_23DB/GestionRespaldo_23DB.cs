@@ -55,7 +55,7 @@ namespace GUI_23DB
         {
             if(string.IsNullOrEmpty(txtRutaBackup.Text))
             {
-                MessageBox.Show("Debe seleccionar una ruta para el backup.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SeleccioneRutaBackup"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -71,12 +71,12 @@ namespace GUI_23DB
                 {
                     System.Diagnostics.Debug.WriteLine(exEvento_23DB);
                 }
-                MessageBox.Show($"Backup generado correctamente:\n{rutaCompleta_23DB}", "Exito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_BackupGenerado"), rutaCompleta_23DB), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LimpiarCampos();
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Error al generar el backup: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ErrorGenerarBackup"), ex.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -84,11 +84,11 @@ namespace GUI_23DB
         {
             if(string.IsNullOrEmpty(txtRutaRestore.Text))
             {
-                MessageBox.Show("Debe seleccionar un archivo de backup.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SeleccioneArchivoBackup"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            DialogResult confirmar_23DB = MessageBox.Show("¿Está seguro que desea restaurar la base de datos? Se perderán los datos posteriores al backup.", "Confirmar Restore", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult confirmar_23DB = MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ConfirmarRestore"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_ConfirmarRestore"), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if(confirmar_23DB != DialogResult.Yes) return;
 
             try
@@ -97,7 +97,7 @@ namespace GUI_23DB
 
                 if(SoloRestore_23DB)
                 {
-                    MessageBox.Show("Base de datos restaurada correctamente. Inicie sesión nuevamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_RestoreIniciarSesion"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.DialogResult = DialogResult.OK;
                     LimpiarCampos();
                     this.Close();
@@ -113,13 +113,13 @@ namespace GUI_23DB
                     {
                         System.Diagnostics.Debug.WriteLine(exEvento_23DB);
                     }
-                    MessageBox.Show("Base de datos restaurada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_RestoreCorrecto"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarCampos();                    
                 }
             }
             catch(Exception ex_23DB)
             {
-                MessageBox.Show("Error al restaurar la base de datos: " + ex_23DB.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ErrorRestore"), ex_23DB.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -140,15 +140,7 @@ namespace GUI_23DB
 
         public void ActualizarIdioma_23DB(Dictionary<string, string> configuracion_23DB)
         {
-            string formName_23DB = "GestionRespaldo";
-            foreach(Control control_23DB in ObtenerTodosControles_23DB(this))
-            {
-                string clave_23DB = formName_23DB + "_" + control_23DB.Name;
-                if(configuracion_23DB.ContainsKey(clave_23DB))
-                {
-                    control_23DB.Text = configuracion_23DB[clave_23DB];
-                }
-            }
+            Traductor_23DB.AplicarIdioma_23DB(this, configuracion_23DB);
         }
 
         public void AplicarIdiomaActual_23DB()
@@ -159,17 +151,6 @@ namespace GUI_23DB
                 IdiomaBLL_23DB idiomaBLL_23DB = new IdiomaBLL_23DB();
                 ActualizarIdioma_23DB(idiomaBLL_23DB.CargarConfiguracion_23DB(idiomaActual_23DB));
             }
-        }
-
-        private List<Control> ObtenerTodosControles_23DB(Control control_23DB)
-        {
-            List<Control> lista_23DB = new List<Control>();
-            foreach(Control c_23DB in control_23DB.Controls)
-            {
-                lista_23DB.Add(c_23DB);
-                lista_23DB.AddRange(ObtenerTodosControles_23DB(c_23DB));
-            }
-            return lista_23DB;
         }
 
         private void GestionRespaldo_23DB_FormClosing(object sender, FormClosingEventArgs e)

@@ -17,7 +17,12 @@ namespace GUI_23DB
         private RolBLL_23DB rolBLL_23DB = new RolBLL_23DB();
         private EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
         private string modoActual_23DB = "Consulta";
-        
+
+
+        private string claveMensaje_23DB = null;
+        private string mensajeSinClave_23DB = null;
+        private int? cantidadUsuarios_23DB = null;
+
 
 
         public GestionUsuario_23DB()
@@ -52,7 +57,7 @@ namespace GUI_23DB
             btnDesbloquear.Enabled = false;
             btnAplicar.Enabled = true;
             btnCancelar.Enabled = true;
-            Mensaje.Text = "Modo Añadir";
+            MostrarMensaje_23DB("Msg_ModoAnadir");
         }
 
         private void ModoModificar_23DB()
@@ -71,7 +76,7 @@ namespace GUI_23DB
             btnDesbloquear.Enabled = false;
             btnAplicar.Enabled = true;
             btnCancelar.Enabled = true;
-            Mensaje.Text = "Modo Modificar";
+            MostrarMensaje_23DB("Msg_ModoModificar");
         }
         private void GestionUsuario_23DB_Load(object sender, EventArgs e)
         {
@@ -92,7 +97,7 @@ namespace GUI_23DB
             btnDesbloquear.Enabled = true;
             btnAplicar.Enabled = false;
             btnCancelar.Enabled = false;
-            Mensaje.Text = "Modo Consulta";
+            MostrarMensaje_23DB("Msg_ModoConsulta");
         }
 
         private void HabilitarCampos_23DB(bool habilitar_23DB)
@@ -123,7 +128,15 @@ namespace GUI_23DB
         {
             List<Usuario_23DB> lista_23DB = usuarioBLL_23DB.ObtenerTodos_23DB(filtro_23DB);
             dataGridUsuarios.DataSource = lista_23DB;
-            lblnroUsuario.Text = "Numero de usuarios: " + lista_23DB.Count;
+            Traductor_23DB.TraducirGrilla_23DB(dataGridUsuarios, "GestionUsuario"); 
+
+            if (dataGridUsuarios.Columns["Password_23DB"] != null)
+            {
+                dataGridUsuarios.Columns["Password_23DB"].Visible = false;
+            }
+
+            cantidadUsuarios_23DB = lista_23DB.Count; 
+            MostrarTextos_23DB(); 
         }
 
         private void CargarRoles_23DB()
@@ -138,7 +151,7 @@ namespace GUI_23DB
         {
             if(string.IsNullOrEmpty(txtDni.Text))
             {
-                Mensaje.Text = "Debe seleccionar un usuario.";
+                MostrarMensaje_23DB("Msg_SeleccioneUsuario"); 
                 return;
             }
             ModoModificar_23DB();
@@ -172,7 +185,7 @@ namespace GUI_23DB
         {
             if(string.IsNullOrEmpty(txtEmail.Text))
             {
-                Mensaje.Text = "Debe completar todos los campos obligatorios.";
+                MostrarMensaje_23DB("Msg_CompletarCamposObligatorios"); 
                 return;
             }
             Usuario_23DB usuario_23DB = new Usuario_23DB
@@ -186,7 +199,7 @@ namespace GUI_23DB
 
             usuarioBLL_23DB.ModificarUsuario_23DB(usuario_23DB);
             eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Modificar Usuario", 2);
-            Mensaje.Text = "Usuario modificado correctamente.";
+            MostrarMensaje_23DB("Msg_UsuarioModificado"); 
             CargarGrilla_23DB(ObtenerFiltroActual_23DB());
             ModoConsulta_23DB();
         }
@@ -203,19 +216,19 @@ namespace GUI_23DB
             
             if(string.IsNullOrEmpty(txtDni.Text) || string.IsNullOrEmpty(txtApellido.Text) || string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtEmail.Text))
             {
-                Mensaje.Text = "Debe completar todos los campos obligatorios.";
+                MostrarMensaje_23DB("Msg_CompletarCamposObligatorios"); 
                 return;
             }
 
             if (txtDni.Text.Length != 8)
             {
-                Mensaje.Text = "El DNI debe tener exactamente 8 dígitos.";
+                MostrarMensaje_23DB("Msg_DniOchoDigitos"); 
                 return;
             }
 
             if (!txtDni.Text.All(char.IsDigit))
             {
-                Mensaje.Text = "El DNI solo puede contener números.";
+                MostrarMensaje_23DB("Msg_DniSoloNumeros"); 
                 return;
             }
 
@@ -232,13 +245,13 @@ namespace GUI_23DB
             {
                 usuarioBLL_23DB.CrearUsuario_23DB(usuario_23DB);
                 eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Crear Usuario", 2);
-                Mensaje.Text = "Usuario creado correctamente.";
+                MostrarMensaje_23DB("Msg_UsuarioCreado");
                 CargarGrilla_23DB(ObtenerFiltroActual_23DB());
                 ModoConsulta_23DB();
             }
             catch (Exception ex_23DB)
             {
-                Mensaje.Text = ex_23DB.Message;
+                MostrarMensajeSinClave_23DB(ex_23DB.Message); 
             }
         }
 
@@ -246,13 +259,13 @@ namespace GUI_23DB
         {
             if(string.IsNullOrEmpty(txtDni.Text))
             {
-                Mensaje.Text = "Debe seleccionar un usuario.";
+                MostrarMensaje_23DB("Msg_SeleccioneUsuario");
                 return;
             }
             bool estadoActual_23DB = txtActivo.Text == "True";
             usuarioBLL_23DB.CambiarEstado_23DB(txtDni.Text, !estadoActual_23DB);
             eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Activar / Desactivar Usuario", 2);
-            Mensaje.Text = estadoActual_23DB ? "Usuario desactivado correctamente." : "Usuario activado correctamente.";
+            MostrarMensaje_23DB(estadoActual_23DB ? "Msg_UsuarioDesactivado" : "Msg_UsuarioActivado");
             CargarGrilla_23DB(ObtenerFiltroActual_23DB());
             ModoConsulta_23DB();
         }
@@ -261,17 +274,17 @@ namespace GUI_23DB
         {           
             if(string.IsNullOrEmpty(txtDni.Text))
             {
-                Mensaje.Text = "Debe seleccionar un usuario.";
+                MostrarMensaje_23DB("Msg_SeleccioneUsuario");
                 return;
             }
             if(txtBloqueado.Text == "False")
             {
-                Mensaje.Text = "El usuario no está bloqueado.";
+                MostrarMensaje_23DB("Msg_UsuarioNoBloqueado");
                 return;
             }
             usuarioBLL_23DB.DesbloquearUsuario_23DB(txtDni.Text, txtApellido.Text);
             eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Desbloquear Usuario", 2);
-            Mensaje.Text = "Usuario desbloqueado y contraseña restablecida correctamente.";
+            MostrarMensaje_23DB("Msg_UsuarioDesbloqueado");
             CargarGrilla_23DB(ObtenerFiltroActual_23DB());
             ModoConsulta_23DB();
         }
@@ -318,26 +331,41 @@ namespace GUI_23DB
 
         public void ActualizarIdioma_23DB(Dictionary<string, string> configuracion_23DB)
         {
-            string formName_23DB = "GestionUsuario";
-            foreach(Control control_23DB in ObtenerTodosControles_23DB(this))
-            {
-                string clave_23DB = formName_23DB + "_" + control_23DB.Name;
-                if(configuracion_23DB.ContainsKey(clave_23DB))
-                { 
-                    control_23DB.Text = configuracion_23DB[clave_23DB]; 
-                }
-            }
+            Traductor_23DB.AplicarIdioma_23DB(this, configuracion_23DB);
+            MostrarTextos_23DB();
         }
 
-        private List<Control> ObtenerTodosControles_23DB(Control control_23DB)
+        private void MostrarMensaje_23DB(string claveMensaje_23DB)
         {
-            List<Control> lista_23DB = new List<Control>();
-            foreach(Control c_23DB in control_23DB.Controls)
+            this.claveMensaje_23DB = claveMensaje_23DB;
+            mensajeSinClave_23DB = null;
+            MostrarTextos_23DB();
+        }
+
+        
+        private void MostrarMensajeSinClave_23DB(string texto_23DB)
+        {
+            claveMensaje_23DB = null;
+            mensajeSinClave_23DB = texto_23DB;
+            MostrarTextos_23DB();
+        }
+
+       
+        private void MostrarTextos_23DB()
+        {
+            if(claveMensaje_23DB != null)
             {
-                lista_23DB.Add(c_23DB);
-                lista_23DB.AddRange(ObtenerTodosControles_23DB(c_23DB));
+                Mensaje.Text = IdiomaBLL_23DB.ObtenerTexto_23DB(claveMensaje_23DB);
             }
-            return lista_23DB;
+            else if(mensajeSinClave_23DB != null)
+            {
+                Mensaje.Text = mensajeSinClave_23DB;
+            }
+
+            if(cantidadUsuarios_23DB.HasValue)
+            {
+                lblnroUsuario.Text = string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_NumeroUsuarios"), cantidadUsuarios_23DB.Value);
+            }
         }
 
         private void GestionUsuario_23DB_FormClosing(object sender, FormClosingEventArgs e)

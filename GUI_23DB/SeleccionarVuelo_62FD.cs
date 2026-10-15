@@ -19,6 +19,12 @@ namespace GUI_23DB
         private List<Vuelo_62FD> listaVuelos_62FD = new List<Vuelo_62FD>();
         private Vuelo_62FD vueloSeleccionado_62FD = null;
 
+        // estado de los textos que escribe el código. Se guardan claves, no textos traducidos
+        private string claveEstado_62FD = null;
+        private int cantidadVuelos_62FD = 0;
+        private string claveModo_62FD = null;
+        private DateTime fechaModo_62FD = DateTime.Now;
+
         public Vuelo_62FD VueloSeleccionado_62FD
         {
             get { return vueloSeleccionado_62FD; }
@@ -31,7 +37,7 @@ namespace GUI_23DB
             dataGridView1.AutoGenerateColumns = false;
             CargarCombos_62FD();
             ModoConsulta_62FD();
-            ActualizarBarraEstado_62FD("Consulta");
+            ActualizarBarraEstado_62FD("Msg_NombreModoConsulta"); // se pasa la clave del nombre del modo
         }
 
         private void CargarCombos_62FD()
@@ -44,7 +50,8 @@ namespace GUI_23DB
         }
         private void ModoConsulta_62FD()
         {
-            lblEstado.Text = "Modo Consulta";
+            claveEstado_62FD = "Msg_ModoConsulta";
+            MostrarTextosEstado_62FD();
             dataGridView1.DataSource = null;
             vueloSeleccionado_62FD = null;
             btnContinuar.Enabled = false;
@@ -63,13 +70,13 @@ namespace GUI_23DB
                 CargarGrilla_62FD(listaVuelos_62FD);
                 if (listaVuelos_62FD.Count == 0)
                 {
-                    MessageBox.Show("No se encontraron vuelos disponibles con los criterios ingresados.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SinVuelosDisponibles"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al buscar vuelos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ErrorBuscarVuelos"), ex.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -77,8 +84,9 @@ namespace GUI_23DB
         {
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = lista_62FD;
-            lblEstado.Text = "Modo Consulta - " + lista_62FD.Count + " vuelo/s encontrado/s";
-            ActualizarBarraEstado_62FD("Consulta");
+            claveEstado_62FD = "Msg_ModoConsultaVuelosEncontrados";
+            cantidadVuelos_62FD = lista_62FD.Count;
+            ActualizarBarraEstado_62FD("Msg_NombreModoConsulta"); // se pasa la clave del nombre del modo
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -112,18 +120,35 @@ namespace GUI_23DB
           
         }
 
-        private void ActualizarBarraEstado_62FD(string modo_62FD)
+        // Recibe la clave del nombre del modo (solo se muestra, nunca se compara)
+        private void ActualizarBarraEstado_62FD(string claveModo_62FD)
         {
-            toolStripStatusLabel1.Text = "Modo: " + modo_62FD;
-            toolStripStatusLabel2.Text = "Usuario: " + SessionManager_23DB.ObtenerInstancia_23DB().Login_23DB;
-            toolStripStatusLabel3.Text = "Última consulta: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+            this.claveModo_62FD = claveModo_62FD;
+            fechaModo_62FD = DateTime.Now; // se guarda al escribir la barra; al cambiar de idioma se reescribe la misma fecha
+            MostrarTextosEstado_62FD();
+        }
+
+        // Reconstruye lblEstado y la barra de estado a partir de las claves guardadas, en el idioma activo
+        private void MostrarTextosEstado_62FD()
+        {
+            if(claveEstado_62FD != null)
+            {
+                lblEstado.Text = string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB(claveEstado_62FD), cantidadVuelos_62FD);
+            }
+
+            if(claveModo_62FD != null)
+            {
+                toolStripStatusLabel1.Text = string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_BarraModo"), IdiomaBLL_23DB.ObtenerTexto_23DB(claveModo_62FD));
+                toolStripStatusLabel2.Text = string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_BarraUsuario"), SessionManager_23DB.ObtenerInstancia_23DB().Login_23DB);
+                toolStripStatusLabel3.Text = string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_BarraUltimaConsulta"), fechaModo_62FD.ToString("dd/MM/yyyy HH:mm"));
+            }
         }
 
         private void btnContinuar_Click(object sender, EventArgs e)
         {
             if(vueloSeleccionado_62FD == null)
             {
-                MessageBox.Show("Debe seleccionar un vuelo.", "Informacion", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SeleccioneVuelo"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -133,27 +158,8 @@ namespace GUI_23DB
 
         public void ActualizarIdioma_23DB(Dictionary<string, string> configuracion_23DB)
         {
-            string formName_23DB = "SeleccionarVuelo";
-            foreach (Control control_23DB in ObtenerTodosControles_23DB(this))
-            {
-                string clave_23DB = formName_23DB + "_" + control_23DB.Name;
-                if (configuracion_23DB.ContainsKey(clave_23DB))
-                {
-                    control_23DB.Text = configuracion_23DB[clave_23DB];
-                }
-
-            }
-        }
-
-        private List<Control> ObtenerTodosControles_23DB(Control control_23DB)
-        {
-            List<Control> lista_23DB = new List<Control>();
-            foreach (Control c_23DB in control_23DB.Controls)
-            {
-                lista_23DB.Add(c_23DB);
-                lista_23DB.AddRange(ObtenerTodosControles_23DB(c_23DB));
-            }
-            return lista_23DB;
+            Traductor_23DB.AplicarIdioma_23DB(this, configuracion_23DB);
+            MostrarTextosEstado_62FD();
         }
 
         public void AplicarIdiomaActual_23DB()
@@ -185,7 +191,7 @@ namespace GUI_23DB
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar los vuelos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ErrorCargarVuelos"), ex.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

@@ -96,27 +96,7 @@ namespace GUI_23DB
         }
         public void ActualizarIdioma_23DB(Dictionary<string, string> configuracion_23DB)
         {
-            string formName_23DB = "AdministradorRoles";
-            
-            foreach(Control control_23DB in ObtenerTodosControles_23DB(this))
-            {
-                string clave_23DB = formName_23DB + "_" + control_23DB.Name;
-                if (configuracion_23DB.ContainsKey(clave_23DB))
-                {
-                    control_23DB.Text = configuracion_23DB[clave_23DB];
-                }                    
-            }
-        }
-
-        private List<Control> ObtenerTodosControles_23DB(Control control_23DB)
-        {
-            List<Control> lista_23DB = new List<Control>();
-            foreach(Control c_23DB in control_23DB.Controls)
-            {
-                lista_23DB.Add(c_23DB);
-                lista_23DB.AddRange(ObtenerTodosControles_23DB(c_23DB));
-            }
-            return lista_23DB;
+            Traductor_23DB.AplicarIdioma_23DB(this, configuracion_23DB);
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -144,22 +124,22 @@ namespace GUI_23DB
         {
             if(string.IsNullOrEmpty(txtNombre.Text))
             {
-                MessageBox.Show("Debe ingresar un nombre para el Rol.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_IngreseNombreRol"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if(!rolBLL_23DB.ValidarElementos_23DB(componentes_23DB))
             {
-                MessageBox.Show("Debe seleccionar al menos un elemento.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SeleccioneAlMenosUnElemento"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if(!rolBLL_23DB.ValidarNombre_23DB(txtNombre.Text, rolBLL_23DB.ObtenerRoles_23DB()))
             {
-                MessageBox.Show("Ya existe un Rol con ese nombre.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_RolExistente"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             rolBLL_23DB.CrearRol_23DB(txtNombre.Text, componentes_23DB);
             eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Crear Rol", 2);
-            MessageBox.Show("Rol creado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_RolCreado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             LimpiarCampos_23DB();
             CargarListBox_23DB();
         }
@@ -172,7 +152,7 @@ namespace GUI_23DB
             // No permitir agregar un Rol dentro de otro Rol
             if(!(seleccionado_23DB is Patente_23DB) && !(seleccionado_23DB is Familia_23DB))
             {
-                MessageBox.Show("No se puede agregar un Rol dentro de otro Rol.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_RolDentroDeRol"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -182,7 +162,7 @@ namespace GUI_23DB
                 List<string> patentesTreeView_23DB = ObtenerPatentesDelTreeView_23DB();
                 if(familiaBLL_23DB.TienePatentesRepetidas_23DB(seleccionado_23DB, patentesTreeView_23DB))
                 {
-                    MessageBox.Show("La Familia contiene patentes que ya están incluidas.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FamiliaPatentesIncluidas"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
@@ -193,7 +173,7 @@ namespace GUI_23DB
                 List<string> patentesTreeView_23DB = ObtenerPatentesDelTreeView_23DB();
                 if(patentesTreeView_23DB.Contains(seleccionado_23DB.ObtenerNombre_23DB()))
                 {
-                    MessageBox.Show($"La patente '{seleccionado_23DB.ObtenerNombre_23DB()}' ya está incluida.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PatenteYaIncluida"), seleccionado_23DB.ObtenerNombre_23DB()), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
@@ -203,7 +183,7 @@ namespace GUI_23DB
             {
                 if(comp_23DB.ObtenerNombre_23DB() == seleccionado_23DB.ObtenerNombre_23DB())
                 {
-                    MessageBox.Show("El elemento ya fue agregado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ElementoYaAgregado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
@@ -286,13 +266,13 @@ namespace GUI_23DB
         {
             if(lstPatFam.SelectedItem == null)
             {
-                MessageBox.Show("Debe seleccionar un Rol.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SeleccioneRol"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             
             if(!(lstPatFam.SelectedItem is Rol_23DB) || lstPatFam.SelectedItem is Patente_23DB || lstPatFam.SelectedItem is Familia_23DB)
             {
-                MessageBox.Show("Solo se pueden eliminar Roles.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SoloEliminarRoles"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -301,23 +281,23 @@ namespace GUI_23DB
             // No eliminar el propio Rol del usuario logueado
             if(rolBLL_23DB.EsPropioRol_23DB(rol_23DB.NombreRol_23DB))
             {
-                MessageBox.Show("No puede eliminar su propio Rol.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_NoEliminarPropioRol"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             // No eliminar si esta asignado a algun usuario
             if(rolBLL_23DB.RolEstaAsignado_23DB(rol_23DB.IdRol_23DB))
             {
-                MessageBox.Show("No se puede eliminar un Rol que está asignado a usuarios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_RolAsignadoUsuarios"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            DialogResult resultado_23DB = MessageBox.Show($"¿Está seguro que desea eliminar el Rol {rol_23DB.NombreRol_23DB}?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult resultado_23DB = MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ConfirmarEliminarRol"), rol_23DB.NombreRol_23DB), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Confirmar"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if(resultado_23DB == DialogResult.Yes)
             {
                 rolBLL_23DB.EliminarRol_23DB(rol_23DB.IdRol_23DB);
                 eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Eliminar Rol", 2);
-                MessageBox.Show("Rol eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_RolEliminado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LimpiarCampos_23DB();
                 CargarListBox_23DB();
             }
@@ -328,12 +308,12 @@ namespace GUI_23DB
         {
             if(lstPatFam.SelectedItem == null)
             {
-                MessageBox.Show("Debe seleccionar un Rol.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SeleccioneRol"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if(!(lstPatFam.SelectedItem is Rol_23DB) || lstPatFam.SelectedItem is Patente_23DB || lstPatFam.SelectedItem is Familia_23DB)
             {
-                MessageBox.Show("Solo se pueden modificar Roles.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SoloModificarRoles"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -341,7 +321,7 @@ namespace GUI_23DB
 
             if(rolBase_23DB.NombreRol_23DB == SessionManager_23DB.ObtenerInstancia_23DB().Rol_23DB)
             {
-                MessageBox.Show("No puede modificar su propio Rol.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_NoModificarPropioRol"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -397,7 +377,7 @@ namespace GUI_23DB
         {
             if(tvListaPatFam.SelectedNode == null)
             {
-                MessageBox.Show("Debe seleccionar un elemento.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SeleccioneElemento"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -415,7 +395,7 @@ namespace GUI_23DB
                 Rol_23DB padre_23DB = (Rol_23DB)nodoSeleccionado_23DB.Parent.Tag;
                 if(padre_23DB is Familia_23DB)
                 {
-                    MessageBox.Show("No se puede quitar un elemento de dentro de una Familia. Quite la Familia completa.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_NoQuitarElementoDeFamilia"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 if(modoModificar_23DB && nodoSeleccionado_23DB.Parent.Parent == null)
@@ -460,18 +440,18 @@ namespace GUI_23DB
 
             if(string.IsNullOrEmpty(txtNombre.Text))
             {
-                MessageBox.Show("Debe ingresar un nombre para el Rol.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_IngreseNombreRol"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if(!rolBLL_23DB.ValidarNombre_23DB(txtNombre.Text, rolBLL_23DB.ObtenerRoles_23DB().FindAll(r => r.IdRol_23DB != rolSeleccionado_23DB.IdRol_23DB)))
             {
-                MessageBox.Show("Ya existe un Rol con ese nombre.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_RolExistente"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             rolBLL_23DB.ModificarRol_23DB(rolSeleccionado_23DB.IdRol_23DB, txtNombre.Text, componentes_23DB);
             eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Modificar Rol", 2);
-            MessageBox.Show("Rol modificado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_RolModificado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             modoModificar_23DB = false;
             rolSeleccionado_23DB = null;
             LimpiarCampos_23DB();

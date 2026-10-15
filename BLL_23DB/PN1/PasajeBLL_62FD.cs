@@ -36,7 +36,7 @@ namespace BLL_23DB
 
             if (!aprobado_62FD)
             {
-                throw new Exception("Pago rechazado por la entidad financiera.");
+                return null;
             }
 
             reservaBLL_62FD.ActualizarEstado_62FD(reserva_62FD.CodReserva_62FD, "Confirmada");

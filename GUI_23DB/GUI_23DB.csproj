@@ -123,6 +123,7 @@
     <Compile Include="SeleccionarVuelo_62FD.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Traductor_23DB.cs" />
     <Compile Include="SeleccionarVuelo_62FD.Designer.cs">
       <DependentUpon>SeleccionarVuelo_62FD.cs</DependentUpon>
     </Compile>

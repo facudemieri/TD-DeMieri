@@ -48,13 +48,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="mapperAsiento_62FD.cs" />
-    <Compile Include="mapperFactura_62FD.cs" />
-    <Compile Include="mapperPago_62FD.cs" />
-    <Compile Include="mapperPasajero_62FD.cs" />
-    <Compile Include="mapperPasaje_62FD.cs" />
-    <Compile Include="mapperReserva_62FD.cs" />
-    <Compile Include="mapperVuelo_62FD.cs" />
+    <Compile Include="PN1\mapperAsiento_62FD.cs" />
+    <Compile Include="PN1\mapperFactura_62FD.cs" />
+    <Compile Include="PN1\mapperPago_62FD.cs" />
+    <Compile Include="PN1\mapperPasajero_62FD.cs" />
+    <Compile Include="PN1\mapperPasaje_62FD.cs" />
+    <Compile Include="PN1\mapperReserva_62FD.cs" />
+    <Compile Include="PN1\mapperVuelo_62FD.cs" />
+    <Compile Include="PN2\mapperAeronave_62FD.cs" />
+    <Compile Include="PN2\mapperCertificacion_62FD.cs" />
+    <Compile Include="PN2\mapperIntervencion_62FD.cs" />
+    <Compile Include="PN2\mapperOrdenTrabajo_62FD.cs" />
+    <Compile Include="PN2\mapperRepuesto_62FD.cs" />
+    <Compile Include="PN2\mapperTarea_62FD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

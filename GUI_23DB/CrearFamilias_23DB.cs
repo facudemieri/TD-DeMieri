@@ -95,26 +95,7 @@ namespace GUI_23DB
 
         public void ActualizarIdioma_23DB(Dictionary<string, string> configuracion_23DB)
         {
-            string formName_23DB = "CrearFamilias";
-            foreach(Control control_23DB in ObtenerTodosControles_23DB(this))
-            {
-                string clave_23DB = formName_23DB + "_" + control_23DB.Name;
-                if(configuracion_23DB.ContainsKey(clave_23DB))
-                {
-                    control_23DB.Text = configuracion_23DB[clave_23DB];
-                }                    
-            }
-        }
-
-        private List<Control> ObtenerTodosControles_23DB(Control control_23DB)
-        {
-            List<Control> lista_23DB = new List<Control>();
-            foreach(Control c_23DB in control_23DB.Controls)
-            {
-                lista_23DB.Add(c_23DB);
-                lista_23DB.AddRange(ObtenerTodosControles_23DB(c_23DB));
-            }
-            return lista_23DB;
+            Traductor_23DB.AplicarIdioma_23DB(this, configuracion_23DB);
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -150,7 +131,7 @@ namespace GUI_23DB
                 List<string> patentesTreeView_23DB = ObtenerPatentesDelTreeView_23DB();
                 if(familiaBLL_23DB.TienePatentesRepetidas_23DB(seleccionado_23DB, patentesTreeView_23DB))
                 {
-                    MessageBox.Show("La Familia contiene patentes que ya están incluidas.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FamiliaPatentesIncluidas"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
@@ -161,7 +142,7 @@ namespace GUI_23DB
                 List<string> patentesTreeView_23DB = ObtenerPatentesDelTreeView_23DB();
                 if(patentesTreeView_23DB.Contains(seleccionado_23DB.ObtenerNombre_23DB()))
                 {
-                    MessageBox.Show($"La patente '{seleccionado_23DB.ObtenerNombre_23DB()}' ya está incluida.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PatenteYaIncluida"), seleccionado_23DB.ObtenerNombre_23DB()), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
@@ -171,7 +152,7 @@ namespace GUI_23DB
             {
                 if(comp_23DB.ObtenerNombre_23DB() == seleccionado_23DB.ObtenerNombre_23DB())
                 {
-                    MessageBox.Show("El elemento ya fue agregado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ElementoYaAgregado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
             }
@@ -239,22 +220,22 @@ namespace GUI_23DB
         {
             if(string.IsNullOrEmpty(txtNombre.Text))
             {
-                MessageBox.Show("Debe ingresar un nombre para la Familia.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_IngreseNombreFamilia"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if(!familiaBLL_23DB.ValidarElementos_23DB(componentes_23DB))
             {
-                MessageBox.Show("Debe seleccionar al menos un elemento.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SeleccioneAlMenosUnElemento"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if(!familiaBLL_23DB.ValidarNombre_23DB(txtNombre.Text, familiaBLL_23DB.ObtenerFamilias_23DB()))
             {
-                MessageBox.Show("Ya existe una Familia con ese nombre.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FamiliaExistente"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             familiaBLL_23DB.CrearFamilia_23DB(txtNombre.Text, componentes_23DB);
             eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Crear Familia", 2);
-            MessageBox.Show("Familia creada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FamiliaCreada"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             LimpiarCampos_23DB();
             CargarListBox_23DB();
         }
@@ -275,12 +256,12 @@ namespace GUI_23DB
         {
             if(lstPatFam.SelectedItem == null)
             {
-                MessageBox.Show("Debe seleccionar una Familia.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SeleccioneFamilia"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if(!(lstPatFam.SelectedItem is Familia_23DB))
             {
-                MessageBox.Show("Solo se pueden modificar Familias.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SoloModificarFamilias"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -325,12 +306,12 @@ namespace GUI_23DB
             
             if(lstPatFam.SelectedItem == null)
             {
-                MessageBox.Show("Debe seleccionar una Familia.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SeleccioneFamilia"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if(!(lstPatFam.SelectedItem is Familia_23DB))
             {
-                MessageBox.Show("Solo se pueden eliminar Familias.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SoloEliminarFamilias"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -339,29 +320,29 @@ namespace GUI_23DB
 
             if(familiaBLL_23DB.FamiliaEstaEnRol_23DB(familia_23DB.IdFamilia_23DB))
             {
-                MessageBox.Show("No se puede eliminar una Familia que está siendo usada por un Rol.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FamiliaUsadaPorRol"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if(familiaBLL_23DB.FamiliaEstaEnFamilia_23DB(familia_23DB.IdFamilia_23DB))
             {
-                MessageBox.Show("No se puede eliminar una Familia que está siendo usada por otra Familia.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FamiliaUsadaPorFamilia"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             } 
 
             Familia_23DB familiaCompleta_23DB = familiaBLL_23DB.ObtenerFamiliaCompleta_23DB(familia_23DB.IdFamilia_23DB);
             if(familiaBLL_23DB.TieneComponentes_23DB(familia_23DB.IdFamilia_23DB))
             {
-                MessageBox.Show("No se puede eliminar una Familia que tiene componentes.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FamiliaConComponentes"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            DialogResult resultado_23DB = MessageBox.Show($"¿Está seguro que desea eliminar la Familia {familia_23DB.NombreFamilia_23DB}?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult resultado_23DB = MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ConfirmarEliminarFamilia"), familia_23DB.NombreFamilia_23DB), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Confirmar"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if(resultado_23DB == DialogResult.Yes)
             {
                 familiaBLL_23DB.EliminarFamilia_23DB(familia_23DB.IdFamilia_23DB);
                 eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Eliminar Familia", 2);
-                MessageBox.Show("Familia eliminada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FamiliaEliminada"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LimpiarCampos_23DB();
                 CargarListBox_23DB();
             }
@@ -381,7 +362,7 @@ namespace GUI_23DB
         {
             if(tvListaPatFam.SelectedNode == null)
             {
-                MessageBox.Show("Debe seleccionar un elemento.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SeleccioneElemento"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -413,18 +394,18 @@ namespace GUI_23DB
 
             if(string.IsNullOrEmpty(txtNombre.Text))
             {
-                MessageBox.Show("Debe ingresar un nombre para la Familia.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_IngreseNombreFamilia"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if(!familiaBLL_23DB.ValidarNombre_23DB(txtNombre.Text, familiaBLL_23DB.ObtenerFamilias_23DB().FindAll(f => f.IdFamilia_23DB != familiaSeleccionada_23DB.IdFamilia_23DB)))
             {
-                MessageBox.Show("Ya existe una Familia con ese nombre.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FamiliaExistente"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             familiaBLL_23DB.ModificarFamilia_23DB(familiaSeleccionada_23DB.IdFamilia_23DB, txtNombre.Text, componentes_23DB);
             eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Modificar Familia", 2);
-            MessageBox.Show("Familia modificada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FamiliaModificada"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             modoModificar_23DB = false;
             familiaSeleccionada_23DB = null;
             LimpiarCampos_23DB();

@@ -26,6 +26,11 @@ namespace GUI_23DB
         private List<ReservaDetalle_62FD> detalles_62FD = new List<ReservaDetalle_62FD>();
         private Asiento_62FD asientoSeleccionado_62FD = null;
 
+        // estado de los textos que escribe el código. Se guardan claves, no textos traducidos
+        private string claveEstado_62FD = null;
+        private string claveModo_62FD = null;
+        private DateTime fechaModo_62FD = DateTime.Now;
+
         public GenerarReserva_62FD()
         {
             InitializeComponent();
@@ -58,8 +63,8 @@ namespace GUI_23DB
 
         private void ModoAnadir_62FD()
         {
-            lblEstado.Text = "Modo Añadir";
-            ActualizarBarraEstado_62FD("Añadir");
+            claveEstado_62FD = "Msg_ModoAnadir";
+            ActualizarBarraEstado_62FD("Msg_NombreModoAnadir"); // se pasa la clave del nombre del modo
             btnAplicar.Enabled = false;
             btnAgregarReserva.Enabled = false;
         }
@@ -84,7 +89,7 @@ namespace GUI_23DB
             {
                 if (string.IsNullOrEmpty(txtDNI.Text))
                 {
-                    MessageBox.Show("Debe ingresar un número de documento.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_IngreseNroDocumento"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
@@ -92,7 +97,7 @@ namespace GUI_23DB
 
                 if (pasajeroActual_62FD == null)
                 {
-                    DialogResult respuesta_62FD = MessageBox.Show("El pasajero no se encuentra registrado. ¿Desea registrarlo?", "Pasajero no encontrado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    DialogResult respuesta_62FD = MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeroNoRegistrado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_PasajeroNoEncontrado"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (respuesta_62FD == DialogResult.Yes)
                     {
@@ -113,7 +118,7 @@ namespace GUI_23DB
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al buscar el pasajero: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ErrorBuscarPasajero"), ex.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -128,7 +133,7 @@ namespace GUI_23DB
 
             if (listaAsientos_62FD.Count == 0)
             {
-                MessageBox.Show("No hay asientos disponibles para ese vuelo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SinAsientosDisponibles"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -188,13 +193,13 @@ namespace GUI_23DB
         {
             if (pasajeroActual_62FD == null)
             {
-                MessageBox.Show("Debe buscar un pasajero antes de agregarlo.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_BuscarPasajeroAntes"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             if (asientoSeleccionado_62FD == null)
             {
-                MessageBox.Show("Debe seleccionar un asiento.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SeleccioneAsiento"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -202,7 +207,7 @@ namespace GUI_23DB
             {
                 if (d_62FD.NumeroDocumento_62FD == pasajeroActual_62FD.NumeroDocumento_62FD)
                 {
-                    MessageBox.Show("El pasajero ya fue agregado a la reserva.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeroYaAgregado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
             }
@@ -249,7 +254,7 @@ namespace GUI_23DB
         {
             if (dataGridView1.CurrentRow == null)
             {
-                MessageBox.Show("Debe seleccionar un pasajero de la reserva.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SeleccionePasajeroReserva"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -271,20 +276,20 @@ namespace GUI_23DB
 
                 eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Pasajes", "Generar Reserva", 2);
 
-                MessageBox.Show("Reserva creada con éxito. Código: " + codReserva_62FD, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ReservaCreada"), codReserva_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 ModoConsulta_62FD();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al generar la reserva: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ErrorGenerarReserva"), ex.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void ModoConsulta_62FD()
         {
-            lblEstado.Text = "Modo Consulta";
-            ActualizarBarraEstado_62FD("Consulta");
+            claveEstado_62FD = "Msg_ModoConsulta";
+            ActualizarBarraEstado_62FD("Msg_NombreModoConsulta"); // se pasa la clave del nombre del modo
 
             detalles_62FD.Clear();
             listaAsientos_62FD.Clear();
@@ -299,11 +304,28 @@ namespace GUI_23DB
             btnAgregarReserva.Enabled = false;
         }
 
-        private void ActualizarBarraEstado_62FD(string modo_62FD)
+        // Recibe la clave del nombre del modo (solo se muestra, nunca se compara)
+        private void ActualizarBarraEstado_62FD(string claveModo_62FD)
         {
-            toolStripStatusLabel1.Text = "Modo: " + modo_62FD;
-            toolStripStatusLabel2.Text = "Usuario: " + SessionManager_23DB.ObtenerInstancia_23DB().Login_23DB;
-            toolStripStatusLabel3.Text = "Fecha: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+            this.claveModo_62FD = claveModo_62FD;
+            fechaModo_62FD = DateTime.Now; // fecha de entrada al modo; al cambiar de idioma se reescribe la misma
+            MostrarTextosEstado_62FD();
+        }
+
+        // Reconstruye lblEstado y la barra de estado a partir de las claves guardadas, en el idioma activo
+        private void MostrarTextosEstado_62FD()
+        {
+            if(claveEstado_62FD != null)
+            {
+                lblEstado.Text = IdiomaBLL_23DB.ObtenerTexto_23DB(claveEstado_62FD);
+            }
+
+            if(claveModo_62FD != null)
+            {
+                toolStripStatusLabel1.Text = string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_BarraModo"), IdiomaBLL_23DB.ObtenerTexto_23DB(claveModo_62FD));
+                toolStripStatusLabel2.Text = string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_BarraUsuario"), SessionManager_23DB.ObtenerInstancia_23DB().Login_23DB);
+                toolStripStatusLabel3.Text = string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_BarraFecha"), fechaModo_62FD.ToString("dd/MM/yyyy HH:mm"));
+            }
         }
 
         private void toolStripStatusLabel2_Click(object sender, EventArgs e)
@@ -315,7 +337,7 @@ namespace GUI_23DB
         {
             if (detalles_62FD.Count > 0)
             {
-                DialogResult respuesta_62FD = MessageBox.Show("¿Está seguro que desea descartar la reserva en curso?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult respuesta_62FD = MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ConfirmarDescartarReserva"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Confirmar"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (respuesta_62FD == DialogResult.No)
                 {
@@ -333,16 +355,8 @@ namespace GUI_23DB
 
         public void ActualizarIdioma_23DB(Dictionary<string, string> configuracion_23DB)
         {
-            string formName_23DB = "GenerarReserva";
-            foreach (Control control_23DB in ObtenerTodosControles_23DB(this))
-            {
-                string clave_23DB = formName_23DB + "_" + control_23DB.Name;
-                if (configuracion_23DB.ContainsKey(clave_23DB))
-                {
-                    control_23DB.Text = configuracion_23DB[clave_23DB];
-                }
-
-            }
+            Traductor_23DB.AplicarIdioma_23DB(this, configuracion_23DB);
+            MostrarTextosEstado_62FD();
         }
 
         public void AplicarIdiomaActual_23DB()
@@ -353,17 +367,6 @@ namespace GUI_23DB
                 IdiomaBLL_23DB idiomaBLL_23DB = new IdiomaBLL_23DB();
                 ActualizarIdioma_23DB(idiomaBLL_23DB.CargarConfiguracion_23DB(idiomaActual_23DB));
             }
-        }
-
-        private List<Control> ObtenerTodosControles_23DB(Control control_23DB)
-        {
-            List<Control> lista_23DB = new List<Control>();
-            foreach (Control c_23DB in control_23DB.Controls)
-            {
-                lista_23DB.Add(c_23DB);
-                lista_23DB.AddRange(ObtenerTodosControles_23DB(c_23DB));
-            }
-            return lista_23DB;
         }
         private void GenerarReserva_62FD_FormClosing(object sender, FormClosingEventArgs e)
         {
