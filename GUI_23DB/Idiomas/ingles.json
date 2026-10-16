@@ -264,7 +264,9 @@
   "Msg_CuentaBloqueadaPorIntentos": "Your account has been locked due to too many failed attempts. Contact the administrator.",
   "Msg_IntentosRestantes": "Incorrect credentials. Remaining attempts: {0}",
   "Msg_DvRecalculado": "DV recalculated successfully. Please log in again.",
-  "Msg_InconsistenciaDetectada": "An inconsistency has been detected in: {0}. Select a course of action.",
+  "Msg_InconsistenciaDetectada": "Inconsistencies have been detected in the following data:\r\n\r\n{0}\r\n\r\nSelect a course of action.",
+  "Msg_InconsistenciaSoloDVV": "records were added or deleted outside the system",
+  "Msg_InconsistenciaMasRegistros": "... and {0} more record(s) not shown.",
   "Msg_FuncionEnDesarrollo": "Feature under development.",
   "Msg_ConfirmarCerrarSesion": "Are you sure you want to log out?",
 

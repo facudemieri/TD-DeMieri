@@ -22,11 +22,11 @@ namespace Services_23DB
             set { nombreTabla_ = value; }
         }
 
-        private long dvh_;
-        public long DVH_23DB
+        private string nombrePK_;
+        public string NombrePK_23DB
         {
-            get { return dvh_; }
-            set { dvh_ = value; }
+            get { return nombrePK_; }
+            set { nombrePK_ = value; }
         }
 
         private long dvv_;
@@ -34,6 +34,13 @@ namespace Services_23DB
         {
             get { return dvv_; }
             set { dvv_ = value; }
+        }
+
+        private List<string> registrosInconsistentes_ = new List<string>();
+        public List<string> RegistrosInconsistentes_23DB
+        {
+            get { return registrosInconsistentes_; }
+            set { registrosInconsistentes_ = value; }
         }
     }
 }

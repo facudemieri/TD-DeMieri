@@ -264,7 +264,9 @@
   "Msg_CuentaBloqueadaPorIntentos": "Su cuenta ha sido bloqueada por demasiados intentos fallidos. Contacte al administrador.",
   "Msg_IntentosRestantes": "Credenciales incorrectas. Intentos restantes: {0}",
   "Msg_DvRecalculado": "DV recalculado correctamente. Inicie sesión nuevamente.",
-  "Msg_InconsistenciaDetectada": "Se ha detectado una inconsistencia en: {0}. Seleccione un camino.",
+  "Msg_InconsistenciaDetectada": "Se detectaron inconsistencias en los siguientes datos:\r\n\r\n{0}\r\n\r\nSeleccione un camino.",
+  "Msg_InconsistenciaSoloDVV": "se agregaron o eliminaron registros por fuera del sistema",
+  "Msg_InconsistenciaMasRegistros": "... y {0} registro(s) más sin mostrar.",
   "Msg_FuncionEnDesarrollo": "Función en desarrollo.",
   "Msg_ConfirmarCerrarSesion": "¿Está seguro que desea cerrar sesión?",
 

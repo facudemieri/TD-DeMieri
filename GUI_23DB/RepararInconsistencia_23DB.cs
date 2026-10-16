@@ -62,10 +62,26 @@ namespace GUI_23DB
 
         }
 
+        // Muestra las tablas inconsistentes con hasta 10 claves de registros adulterados por tabla.
         private void RepararInconsistencia_23DB_Load(object sender, EventArgs e)
         {
-            string tablas_23DB = string.Join(", ", inconsistencias_23DB.ConvertAll(i => i.NombreTabla_23DB));
-            string mensaje = string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_InconsistenciaDetectada"), tablas_23DB);
+            const int maxRegistros_23DB = 10;
+            StringBuilder detalle_23DB = new StringBuilder();
+            foreach(DV_23DB inconsistencia_23DB in inconsistencias_23DB)
+            {
+                List<string> registros_23DB = inconsistencia_23DB.RegistrosInconsistentes_23DB;
+                if(registros_23DB.Count == 0)
+                {
+                    detalle_23DB.AppendLine($"- {inconsistencia_23DB.NombreTabla_23DB}: {IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_InconsistenciaSoloDVV")}");
+                    continue;
+                }
+                detalle_23DB.AppendLine($"- {inconsistencia_23DB.NombreTabla_23DB}: {string.Join("; ", registros_23DB.Take(maxRegistros_23DB))}");
+                if(registros_23DB.Count > maxRegistros_23DB)
+                {
+                    detalle_23DB.AppendLine("   " + string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_InconsistenciaMasRegistros"), registros_23DB.Count - maxRegistros_23DB));
+                }
+            }
+            string mensaje = string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_InconsistenciaDetectada"), detalle_23DB.ToString().TrimEnd());
             MessageBox.Show(mensaje, IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
