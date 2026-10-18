@@ -32,9 +32,9 @@ namespace BE_23DB
             set { _fechaHoraInicio_62FD = value; }
         }
 
-        private DateTime _fechaHoraFin_62FD;
+        private DateTime? _fechaHoraFin_62FD;
 
-        public DateTime fechaHoraFin_62FD
+        public DateTime? fechaHoraFin_62FD
         {
             get { return _fechaHoraFin_62FD; }
             set { _fechaHoraFin_62FD = value; }
@@ -57,6 +57,13 @@ namespace BE_23DB
             set { idOrden_62FD = value; }
         }
 
+        private string matricula_62FD;
+
+        public string Matricula_62FD
+        {
+            get { return matricula_62FD; }
+            set { matricula_62FD = value; }
+        }
         private List<Tarea_62FD> tareas_62FD = new List<Tarea_62FD>();
 
         public List<Tarea_62FD> Tareas_62FD

@@ -58,6 +58,7 @@
     <Compile Include="PN1\ReservaBLL_62FD.cs" />
     <Compile Include="PN1\VueloBLL_62FD.cs" />
     <Compile Include="PN2\AeronaveBLL_62FD.cs" />
+    <Compile Include="PN2\CambioAeronaveBLL_62FD.cs" />
     <Compile Include="PN2\CertificacionBLL_62FD.cs" />
     <Compile Include="PN2\IntervencionBLL_62FD.cs" />
     <Compile Include="PN2\OrdenTrabajoBLL_62FD.cs" />

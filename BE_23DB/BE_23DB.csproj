@@ -55,6 +55,7 @@
     <Compile Include="PN1\ReservaDetalle_62FD.cs" />
     <Compile Include="PN1\Reserva_62FD.cs" />
     <Compile Include="PN1\Vuelo_62FD.cs" />
+    <Compile Include="PN2\AeronaveCambio_62FD.cs" />
     <Compile Include="PN2\Aeronave_62FD.cs" />
     <Compile Include="PN2\Certificacion_62FD.cs" />
     <Compile Include="PN2\Intervencion_62FD.cs" />

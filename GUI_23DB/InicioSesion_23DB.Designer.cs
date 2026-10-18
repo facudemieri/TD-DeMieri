@@ -164,7 +164,7 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "InicioSesion_23DB";
-            this.Text = "Form1";
+            this.Text = "AeroManager - Inicio de Sesión";
             this.Load += new System.EventHandler(this.InicioSesion_23DB_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

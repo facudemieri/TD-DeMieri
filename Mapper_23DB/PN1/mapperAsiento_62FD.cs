@@ -52,5 +52,53 @@ namespace Mapper_23DB
 
             return asiento_62FD;
         }
+
+        public int ObtenerProximoId_62FD()
+        {
+            DataTable tabla_62FD = acc_62FD.Leer_23DB("ObtenerProximoIdAsiento_62FD", new SqlParameter[] { });
+
+            if (tabla_62FD.Rows.Count == 0)
+            {
+                return 1;
+            }
+
+            return Convert.ToInt32(tabla_62FD.Rows[0][0]);
+        }
+
+        public int Insertar_62FD(Asiento_62FD asiento_62FD)
+        {
+            SqlParameter[] parametros_62FD = new SqlParameter[]
+            {
+                new SqlParameter("@IdAsiento", asiento_62FD.IdAsiento_62FD),
+                new SqlParameter("@NroVuelo", asiento_62FD.NroVuelo_62FD),
+                new SqlParameter("@NroAsiento", asiento_62FD.NroAsiento_62FD),
+                new SqlParameter("@Clase", asiento_62FD.Clase_62FD),
+                new SqlParameter("@EstadoAsiento", asiento_62FD.EstadoAsiento_62FD)
+            };
+
+            return acc_62FD.Escribir_23DB("InsertarAsiento_62FD", parametros_62FD);
+        }
+
+        public int Actualizar_62FD(Asiento_62FD asiento_62FD)
+        {
+            SqlParameter[] parametros_62FD = new SqlParameter[]
+            {
+                new SqlParameter("@IdAsiento", asiento_62FD.IdAsiento_62FD),
+                new SqlParameter("@Clase", asiento_62FD.Clase_62FD),
+                new SqlParameter("@EstadoAsiento", asiento_62FD.EstadoAsiento_62FD)
+            };
+
+            return acc_62FD.Escribir_23DB("ActualizarAsiento_62FD", parametros_62FD);
+        }
+
+        public int Eliminar_62FD(int idAsiento_62FD)
+        {
+            SqlParameter[] parametros_62FD = new SqlParameter[]
+            {
+                new SqlParameter("@IdAsiento", idAsiento_62FD)
+            };
+
+            return acc_62FD.Escribir_23DB("EliminarAsiento_62FD", parametros_62FD);
+        }
     }
 }

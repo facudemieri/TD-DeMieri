@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 
 namespace Services_23DB
@@ -11,6 +12,30 @@ namespace Services_23DB
 
         private const string columnaDVH_23DB = "DVH_23DB";
 
+        // Convierte un valor a texto sin depender de la configuración regional de Windows,
+        // para que el DVH y los valores de la clave den lo mismo en cualquier PC.
+        private string ConvertirATextoInvariante_23DB(object valor_23DB)
+        {
+            if(valor_23DB == null || valor_23DB == DBNull.Value)
+            {
+                return string.Empty;
+            }
+
+            // ISO 8601 con milisegundos: SQL Server lo interpreta igual con cualquier idioma de sesión
+            if(valor_23DB is DateTime)
+            {
+                return ((DateTime)valor_23DB).ToString("yyyy-MM-ddTHH:mm:ss.fff", CultureInfo.InvariantCulture);
+            }
+
+            IFormattable formateable_23DB = valor_23DB as IFormattable;
+            if(formateable_23DB != null)
+            {
+                return formateable_23DB.ToString(null, CultureInfo.InvariantCulture);
+            }
+
+            return valor_23DB.ToString();
+        }
+
         private long ConvertirANumero_23DB(object valor_23DB)
         {
             if(valor_23DB == null || valor_23DB == DBNull.Value)
@@ -18,7 +43,7 @@ namespace Services_23DB
                 return 0;
             }
 
-            string texto_23DB = valor_23DB.ToString();
+            string texto_23DB = ConvertirATextoInvariante_23DB(valor_23DB);
             long resultado_23DB = 0;
             foreach(char c_23DB in texto_23DB)
             {
@@ -70,7 +95,7 @@ namespace Services_23DB
         // Devuelve los valores de la clave de una fila como string.
         private string[] ObtenerValoresPK_23DB(DataRow fila_23DB, string[] columnasPK_23DB)
         {
-            return columnasPK_23DB.Select(c => fila_23DB[c].ToString()).ToArray();
+            return columnasPK_23DB.Select(c => ConvertirATextoInvariante_23DB(fila_23DB[c])).ToArray();
         }
 
         // Arma la descripción de una clave: "Columna=Valor" o "Col1=Valor1, Col2=Valor2".

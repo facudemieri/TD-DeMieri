@@ -75,6 +75,8 @@
     <Compile Include="Observer\IIdiomaObserver_23DB.cs" />
     <Compile Include="Observer\ISujeto_23DB.cs" />
     <Compile Include="Observer\Observer_23DB.cs" />
+    <Compile Include="Serializacion\DeserializarBLL_62FD.cs" />
+    <Compile Include="Serializacion\SerializarBLL_62FD.cs" />
     <Compile Include="Singleton\CryptoManager_23DB.cs" />
     <Compile Include="Singleton\SessionManager_23DB.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

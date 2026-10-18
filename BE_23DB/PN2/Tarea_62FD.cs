@@ -64,5 +64,12 @@ namespace BE_23DB
             get { return repuestos_62FD; }
             set { repuestos_62FD = value; }
         }
+
+        private string estadoRepuestos_62FD;
+        public string EstadoRepuestos_62FD
+        {
+            get { return estadoRepuestos_62FD; }
+            set { estadoRepuestos_62FD = value; }
+        }
     }
 }

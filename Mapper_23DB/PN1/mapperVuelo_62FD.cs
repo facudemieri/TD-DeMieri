@@ -78,5 +78,40 @@ namespace Mapper_23DB
 
             return vuelo_62FD;
         }
+
+        public int Insertar_62FD(Vuelo_62FD vuelo_62FD)
+        {
+            return acc_62FD.Escribir_23DB("InsertarVuelo_62FD", ArmarParametros_62FD(vuelo_62FD));
+        }
+
+        public int Actualizar_62FD(Vuelo_62FD vuelo_62FD)
+        {
+            return acc_62FD.Escribir_23DB("ActualizarVuelo_62FD", ArmarParametros_62FD(vuelo_62FD));
+        }
+
+        private SqlParameter[] ArmarParametros_62FD(Vuelo_62FD vuelo_62FD)
+        {
+            return new SqlParameter[]
+            {
+                new SqlParameter("@NroVuelo", vuelo_62FD.NroVuelo_62FD),
+                new SqlParameter("@Origen", vuelo_62FD.Origen_62FD),
+                new SqlParameter("@Destino", vuelo_62FD.Destino_62FD),
+                new SqlParameter("@FechaHoraSalida", vuelo_62FD.FechaHoraSalida_62FD),
+                new SqlParameter("@Matricula", vuelo_62FD.Matricula_62FD),
+                new SqlParameter("@Precio", vuelo_62FD.Precio_62FD),
+                new SqlParameter("@EstadoVuelo", vuelo_62FD.EstadoVuelo_62FD)
+            };
+        }
+
+        public int ActualizarEstado_62FD(string nroVuelo_62FD, string estadoVuelo_62FD)
+        {
+            SqlParameter[] parametros_62FD = new SqlParameter[]
+            {
+                new SqlParameter("@NroVuelo", nroVuelo_62FD),
+                new SqlParameter("@EstadoVuelo", estadoVuelo_62FD)
+            };
+
+            return acc_62FD.Escribir_23DB("ActualizarEstadoVuelo_62FD", parametros_62FD);
+        }
     }
 }

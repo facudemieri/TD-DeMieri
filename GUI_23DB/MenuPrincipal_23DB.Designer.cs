@@ -40,7 +40,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.btnMantenimiento = new System.Windows.Forms.Button();
-            this.btnReporte = new System.Windows.Forms.Button();
+            this.btnMaestros = new System.Windows.Forms.Button();
             this.btnAdmin = new System.Windows.Forms.Button();
             this.btnAeronaves = new System.Windows.Forms.Button();
             this.btnPasaje = new System.Windows.Forms.Button();
@@ -66,6 +66,13 @@
             this.cmsPasajes = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.vuelosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reservasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsMaestros = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.maestroAeronavesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.maestroVuelosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsAeronaves = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.generarOrdenDeTrabajoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrarIntervenciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.certificarIntervenciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.panel1.SuspendLayout();
@@ -76,6 +83,8 @@
             this.cmsUsuario.SuspendLayout();
             this.cmsAdmin.SuspendLayout();
             this.cmsPasajes.SuspendLayout();
+            this.cmsMaestros.SuspendLayout();
+            this.cmsAeronaves.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnGenerarReporteDash
@@ -165,18 +174,18 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(227, 468);
+            this.panel1.Size = new System.Drawing.Size(227, 493);
             this.panel1.TabIndex = 9;
             // 
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.SteelBlue;
             this.panel6.Controls.Add(this.btnMantenimiento);
-            this.panel6.Controls.Add(this.btnReporte);
+            this.panel6.Controls.Add(this.btnMaestros);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel6.Location = new System.Drawing.Point(15, 285);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(200, 138);
+            this.panel6.Size = new System.Drawing.Size(200, 163);
             this.panel6.TabIndex = 21;
             // 
             // btnMantenimiento
@@ -195,21 +204,21 @@
             this.btnMantenimiento.UseVisualStyleBackColor = false;
             this.btnMantenimiento.Click += new System.EventHandler(this.btnMantenimiento_Click);
             // 
-            // btnReporte
+            // btnMaestros
             // 
-            this.btnReporte.BackColor = System.Drawing.Color.SteelBlue;
-            this.btnReporte.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnReporte.FlatAppearance.BorderSize = 0;
-            this.btnReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReporte.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReporte.ForeColor = System.Drawing.Color.White;
-            this.btnReporte.Location = new System.Drawing.Point(0, 0);
-            this.btnReporte.Name = "btnReporte";
-            this.btnReporte.Size = new System.Drawing.Size(200, 45);
-            this.btnReporte.TabIndex = 15;
-            this.btnReporte.Text = "Reportes";
-            this.btnReporte.UseVisualStyleBackColor = false;
-            this.btnReporte.Click += new System.EventHandler(this.btnReporte_Click);
+            this.btnMaestros.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnMaestros.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnMaestros.FlatAppearance.BorderSize = 0;
+            this.btnMaestros.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMaestros.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMaestros.ForeColor = System.Drawing.Color.White;
+            this.btnMaestros.Location = new System.Drawing.Point(0, 0);
+            this.btnMaestros.Name = "btnMaestros";
+            this.btnMaestros.Size = new System.Drawing.Size(200, 45);
+            this.btnMaestros.TabIndex = 15;
+            this.btnMaestros.Text = "Maestros";
+            this.btnMaestros.UseVisualStyleBackColor = false;
+            this.btnMaestros.Click += new System.EventHandler(this.btnReporte_Click);
             // 
             // btnAdmin
             // 
@@ -239,7 +248,7 @@
             this.btnAeronaves.Name = "btnAeronaves";
             this.btnAeronaves.Size = new System.Drawing.Size(200, 45);
             this.btnAeronaves.TabIndex = 16;
-            this.btnAeronaves.Text = "Aeronaves";
+            this.btnAeronaves.Text = "Mantenimiento de Aeronaves";
             this.btnAeronaves.UseVisualStyleBackColor = false;
             this.btnAeronaves.Click += new System.EventHandler(this.btnAdmin_Click);
             // 
@@ -255,7 +264,7 @@
             this.btnPasaje.Name = "btnPasaje";
             this.btnPasaje.Size = new System.Drawing.Size(200, 50);
             this.btnPasaje.TabIndex = 15;
-            this.btnPasaje.Text = "Pasajes";
+            this.btnPasaje.Text = "Venta de Pasajes";
             this.btnPasaje.UseVisualStyleBackColor = false;
             this.btnPasaje.Click += new System.EventHandler(this.btnReportes_Click);
             // 
@@ -281,7 +290,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel5.Location = new System.Drawing.Point(215, 100);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(12, 323);
+            this.panel5.Size = new System.Drawing.Size(12, 348);
             this.panel5.TabIndex = 12;
             // 
             // panel4
@@ -290,7 +299,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel4.Location = new System.Drawing.Point(0, 100);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(15, 323);
+            this.panel4.Size = new System.Drawing.Size(15, 348);
             this.panel4.TabIndex = 11;
             // 
             // pictureBox2
@@ -311,7 +320,7 @@
             this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalir.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSalir.ForeColor = System.Drawing.Color.White;
-            this.btnSalir.Location = new System.Drawing.Point(0, 423);
+            this.btnSalir.Location = new System.Drawing.Point(0, 448);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(227, 45);
             this.btnSalir.TabIndex = 10;
@@ -459,11 +468,64 @@
             this.reservasToolStripMenuItem.Text = "Generar Pasaje";
             this.reservasToolStripMenuItem.Click += new System.EventHandler(this.reservasToolStripMenuItem_Click);
             // 
+            // cmsMaestros
+            // 
+            this.cmsMaestros.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.maestroAeronavesToolStripMenuItem,
+            this.maestroVuelosToolStripMenuItem});
+            this.cmsMaestros.Name = "cmsMaestros";
+            this.cmsMaestros.Size = new System.Drawing.Size(184, 70);
+            // 
+            // maestroAeronavesToolStripMenuItem
+            // 
+            this.maestroAeronavesToolStripMenuItem.Name = "maestroAeronavesToolStripMenuItem";
+            this.maestroAeronavesToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.maestroAeronavesToolStripMenuItem.Text = "Maestro - Aeronaves";
+            this.maestroAeronavesToolStripMenuItem.Click += new System.EventHandler(this.maestroAeronavesToolStripMenuItem_Click);
+            // 
+            // maestroVuelosToolStripMenuItem
+            // 
+            this.maestroVuelosToolStripMenuItem.Name = "maestroVuelosToolStripMenuItem";
+            this.maestroVuelosToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.maestroVuelosToolStripMenuItem.Text = "Maestro - Vuelos";
+            this.maestroVuelosToolStripMenuItem.Click += new System.EventHandler(this.maestroVuelosToolStripMenuItem_Click);
+            // 
+            // cmsAeronaves
+            // 
+            this.cmsAeronaves.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.generarOrdenDeTrabajoToolStripMenuItem,
+            this.registrarIntervenciónToolStripMenuItem,
+            this.certificarIntervenciónToolStripMenuItem});
+            this.cmsAeronaves.Name = "cmsAeronaves";
+            this.cmsAeronaves.Size = new System.Drawing.Size(210, 70);
+            this.cmsAeronaves.Opening += new System.ComponentModel.CancelEventHandler(this.cmsAeronaves_Opening);
+            // 
+            // generarOrdenDeTrabajoToolStripMenuItem
+            // 
+            this.generarOrdenDeTrabajoToolStripMenuItem.Name = "generarOrdenDeTrabajoToolStripMenuItem";
+            this.generarOrdenDeTrabajoToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.generarOrdenDeTrabajoToolStripMenuItem.Text = "Generar Orden de Trabajo";
+            this.generarOrdenDeTrabajoToolStripMenuItem.Click += new System.EventHandler(this.generarOrdenDeTrabajoToolStripMenuItem_Click);
+            // 
+            // registrarIntervenciónToolStripMenuItem
+            // 
+            this.registrarIntervenciónToolStripMenuItem.Name = "registrarIntervenciónToolStripMenuItem";
+            this.registrarIntervenciónToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.registrarIntervenciónToolStripMenuItem.Text = "Registrar Intervención";
+            this.registrarIntervenciónToolStripMenuItem.Click += new System.EventHandler(this.registrarIntervenciónToolStripMenuItem_Click);
+            // 
+            // certificarIntervenciónToolStripMenuItem
+            // 
+            this.certificarIntervenciónToolStripMenuItem.Name = "certificarIntervenciónToolStripMenuItem";
+            this.certificarIntervenciónToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.certificarIntervenciónToolStripMenuItem.Text = "Certificar Intervención";
+            this.certificarIntervenciónToolStripMenuItem.Click += new System.EventHandler(this.certificarIntervenciónToolStripMenuItem_Click);
+            // 
             // MenuPrincipal_23DB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(916, 468);
+            this.ClientSize = new System.Drawing.Size(916, 493);
             this.ControlBox = false;
             this.Controls.Add(this.btnGenerarReporteDash);
             this.Controls.Add(this.cmbReporteDASH);
@@ -487,6 +549,8 @@
             this.cmsUsuario.ResumeLayout(false);
             this.cmsAdmin.ResumeLayout(false);
             this.cmsPasajes.ResumeLayout(false);
+            this.cmsMaestros.ResumeLayout(false);
+            this.cmsAeronaves.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -525,10 +589,17 @@
         private System.Windows.Forms.ToolStripMenuItem administradorDeRolesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem administradorDePerfilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gestionDeRespaldosToolStripMenuItem;
-        private System.Windows.Forms.Button btnReporte;
+        private System.Windows.Forms.Button btnMaestros;
         private System.Windows.Forms.Button btnMantenimiento;
         private System.Windows.Forms.ContextMenuStrip cmsPasajes;
         private System.Windows.Forms.ToolStripMenuItem vuelosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reservasToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip cmsMaestros;
+        private System.Windows.Forms.ToolStripMenuItem maestroAeronavesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem maestroVuelosToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip cmsAeronaves;
+        private System.Windows.Forms.ToolStripMenuItem generarOrdenDeTrabajoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registrarIntervenciónToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem certificarIntervenciónToolStripMenuItem;
     }
 }

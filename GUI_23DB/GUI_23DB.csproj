@@ -60,6 +60,12 @@
     <Compile Include="AdministradorRoles_23DB.Designer.cs">
       <DependentUpon>AdministradorRoles_23DB.cs</DependentUpon>
     </Compile>
+    <Compile Include="AuditoriaDeCambios_62FD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AuditoriaDeCambios_62FD.Designer.cs">
+      <DependentUpon>AuditoriaDeCambios_62FD.cs</DependentUpon>
+    </Compile>
     <Compile Include="AuditoriaEventos_23DB.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,11 +84,23 @@
     <Compile Include="CambiarIdioma_23DB.Designer.cs">
       <DependentUpon>CambiarIdioma_23DB.cs</DependentUpon>
     </Compile>
+    <Compile Include="CertificarIntervencion_62FD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CertificarIntervencion_62FD.Designer.cs">
+      <DependentUpon>CertificarIntervencion_62FD.cs</DependentUpon>
+    </Compile>
     <Compile Include="CrearFamilias_23DB.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CrearFamilias_23DB.Designer.cs">
       <DependentUpon>CrearFamilias_23DB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenerarOrdenTrabajo_62FD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerarOrdenTrabajo_62FD.Designer.cs">
+      <DependentUpon>GenerarOrdenTrabajo_62FD.cs</DependentUpon>
     </Compile>
     <Compile Include="GenerarPasaje_62FD.cs">
       <SubType>Form</SubType>
@@ -114,14 +132,44 @@
     <Compile Include="InicioSesion_23DB.Designer.cs">
       <DependentUpon>InicioSesion_23DB.cs</DependentUpon>
     </Compile>
+    <Compile Include="MaestroAeronaves_62FD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MaestroAeronaves_62FD.Designer.cs">
+      <DependentUpon>MaestroAeronaves_62FD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MaestroVuelos_62FD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MaestroVuelos_62FD.Designer.cs">
+      <DependentUpon>MaestroVuelos_62FD.cs</DependentUpon>
+    </Compile>
     <Compile Include="MenuPrincipal_23DB.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MenuPrincipal_23DB.Designer.cs">
       <DependentUpon>MenuPrincipal_23DB.cs</DependentUpon>
     </Compile>
+    <Compile Include="RegistrarIntervencion_62FD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistrarIntervencion_62FD.Designer.cs">
+      <DependentUpon>RegistrarIntervencion_62FD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SeleccionarAeronave_62FD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeleccionarAeronave_62FD.Designer.cs">
+      <DependentUpon>SeleccionarAeronave_62FD.cs</DependentUpon>
+    </Compile>
     <Compile Include="SeleccionarVuelo_62FD.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SolicitarRepuesto_62FD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SolicitarRepuesto_62FD.Designer.cs">
+      <DependentUpon>SolicitarRepuesto_62FD.cs</DependentUpon>
     </Compile>
     <Compile Include="Traductor_23DB.cs" />
     <Compile Include="SeleccionarVuelo_62FD.Designer.cs">
@@ -144,6 +192,9 @@
     <EmbeddedResource Include="AdministradorRoles_23DB.resx">
       <DependentUpon>AdministradorRoles_23DB.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AuditoriaDeCambios_62FD.resx">
+      <DependentUpon>AuditoriaDeCambios_62FD.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AuditoriaEventos_23DB.resx">
       <DependentUpon>AuditoriaEventos_23DB.cs</DependentUpon>
     </EmbeddedResource>
@@ -153,8 +204,14 @@
     <EmbeddedResource Include="CambiarIdioma_23DB.resx">
       <DependentUpon>CambiarIdioma_23DB.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CertificarIntervencion_62FD.resx">
+      <DependentUpon>CertificarIntervencion_62FD.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CrearFamilias_23DB.resx">
       <DependentUpon>CrearFamilias_23DB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerarOrdenTrabajo_62FD.resx">
+      <DependentUpon>GenerarOrdenTrabajo_62FD.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenerarPasaje_62FD.resx">
       <DependentUpon>GenerarPasaje_62FD.cs</DependentUpon>
@@ -171,8 +228,20 @@
     <EmbeddedResource Include="InicioSesion_23DB.resx">
       <DependentUpon>InicioSesion_23DB.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MaestroAeronaves_62FD.resx">
+      <DependentUpon>MaestroAeronaves_62FD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MaestroVuelos_62FD.resx">
+      <DependentUpon>MaestroVuelos_62FD.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MenuPrincipal_23DB.resx">
       <DependentUpon>MenuPrincipal_23DB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegistrarIntervencion_62FD.resx">
+      <DependentUpon>RegistrarIntervencion_62FD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeleccionarAeronave_62FD.resx">
+      <DependentUpon>SeleccionarAeronave_62FD.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SeleccionarVuelo_62FD.resx">
       <DependentUpon>SeleccionarVuelo_62FD.cs</DependentUpon>
@@ -191,6 +260,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RepararInconsistencia_23DB.resx">
       <DependentUpon>RepararInconsistencia_23DB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SolicitarRepuesto_62FD.resx">
+      <DependentUpon>SolicitarRepuesto_62FD.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Idiomas\español.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

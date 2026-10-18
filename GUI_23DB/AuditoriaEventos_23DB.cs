@@ -38,6 +38,7 @@ namespace GUI_23DB
             cmbModulo.Items.Add("Usuarios");
             cmbModulo.Items.Add("Administrador");
             cmbModulo.Items.Add("Pasajes");
+            cmbModulo.Items.Add("Mantenimiento");
             cmbModulo.SelectedIndex = -1;
         }
 
@@ -65,6 +66,11 @@ namespace GUI_23DB
             cmbEvento.Items.Add("Generar Reserva");
             cmbEvento.Items.Add("Registrar Pasajero");
             cmbEvento.Items.Add("Generar Pasaje");
+            cmbEvento.Items.Add("Generar Orden de Trabajo");
+            cmbEvento.Items.Add("Registrar Intervención");
+            cmbEvento.Items.Add("Solicitar Repuestos");
+            cmbEvento.Items.Add("Registrar Recepción de Repuestos");
+            cmbEvento.Items.Add("Certificar Intervención");
             cmbEvento.SelectedIndex = -1;
         }
 

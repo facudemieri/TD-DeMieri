@@ -1,5 +1,6 @@
 ﻿using BE_23DB;
 using Mapper_23DB;
+using Services_23DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace BLL_23DB
     public class VueloBLL_62FD
     {
         mapperVuelo_62FD mapperVuelo_62FD = new mapperVuelo_62FD();
+        mapperAeronave_62FD mapperAeronave_62FD = new mapperAeronave_62FD();
+        DVBLL_23DB dvBLL_23DB = new DVBLL_23DB();
 
         public List<Vuelo_62FD> BuscarVuelos_62FD(string origen_62FD, string destino_62FD, DateTime fechaPartida_62FD, int cantidadPasajeros_62FD)
         {
@@ -119,6 +122,71 @@ namespace BLL_23DB
             }
 
             return resultado_62FD;
+        }
+
+        public List<Vuelo_62FD> ObtenerVuelosMaestro_62FD()
+        {
+            return mapperVuelo_62FD.ObtenerTodosLosVuelos_62FD();
+        }
+
+        public bool ExisteAeronave_62FD(string matricula_62FD)
+        {
+            return mapperAeronave_62FD.ObtenerTodas_62FD().Exists(a_62FD => a_62FD.Matricula_62FD == matricula_62FD && a_62FD.Activo_62FD);
+        }
+
+        public int CrearVuelo_62FD(Vuelo_62FD vuelo_62FD)
+        {
+            if (!ExisteAeronave_62FD(vuelo_62FD.Matricula_62FD))
+            {
+                return -2;
+            }
+
+            vuelo_62FD.EstadoVuelo_62FD = "Programado";
+
+            int filas_62FD = mapperVuelo_62FD.Insertar_62FD(vuelo_62FD);
+
+            if (filas_62FD == 0)
+            {
+                return 0;
+            }
+
+            if (filas_62FD != 1)
+            {
+                return -1;
+            }
+
+            dvBLL_23DB.RecalcularDVTabla_23DB("Vuelo_62FD");
+
+            return 1;
+        }
+
+        public int ModificarVuelo_62FD(Vuelo_62FD vuelo_62FD)
+        {
+            if (!ExisteAeronave_62FD(vuelo_62FD.Matricula_62FD))
+            {
+                return -2;
+            }
+
+            if (mapperVuelo_62FD.Actualizar_62FD(vuelo_62FD) != 1)
+            {
+                return -1;
+            }
+
+            dvBLL_23DB.RecalcularDVTabla_23DB("Vuelo_62FD");
+
+            return 1;
+        }
+
+        public bool CancelarVuelo_62FD(string nroVuelo_62FD)
+        {
+            if (mapperVuelo_62FD.ActualizarEstado_62FD(nroVuelo_62FD, "Cancelado") != 1)
+            {
+                return false;
+            }
+
+            dvBLL_23DB.RecalcularDVTabla_23DB("Vuelo_62FD");
+
+            return true;
         }
     }
 }

@@ -56,6 +56,15 @@ namespace BE_23DB
             set { _fechaSolicitud_62FD = value; }
         }
 
+        private DateTime? _fechaRecepcion_62FD;
+
+        public DateTime? fechaRecepcion_62FD
+        {
+            get { return _fechaRecepcion_62FD; }
+            set { _fechaRecepcion_62FD = value; }
+        }
+
+
         // asociaciones del diagrama conceptual
         private int idTarea_62FD;
 

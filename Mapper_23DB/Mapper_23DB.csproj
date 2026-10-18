@@ -55,6 +55,7 @@
     <Compile Include="PN1\mapperPasaje_62FD.cs" />
     <Compile Include="PN1\mapperReserva_62FD.cs" />
     <Compile Include="PN1\mapperVuelo_62FD.cs" />
+    <Compile Include="PN2\mapperAeronaveCambio_62FD.cs" />
     <Compile Include="PN2\mapperAeronave_62FD.cs" />
     <Compile Include="PN2\mapperCertificacion_62FD.cs" />
     <Compile Include="PN2\mapperIntervencion_62FD.cs" />

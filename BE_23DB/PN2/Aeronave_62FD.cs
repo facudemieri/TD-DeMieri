@@ -71,5 +71,13 @@ namespace BE_23DB
             get { return fechaProximaRevision_62FD; }
             set { fechaProximaRevision_62FD = value; }
         }
+
+        private bool activo_62FD;
+
+        public bool Activo_62FD
+        {
+            get { return activo_62FD; }
+            set { activo_62FD = value; }
+        }
     }
 }
