@@ -17,6 +17,7 @@ namespace GUI_23DB
         public MenuPrincipal_23DB(List<string> patentes_23DB)
         {
             InitializeComponent();
+            cmbReporteDASH.DropDownStyle = ComboBoxStyle.DropDownList;
             CargarDatosSesion_23DB();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
@@ -57,6 +58,16 @@ namespace GUI_23DB
             certificarIntervenciónToolStripMenuItem.Visible = certificarIntervencion_62FD;
 
             btnAeronaves.Visible = generarOrden_62FD || registrarIntervencion_62FD || certificarIntervencion_62FD;
+
+            bool verComprobantes_62FD = patentes_23DB.Contains("Reporte de Comprobantes");
+            bool verCertificados_62FD = patentes_23DB.Contains("Reporte de Certificados");
+            bool verAnalitica_62FD = patentes_23DB.Contains("Reporte de Analitica");
+
+            comprobantesDePasajeToolStripMenuItem.Visible = verComprobantes_62FD;
+            certificadosDeIntervenciónToolStripMenuItem.Visible = verCertificados_62FD;
+            analíticaDeMantenimientoToolStripMenuItem.Visible = verAnalitica_62FD;
+
+            btnReportes.Visible = verComprobantes_62FD || verCertificados_62FD || verAnalitica_62FD;
         }
 
         private EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
@@ -176,19 +187,19 @@ namespace GUI_23DB
         private void administradorPerfilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CrearFamilias_23DB crearFamilias_23DB = new CrearFamilias_23DB();
-            crearFamilias_23DB.Show();
+            crearFamilias_23DB.ShowDialog();
         }
 
         private void administradorRToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AdministradorRoles_23DB administrador = new AdministradorRoles_23DB();
-            administrador.Show();
+            administrador.ShowDialog();
         }
 
         public void ActualizarIdioma_23DB(Dictionary<string, string> configuracion_23DB)
         {
-            Traductor_23DB.AplicarIdioma_23DB(this, configuracion_23DB, cmsUsuario, cmsAdmin, cmsPasajes, cmsMaestros, cmsAeronaves);
-            CargarDatosSesion_23DB(); // lblLoginMp y lblRol llevan datos de la sesión, los arma el formulario
+            Traductor_23DB.AplicarIdioma_23DB(this, configuracion_23DB, cmsUsuario, cmsAdmin, cmsPasajes, cmsMaestros, cmsAeronaves, cmsReportes);
+            CargarDatosSesion_23DB(); 
         }
 
         private void MenuPrincipal_23DB_FormClosing(object sender, FormClosingEventArgs e)
@@ -211,24 +222,25 @@ namespace GUI_23DB
         private void administradorDeRolesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AdministradorRoles_23DB administradorRoles_23DB = new AdministradorRoles_23DB();
-            administradorRoles_23DB.Show();
+            administradorRoles_23DB.ShowDialog();
         }
 
         private void administradorDePerfilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CrearFamilias_23DB crearFamilias_23DB = new CrearFamilias_23DB();
-            crearFamilias_23DB.Show();
+            crearFamilias_23DB.ShowDialog();
         }
 
         private void gestionDeRespaldosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GestionRespaldo_23DB gestionRespaldo_23DB = new GestionRespaldo_23DB();
-            gestionRespaldo_23DB.Show();
+            gestionRespaldo_23DB.ShowDialog();
         }
 
-        private void btnMantenimiento_Click(object sender, EventArgs e) //AYUDA
+        private void btnMantenimiento_Click(object sender, EventArgs e) //REPORTES
         {
-            MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FuncionEnDesarrollo"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+            cmsReportes.Show(btnReportes, new System.Drawing.Point(btnReportes.Width, 0));
+
         }
 
         private void btnReporte_Click(object sender, EventArgs e)
@@ -239,13 +251,13 @@ namespace GUI_23DB
         private void reservasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GenerarPasaje_62FD generarPasaje_62FD = new GenerarPasaje_62FD();
-            generarPasaje_62FD.Show();
+            generarPasaje_62FD.ShowDialog();
         }
 
         private void vuelosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             GenerarReserva_62FD generarReserva_62FD = new GenerarReserva_62FD();
-            generarReserva_62FD.Show();
+            generarReserva_62FD.ShowDialog();
         }
 
         private void generarOrdenDeTrabajoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -274,13 +286,31 @@ namespace GUI_23DB
         private void maestroAeronavesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MaestroAeronaves_62FD maestroAeronaves_62FD = new MaestroAeronaves_62FD();
-            maestroAeronaves_62FD.Show();
+            maestroAeronaves_62FD.ShowDialog();
         }
 
         private void maestroVuelosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MaestroVuelos_62FD maestroVuelos_62FD = new MaestroVuelos_62FD();
-            maestroVuelos_62FD.Show();
+            maestroVuelos_62FD.ShowDialog();
+        }
+
+        private void comprobantesDePasajeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ComprobantePasajes_62FD formulario_62FD = new ComprobantePasajes_62FD();
+            formulario_62FD.ShowDialog();
+        }
+
+        private void certificadosDeIntervenciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CertificadosIntervencion_62FD formulario_62FD = new CertificadosIntervencion_62FD();
+            formulario_62FD.ShowDialog();
+        }
+
+        private void analíticaDeMantenimientoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AnaliticaMantenimiento_62FD formulario_62FD = new AnaliticaMantenimiento_62FD();
+            formulario_62FD.ShowDialog();
         }
     }
 }

@@ -52,5 +52,40 @@ namespace BLL_23DB
         {
             return mapperRepuesto_62FD.ObtenerNombres_62FD();
         }
+
+        public List<Repuesto_62FD> ObtenerTodos_62FD()
+        {
+            return mapperRepuesto_62FD.ObtenerTodos_62FD();
+        }
+
+        public const decimal SinDatos_62FD = -1;
+
+        public decimal ObtenerPromedioDiasReposicion_62FD()
+        {
+            List<Repuesto_62FD> lista_62FD = mapperRepuesto_62FD.ObtenerTodos_62FD();
+            decimal totalDias_62FD = 0;
+            int cantidad_62FD = 0;
+
+            foreach (Repuesto_62FD repuesto_62FD in lista_62FD)
+            {
+                if (repuesto_62FD.fechaRecepcion_62FD != null)
+                {
+                    TimeSpan diferencia_62FD = repuesto_62FD.fechaRecepcion_62FD.Value.Date - repuesto_62FD.fechaSolicitud_62FD.Date;
+
+                    if (diferencia_62FD.Days >= 0)
+                    {
+                        totalDias_62FD += diferencia_62FD.Days;
+                        cantidad_62FD++;
+                    }
+                }
+            }
+
+            if (cantidad_62FD == 0)
+            {
+                return SinDatos_62FD;
+            }
+
+            return Math.Round(totalDias_62FD / cantidad_62FD, 1);
+        }
     }
 }

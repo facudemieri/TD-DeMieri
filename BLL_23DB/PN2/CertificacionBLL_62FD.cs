@@ -83,5 +83,10 @@ namespace BLL_23DB
             dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD_C");
             return certificacion_62FD.IdIntervencion_62FD;
         }
+
+        public List<Certificacion_62FD> ObtenerCertificacionesEmitidas_62FD()
+        {
+            return mapperCertificacion_62FD.ObtenerCertificacionesEmitidas_62FD();
+        }
     }
 }

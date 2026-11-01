@@ -19,9 +19,25 @@ namespace GUI_23DB
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+
+
+            cmbLogin.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbCriticidad.DropDownStyle = ComboBoxStyle.DropDownList;
+
+
+            txtNombre.MaxLength = 50;
+            txtApellido.MaxLength = 50;
+
+            ConfigurarGrilla_62FD(dgvBitacoraEventos);
+            dgvBitacoraEventos.Paint += Grilla_Paint_62FD;
+            dgvBitacoraEventos.ColumnHeaderMouseClick += dgvBitacoraEventos_ColumnHeaderMouseClick;
+            this.Shown += (s_62FD, e_62FD) => LimpiarSeleccionGrilla_62FD(dgvBitacoraEventos);
         }
 
         private EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
+        private List<Evento_23DB> listaEventos_23DB = new List<Evento_23DB>();
+        private string columnaOrden_23DB = null;
+        private bool ordenAscendente_23DB = true;
 
         private void CargarLogins_23DB()
         {
@@ -39,6 +55,7 @@ namespace GUI_23DB
             cmbModulo.Items.Add("Administrador");
             cmbModulo.Items.Add("Pasajes");
             cmbModulo.Items.Add("Mantenimiento");
+            cmbModulo.Items.Add("Maestros");
             cmbModulo.SelectedIndex = -1;
         }
 
@@ -71,6 +88,19 @@ namespace GUI_23DB
             cmbEvento.Items.Add("Solicitar Repuestos");
             cmbEvento.Items.Add("Registrar Recepción de Repuestos");
             cmbEvento.Items.Add("Certificar Intervención");
+            cmbEvento.Items.Add("Crear Aeronave");
+            cmbEvento.Items.Add("Modificar Aeronave");
+            cmbEvento.Items.Add("Dar de Baja Aeronave");
+            cmbEvento.Items.Add("Reactivar Aeronave");
+            cmbEvento.Items.Add("Crear Vuelo");
+            cmbEvento.Items.Add("Modificar Vuelo");
+            cmbEvento.Items.Add("Cancelar Vuelo");
+            cmbEvento.Items.Add("Agregar Asiento");
+            cmbEvento.Items.Add("Modificar Asiento");
+            cmbEvento.Items.Add("Eliminar Asiento");
+            cmbEvento.Items.Add("Serializar Vuelos");
+            cmbEvento.Items.Add("Deserializar Vuelos");
+            cmbEvento.Items.Add("Activar Cambio Aeronave");
             cmbEvento.SelectedIndex = -1;
         }
 
@@ -87,8 +117,69 @@ namespace GUI_23DB
         private void CargarGrilla_23DB()
         {
             List<Evento_23DB> lista_23DB = eventoBLL_23DB.ObtenerEventos_23DB();
-            dgvBitacoraEventos.DataSource = lista_23DB;
-            Traductor_23DB.TraducirGrilla_23DB(dgvBitacoraEventos, "AuditoriaEventos"); // las columnas autogeneradas se recrean en cada carga
+            EnlazarGrilla_23DB(lista_23DB);
+        }
+
+        private void EnlazarGrilla_23DB(List<Evento_23DB> lista_23DB)
+        {
+            listaEventos_23DB = lista_23DB;
+            columnaOrden_23DB = null;
+
+            dgvBitacoraEventos.DataSource = null;
+            dgvBitacoraEventos.DataSource = listaEventos_23DB;
+            Traductor_23DB.TraducirGrilla_23DB(dgvBitacoraEventos, "AuditoriaEventos");
+            ConfigurarColumnas_23DB();
+            LimpiarSeleccionGrilla_62FD(dgvBitacoraEventos);
+        }
+
+        private void ConfigurarColumnas_23DB()
+        {
+            foreach (DataGridViewColumn columna_23DB in dgvBitacoraEventos.Columns)
+            {
+                columna_23DB.SortMode = DataGridViewColumnSortMode.Programmatic;
+                columna_23DB.MinimumWidth = 60;
+
+                switch (columna_23DB.DataPropertyName)
+                {
+                    case "Id_Evento_23DB":
+                        columna_23DB.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                        columna_23DB.FillWeight = 50;
+                        break;
+                    case "DNI_23DB":
+                        columna_23DB.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                        columna_23DB.FillWeight = 70;
+                        break;
+                    case "Fecha_23DB":
+                        columna_23DB.DefaultCellStyle.Format = "dd/MM/yyyy";
+                        columna_23DB.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                        columna_23DB.FillWeight = 70;
+                        break;
+                    case "Hora_23DB":
+                        columna_23DB.DefaultCellStyle.Format = @"hh\:mm\:ss";
+                        columna_23DB.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                        columna_23DB.FillWeight = 60;
+                        break;
+                    case "Evento23DB":
+                        columna_23DB.FillWeight = 180;
+                        break;
+                    case "Criticidad_23DB":
+                        columna_23DB.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                        columna_23DB.FillWeight = 60;
+                        break;
+                }
+            }
+        }
+
+        private void dgvBitacoraEventos_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            string propiedad_23DB = dgvBitacoraEventos.Columns[e.ColumnIndex].DataPropertyName;
+            bool ascendente_23DB = columnaOrden_23DB == propiedad_23DB ? !ordenAscendente_23DB : true;
+
+            EnlazarGrilla_23DB(Ordenar_62FD(listaEventos_23DB, propiedad_23DB, ascendente_23DB));
+            columnaOrden_23DB = propiedad_23DB;
+            ordenAscendente_23DB = ascendente_23DB;
+
+            dgvBitacoraEventos.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = ascendente_23DB ? SortOrder.Ascending : SortOrder.Descending;
         }
 
 
@@ -167,7 +258,8 @@ namespace GUI_23DB
 
         private void btnAplicar_Click(object sender, EventArgs e)
         {
-            if(dtpFechaInicio.Value > dtpFechaFin.Value)
+
+            if(dtpFechaInicio.Value.Date > dtpFechaFin.Value.Date)
             {
                 MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FechaInicioMayorFin"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -186,8 +278,7 @@ namespace GUI_23DB
 
             List<Evento_23DB> lista_23DB = eventoBLL_23DB.FiltrarEventos_23DB(dni_23DB, dtpFechaInicio.Value.Date, dtpFechaFin.Value.Date, modulo_23DB, evento_23DB, criticidad_23DB);
 
-            dgvBitacoraEventos.DataSource = lista_23DB;
-            Traductor_23DB.TraducirGrilla_23DB(dgvBitacoraEventos, "AuditoriaEventos"); // las columnas autogeneradas se recrean en cada carga
+            EnlazarGrilla_23DB(lista_23DB);
 
             if(lista_23DB.Count == 0)
             { 
@@ -268,6 +359,79 @@ namespace GUI_23DB
                 IdiomaBLL_23DB idiomaBLL_23DB = new IdiomaBLL_23DB();
                 ActualizarIdioma_23DB(idiomaBLL_23DB.CargarConfiguracion_23DB(idiomaActual_23DB));
             }
+        }
+
+        private List<T> Ordenar_62FD<T>(List<T> lista_62FD, string propiedad_62FD, bool ascendente_62FD)
+        {
+            System.Reflection.PropertyInfo prop_62FD = typeof(T).GetProperty(propiedad_62FD);
+            if (prop_62FD == null) return lista_62FD;
+            return ascendente_62FD
+                ? lista_62FD.OrderBy(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList()
+                : lista_62FD.OrderByDescending(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList();
+        }
+
+        private void ConfigurarGrilla_62FD(DataGridView grilla_62FD)
+        {
+            // Comportamiento
+            grilla_62FD.ReadOnly = true;
+            grilla_62FD.AllowUserToAddRows = false;
+            grilla_62FD.AllowUserToDeleteRows = false;
+            grilla_62FD.AllowUserToResizeRows = false;
+            grilla_62FD.AllowUserToOrderColumns = false;
+            grilla_62FD.MultiSelect = false;
+            grilla_62FD.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            grilla_62FD.StandardTab = true;
+            grilla_62FD.RowHeadersVisible = false;
+            grilla_62FD.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            // Aspecto general
+            grilla_62FD.BackgroundColor = Color.White;
+            grilla_62FD.BorderStyle = BorderStyle.None;
+            grilla_62FD.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            grilla_62FD.GridColor = Color.FromArgb(220, 220, 220);
+            grilla_62FD.RowTemplate.Height = 26;
+
+            // Encabezados (mismo azul que el certificado PDF)
+            grilla_62FD.EnableHeadersVisualStyles = false;
+            grilla_62FD.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            grilla_62FD.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            grilla_62FD.ColumnHeadersHeight = 32;
+            grilla_62FD.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(31, 78, 121);
+            grilla_62FD.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            grilla_62FD.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(31, 78, 121);
+            grilla_62FD.ColumnHeadersDefaultCellStyle.Font = new Font(grilla_62FD.Font, FontStyle.Bold);
+            grilla_62FD.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
+
+            // Filas
+            grilla_62FD.DefaultCellStyle.Padding = new Padding(4, 0, 4, 0);
+            grilla_62FD.DefaultCellStyle.SelectionBackColor = Color.FromArgb(204, 224, 245);
+            grilla_62FD.DefaultCellStyle.SelectionForeColor = Color.Black;
+            grilla_62FD.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(242, 246, 250);
+
+            foreach (DataGridViewColumn columna_62FD in grilla_62FD.Columns)
+            {
+                columna_62FD.SortMode = DataGridViewColumnSortMode.Programmatic;
+                columna_62FD.MinimumWidth = 60;
+            }
+        }
+
+        private void LimpiarSeleccionGrilla_62FD(DataGridView grilla_62FD)
+        {
+            grilla_62FD.ClearSelection();
+            grilla_62FD.CurrentCell = null;
+            grilla_62FD.Invalidate();
+        }
+
+        private void Grilla_Paint_62FD(object sender, PaintEventArgs e)
+        {
+            DataGridView grilla_62FD = (DataGridView)sender;
+            if (grilla_62FD.Rows.Count > 0) return;
+
+            Rectangle area_62FD = new Rectangle(0, grilla_62FD.ColumnHeadersHeight,
+                grilla_62FD.ClientSize.Width, grilla_62FD.ClientSize.Height - grilla_62FD.ColumnHeadersHeight);
+            TextRenderer.DrawText(e.Graphics, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_GrillaSinDatos"),
+                grilla_62FD.Font, area_62FD, Color.Gray,
+                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
         }
     }
 }

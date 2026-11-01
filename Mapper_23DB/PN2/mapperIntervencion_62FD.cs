@@ -79,5 +79,38 @@ namespace Mapper_23DB
 
             return acc_62FD.Escribir_23DB("ActualizarCierreIntervencion_62FD", sp_62FD);
         }
+
+        public List<Intervencion_62FD> ObtenerIntervencionesConOrden_62FD()
+        {
+            List<Intervencion_62FD> lista_62FD = new List<Intervencion_62FD>();
+
+            DataTable tabla_62FD = acc_62FD.Leer_23DB("ObtenerIntervencionesConOrden_62FD", null);
+
+            foreach (DataRow fila_62FD in tabla_62FD.Rows)
+            {
+                Intervencion_62FD intervencion_62FD = new Intervencion_62FD();
+
+                intervencion_62FD.IdIntervencion_62FD = Convert.ToInt32(fila_62FD["IdIntervencion_62FD"]);
+                intervencion_62FD.IdOrden_62FD = Convert.ToInt32(fila_62FD["IdOrden_62FD"]);
+                intervencion_62FD.estadoIntervencion_62FD = fila_62FD["estadoIntervencion_62FD"].ToString();
+                intervencion_62FD.fechaHoraInicio_62FD = Convert.ToDateTime(fila_62FD["fechaHoraInicio_62FD"]);
+                intervencion_62FD.totalHorasInsumidas_62FD = Convert.ToDecimal(fila_62FD["totalHorasInsumidas_62FD"]);
+                intervencion_62FD.Matricula_62FD = fila_62FD["Matricula_62FD"].ToString();
+                intervencion_62FD.TipoIntervencion_62FD = fila_62FD["TipoIntervencion_62FD"].ToString();
+
+                if (fila_62FD["fechaHoraFin_62FD"] != DBNull.Value)
+                {
+                    intervencion_62FD.fechaHoraFin_62FD = Convert.ToDateTime(fila_62FD["fechaHoraFin_62FD"]);
+                }
+                else
+                {
+                    intervencion_62FD.fechaHoraFin_62FD = null;
+                }
+
+                lista_62FD.Add(intervencion_62FD);
+            }
+
+            return lista_62FD;
+        }
     }
 }

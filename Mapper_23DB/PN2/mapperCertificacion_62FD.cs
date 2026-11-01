@@ -76,5 +76,37 @@ namespace Mapper_23DB
 
             return acceso_23DB.Escribir_23DB("InsertarCertificacion_62FD", parametros_62FD);
         }
+
+        public List<Certificacion_62FD> ObtenerCertificacionesEmitidas_62FD()
+        {
+            List<Certificacion_62FD> lista_62FD = new List<Certificacion_62FD>();
+
+            DataTable tabla_62FD = acceso_23DB.Leer_23DB("ObtenerCertificacionesEmitidas_62FD", null);
+
+            foreach (DataRow fila_62FD in tabla_62FD.Rows)
+            {
+                Certificacion_62FD certificacion_62FD = new Certificacion_62FD();
+
+                certificacion_62FD.IdIntervencion_62FD = Convert.ToInt32(fila_62FD["IdIntervencion_62FD"]);
+                certificacion_62FD.IdOrden_62FD = Convert.ToInt32(fila_62FD["IdOrden_62FD"]);
+                certificacion_62FD.Matricula_62FD = fila_62FD["Matricula_62FD"].ToString();
+                certificacion_62FD.codHabilitante_62FD = fila_62FD["codHabilitante_62FD"].ToString();
+                certificacion_62FD.resultadoInspeccion_62FD = fila_62FD["resultadoInspeccion_62FD"].ToString();
+                certificacion_62FD.fechaHoraCertificacion_62FD = Convert.ToDateTime(fila_62FD["fechaHoraCertificacion_62FD"]);
+
+                if (fila_62FD["Observaciones_62FD"] != DBNull.Value)
+                {
+                    certificacion_62FD.Observaciones_62FD = fila_62FD["Observaciones_62FD"].ToString();
+                }
+                else
+                {
+                    certificacion_62FD.Observaciones_62FD = "";
+                }
+
+                lista_62FD.Add(certificacion_62FD);
+            }
+
+            return lista_62FD;
+        }
     }
 }

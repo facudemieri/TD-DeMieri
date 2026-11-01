@@ -71,5 +71,16 @@ namespace BE_23DB
             get { return tareas_62FD; }
             set { tareas_62FD = value; }
         }
+
+        // presentacion
+
+        private string tipoIntervencion_62FD;
+
+        public string TipoIntervencion_62FD
+        {
+            get { return tipoIntervencion_62FD; }
+            set { tipoIntervencion_62FD = value; }
+        }
+
     }
 }

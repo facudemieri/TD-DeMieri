@@ -48,5 +48,26 @@ namespace BE_23DB
             get { return idIntervencion_62FD; }
             set { idIntervencion_62FD = value; }
         }
+
+        // presentacion
+
+        private int idOrden_62FD;
+
+        public int IdOrden_62FD
+        {
+            get { return idOrden_62FD; }
+            set { idOrden_62FD = value; }
+        }
+
+        private string matricula_62FD;
+
+        public string Matricula_62FD
+        {
+            get { return matricula_62FD; }
+            set { matricula_62FD = value; }
+        }
+
+
+
     }
 }

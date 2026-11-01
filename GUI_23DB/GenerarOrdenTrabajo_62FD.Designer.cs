@@ -458,7 +458,7 @@
             // 
             // colTipoIntervencion
             // 
-            this.colTipoIntervencion.DataPropertyName = "TipoIntervencion_62FD ";
+            this.colTipoIntervencion.DataPropertyName = "TipoIntervencion_62FD";
             this.colTipoIntervencion.HeaderText = "Tipo de Intervención";
             this.colTipoIntervencion.Name = "colTipoIntervencion";
             // 

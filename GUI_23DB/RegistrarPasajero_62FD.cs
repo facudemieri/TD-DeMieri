@@ -19,6 +19,7 @@ namespace GUI_23DB
         EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
         private Pasajero_62FD pasajeroRegistrado_62FD = null;
         private string claveEstado_62FD = null; // clave del texto de estado, para reconstruirlo al cambiar de idioma
+        private bool fechaNacimientoElegida_62FD = false;
         public Pasajero_62FD PasajeroRegistrado_62FD
         {
             get { return pasajeroRegistrado_62FD; }
@@ -39,9 +40,31 @@ namespace GUI_23DB
         {
             claveEstado_62FD = "Msg_ModoAnadir";
             MostrarTextosEstado_62FD();
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
             dateTimePicker1.MinDate = DateTime.Now.Date.AddYears(-100);
             dateTimePicker1.MaxDate = DateTime.Now.Date.AddDays(-1);
+
+            // La fecha de nacimiento arranca sin proponer ningún valor: el control se ve vacío
+            // (formato de un espacio) y recién muestra la fecha cuando el usuario la elige.
+            // El valor interno se ubica 30 años atrás solo para que el calendario abra en una zona razonable.
+            fechaNacimientoElegida_62FD = false;
+            dateTimePicker1.Value = DateTime.Now.Date.AddYears(-30);
+            dateTimePicker1.Format = DateTimePickerFormat.Custom;
+            dateTimePicker1.CustomFormat = " ";
+            dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
+
+            // Largos iguales a las columnas de Pasajero_62FD y a los parámetros de InsertarPasajero_62FD
+            txtDNI.MaxLength = 8;
+            txtApellido.MaxLength = 50;
+            txtNombre.MaxLength = 50;
+            txtCorreo.MaxLength = 100;
+            txtTelefono.MaxLength = 20;
+            txtContactoEmergencia.MaxLength = 100;
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            fechaNacimientoElegida_62FD = true;
+            dateTimePicker1.Format = DateTimePickerFormat.Short;
         }
 
         // Reconstruye lblEstado a partir de la clave guardada, en el idioma activo
@@ -70,6 +93,13 @@ namespace GUI_23DB
         }
         private void btnAplicar_Click(object sender, EventArgs e)
         {
+            if (!fechaNacimientoElegida_62FD)
+            {
+                MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SeleccioneFechaNacimiento"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dateTimePicker1.Focus();
+                return;
+            }
+
             try
             {
                 Pasajero_62FD pasajero_62FD = new Pasajero_62FD();
@@ -83,7 +113,7 @@ namespace GUI_23DB
 
                 pasajeroBLL_62FD.RegistrarPasajero_62FD(pasajero_62FD);
 
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Pasajes", "Registrar Pasajero", 2);
+                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Pasajes", "Registrar Pasajero", 3);
 
                 pasajeroRegistrado_62FD = pasajero_62FD;
 

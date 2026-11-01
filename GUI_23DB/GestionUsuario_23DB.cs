@@ -20,17 +20,59 @@ namespace GUI_23DB
 
 
         private string claveMensaje_23DB = null;
-        private string mensajeSinClave_23DB = null;
         private int? cantidadUsuarios_23DB = null;
 
 
+
+        private List<Usuario_23DB> listaUsuarios_23DB = new List<Usuario_23DB>();
+        private string columnaOrden_23DB = null;
+        private bool ordenAscendente_23DB = true;
 
         public GestionUsuario_23DB()
         {
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
-            
+
+            ConfigurarGrilla_62FD(dataGridUsuarios);
+            // Once columnas visibles: en Fill quedan ilegibles, cada una toma el ancho de su contenido con barra horizontal
+            dataGridUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridUsuarios.ScrollBars = ScrollBars.Both;
+            dataGridUsuarios.Paint += Grilla_Paint_62FD;
+            dataGridUsuarios.ColumnHeaderMouseClick += dataGridUsuarios_ColumnHeaderMouseClick;
+            this.Shown += (s_62FD, e_62FD) => LimpiarSeleccionGrilla_62FD(dataGridUsuarios);
+
+            // El rol se elige de la lista: con texto libre SelectedValue quedaba en null y el casteo a int fallaba
+            cmbRol.DropDownStyle = ComboBoxStyle.DropDownList;
+
+            // Largos iguales a las columnas de Usuario_23DB y a los parámetros de Insertar / Modificar
+            txtDni.MaxLength = 8;
+            txtApellido.MaxLength = 50;
+            txtNombre.MaxLength = 50;
+            txtEmail.MaxLength = 100;
+            txtLogin.MaxLength = 20;
+        }
+
+        // Avisos al usuario con el mismo criterio de íconos y títulos que el resto del sistema:
+        // información para indicaciones, advertencia para datos incompletos o inválidos, éxito para operaciones terminadas.
+        private void MostrarInformacion_23DB(string clave_23DB)
+        {
+            MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB(clave_23DB), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void MostrarAdvertencia_23DB(string clave_23DB)
+        {
+            MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB(clave_23DB), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void MostrarExito_23DB(string clave_23DB)
+        {
+            MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB(clave_23DB), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void MostrarError_23DB(string clave_23DB, Exception ex_23DB)
+        {
+            MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB(clave_23DB), ex_23DB.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -127,16 +169,143 @@ namespace GUI_23DB
         private void CargarGrilla_23DB(string filtro_23DB)
         {
             List<Usuario_23DB> lista_23DB = usuarioBLL_23DB.ObtenerTodos_23DB(filtro_23DB);
-            dataGridUsuarios.DataSource = lista_23DB;
-            Traductor_23DB.TraducirGrilla_23DB(dataGridUsuarios, "GestionUsuario"); 
+            EnlazarGrilla_23DB(lista_23DB);
+
+            cantidadUsuarios_23DB = lista_23DB.Count;
+            MostrarTextos_23DB();
+        }
+
+        // Las columnas son autogeneradas y se recrean en cada enlace: traducción, columna oculta, formatos y modo de orden se aplican cada vez
+        private void EnlazarGrilla_23DB(List<Usuario_23DB> lista_23DB)
+        {
+            listaUsuarios_23DB = lista_23DB;
+            columnaOrden_23DB = null;
+
+            dataGridUsuarios.DataSource = null;
+            dataGridUsuarios.DataSource = listaUsuarios_23DB;
+            Traductor_23DB.TraducirGrilla_23DB(dataGridUsuarios, "GestionUsuario");
 
             if (dataGridUsuarios.Columns["Password_23DB"] != null)
             {
                 dataGridUsuarios.Columns["Password_23DB"].Visible = false;
             }
 
-            cantidadUsuarios_23DB = lista_23DB.Count; 
-            MostrarTextos_23DB(); 
+            ConfigurarColumnas_23DB();
+            LimpiarSeleccionGrilla_62FD(dataGridUsuarios);
+        }
+
+        private void ConfigurarColumnas_23DB()
+        {
+            foreach (DataGridViewColumn columna_23DB in dataGridUsuarios.Columns)
+            {
+                columna_23DB.SortMode = DataGridViewColumnSortMode.Programmatic;
+                columna_23DB.MinimumWidth = 60;
+
+                switch (columna_23DB.DataPropertyName)
+                {
+                    case "DNI_23DB":
+                    case "IdRol_23DB":
+                    case "Bloqueado_23DB":
+                    case "Activo_23DB":
+                        columna_23DB.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                        break;
+                    case "IntentosFallidos_23DB":
+                        columna_23DB.DefaultCellStyle.Format = "N0";
+                        columna_23DB.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                        break;
+                    case "FechaUltimoIntento_23DB":
+                        columna_23DB.DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
+                        columna_23DB.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                        columna_23DB.DefaultCellStyle.NullValue = "-";
+                        break;
+                }
+            }
+        }
+
+        private void dataGridUsuarios_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            string propiedad_23DB = dataGridUsuarios.Columns[e.ColumnIndex].DataPropertyName;
+            bool ascendente_23DB = columnaOrden_23DB == propiedad_23DB ? !ordenAscendente_23DB : true;
+
+            EnlazarGrilla_23DB(Ordenar_62FD(listaUsuarios_23DB, propiedad_23DB, ascendente_23DB));
+            columnaOrden_23DB = propiedad_23DB;
+            ordenAscendente_23DB = ascendente_23DB;
+
+            // Las columnas se recrearon al reenlazar: el glifo se pone sobre la columna nueva
+            dataGridUsuarios.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = ascendente_23DB ? SortOrder.Ascending : SortOrder.Descending;
+        }
+
+        private List<T> Ordenar_62FD<T>(List<T> lista_62FD, string propiedad_62FD, bool ascendente_62FD)
+        {
+            System.Reflection.PropertyInfo prop_62FD = typeof(T).GetProperty(propiedad_62FD);
+            if (prop_62FD == null) return lista_62FD;
+            return ascendente_62FD
+                ? lista_62FD.OrderBy(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList()
+                : lista_62FD.OrderByDescending(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList();
+        }
+
+        private void ConfigurarGrilla_62FD(DataGridView grilla_62FD)
+        {
+            // Comportamiento
+            grilla_62FD.ReadOnly = true;
+            grilla_62FD.AllowUserToAddRows = false;
+            grilla_62FD.AllowUserToDeleteRows = false;
+            grilla_62FD.AllowUserToResizeRows = false;
+            grilla_62FD.AllowUserToOrderColumns = false;
+            grilla_62FD.MultiSelect = false;
+            grilla_62FD.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            grilla_62FD.StandardTab = true;
+            grilla_62FD.RowHeadersVisible = false;
+            grilla_62FD.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            // Aspecto general
+            grilla_62FD.BackgroundColor = Color.White;
+            grilla_62FD.BorderStyle = BorderStyle.None;
+            grilla_62FD.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            grilla_62FD.GridColor = Color.FromArgb(220, 220, 220);
+            grilla_62FD.RowTemplate.Height = 26;
+
+            // Encabezados (mismo azul que el certificado PDF)
+            grilla_62FD.EnableHeadersVisualStyles = false;
+            grilla_62FD.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            grilla_62FD.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            grilla_62FD.ColumnHeadersHeight = 32;
+            grilla_62FD.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(31, 78, 121);
+            grilla_62FD.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            grilla_62FD.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(31, 78, 121);
+            grilla_62FD.ColumnHeadersDefaultCellStyle.Font = new Font(grilla_62FD.Font, FontStyle.Bold);
+            grilla_62FD.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.False;
+
+            // Filas
+            grilla_62FD.DefaultCellStyle.Padding = new Padding(4, 0, 4, 0);
+            grilla_62FD.DefaultCellStyle.SelectionBackColor = Color.FromArgb(204, 224, 245);
+            grilla_62FD.DefaultCellStyle.SelectionForeColor = Color.Black;
+            grilla_62FD.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(242, 246, 250);
+
+            foreach (DataGridViewColumn columna_62FD in grilla_62FD.Columns)
+            {
+                columna_62FD.SortMode = DataGridViewColumnSortMode.Programmatic;
+                columna_62FD.MinimumWidth = 60;
+            }
+        }
+
+        private void LimpiarSeleccionGrilla_62FD(DataGridView grilla_62FD)
+        {
+            grilla_62FD.ClearSelection();
+            grilla_62FD.CurrentCell = null;
+            grilla_62FD.Invalidate();
+        }
+
+        private void Grilla_Paint_62FD(object sender, PaintEventArgs e)
+        {
+            DataGridView grilla_62FD = (DataGridView)sender;
+            if (grilla_62FD.Rows.Count > 0) return;
+
+            Rectangle area_62FD = new Rectangle(0, grilla_62FD.ColumnHeadersHeight,
+                grilla_62FD.ClientSize.Width, grilla_62FD.ClientSize.Height - grilla_62FD.ColumnHeadersHeight);
+            TextRenderer.DrawText(e.Graphics, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_GrillaSinDatos"),
+                grilla_62FD.Font, area_62FD, Color.Gray,
+                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
         }
 
         private void CargarRoles_23DB()
@@ -151,7 +320,7 @@ namespace GUI_23DB
         {
             if(string.IsNullOrEmpty(txtDni.Text))
             {
-                MostrarMensaje_23DB("Msg_SeleccioneUsuario"); 
+                MostrarInformacion_23DB("Msg_SeleccioneUsuario");
                 return;
             }
             ModoModificar_23DB();
@@ -185,23 +354,37 @@ namespace GUI_23DB
         {
             if(string.IsNullOrEmpty(txtEmail.Text))
             {
-                MostrarMensaje_23DB("Msg_CompletarCamposObligatorios"); 
+                MostrarAdvertencia_23DB("Msg_CompletarCamposObligatorios");
                 return;
             }
+
+            if(cmbRol.SelectedValue == null)
+            {
+                MostrarAdvertencia_23DB("Msg_SeleccioneRol");
+                return;
+            }
+
             Usuario_23DB usuario_23DB = new Usuario_23DB
             {
                 DNI_23DB = txtDni.Text,
                 Apellido_23DB = txtApellido.Text,
                 Nombre_23DB = txtNombre.Text,
                 Email_23DB = txtEmail.Text,
-                IdRol_23DB = (int)cmbRol.SelectedValue
+                IdRol_23DB = Convert.ToInt32(cmbRol.SelectedValue)
             };
 
-            usuarioBLL_23DB.ModificarUsuario_23DB(usuario_23DB);
-            eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Modificar Usuario", 2);
-            MostrarMensaje_23DB("Msg_UsuarioModificado"); 
-            CargarGrilla_23DB(ObtenerFiltroActual_23DB());
-            ModoConsulta_23DB();
+            try
+            {
+                usuarioBLL_23DB.ModificarUsuario_23DB(usuario_23DB);
+                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Modificar Usuario", 2);
+                MostrarExito_23DB("Msg_UsuarioModificado");
+                CargarGrilla_23DB(ObtenerFiltroActual_23DB());
+                ModoConsulta_23DB();
+            }
+            catch (Exception ex_23DB)
+            {
+                MostrarError_23DB("Msg_ErrorModificarUsuario", ex_23DB);
+            }
         }
 
         private string ObtenerFiltroActual_23DB()
@@ -216,19 +399,25 @@ namespace GUI_23DB
             
             if(string.IsNullOrEmpty(txtDni.Text) || string.IsNullOrEmpty(txtApellido.Text) || string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtEmail.Text))
             {
-                MostrarMensaje_23DB("Msg_CompletarCamposObligatorios"); 
+                MostrarAdvertencia_23DB("Msg_CompletarCamposObligatorios");
                 return;
             }
 
             if (txtDni.Text.Length != 8)
             {
-                MostrarMensaje_23DB("Msg_DniOchoDigitos"); 
+                MostrarAdvertencia_23DB("Msg_DniOchoDigitos");
                 return;
             }
 
             if (!txtDni.Text.All(char.IsDigit))
             {
-                MostrarMensaje_23DB("Msg_DniSoloNumeros"); 
+                MostrarAdvertencia_23DB("Msg_DniSoloNumeros");
+                return;
+            }
+
+            if (cmbRol.SelectedValue == null)
+            {
+                MostrarAdvertencia_23DB("Msg_SeleccioneRol");
                 return;
             }
 
@@ -238,20 +427,20 @@ namespace GUI_23DB
                 Apellido_23DB = txtApellido.Text,
                 Nombre_23DB = txtNombre.Text,
                 Email_23DB = txtEmail.Text,
-                IdRol_23DB = (int)cmbRol.SelectedValue
+                IdRol_23DB = Convert.ToInt32(cmbRol.SelectedValue)
             };
 
             try
             {
                 usuarioBLL_23DB.CrearUsuario_23DB(usuario_23DB);
                 eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Crear Usuario", 2);
-                MostrarMensaje_23DB("Msg_UsuarioCreado");
+                MostrarExito_23DB("Msg_UsuarioCreado");
                 CargarGrilla_23DB(ObtenerFiltroActual_23DB());
                 ModoConsulta_23DB();
             }
             catch (Exception ex_23DB)
             {
-                MostrarMensajeSinClave_23DB(ex_23DB.Message); 
+                MostrarError_23DB("Msg_ErrorCrearUsuario", ex_23DB);
             }
         }
 
@@ -259,13 +448,13 @@ namespace GUI_23DB
         {
             if(string.IsNullOrEmpty(txtDni.Text))
             {
-                MostrarMensaje_23DB("Msg_SeleccioneUsuario");
+                MostrarInformacion_23DB("Msg_SeleccioneUsuario");
                 return;
             }
             bool estadoActual_23DB = txtActivo.Text == "True";
             usuarioBLL_23DB.CambiarEstado_23DB(txtDni.Text, !estadoActual_23DB);
-            eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Activar / Desactivar Usuario", 2);
-            MostrarMensaje_23DB(estadoActual_23DB ? "Msg_UsuarioDesactivado" : "Msg_UsuarioActivado");
+            eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Activar / Desactivar Usuario", 1);
+            MostrarExito_23DB(estadoActual_23DB ? "Msg_UsuarioDesactivado" : "Msg_UsuarioActivado");
             CargarGrilla_23DB(ObtenerFiltroActual_23DB());
             ModoConsulta_23DB();
         }
@@ -274,17 +463,17 @@ namespace GUI_23DB
         {           
             if(string.IsNullOrEmpty(txtDni.Text))
             {
-                MostrarMensaje_23DB("Msg_SeleccioneUsuario");
+                MostrarInformacion_23DB("Msg_SeleccioneUsuario");
                 return;
             }
             if(txtBloqueado.Text == "False")
             {
-                MostrarMensaje_23DB("Msg_UsuarioNoBloqueado");
+                MostrarInformacion_23DB("Msg_UsuarioNoBloqueado");
                 return;
             }
             usuarioBLL_23DB.DesbloquearUsuario_23DB(txtDni.Text, txtApellido.Text);
-            eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Desbloquear Usuario", 2);
-            MostrarMensaje_23DB("Msg_UsuarioDesbloqueado");
+            eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Desbloquear Usuario", 1);
+            MostrarExito_23DB("Msg_UsuarioDesbloqueado");
             CargarGrilla_23DB(ObtenerFiltroActual_23DB());
             ModoConsulta_23DB();
         }
@@ -335,31 +524,18 @@ namespace GUI_23DB
             MostrarTextos_23DB();
         }
 
+        // La etiqueta Mensaje queda solo para el modo de la pantalla; los avisos van por MessageBox
         private void MostrarMensaje_23DB(string claveMensaje_23DB)
         {
             this.claveMensaje_23DB = claveMensaje_23DB;
-            mensajeSinClave_23DB = null;
             MostrarTextos_23DB();
         }
 
-        
-        private void MostrarMensajeSinClave_23DB(string texto_23DB)
-        {
-            claveMensaje_23DB = null;
-            mensajeSinClave_23DB = texto_23DB;
-            MostrarTextos_23DB();
-        }
-
-       
         private void MostrarTextos_23DB()
         {
             if(claveMensaje_23DB != null)
             {
                 Mensaje.Text = IdiomaBLL_23DB.ObtenerTexto_23DB(claveMensaje_23DB);
-            }
-            else if(mensajeSinClave_23DB != null)
-            {
-                Mensaje.Text = mensajeSinClave_23DB;
             }
 
             if(cantidadUsuarios_23DB.HasValue)

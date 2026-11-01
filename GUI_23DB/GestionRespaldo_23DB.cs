@@ -107,7 +107,7 @@ namespace GUI_23DB
                     // La base ya se restauro: un fallo de la bitacora no debe informarse como error del restore.
                     try
                     {
-                        eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Restore BD", 2);
+                        eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Restore BD", 1);
                     }
                     catch(Exception exEvento_23DB)
                     {

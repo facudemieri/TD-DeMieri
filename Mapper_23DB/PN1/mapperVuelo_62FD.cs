@@ -113,5 +113,25 @@ namespace Mapper_23DB
 
             return acc_62FD.Escribir_23DB("ActualizarEstadoVuelo_62FD", parametros_62FD);
         }
+
+        public int ContarVuelosEnVentana_62FD(string matricula_62FD, DateTime fechaHoraSalida_62FD, int horas_62FD, string nroVueloExcluir_62FD) // agrego este metodo para que no se puedan asigar dos vuelos con la misma matricula en un lapso de ciertar horas
+        {
+            SqlParameter[] parametros_62FD = new SqlParameter[]
+            {
+                new SqlParameter("@Matricula", matricula_62FD),
+                new SqlParameter("@FechaHoraSalida", fechaHoraSalida_62FD),
+                new SqlParameter("@Horas", horas_62FD),
+                new SqlParameter("@NroVueloExcluir", string.IsNullOrEmpty(nroVueloExcluir_62FD) ? (object)DBNull.Value : nroVueloExcluir_62FD)
+            };
+
+            DataTable tabla_62FD = acc_62FD.Leer_23DB("ContarVuelosEnVentana_62FD", parametros_62FD);
+
+            if (tabla_62FD.Rows.Count == 0)
+            {
+                return 0;
+            }
+
+            return Convert.ToInt32(tabla_62FD.Rows[0][0]);
+        }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using BE_23DB;
 using BLL_23DB;
 using Services_23DB;
-using Services_23DB.Serializacion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,16 +17,13 @@ namespace GUI_23DB
     public partial class MaestroVuelos_62FD : Form, IIdiomaObserver_23DB
     {
         VueloBLL_62FD vueloBLL_62FD = new VueloBLL_62FD();
+        AeronaveBLL_62FD aeronaveBLL_62FD = new AeronaveBLL_62FD(); 
         AsientoBLL_62FD asientoBLL_62FD = new AsientoBLL_62FD();
 
-        SerializarBLL_62FD serializarBLL_62DB = new SerializarBLL_62FD();
-        DeserializarBLL_62FD deserializarBLL_62DB = new DeserializarBLL_62FD();
         EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
 
-        // Precio_62FD es decimal(10,2): no puede superar este valor
         private const decimal precioMaximo_62FD = 99999999.99m;
 
-        // modoActual_62FD se compara en el código: sus valores quedan literales y solo se traduce lo que muestra la barra de estado
         private string modoActual_62FD = "Consulta";
         private List<Vuelo_62FD> listaVuelos_62FD = new List<Vuelo_62FD>();
         private List<Asiento_62FD> listaAsientos_62FD = new List<Asiento_62FD>();
@@ -53,7 +49,6 @@ namespace GUI_23DB
 
         private void ConfigurarControles_62FD()
         {
-            // Los valores de los tres combos se guardan en la base y se comparan en el código: no se traducen
             cmbEstado.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbEstado.Items.Clear();
             cmbEstado.Items.Add("Programado");
@@ -73,16 +68,13 @@ namespace GUI_23DB
             dtFechaHoraSalida.Format = DateTimePickerFormat.Custom;
             dtFechaHoraSalida.CustomFormat = "dd/MM/yyyy HH:mm";
 
-            // Largos iguales a las columnas de Vuelo_62FD y Asiento_62FD
             txtNroVuelo.MaxLength = 10;
-            // Origen y destino son códigos IATA: regla de negocio de la pantalla, las columnas siguen siendo de 50
             txtOrigen.MaxLength = 3;
             txtDestino.MaxLength = 3;
             txtOrigen.KeyPress += SoloLetras_62FD;
             txtDestino.KeyPress += SoloLetras_62FD;
-            txtMatricula.MaxLength = 10;
+            cmbMatricula.DropDownStyle = ComboBoxStyle.DropDownList;
             txtNroAsiento.MaxLength = 5;
-            // decimal(10,2) con separadores: "99.999.999,99" son 13 caracteres
             txtPrecioBase.MaxLength = 13;
             txtPrecioBase.KeyPress += SoloImporte_62FD;
 
@@ -135,7 +127,6 @@ namespace GUI_23DB
             }
         }
 
-        // Se llama desde ActualizarIdioma_23DB para que los ToolTip también cambien de idioma
         private void AplicarToolTips_62FD()
         {
             ayuda_62FD.SetToolTip(btnLimpiar, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_AyudaLimpiarVuelos"));
@@ -146,8 +137,42 @@ namespace GUI_23DB
 
         private void MaestroVuelos_62FD_Load(object sender, EventArgs e)
         {
+            CargarMatriculas_62FD(); 
             CargarGrillaVuelos_62FD();
             ModoConsulta_62FD();
+        }
+
+        private void CargarMatriculas_62FD()
+        {
+            try
+            {
+                cmbMatricula.Items.Clear();
+
+                foreach (Aeronave_62FD aeronave_62FD in aeronaveBLL_62FD.ObtenerTodas_62FD().FindAll(a_62FD => a_62FD.Activo_62FD).OrderBy(a_62FD => a_62FD.Matricula_62FD))
+                {
+                    cmbMatricula.Items.Add(aeronave_62FD.Matricula_62FD);
+                }
+            }
+            catch (Exception ex_62FD)
+            {
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ErrorRecuperarAeronaves"), ex_62FD.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SeleccionarMatricula_62FD(string matricula_62FD)
+        {
+            if (string.IsNullOrEmpty(matricula_62FD))
+            {
+                cmbMatricula.SelectedIndex = -1;
+                return;
+            }
+
+            if (!cmbMatricula.Items.Contains(matricula_62FD))
+            {
+                cmbMatricula.Items.Add(matricula_62FD);
+            }
+
+            cmbMatricula.SelectedItem = matricula_62FD;
         }
 
         private void ModoConsulta_62FD()
@@ -271,6 +296,7 @@ namespace GUI_23DB
 
         private void btnAñadir_Click(object sender, EventArgs e)
         {
+            CargarMatriculas_62FD(); //nuevo: en Alta solo se ofrecen matrículas activas
             LimpiarCamposVuelo_62FD();
             ModoAlta_62FD();
         }
@@ -289,7 +315,8 @@ namespace GUI_23DB
             txtOrigen.Text = vueloSeleccionado_62FD.Origen_62FD;
             txtDestino.Text = vueloSeleccionado_62FD.Destino_62FD;
             dtFechaHoraSalida.Value = vueloSeleccionado_62FD.FechaHoraSalida_62FD;
-            txtMatricula.Text = vueloSeleccionado_62FD.Matricula_62FD;
+            CargarMatriculas_62FD(); //nuevo: recarga para descartar valores agregados en una modificación anterior
+            SeleccionarMatricula_62FD(vueloSeleccionado_62FD.Matricula_62FD); //nuevo
             txtPrecioBase.Text = vueloSeleccionado_62FD.Precio_62FD.ToString("N2");
             cmbEstado.Text = vueloSeleccionado_62FD.EstadoVuelo_62FD;
 
@@ -344,7 +371,7 @@ namespace GUI_23DB
 
                 decimal precio_62FD;
 
-                if (string.IsNullOrWhiteSpace(txtNroVuelo.Text) || string.IsNullOrWhiteSpace(txtOrigen.Text) || string.IsNullOrWhiteSpace(txtDestino.Text) || string.IsNullOrWhiteSpace(txtMatricula.Text) || cmbEstado.SelectedIndex < 0)
+                if (string.IsNullOrWhiteSpace(txtNroVuelo.Text) || string.IsNullOrWhiteSpace(txtOrigen.Text) || string.IsNullOrWhiteSpace(txtDestino.Text) || cmbMatricula.SelectedIndex < 0 || cmbEstado.SelectedIndex < 0)
                 {
                     MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_CompletarDatosVuelo"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
@@ -362,7 +389,6 @@ namespace GUI_23DB
                     return;
                 }
 
-                // Mayor que cero, que entre en decimal(10,2) y con hasta dos decimales (si no, SQL desborda o redondea)
                 if (!decimal.TryParse(txtPrecioBase.Text.Trim(), out precio_62FD) || precio_62FD <= 0 || precio_62FD > precioMaximo_62FD || decimal.Round(precio_62FD, 2) != precio_62FD)
                 {
                     MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PrecioBaseInvalido"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -380,7 +406,7 @@ namespace GUI_23DB
                 vuelo_62FD.Origen_62FD = txtOrigen.Text.Trim().ToUpper();
                 vuelo_62FD.Destino_62FD = txtDestino.Text.Trim().ToUpper();
                 vuelo_62FD.FechaHoraSalida_62FD = dtFechaHoraSalida.Value;
-                vuelo_62FD.Matricula_62FD = txtMatricula.Text.Trim().ToUpper();
+                vuelo_62FD.Matricula_62FD = cmbMatricula.SelectedItem.ToString(); 
                 vuelo_62FD.Precio_62FD = precio_62FD;
                 vuelo_62FD.EstadoVuelo_62FD = cmbEstado.Text;
 
@@ -401,6 +427,12 @@ namespace GUI_23DB
                     return;
                 }
 
+                if (resultado_62FD == VueloBLL_62FD.AeronaveConVueloCercano_62FD)
+                {
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_AeronaveConVueloCercano"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 if (resultado_62FD == 0)
                 {
                     MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_VueloNroExistente"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -415,12 +447,12 @@ namespace GUI_23DB
 
                 if (modoActual_62FD == "Alta")
                 {
-                    RegistrarEventoBitacora_62FD("Crear Vuelo", 2);
+                    RegistrarEventoBitacora_62FD("Crear Vuelo", 3);
                     MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_VueloRegistrado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    RegistrarEventoBitacora_62FD("Modificar Vuelo", 2);
+                    RegistrarEventoBitacora_62FD("Modificar Vuelo", 3);
                     MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_VueloModificado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
@@ -511,7 +543,7 @@ namespace GUI_23DB
                     return;
                 }
 
-                RegistrarEventoBitacora_62FD("Agregar Asiento", 2);
+                RegistrarEventoBitacora_62FD("Agregar Asiento", 3);
 
                 CargarGrillaAsientos_62FD();
             }
@@ -555,7 +587,7 @@ namespace GUI_23DB
                     return;
                 }
 
-                RegistrarEventoBitacora_62FD("Modificar Asiento", 2);
+                RegistrarEventoBitacora_62FD("Modificar Asiento", 3);
 
                 CargarGrillaAsientos_62FD();
             }
@@ -631,9 +663,13 @@ namespace GUI_23DB
                     return;
                 }
 
-                serializarBLL_62DB.Serializar_62DB(listaVuelos_62FD, txtRutaSerializar.Text);
+                bool bitacoraRegistrada_62FD;
+                vueloBLL_62FD.SerializarVuelos_62FD(listaVuelos_62FD, txtRutaSerializar.Text, out bitacoraRegistrada_62FD);
 
-                RegistrarEventoBitacora_62FD("Serializar Vuelos", 1);
+                if (!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), vueloBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_VuelosSerializados"), listaVuelos_62FD.Count), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -679,7 +715,8 @@ namespace GUI_23DB
                     return;
                 }
 
-                listaVuelos_62FD = deserializarBLL_62DB.Deserializar_62DB<Vuelo_62FD>(txtRutaDeserializar.Text);
+                bool bitacoraRegistrada_62FD;
+                listaVuelos_62FD = vueloBLL_62FD.DeserializarVuelos_62FD(txtRutaDeserializar.Text, out bitacoraRegistrada_62FD);
                 grillaDesdeArchivo_62FD = true;
 
                 EnlazarGrillaVuelos_62FD();
@@ -687,7 +724,10 @@ namespace GUI_23DB
                 LimpiarAsientos_62FD();
                 ModoConsulta_62FD();
 
-                RegistrarEventoBitacora_62FD("Deserializar Vuelos", 1);
+                if (!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), vueloBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_VuelosDeserializados"), listaVuelos_62FD.Count), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -702,7 +742,7 @@ namespace GUI_23DB
             txtNroVuelo.Clear();
             txtOrigen.Clear();
             txtDestino.Clear();
-            txtMatricula.Clear();
+            cmbMatricula.SelectedIndex = -1; //nuevo
             txtPrecioBase.Clear();
             cmbEstado.SelectedIndex = -1;
             dtFechaHoraSalida.Value = DateTime.Now;

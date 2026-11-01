@@ -79,5 +79,111 @@ namespace BLL_23DB
             dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD_C");
             return 1;
         }
+
+        public int ContarRevisionesVencidas_62FD()
+        {
+            List<Aeronave_62FD> flota_62FD = mapperAeronave_62FD.ObtenerAeronaves_62FD("", "", "", "");
+            int contador_62FD = 0;
+
+            foreach (Aeronave_62FD aeronave_62FD in flota_62FD)
+            {
+                if (aeronave_62FD.FechaProximaRevision_62FD.Date <= DateTime.Today)
+                {
+                    contador_62FD++;
+                }
+            }
+
+            return contador_62FD;
+        }
+
+        public int ContarRevisionesProximas_62FD(int dias_62FD)
+        {
+            List<Aeronave_62FD> flota_62FD = mapperAeronave_62FD.ObtenerAeronaves_62FD("", "", "", "");
+            DateTime limite_62FD = DateTime.Today.AddDays(dias_62FD);
+            int contador_62FD = 0;
+
+            foreach (Aeronave_62FD aeronave_62FD in flota_62FD)
+            {
+                if (aeronave_62FD.FechaProximaRevision_62FD.Date > DateTime.Today && aeronave_62FD.FechaProximaRevision_62FD.Date <= limite_62FD)
+                {
+                    contador_62FD++;
+                }
+            }
+
+            return contador_62FD;
+        }
+
+        public List<KeyValuePair<string, int>> ObtenerDistribucionEstadoOperativo_62FD()
+        {
+            string[] estados_62FD = new string[] { "En Servicio", "En Mantenimiento", "Fuera de Servicio" };
+            int[] conteo_62FD = new int[estados_62FD.Length];
+
+            List<Aeronave_62FD> flota_62FD = mapperAeronave_62FD.ObtenerAeronaves_62FD("", "", "", "");
+
+            foreach (Aeronave_62FD aeronave_62FD in flota_62FD)
+            {
+                for (int i_62FD = 0; i_62FD < estados_62FD.Length; i_62FD++)
+                {
+                    if (aeronave_62FD.EstadoOperativo_62FD == estados_62FD[i_62FD])
+                    {
+                        conteo_62FD[i_62FD]++;
+                    }
+                }
+            }
+
+            List<KeyValuePair<string, int>> distribucion_62FD = new List<KeyValuePair<string, int>>();
+
+            for (int i_62FD = 0; i_62FD < estados_62FD.Length; i_62FD++)
+            {
+                distribucion_62FD.Add(new KeyValuePair<string, int>(estados_62FD[i_62FD], conteo_62FD[i_62FD]));
+            }
+
+            return distribucion_62FD;
+        }
+
+        public List<KeyValuePair<string, int>> ProyectarRevisionesPorMes_62FD(int meses_62FD)
+        {
+            int[] conteo_62FD = new int[meses_62FD];
+            DateTime primerMes_62FD = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
+            DateTime limite_62FD = primerMes_62FD.AddMonths(meses_62FD);
+
+            List<Aeronave_62FD> flota_62FD = mapperAeronave_62FD.ObtenerAeronaves_62FD("", "", "", "");
+
+            foreach (Aeronave_62FD aeronave_62FD in flota_62FD)
+            {
+                DateTime fecha_62FD = aeronave_62FD.FechaProximaRevision_62FD.Date;
+
+                if (fecha_62FD < DateTime.Today)
+                {
+                    fecha_62FD = DateTime.Today;
+                }
+
+                while (fecha_62FD < limite_62FD)
+                {
+                    int indice_62FD = ((fecha_62FD.Year - primerMes_62FD.Year) * 12) + fecha_62FD.Month - primerMes_62FD.Month;
+
+                    if (indice_62FD >= 0 && indice_62FD < meses_62FD)
+                    {
+                        conteo_62FD[indice_62FD]++;
+                    }
+
+                    if (aeronave_62FD.IntervaloRevision_62FD <= 0)
+                    {
+                        break;
+                    }
+
+                    fecha_62FD = fecha_62FD.AddDays(aeronave_62FD.IntervaloRevision_62FD);
+                }
+            }
+
+            List<KeyValuePair<string, int>> proyeccion_62FD = new List<KeyValuePair<string, int>>();
+
+            for (int i_62FD = 0; i_62FD < meses_62FD; i_62FD++)
+            {
+                proyeccion_62FD.Add(new KeyValuePair<string, int>(primerMes_62FD.AddMonths(i_62FD).ToString("MMM yyyy"), conteo_62FD[i_62FD]));
+            }
+
+            return proyeccion_62FD;
+        }
     }
 }

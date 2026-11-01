@@ -106,5 +106,38 @@ namespace Mapper_23DB
 
             return lista_62FD;
         }
+
+        public List<Repuesto_62FD> ObtenerTodos_62FD()
+        {
+            List<Repuesto_62FD> lista_62FD = new List<Repuesto_62FD>();
+
+            DataTable tabla_62FD = acceso_23DB.Leer_23DB("ObtenerRepuestosTodos_62FD", null);
+
+            foreach (DataRow fila_62FD in tabla_62FD.Rows)
+            {
+                Repuesto_62FD repuesto_62FD = new Repuesto_62FD();
+
+                repuesto_62FD.nroSolicitud_62FD = Convert.ToInt32(fila_62FD["nroSolicitud_62FD"]);
+                repuesto_62FD.IdTarea_62FD = Convert.ToInt32(fila_62FD["IdTarea_62FD"]);
+                repuesto_62FD.nroParte_62FD = fila_62FD["nroParte_62FD"].ToString();
+                repuesto_62FD.nombreRepuesto_62FD = fila_62FD["nombreRepuesto_62FD"].ToString();
+                repuesto_62FD.cantidadSolicitada_62FD = Convert.ToInt32(fila_62FD["cantidadSolicitada_62FD"]);
+                repuesto_62FD.estadoPedido_62FD = fila_62FD["estadoPedido_62FD"].ToString();
+                repuesto_62FD.fechaSolicitud_62FD = Convert.ToDateTime(fila_62FD["fechaSolicitud_62FD"]);
+
+                if (fila_62FD["fechaRecepcion_62FD"] != DBNull.Value)
+                {
+                    repuesto_62FD.fechaRecepcion_62FD = Convert.ToDateTime(fila_62FD["fechaRecepcion_62FD"]);
+                }
+                else
+                {
+                    repuesto_62FD.fechaRecepcion_62FD = null;
+                }
+
+                lista_62FD.Add(repuesto_62FD);
+            }
+
+            return lista_62FD;
+        }
     }
 }

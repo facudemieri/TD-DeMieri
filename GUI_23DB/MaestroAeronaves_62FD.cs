@@ -18,7 +18,6 @@ namespace GUI_23DB
         AeronaveBLL_62FD aeronaveBLL_62FD = new AeronaveBLL_62FD();
         EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
 
-        // modoActual_62FD se compara en el código: sus valores quedan literales y solo se traduce lo que muestra la barra de estado
         private string modoActual_62FD = "Consulta";
         private Aeronave_62FD aeronaveSeleccionada_62FD = null;
         private List<Aeronave_62FD> listaAeronaves_62FD = new List<Aeronave_62FD>();
@@ -37,14 +36,12 @@ namespace GUI_23DB
 
         private void ConfigurarControles_62FD()
         {
-            // Los valores del combo se guardan en la base y se comparan en el PN2: no se traducen
             cmbEstadoOperativo.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbEstadoOperativo.Items.Clear();
             cmbEstadoOperativo.Items.Add("En Servicio");
             cmbEstadoOperativo.Items.Add("En Mantenimiento");
             cmbEstadoOperativo.Items.Add("Fuera de Servicio");
 
-            // Largos iguales a las columnas de Aeronave_62FD; los numéricos alcanzan para un int
             txtMatricula.MaxLength = 20;
             txtNroSerie.MaxLength = 50;
             txtModelo.MaxLength = 50;
@@ -52,7 +49,6 @@ namespace GUI_23DB
             txtHorasVueloAcumuladas.MaxLength = 9;
             txtIntervaloProxRevision.MaxLength = 9;
 
-            // Los campos numéricos no aceptan letras al tipear; lo pegado lo sigue frenando la validación
             txtHorasVueloAcumuladas.KeyPress += SoloDigitos_62FD;
             txtIntervaloProxRevision.KeyPress += SoloDigitos_62FD;
 
@@ -82,12 +78,10 @@ namespace GUI_23DB
         public void ActualizarIdioma_23DB(Dictionary<string, string> configuracion_23DB)
         {
             Traductor_23DB.AplicarIdioma_23DB(this, configuracion_23DB, statusStrip1);
-            // Va después del traductor: si no, el texto fijo del JSON pisa el que corresponde al modo
             ActualizarTextoBotonBaja_62FD();
             MostrarTextosEstado_62FD();
         }
 
-        // Con las inactivas a la vista el botón reactiva; con las activas, da de baja
         private void ActualizarTextoBotonBaja_62FD()
         {
             btnEliminar.Text = IdiomaBLL_23DB.ObtenerTexto_23DB(checkBox1.Checked ? "Msg_ReactivarAeronave" : "MaestroAeronaves_btnEliminar");
@@ -318,6 +312,13 @@ namespace GUI_23DB
                     return;
                 }
 
+                
+                if (modoActual_62FD == "Alta" && dateTimePicker1.Value.Date <= DateTime.Today)
+                {
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FechaProximaRevisionNoFutura"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
                 Aeronave_62FD aeronave_62FD = new Aeronave_62FD();
                 aeronave_62FD.Matricula_62FD = txtMatricula.Text.Trim();
                 aeronave_62FD.NroSerie_62FD = txtNroSerie.Text.Trim();
@@ -411,7 +412,7 @@ namespace GUI_23DB
         {
             try
             {
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Maestros", evento_62FD, 2);
+                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Maestros", evento_62FD, 3);
             }
             catch (Exception ex_62FD)
             {
@@ -472,11 +473,9 @@ namespace GUI_23DB
             Traductor_23DB.TraducirGrilla_23DB(dataGridView1, "MaestroAeronaves");
             LimpiarSeleccionGrilla_62FD(dataGridView1);
 
-            // El glifo se pierde al reenlazar, por eso se pone después
             dataGridView1.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = ordenAscendente_62FD ? SortOrder.Ascending : SortOrder.Descending;
         }
 
-        // Muestra los bool como Sí / No traducidos en lugar de True / False
         private void Grilla_CellFormatting_62FD(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.Value is bool)
@@ -552,11 +551,8 @@ namespace GUI_23DB
             DataGridView grilla_62FD = (DataGridView)sender;
             if (grilla_62FD.Rows.Count > 0) return;
 
-            Rectangle area_62FD = new Rectangle(0, grilla_62FD.ColumnHeadersHeight,
-                grilla_62FD.ClientSize.Width, grilla_62FD.ClientSize.Height - grilla_62FD.ColumnHeadersHeight);
-            TextRenderer.DrawText(e.Graphics, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_GrillaSinDatos"),
-                grilla_62FD.Font, area_62FD, Color.Gray,
-                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
+            Rectangle area_62FD = new Rectangle(0, grilla_62FD.ColumnHeadersHeight, grilla_62FD.ClientSize.Width, grilla_62FD.ClientSize.Height - grilla_62FD.ColumnHeadersHeight);
+            TextRenderer.DrawText(e.Graphics, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_GrillaSinDatos"), grilla_62FD.Font, area_62FD, Color.Gray, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
         }
     }
 }

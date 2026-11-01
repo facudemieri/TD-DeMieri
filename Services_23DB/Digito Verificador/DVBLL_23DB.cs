@@ -20,8 +20,6 @@ namespace Services_23DB
             {
                 return string.Empty;
             }
-
-            // ISO 8601 con milisegundos: SQL Server lo interpreta igual con cualquier idioma de sesión
             if(valor_23DB is DateTime)
             {
                 return ((DateTime)valor_23DB).ToString("yyyy-MM-ddTHH:mm:ss.fff", CultureInfo.InvariantCulture);
@@ -77,10 +75,7 @@ namespace Services_23DB
                 throw new Exception($"La tabla {dv_23DB.NombreTabla_23DB} no tiene la columna {columnaDVH_23DB}.");
             }
 
-            string[] columnas_23DB = dv_23DB.NombrePK_23DB
-                .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(c => c.Trim())
-                .ToArray();
+            string[] columnas_23DB = dv_23DB.NombrePK_23DB.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(c => c.Trim()).ToArray();
 
             foreach(string columna_23DB in columnas_23DB)
             {
@@ -145,7 +140,7 @@ namespace Services_23DB
             if(fa_23DB < 0) throw new Exception($"No se pudo actualizar el digito verificador de {nombreTabla_23DB}.");
         }
 
-        // Verifica los DVH de cada fila y el DVV de la tabla. Devuelve null si está consistente;
+        // Verifica los DVH de cada fila y el DVV de la tabla. Devuelve null si está consistente
         // si no, las claves de las filas adulteradas (lista vacía = filas agregadas o borradas).
         public DV_23DB VerificarConsistencia_23DB(string nombreTabla_23DB)
         {

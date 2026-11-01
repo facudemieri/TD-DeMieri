@@ -21,6 +21,9 @@ namespace GUI_23DB
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+
+            // El idioma se elige de la lista de archivos disponibles: escribir uno a mano no tiene sentido
+            cmbIdioma.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         public void ActualizarIdioma_23DB(Dictionary<string, string> configuracion_23DB)
@@ -58,7 +61,7 @@ namespace GUI_23DB
             usuarioBLL_23DB.ActualizarUltimoIdioma_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, idiomaSeleccionado_23DB);
 
             EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
-            eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Usuarios", "Cambiar Idioma", 2);
+            eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Usuarios", "Cambiar Idioma", 4);
 
             MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_IdiomaCambiado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();

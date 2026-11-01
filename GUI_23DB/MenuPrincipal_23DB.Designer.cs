@@ -39,7 +39,8 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.btnMantenimiento = new System.Windows.Forms.Button();
+            this.btnAyuda = new System.Windows.Forms.Button();
+            this.btnReportes = new System.Windows.Forms.Button();
             this.btnMaestros = new System.Windows.Forms.Button();
             this.btnAdmin = new System.Windows.Forms.Button();
             this.btnAeronaves = new System.Windows.Forms.Button();
@@ -73,6 +74,10 @@
             this.generarOrdenDeTrabajoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.registrarIntervenciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.certificarIntervenciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsReportes = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.comprobantesDePasajeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.certificadosDeIntervenciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.analíticaDeMantenimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.panel1.SuspendLayout();
@@ -85,6 +90,7 @@
             this.cmsPasajes.SuspendLayout();
             this.cmsMaestros.SuspendLayout();
             this.cmsAeronaves.SuspendLayout();
+            this.cmsReportes.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnGenerarReporteDash
@@ -174,35 +180,51 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(227, 493);
+            this.panel1.Size = new System.Drawing.Size(227, 529);
             this.panel1.TabIndex = 9;
             // 
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.SteelBlue;
-            this.panel6.Controls.Add(this.btnMantenimiento);
+            this.panel6.Controls.Add(this.btnAyuda);
+            this.panel6.Controls.Add(this.btnReportes);
             this.panel6.Controls.Add(this.btnMaestros);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel6.Location = new System.Drawing.Point(15, 285);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(200, 163);
+            this.panel6.Size = new System.Drawing.Size(200, 199);
             this.panel6.TabIndex = 21;
             // 
-            // btnMantenimiento
+            // btnAyuda
             // 
-            this.btnMantenimiento.BackColor = System.Drawing.Color.SteelBlue;
-            this.btnMantenimiento.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnMantenimiento.FlatAppearance.BorderSize = 0;
-            this.btnMantenimiento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMantenimiento.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMantenimiento.ForeColor = System.Drawing.Color.White;
-            this.btnMantenimiento.Location = new System.Drawing.Point(0, 45);
-            this.btnMantenimiento.Name = "btnMantenimiento";
-            this.btnMantenimiento.Size = new System.Drawing.Size(200, 45);
-            this.btnMantenimiento.TabIndex = 16;
-            this.btnMantenimiento.Text = "Ayuda";
-            this.btnMantenimiento.UseVisualStyleBackColor = false;
-            this.btnMantenimiento.Click += new System.EventHandler(this.btnMantenimiento_Click);
+            this.btnAyuda.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnAyuda.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnAyuda.FlatAppearance.BorderSize = 0;
+            this.btnAyuda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAyuda.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAyuda.ForeColor = System.Drawing.Color.White;
+            this.btnAyuda.Location = new System.Drawing.Point(0, 90);
+            this.btnAyuda.Name = "btnAyuda";
+            this.btnAyuda.Size = new System.Drawing.Size(200, 45);
+            this.btnAyuda.TabIndex = 17;
+            this.btnAyuda.Text = "Ayuda";
+            this.btnAyuda.UseVisualStyleBackColor = false;
+            // 
+            // btnReportes
+            // 
+            this.btnReportes.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnReportes.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnReportes.FlatAppearance.BorderSize = 0;
+            this.btnReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReportes.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReportes.ForeColor = System.Drawing.Color.White;
+            this.btnReportes.Location = new System.Drawing.Point(0, 45);
+            this.btnReportes.Name = "btnReportes";
+            this.btnReportes.Size = new System.Drawing.Size(200, 45);
+            this.btnReportes.TabIndex = 16;
+            this.btnReportes.Text = "Reportes";
+            this.btnReportes.UseVisualStyleBackColor = false;
+            this.btnReportes.Click += new System.EventHandler(this.btnMantenimiento_Click);
             // 
             // btnMaestros
             // 
@@ -290,7 +312,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel5.Location = new System.Drawing.Point(215, 100);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(12, 348);
+            this.panel5.Size = new System.Drawing.Size(12, 384);
             this.panel5.TabIndex = 12;
             // 
             // panel4
@@ -299,7 +321,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel4.Location = new System.Drawing.Point(0, 100);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(15, 348);
+            this.panel4.Size = new System.Drawing.Size(15, 384);
             this.panel4.TabIndex = 11;
             // 
             // pictureBox2
@@ -320,7 +342,7 @@
             this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSalir.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSalir.ForeColor = System.Drawing.Color.White;
-            this.btnSalir.Location = new System.Drawing.Point(0, 448);
+            this.btnSalir.Location = new System.Drawing.Point(0, 484);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(227, 45);
             this.btnSalir.TabIndex = 10;
@@ -474,7 +496,7 @@
             this.maestroAeronavesToolStripMenuItem,
             this.maestroVuelosToolStripMenuItem});
             this.cmsMaestros.Name = "cmsMaestros";
-            this.cmsMaestros.Size = new System.Drawing.Size(184, 70);
+            this.cmsMaestros.Size = new System.Drawing.Size(184, 48);
             // 
             // maestroAeronavesToolStripMenuItem
             // 
@@ -521,11 +543,41 @@
             this.certificarIntervenciónToolStripMenuItem.Text = "Certificar Intervención";
             this.certificarIntervenciónToolStripMenuItem.Click += new System.EventHandler(this.certificarIntervenciónToolStripMenuItem_Click);
             // 
+            // cmsReportes
+            // 
+            this.cmsReportes.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.comprobantesDePasajeToolStripMenuItem,
+            this.certificadosDeIntervenciónToolStripMenuItem,
+            this.analíticaDeMantenimientoToolStripMenuItem});
+            this.cmsReportes.Name = "cmsReportes";
+            this.cmsReportes.Size = new System.Drawing.Size(223, 70);
+            // 
+            // comprobantesDePasajeToolStripMenuItem
+            // 
+            this.comprobantesDePasajeToolStripMenuItem.Name = "comprobantesDePasajeToolStripMenuItem";
+            this.comprobantesDePasajeToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.comprobantesDePasajeToolStripMenuItem.Text = "Comprobantes de Pasaje";
+            this.comprobantesDePasajeToolStripMenuItem.Click += new System.EventHandler(this.comprobantesDePasajeToolStripMenuItem_Click);
+            // 
+            // certificadosDeIntervenciónToolStripMenuItem
+            // 
+            this.certificadosDeIntervenciónToolStripMenuItem.Name = "certificadosDeIntervenciónToolStripMenuItem";
+            this.certificadosDeIntervenciónToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.certificadosDeIntervenciónToolStripMenuItem.Text = "Certificados de Intervención";
+            this.certificadosDeIntervenciónToolStripMenuItem.Click += new System.EventHandler(this.certificadosDeIntervenciónToolStripMenuItem_Click);
+            // 
+            // analíticaDeMantenimientoToolStripMenuItem
+            // 
+            this.analíticaDeMantenimientoToolStripMenuItem.Name = "analíticaDeMantenimientoToolStripMenuItem";
+            this.analíticaDeMantenimientoToolStripMenuItem.Size = new System.Drawing.Size(222, 22);
+            this.analíticaDeMantenimientoToolStripMenuItem.Text = "Analítica de Mantenimiento";
+            this.analíticaDeMantenimientoToolStripMenuItem.Click += new System.EventHandler(this.analíticaDeMantenimientoToolStripMenuItem_Click);
+            // 
             // MenuPrincipal_23DB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(916, 493);
+            this.ClientSize = new System.Drawing.Size(916, 529);
             this.ControlBox = false;
             this.Controls.Add(this.btnGenerarReporteDash);
             this.Controls.Add(this.cmbReporteDASH);
@@ -551,6 +603,7 @@
             this.cmsPasajes.ResumeLayout(false);
             this.cmsMaestros.ResumeLayout(false);
             this.cmsAeronaves.ResumeLayout(false);
+            this.cmsReportes.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -590,7 +643,7 @@
         private System.Windows.Forms.ToolStripMenuItem administradorDePerfilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gestionDeRespaldosToolStripMenuItem;
         private System.Windows.Forms.Button btnMaestros;
-        private System.Windows.Forms.Button btnMantenimiento;
+        private System.Windows.Forms.Button btnReportes;
         private System.Windows.Forms.ContextMenuStrip cmsPasajes;
         private System.Windows.Forms.ToolStripMenuItem vuelosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reservasToolStripMenuItem;
@@ -601,5 +654,10 @@
         private System.Windows.Forms.ToolStripMenuItem generarOrdenDeTrabajoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem registrarIntervenciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem certificarIntervenciónToolStripMenuItem;
+        private System.Windows.Forms.Button btnAyuda;
+        private System.Windows.Forms.ContextMenuStrip cmsReportes;
+        private System.Windows.Forms.ToolStripMenuItem comprobantesDePasajeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem certificadosDeIntervenciónToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem analíticaDeMantenimientoToolStripMenuItem;
     }
 }

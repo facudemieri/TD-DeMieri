@@ -113,5 +113,10 @@ namespace BLL_23DB
         {
             return "T" + DateTime.Now.ToString("yyMMddHHmmss") + idDetalle_62FD.ToString();
         }
+
+        public List<Pasaje_62FD> ObtenerPasajesPorReserva_62FD(string codReserva_62FD)
+        {
+            return mapperPasaje_62FD.ObtenerPasajesPorReserva_62FD(codReserva_62FD);
+        }
     }
 }

@@ -46,6 +46,9 @@ namespace GUI_23DB
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+
+            // NombreFamilia es varchar(50), igual que los parámetros de InsertarFamilia y ModificarFamilia
+            txtNombre.MaxLength = 50;
         }
 
         private void CargarListBox_23DB()

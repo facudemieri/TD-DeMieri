@@ -72,5 +72,19 @@ namespace Mapper_23DB
 
             return acc_62FD.Escribir_23DB("EliminarTarea_62FD", sp_62FD);
         }
+
+        public int ActualizarTarea_62FD(Tarea_62FD tarea_62FD)
+        {
+            SqlParameter[] parametros_62FD = new SqlParameter[]
+            {
+                new SqlParameter("@IdTarea", tarea_62FD.IdTarea_62FD),
+                new SqlParameter("@Descripcion", tarea_62FD.Descripcion_62FD),
+                new SqlParameter("@HorasInsumidas", tarea_62FD.HorasInsumidas_62FD),
+                new SqlParameter("@ResultadoObtenido", tarea_62FD.ResultadoObtenido_62FD),
+                new SqlParameter("@observacionesTecnicas", tarea_62FD.observacionesTecnicas_62FD)
+            };
+
+            return acc_62FD.Escribir_23DB("ActualizarTarea_62FD", parametros_62FD);
+        }
     }
 }

@@ -44,7 +44,7 @@ namespace BLL_23DB
             return mapperTarea_62FD.ObtenerTareasPorIntervencion_62FD(idIntervencion_62FD);
         }
 
-        // Permite a la GUI saber, antes de iniciar, si se va a retomar una intervención existente
+        // Permite a la GUI saber si se va a retomar una intervención existente
         public Intervencion_62FD ObtenerIntervencionEnCurso_62FD(int idOrden_62FD)
         {
             return mapperIntervencion_62FD.ObtenerEnCursoPorOrden_62FD(idOrden_62FD);
@@ -82,7 +82,6 @@ namespace BLL_23DB
             }
 
             dvBLL_23DB.RecalcularDVTabla_23DB("Intervencion_62FD");
-            dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD_C");
             intervencion_62FD = nueva_62FD;
 
             int filasAeronave_62FD;
@@ -93,7 +92,6 @@ namespace BLL_23DB
             }
             catch (Exception)
             {
-                // La intervención ya está grabada: se informa como aeronave no actualizada en lugar de como error total
                 return AeronaveNoActualizada_62FD;
             }
 
@@ -103,6 +101,7 @@ namespace BLL_23DB
             }
 
             dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD");
+            dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD_C");
 
             return IntervencionIniciada_62FD;
         }
@@ -169,7 +168,6 @@ namespace BLL_23DB
 
             int filasOrden_62FD = mapperOrdenTrabajo_62FD.ActualizarEstadoOrden_62FD(intervencion_62FD.IdOrden_62FD, "Ejecutada");
 
-            // La intervención ya cambió: su DV se recalcula aunque la orden no se haya podido actualizar
             dvBLL_23DB.RecalcularDVTabla_23DB("Intervencion_62FD");
 
             if (filasOrden_62FD != 1)
@@ -180,6 +178,54 @@ namespace BLL_23DB
             dvBLL_23DB.RecalcularDVTabla_23DB("OrdenTrabajo_62FD");
 
             return IntervencionCerrada_62FD;
+        }
+
+        public bool ModificarTarea_62FD(Tarea_62FD tarea_62FD)
+        {
+            if (mapperTarea_62FD.ActualizarTarea_62FD(tarea_62FD) != 1)
+            {
+                return false;
+            }
+
+            dvBLL_23DB.RecalcularDVTabla_23DB("Tarea_62FD");
+
+            return true;
+        }
+
+        public List<Intervencion_62FD> ObtenerIntervencionesConOrden_62FD()
+        {
+            return mapperIntervencion_62FD.ObtenerIntervencionesConOrden_62FD();
+        }
+
+        public List<KeyValuePair<string, int>> ContarIntervencionesPorTipo_62FD(DateTime desde_62FD, DateTime hasta_62FD)
+        {
+            string[] tipos_62FD = new string[] { "Preventivo", "Correctivo" };
+            int[] conteo_62FD = new int[tipos_62FD.Length];
+
+            List<Intervencion_62FD> lista_62FD = mapperIntervencion_62FD.ObtenerIntervencionesConOrden_62FD();
+
+            foreach (Intervencion_62FD intervencion_62FD in lista_62FD)
+            {
+                if (intervencion_62FD.fechaHoraInicio_62FD.Date >= desde_62FD.Date && intervencion_62FD.fechaHoraInicio_62FD.Date <= hasta_62FD.Date)
+                {
+                    for (int i_62FD = 0; i_62FD < tipos_62FD.Length; i_62FD++)
+                    {
+                        if (intervencion_62FD.TipoIntervencion_62FD == tipos_62FD[i_62FD])
+                        {
+                            conteo_62FD[i_62FD]++;
+                        }
+                    }
+                }
+            }
+
+            List<KeyValuePair<string, int>> distribucion_62FD = new List<KeyValuePair<string, int>>();
+
+            for (int i_62FD = 0; i_62FD < tipos_62FD.Length; i_62FD++)
+            {
+                distribucion_62FD.Add(new KeyValuePair<string, int>(tipos_62FD[i_62FD], conteo_62FD[i_62FD]));
+            }
+
+            return distribucion_62FD;
         }
     }
 }

@@ -258,7 +258,7 @@ namespace GUI_23DB
                     return;
                 }
 
-                RegistrarEventoBitacora_62FD("Generar Orden de Trabajo", 2);
+                RegistrarEventoBitacora_62FD("Generar Orden de Trabajo", 3);
 
                 MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OrdenGenerada"), resultado_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 

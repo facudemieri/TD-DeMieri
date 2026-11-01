@@ -23,7 +23,10 @@ namespace GUI_23DB
         public InicioSesion_23DB()
         {
             InitializeComponent();
-                    
+
+            // El login es una columna varchar(20) de Usuario_23DB. La contraseña no tiene MaxLength:
+            // se guarda como hash, así que el largo de la columna no limita lo que se tipea.
+            txtUsuario.MaxLength = 20;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -36,33 +39,11 @@ namespace GUI_23DB
 
             Usuario_23DB usuarioPorLogin_23DB = usuarioBLL_23DB.ObtenerUsuarioPorLogin_23DB(txtUsuario.Text);
 
+            // La integridad se EVALÚA acá, antes de cualquier escritura, pero se ACTÚA sobre el resultado recién
+            // después de autenticar. Resetear, incrementar o bloquear intentos recalcula el DV de Usuario_23DB,
+            // y eso borraría la evidencia de una adulteración en esa tabla antes de detectarla.
             List<DV_23DB> inconsistencias_23DB = usuarioBLL_23DB.VerificarConsistenciaDV_23DB();
-            if(inconsistencias_23DB.Count > 0)
-            {
-                
-                bool primeraInstalacion_23DB = dvBLL_23DB.EsPrimeraInstalacion_23DB();
-
-                if(primeraInstalacion_23DB)
-                {
-                    new DVBLL_23DB().RecalcularDV_23DB();
-                    
-                }
-                else if(usuarioPorLogin_23DB != null && usuarioBLL_23DB.ObtenerNombreRol_23DB(usuarioPorLogin_23DB.IdRol_23DB) == "Administrador")
-                {
-                    RepararInconsistencia_23DB repararForm_23DB = new RepararInconsistencia_23DB(inconsistencias_23DB);
-                    repararForm_23DB.ShowDialog();
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SistemaNoDisponible"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                
-            }
-
-            
-
+            bool hayInconsistencias_23DB = inconsistencias_23DB.Count > 0;
 
             if(usuarioPorLogin_23DB == null)
             {
@@ -70,8 +51,8 @@ namespace GUI_23DB
                 return;
             }
 
-
-            if(usuarioBLL_23DB.VerificarTiempoReset_23DB(usuarioPorLogin_23DB.FechaUltimoIntento_23DB))
+            // Con la base inconsistente no se escribe en Usuario_23DB antes de autenticar (ver arriba)
+            if(!hayInconsistencias_23DB && usuarioBLL_23DB.VerificarTiempoReset_23DB(usuarioPorLogin_23DB.FechaUltimoIntento_23DB))
             {
                 usuarioBLL_23DB.ResetearIntentos_23DB(usuarioPorLogin_23DB.DNI_23DB);
             }
@@ -92,6 +73,13 @@ namespace GUI_23DB
 
             if(usuarioAutenticado_23DB == null)
             {
+                // Con la base inconsistente no se cuentan intentos: escribir en Usuario_23DB recalcularía su DV
+                if(hayInconsistencias_23DB)
+                {
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_CredencialesIncorrectas"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 usuarioBLL_23DB.IncrementarIntentos_23DB(usuarioPorLogin_23DB.DNI_23DB);
                 usuarioPorLogin_23DB = usuarioBLL_23DB.ObtenerUsuarioPorLogin_23DB(txtUsuario.Text);
 
@@ -107,6 +95,28 @@ namespace GUI_23DB
             }
 
             string nombreRol_23DB = usuarioBLL_23DB.ObtenerNombreRol_23DB(usuarioAutenticado_23DB.IdRol_23DB);
+
+            // Recién acá, con el usuario autenticado, se decide qué hacer con la inconsistencia
+            if(hayInconsistencias_23DB)
+            {
+                bool primeraInstalacion_23DB = dvBLL_23DB.EsPrimeraInstalacion_23DB();
+
+                if(primeraInstalacion_23DB)
+                {
+                    new DVBLL_23DB().RecalcularDV_23DB();
+                }
+                else if(nombreRol_23DB == "Administrador")
+                {
+                    RepararInconsistencia_23DB repararForm_23DB = new RepararInconsistencia_23DB(inconsistencias_23DB);
+                    repararForm_23DB.ShowDialog();
+                    return;
+                }
+                else
+                {
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SistemaNoDisponible"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
 
             // El singleton rechaza la sesion si ya hay una activa (caso Relogin).
             // Va antes que las operaciones accesorias para no registrar un Login

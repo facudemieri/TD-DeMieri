@@ -35,5 +35,10 @@ namespace BLL_23DB
         {
             return "0001-" + DateTime.Now.ToString("yyMMddHHmmss");
         }
+
+        public List<Factura_62FD> ObtenerComprobantes_62FD()
+        {
+            return mapperFactura_62FD.ObtenerComprobantes_62FD();
+        }
     }
 }

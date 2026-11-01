@@ -81,6 +81,7 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
+            this.btnModificarTarea = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -345,6 +346,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnModificarTarea);
             this.groupBox3.Controls.Add(this.txtObservaciones);
             this.groupBox3.Controls.Add(this.btnAgregarTarea);
             this.groupBox3.Controls.Add(this.label12);
@@ -502,6 +504,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(837, 138);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // colIdTarea
             // 
@@ -602,6 +605,17 @@
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
+            // btnModificarTarea
+            // 
+            this.btnModificarTarea.Enabled = false;
+            this.btnModificarTarea.Location = new System.Drawing.Point(858, 87);
+            this.btnModificarTarea.Name = "btnModificarTarea";
+            this.btnModificarTarea.Size = new System.Drawing.Size(120, 30);
+            this.btnModificarTarea.TabIndex = 22;
+            this.btnModificarTarea.Text = "Modificar Tarea";
+            this.btnModificarTarea.UseVisualStyleBackColor = true;
+            this.btnModificarTarea.Click += new System.EventHandler(this.btnModificarTarea_Click);
+            // 
             // RegistrarIntervencion_62FD
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
@@ -700,5 +714,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colResultadoTarea;
         private System.Windows.Forms.DataGridViewTextBoxColumn colObservacionesTarea;
         private System.Windows.Forms.DataGridViewTextBoxColumn colRepuestos;
+        private System.Windows.Forms.Button btnModificarTarea;
     }
 }

@@ -32,43 +32,54 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dgvVuelos = new System.Windows.Forms.DataGridView();
-            this.btnActualizar = new System.Windows.Forms.Button();
-            this.btnAñadir = new System.Windows.Forms.Button();
-            this.btnModificar = new System.Windows.Forms.Button();
+            this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
+            this.btnModificar = new System.Windows.Forms.Button();
+            this.btnAñadir = new System.Windows.Forms.Button();
+            this.btnActualizar = new System.Windows.Forms.Button();
+            this.dgvVuelos = new System.Windows.Forms.DataGridView();
+            this.colNroVuelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colOrigen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDestino = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFechaHoraSalida = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colMatriculaVuelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colPrecio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colEstadoVuelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.dtFechaHoraSalida = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.txtNroVuelo = new System.Windows.Forms.TextBox();
-            this.txtPrecioBase = new System.Windows.Forms.TextBox();
-            this.txtMatricula = new System.Windows.Forms.TextBox();
             this.txtOrigen = new System.Windows.Forms.TextBox();
             this.txtDestino = new System.Windows.Forms.TextBox();
-            this.dtFechaHoraSalida = new System.Windows.Forms.DateTimePicker();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtPrecioBase = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.cmbEstado = new System.Windows.Forms.ComboBox();
-            this.dgvAsientos = new System.Windows.Forms.DataGridView();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnEliminarAsiento = new System.Windows.Forms.Button();
+            this.btnModificarAsiento = new System.Windows.Forms.Button();
+            this.btnAñadirAsiento = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.txtNroAsiento = new System.Windows.Forms.TextBox();
+            this.cmbEstadoAsiento = new System.Windows.Forms.ComboBox();
+            this.cmbClase = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.cmbClase = new System.Windows.Forms.ComboBox();
-            this.cmbEstadoAsiento = new System.Windows.Forms.ComboBox();
-            this.txtNroAsiento = new System.Windows.Forms.TextBox();
-            this.btnAñadirAsiento = new System.Windows.Forms.Button();
-            this.btnModificarAsiento = new System.Windows.Forms.Button();
-            this.btnEliminarAsiento = new System.Windows.Forms.Button();
+            this.dgvAsientos = new System.Windows.Forms.DataGridView();
+            this.colIdAsiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNroAsiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colClase = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colEstadoAsiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnSerializar = new System.Windows.Forms.Button();
             this.btnDeserializar = new System.Windows.Forms.Button();
             this.txtRutaSerializar = new System.Windows.Forms.TextBox();
@@ -78,27 +89,16 @@
             this.btnSalir = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAplicar = new System.Windows.Forms.Button();
-            this.colNroVuelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colOrigen = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDestino = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFechaHoraSalida = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colMatriculaVuelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colPrecio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colEstadoVuelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIdAsiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNroAsiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colClase = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colEstadoAsiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.cmbMatricula = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVuelos)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAsientos)).BeginInit();
+            this.groupBox3.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAsientos)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -140,6 +140,56 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Vuelos";
             // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.Location = new System.Drawing.Point(749, 143);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(114, 24);
+            this.btnLimpiar.TabIndex = 5;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = true;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Location = new System.Drawing.Point(749, 113);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(114, 24);
+            this.btnEliminar.TabIndex = 4;
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
+            // btnModificar
+            // 
+            this.btnModificar.Location = new System.Drawing.Point(749, 83);
+            this.btnModificar.Name = "btnModificar";
+            this.btnModificar.Size = new System.Drawing.Size(114, 24);
+            this.btnModificar.TabIndex = 3;
+            this.btnModificar.Text = "Modificar";
+            this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
+            // 
+            // btnAñadir
+            // 
+            this.btnAñadir.Location = new System.Drawing.Point(749, 53);
+            this.btnAñadir.Name = "btnAñadir";
+            this.btnAñadir.Size = new System.Drawing.Size(114, 24);
+            this.btnAñadir.TabIndex = 2;
+            this.btnAñadir.Text = "Añadir";
+            this.btnAñadir.UseVisualStyleBackColor = true;
+            this.btnAñadir.Click += new System.EventHandler(this.btnAñadir_Click);
+            // 
+            // btnActualizar
+            // 
+            this.btnActualizar.Location = new System.Drawing.Point(749, 23);
+            this.btnActualizar.Name = "btnActualizar";
+            this.btnActualizar.Size = new System.Drawing.Size(114, 24);
+            this.btnActualizar.TabIndex = 1;
+            this.btnActualizar.Text = "Actualizar";
+            this.btnActualizar.UseVisualStyleBackColor = true;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
+            // 
             // dgvVuelos
             // 
             this.dgvVuelos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -157,45 +207,47 @@
             this.dgvVuelos.TabIndex = 0;
             this.dgvVuelos.SelectionChanged += new System.EventHandler(this.dgvVuelos_SelectionChanged);
             // 
-            // btnActualizar
+            // colNroVuelo
             // 
-            this.btnActualizar.Location = new System.Drawing.Point(749, 23);
-            this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(114, 24);
-            this.btnActualizar.TabIndex = 1;
-            this.btnActualizar.Text = "Actualizar";
-            this.btnActualizar.UseVisualStyleBackColor = true;
-            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
+            this.colNroVuelo.DataPropertyName = "NroVuelo_62FD";
+            this.colNroVuelo.HeaderText = "Nro de Vuelo";
+            this.colNroVuelo.Name = "colNroVuelo";
             // 
-            // btnAñadir
+            // colOrigen
             // 
-            this.btnAñadir.Location = new System.Drawing.Point(749, 53);
-            this.btnAñadir.Name = "btnAñadir";
-            this.btnAñadir.Size = new System.Drawing.Size(114, 24);
-            this.btnAñadir.TabIndex = 2;
-            this.btnAñadir.Text = "Añadir";
-            this.btnAñadir.UseVisualStyleBackColor = true;
-            this.btnAñadir.Click += new System.EventHandler(this.btnAñadir_Click);
+            this.colOrigen.DataPropertyName = "Origen_62FD";
+            this.colOrigen.HeaderText = "Origen";
+            this.colOrigen.Name = "colOrigen";
             // 
-            // btnModificar
+            // colDestino
             // 
-            this.btnModificar.Location = new System.Drawing.Point(749, 83);
-            this.btnModificar.Name = "btnModificar";
-            this.btnModificar.Size = new System.Drawing.Size(114, 24);
-            this.btnModificar.TabIndex = 3;
-            this.btnModificar.Text = "Modificar";
-            this.btnModificar.UseVisualStyleBackColor = true;
-            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
+            this.colDestino.DataPropertyName = "Destino_62FD";
+            this.colDestino.HeaderText = "Destino";
+            this.colDestino.Name = "colDestino";
             // 
-            // btnEliminar
+            // colFechaHoraSalida
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(749, 113);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(114, 24);
-            this.btnEliminar.TabIndex = 4;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            this.colFechaHoraSalida.DataPropertyName = "FechaHoraSalida_62FD";
+            this.colFechaHoraSalida.HeaderText = "Fecha y Hora de Salida";
+            this.colFechaHoraSalida.Name = "colFechaHoraSalida";
+            // 
+            // colMatriculaVuelo
+            // 
+            this.colMatriculaVuelo.DataPropertyName = "Matricula_62FD";
+            this.colMatriculaVuelo.HeaderText = "Matrícula";
+            this.colMatriculaVuelo.Name = "colMatriculaVuelo";
+            // 
+            // colPrecio
+            // 
+            this.colPrecio.DataPropertyName = "Precio_62FD";
+            this.colPrecio.HeaderText = "Precio Base";
+            this.colPrecio.Name = "colPrecio";
+            // 
+            // colEstadoVuelo
+            // 
+            this.colEstadoVuelo.DataPropertyName = "EstadoVuelo_62FD";
+            this.colEstadoVuelo.HeaderText = "Estado";
+            this.colEstadoVuelo.Name = "colEstadoVuelo";
             // 
             // statusStrip1
             // 
@@ -240,27 +292,14 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos del Vuelo";
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.btnEliminarAsiento);
-            this.groupBox3.Controls.Add(this.btnModificarAsiento);
-            this.groupBox3.Controls.Add(this.btnAñadirAsiento);
-            this.groupBox3.Controls.Add(this.tableLayoutPanel2);
-            this.groupBox3.Controls.Add(this.dgvAsientos);
-            this.groupBox3.Location = new System.Drawing.Point(12, 506);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(875, 186);
-            this.groupBox3.TabIndex = 16;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Asientos del Vuelo Seleccionado";
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 4;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 185F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 171F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 190F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 8F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 267F));
+            this.tableLayoutPanel1.Controls.Add(this.cmbMatricula, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.dtFechaHoraSalida, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 1);
@@ -272,7 +311,6 @@
             this.tableLayoutPanel1.Controls.Add(this.label7, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.txtPrecioBase, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.label8, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.txtMatricula, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.label9, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.cmbEstado, 3, 2);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(8, 22);
@@ -284,6 +322,13 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 21F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(813, 160);
             this.tableLayoutPanel1.TabIndex = 1;
+            // 
+            // dtFechaHoraSalida
+            // 
+            this.dtFechaHoraSalida.Location = new System.Drawing.Point(188, 122);
+            this.dtFechaHoraSalida.Name = "dtFechaHoraSalida";
+            this.dtFechaHoraSalida.Size = new System.Drawing.Size(165, 23);
+            this.dtFechaHoraSalida.TabIndex = 16;
             // 
             // label2
             // 
@@ -321,6 +366,27 @@
             this.label5.TabIndex = 3;
             this.label5.Text = "Fecha y Hora de Salida:";
             // 
+            // txtNroVuelo
+            // 
+            this.txtNroVuelo.Location = new System.Drawing.Point(188, 3);
+            this.txtNroVuelo.Name = "txtNroVuelo";
+            this.txtNroVuelo.Size = new System.Drawing.Size(149, 23);
+            this.txtNroVuelo.TabIndex = 8;
+            // 
+            // txtOrigen
+            // 
+            this.txtOrigen.Location = new System.Drawing.Point(188, 41);
+            this.txtOrigen.Name = "txtOrigen";
+            this.txtOrigen.Size = new System.Drawing.Size(149, 23);
+            this.txtOrigen.TabIndex = 11;
+            // 
+            // txtDestino
+            // 
+            this.txtDestino.Location = new System.Drawing.Point(188, 82);
+            this.txtDestino.Name = "txtDestino";
+            this.txtDestino.Size = new System.Drawing.Size(149, 23);
+            this.txtDestino.TabIndex = 12;
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -329,6 +395,13 @@
             this.label7.Size = new System.Drawing.Size(85, 17);
             this.label7.TabIndex = 5;
             this.label7.Text = "Precio Base:";
+            // 
+            // txtPrecioBase
+            // 
+            this.txtPrecioBase.Location = new System.Drawing.Point(549, 3);
+            this.txtPrecioBase.Name = "txtPrecioBase";
+            this.txtPrecioBase.Size = new System.Drawing.Size(171, 23);
+            this.txtPrecioBase.TabIndex = 9;
             // 
             // label8
             // 
@@ -348,48 +421,6 @@
             this.label9.TabIndex = 7;
             this.label9.Text = "Estado:";
             // 
-            // txtNroVuelo
-            // 
-            this.txtNroVuelo.Location = new System.Drawing.Point(188, 3);
-            this.txtNroVuelo.Name = "txtNroVuelo";
-            this.txtNroVuelo.Size = new System.Drawing.Size(149, 23);
-            this.txtNroVuelo.TabIndex = 8;
-            // 
-            // txtPrecioBase
-            // 
-            this.txtPrecioBase.Location = new System.Drawing.Point(549, 3);
-            this.txtPrecioBase.Name = "txtPrecioBase";
-            this.txtPrecioBase.Size = new System.Drawing.Size(171, 23);
-            this.txtPrecioBase.TabIndex = 9;
-            // 
-            // txtMatricula
-            // 
-            this.txtMatricula.Location = new System.Drawing.Point(549, 41);
-            this.txtMatricula.Name = "txtMatricula";
-            this.txtMatricula.Size = new System.Drawing.Size(171, 23);
-            this.txtMatricula.TabIndex = 10;
-            // 
-            // txtOrigen
-            // 
-            this.txtOrigen.Location = new System.Drawing.Point(188, 41);
-            this.txtOrigen.Name = "txtOrigen";
-            this.txtOrigen.Size = new System.Drawing.Size(149, 23);
-            this.txtOrigen.TabIndex = 11;
-            // 
-            // txtDestino
-            // 
-            this.txtDestino.Location = new System.Drawing.Point(188, 82);
-            this.txtDestino.Name = "txtDestino";
-            this.txtDestino.Size = new System.Drawing.Size(149, 23);
-            this.txtDestino.TabIndex = 12;
-            // 
-            // dtFechaHoraSalida
-            // 
-            this.dtFechaHoraSalida.Location = new System.Drawing.Point(188, 122);
-            this.dtFechaHoraSalida.Name = "dtFechaHoraSalida";
-            this.dtFechaHoraSalida.Size = new System.Drawing.Size(165, 23);
-            this.dtFechaHoraSalida.TabIndex = 16;
-            // 
             // cmbEstado
             // 
             this.cmbEstado.FormattingEnabled = true;
@@ -398,19 +429,49 @@
             this.cmbEstado.Size = new System.Drawing.Size(171, 25);
             this.cmbEstado.TabIndex = 17;
             // 
-            // dgvAsientos
+            // groupBox3
             // 
-            this.dgvAsientos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAsientos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colIdAsiento,
-            this.colNroAsiento,
-            this.colClase,
-            this.colEstadoAsiento});
-            this.dgvAsientos.Location = new System.Drawing.Point(9, 22);
-            this.dgvAsientos.Name = "dgvAsientos";
-            this.dgvAsientos.Size = new System.Drawing.Size(293, 150);
-            this.dgvAsientos.TabIndex = 0;
-            this.dgvAsientos.SelectionChanged += new System.EventHandler(this.dgvAsientos_SelectionChanged);
+            this.groupBox3.Controls.Add(this.btnEliminarAsiento);
+            this.groupBox3.Controls.Add(this.btnModificarAsiento);
+            this.groupBox3.Controls.Add(this.btnAñadirAsiento);
+            this.groupBox3.Controls.Add(this.tableLayoutPanel2);
+            this.groupBox3.Controls.Add(this.dgvAsientos);
+            this.groupBox3.Location = new System.Drawing.Point(12, 506);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(875, 186);
+            this.groupBox3.TabIndex = 16;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Asientos del Vuelo Seleccionado";
+            // 
+            // btnEliminarAsiento
+            // 
+            this.btnEliminarAsiento.Location = new System.Drawing.Point(602, 74);
+            this.btnEliminarAsiento.Name = "btnEliminarAsiento";
+            this.btnEliminarAsiento.Size = new System.Drawing.Size(135, 24);
+            this.btnEliminarAsiento.TabIndex = 4;
+            this.btnEliminarAsiento.Text = "Eliminar Asiento";
+            this.btnEliminarAsiento.UseVisualStyleBackColor = true;
+            this.btnEliminarAsiento.Click += new System.EventHandler(this.btnEliminarAsiento_Click);
+            // 
+            // btnModificarAsiento
+            // 
+            this.btnModificarAsiento.Location = new System.Drawing.Point(461, 74);
+            this.btnModificarAsiento.Name = "btnModificarAsiento";
+            this.btnModificarAsiento.Size = new System.Drawing.Size(135, 24);
+            this.btnModificarAsiento.TabIndex = 3;
+            this.btnModificarAsiento.Text = "Modificar Asiento";
+            this.btnModificarAsiento.UseVisualStyleBackColor = true;
+            this.btnModificarAsiento.Click += new System.EventHandler(this.btnModificarAsiento_Click);
+            // 
+            // btnAñadirAsiento
+            // 
+            this.btnAñadirAsiento.Location = new System.Drawing.Point(320, 74);
+            this.btnAñadirAsiento.Name = "btnAñadirAsiento";
+            this.btnAñadirAsiento.Size = new System.Drawing.Size(135, 24);
+            this.btnAñadirAsiento.TabIndex = 2;
+            this.btnAñadirAsiento.Text = "Añadir Asiento";
+            this.btnAñadirAsiento.UseVisualStyleBackColor = true;
+            this.btnAñadirAsiento.Click += new System.EventHandler(this.btnAñadirAsiento_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -433,6 +494,29 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(549, 46);
             this.tableLayoutPanel2.TabIndex = 1;
+            // 
+            // txtNroAsiento
+            // 
+            this.txtNroAsiento.Location = new System.Drawing.Point(76, 3);
+            this.txtNroAsiento.Name = "txtNroAsiento";
+            this.txtNroAsiento.Size = new System.Drawing.Size(87, 23);
+            this.txtNroAsiento.TabIndex = 21;
+            // 
+            // cmbEstadoAsiento
+            // 
+            this.cmbEstadoAsiento.FormattingEnabled = true;
+            this.cmbEstadoAsiento.Location = new System.Drawing.Point(416, 3);
+            this.cmbEstadoAsiento.Name = "cmbEstadoAsiento";
+            this.cmbEstadoAsiento.Size = new System.Drawing.Size(127, 25);
+            this.cmbEstadoAsiento.TabIndex = 20;
+            // 
+            // cmbClase
+            // 
+            this.cmbClase.FormattingEnabled = true;
+            this.cmbClase.Location = new System.Drawing.Point(231, 3);
+            this.cmbClase.Name = "cmbClase";
+            this.cmbClase.Size = new System.Drawing.Size(104, 25);
+            this.cmbClase.TabIndex = 19;
             // 
             // label10
             // 
@@ -461,58 +545,43 @@
             this.label12.TabIndex = 5;
             this.label12.Text = "Estado:";
             // 
-            // cmbClase
+            // dgvAsientos
             // 
-            this.cmbClase.FormattingEnabled = true;
-            this.cmbClase.Location = new System.Drawing.Point(231, 3);
-            this.cmbClase.Name = "cmbClase";
-            this.cmbClase.Size = new System.Drawing.Size(104, 25);
-            this.cmbClase.TabIndex = 19;
+            this.dgvAsientos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAsientos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colIdAsiento,
+            this.colNroAsiento,
+            this.colClase,
+            this.colEstadoAsiento});
+            this.dgvAsientos.Location = new System.Drawing.Point(9, 22);
+            this.dgvAsientos.Name = "dgvAsientos";
+            this.dgvAsientos.Size = new System.Drawing.Size(293, 150);
+            this.dgvAsientos.TabIndex = 0;
+            this.dgvAsientos.SelectionChanged += new System.EventHandler(this.dgvAsientos_SelectionChanged);
             // 
-            // cmbEstadoAsiento
+            // colIdAsiento
             // 
-            this.cmbEstadoAsiento.FormattingEnabled = true;
-            this.cmbEstadoAsiento.Location = new System.Drawing.Point(416, 3);
-            this.cmbEstadoAsiento.Name = "cmbEstadoAsiento";
-            this.cmbEstadoAsiento.Size = new System.Drawing.Size(127, 25);
-            this.cmbEstadoAsiento.TabIndex = 20;
+            this.colIdAsiento.DataPropertyName = "IdAsiento_62FD";
+            this.colIdAsiento.HeaderText = "Id";
+            this.colIdAsiento.Name = "colIdAsiento";
             // 
-            // txtNroAsiento
+            // colNroAsiento
             // 
-            this.txtNroAsiento.Location = new System.Drawing.Point(76, 3);
-            this.txtNroAsiento.Name = "txtNroAsiento";
-            this.txtNroAsiento.Size = new System.Drawing.Size(87, 23);
-            this.txtNroAsiento.TabIndex = 21;
+            this.colNroAsiento.DataPropertyName = "NroAsiento_62FD";
+            this.colNroAsiento.HeaderText = "Nro de Asiento";
+            this.colNroAsiento.Name = "colNroAsiento";
             // 
-            // btnAñadirAsiento
+            // colClase
             // 
-            this.btnAñadirAsiento.Location = new System.Drawing.Point(320, 74);
-            this.btnAñadirAsiento.Name = "btnAñadirAsiento";
-            this.btnAñadirAsiento.Size = new System.Drawing.Size(135, 24);
-            this.btnAñadirAsiento.TabIndex = 2;
-            this.btnAñadirAsiento.Text = "Añadir Asiento";
-            this.btnAñadirAsiento.UseVisualStyleBackColor = true;
-            this.btnAñadirAsiento.Click += new System.EventHandler(this.btnAñadirAsiento_Click);
+            this.colClase.DataPropertyName = "Clase_62FD";
+            this.colClase.HeaderText = "Clase";
+            this.colClase.Name = "colClase";
             // 
-            // btnModificarAsiento
+            // colEstadoAsiento
             // 
-            this.btnModificarAsiento.Location = new System.Drawing.Point(461, 74);
-            this.btnModificarAsiento.Name = "btnModificarAsiento";
-            this.btnModificarAsiento.Size = new System.Drawing.Size(135, 24);
-            this.btnModificarAsiento.TabIndex = 3;
-            this.btnModificarAsiento.Text = "Modificar Asiento";
-            this.btnModificarAsiento.UseVisualStyleBackColor = true;
-            this.btnModificarAsiento.Click += new System.EventHandler(this.btnModificarAsiento_Click);
-            // 
-            // btnEliminarAsiento
-            // 
-            this.btnEliminarAsiento.Location = new System.Drawing.Point(602, 74);
-            this.btnEliminarAsiento.Name = "btnEliminarAsiento";
-            this.btnEliminarAsiento.Size = new System.Drawing.Size(135, 24);
-            this.btnEliminarAsiento.TabIndex = 4;
-            this.btnEliminarAsiento.Text = "Eliminar Asiento";
-            this.btnEliminarAsiento.UseVisualStyleBackColor = true;
-            this.btnEliminarAsiento.Click += new System.EventHandler(this.btnEliminarAsiento_Click);
+            this.colEstadoAsiento.DataPropertyName = "EstadoAsiento_62FD";
+            this.colEstadoAsiento.HeaderText = "Estado";
+            this.colEstadoAsiento.Name = "colEstadoAsiento";
             // 
             // btnSerializar
             // 
@@ -612,81 +681,13 @@
             this.btnAplicar.UseVisualStyleBackColor = true;
             this.btnAplicar.Click += new System.EventHandler(this.btnAplicar_Click);
             // 
-            // colNroVuelo
+            // cmbMatricula
             // 
-            this.colNroVuelo.DataPropertyName = "NroVuelo_62FD";
-            this.colNroVuelo.HeaderText = "Nro de Vuelo";
-            this.colNroVuelo.Name = "colNroVuelo";
-            // 
-            // colOrigen
-            // 
-            this.colOrigen.DataPropertyName = "Origen_62FD";
-            this.colOrigen.HeaderText = "Origen";
-            this.colOrigen.Name = "colOrigen";
-            // 
-            // colDestino
-            // 
-            this.colDestino.DataPropertyName = "Destino_62FD";
-            this.colDestino.HeaderText = "Destino";
-            this.colDestino.Name = "colDestino";
-            // 
-            // colFechaHoraSalida
-            // 
-            this.colFechaHoraSalida.DataPropertyName = "FechaHoraSalida_62FD";
-            this.colFechaHoraSalida.HeaderText = "Fecha y Hora de Salida";
-            this.colFechaHoraSalida.Name = "colFechaHoraSalida";
-            // 
-            // colMatriculaVuelo
-            // 
-            this.colMatriculaVuelo.DataPropertyName = "Matricula_62FD";
-            this.colMatriculaVuelo.HeaderText = "Matrícula";
-            this.colMatriculaVuelo.Name = "colMatriculaVuelo";
-            // 
-            // colPrecio
-            // 
-            this.colPrecio.DataPropertyName = "Precio_62FD";
-            this.colPrecio.HeaderText = "Precio Base";
-            this.colPrecio.Name = "colPrecio";
-            // 
-            // colEstadoVuelo
-            // 
-            this.colEstadoVuelo.DataPropertyName = "EstadoVuelo_62FD";
-            this.colEstadoVuelo.HeaderText = "Estado";
-            this.colEstadoVuelo.Name = "colEstadoVuelo";
-            // 
-            // colIdAsiento
-            // 
-            this.colIdAsiento.DataPropertyName = "IdAsiento_62FD";
-            this.colIdAsiento.HeaderText = "Id";
-            this.colIdAsiento.Name = "colIdAsiento";
-            // 
-            // colNroAsiento
-            // 
-            this.colNroAsiento.DataPropertyName = "NroAsiento_62FD";
-            this.colNroAsiento.HeaderText = "Nro de Asiento";
-            this.colNroAsiento.Name = "colNroAsiento";
-            // 
-            // colClase
-            // 
-            this.colClase.DataPropertyName = "Clase_62FD";
-            this.colClase.HeaderText = "Clase";
-            this.colClase.Name = "colClase";
-            // 
-            // colEstadoAsiento
-            // 
-            this.colEstadoAsiento.DataPropertyName = "EstadoAsiento_62FD";
-            this.colEstadoAsiento.HeaderText = "Estado";
-            this.colEstadoAsiento.Name = "colEstadoAsiento";
-            // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.Location = new System.Drawing.Point(749, 143);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(114, 24);
-            this.btnLimpiar.TabIndex = 5;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = true;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            this.cmbMatricula.FormattingEnabled = true;
+            this.cmbMatricula.Location = new System.Drawing.Point(549, 41);
+            this.cmbMatricula.Name = "cmbMatricula";
+            this.cmbMatricula.Size = new System.Drawing.Size(171, 25);
+            this.cmbMatricula.TabIndex = 18;
             // 
             // MaestroVuelos_62FD
             // 
@@ -709,7 +710,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MaestroVuelos_62FD";
             this.Text = "MaestroVuelos_62FD";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MaestroVuelos_62FD_FormClosing);
@@ -721,12 +722,12 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAsientos)).EndInit();
+            this.groupBox3.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvAsientos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -760,7 +761,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox txtNroVuelo;
         private System.Windows.Forms.TextBox txtPrecioBase;
-        private System.Windows.Forms.TextBox txtMatricula;
         private System.Windows.Forms.TextBox txtOrigen;
         private System.Windows.Forms.TextBox txtDestino;
         private System.Windows.Forms.Button btnEliminarAsiento;
@@ -795,5 +795,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colClase;
         private System.Windows.Forms.DataGridViewTextBoxColumn colEstadoAsiento;
         private System.Windows.Forms.Button btnLimpiar;
+        private System.Windows.Forms.ComboBox cmbMatricula;
     }
 }

@@ -26,6 +26,7 @@ namespace GUI_23DB
         private bool ordenAscendente_62FD = true;
         private string claveModo_62FD = null;
         private DateTime fechaModo_62FD = DateTime.Now;
+        private Tarea_62FD tareaSeleccionada_62FD = null;
         public RegistrarIntervencion_62FD()
         {
             InitializeComponent();
@@ -43,10 +44,8 @@ namespace GUI_23DB
 
             txtDescripcion.MaxLength = 500;
             txtObservaciones.MaxLength = 500;
-            // Es multilínea: Enter tiene que hacer salto de línea y no disparar el botón por defecto
             txtObservaciones.AcceptsReturn = true;
 
-            // Horas con decimales; el máximo respeta decimal(10,2) de la columna
             nudHorasInsumidas.DecimalPlaces = 2;
             nudHorasInsumidas.Increment = 0.25m;
             nudHorasInsumidas.Maximum = 999.99m;
@@ -159,7 +158,7 @@ namespace GUI_23DB
 
                 OrdenTrabajo_62FD ordenElegida_62FD = listaOrdenes_62FD[cmbNroOrden.SelectedIndex];
 
-                // Solo se confirma cuando se va a crear una intervención nueva; retomar una En Curso no escribe nada
+                // Solo se confirma cuando se va a crear una intervención nueva
                 if (intervencionBLL_62FD.ObtenerIntervencionEnCurso_62FD(ordenElegida_62FD.IdOrden_62FD) == null)
                 {
                     DialogResult confirmacion_62FD = MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ConfirmarIniciarIntervencion"), ordenElegida_62FD.IdOrden_62FD, ordenElegida_62FD.Matricula_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Confirmar"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -269,7 +268,6 @@ namespace GUI_23DB
             }
             finally
             {
-                // El botón está dentro de groupBox3: fuera del modo registro lo deshabilita el contenedor
                 btnAgregarTarea.Enabled = true;
             }
         }
@@ -280,6 +278,8 @@ namespace GUI_23DB
             txtObservaciones.Clear();
             nudHorasInsumidas.Value = nudHorasInsumidas.Minimum;
             cmbResultadoObtenido.SelectedIndex = -1;
+            tareaSeleccionada_62FD = null;
+            btnModificarTarea.Enabled = false;
         }
 
         private Tarea_62FD ObtenerTareaSeleccionada_62FD()
@@ -354,7 +354,6 @@ namespace GUI_23DB
 
         private void btnAplicar_Click(object sender, EventArgs e)
         {
-            // Evita que un doble clic intente cerrar la intervención dos veces
             btnAplicar.Enabled = false;
 
             try
@@ -368,6 +367,12 @@ namespace GUI_23DB
                 if (dtpFechaFin.Value < intervencion_62FD.fechaHoraInicio_62FD)
                 {
                     MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FechaFinAnteriorInicio"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                if (dtpFechaFin.Value > DateTime.Now)
+                {
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_FechaFinPosteriorActual"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
 
@@ -409,7 +414,7 @@ namespace GUI_23DB
                     return;
                 }
 
-                RegistrarEventoBitacora_62FD("Registrar Intervención", 2);
+                RegistrarEventoBitacora_62FD("Registrar Intervención", 3);
                 MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_IntervencionRegistrada"), intervencion_62FD.IdIntervencion_62FD, intervencion_62FD.totalHorasInsumidas_62FD.ToString("N2")), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 cmbEstadoIntervencion.Text = "Finalizada";
@@ -606,6 +611,84 @@ namespace GUI_23DB
         {
             Observer_23DB.ObtenerInstancia_23DB().Desuscribir_23DB(this);
 
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 0 || dataGridView1.SelectedRows[0].DataBoundItem == null)
+            {
+                tareaSeleccionada_62FD = null;
+                btnModificarTarea.Enabled = false;
+                return;
+            }
+
+            tareaSeleccionada_62FD = (Tarea_62FD)dataGridView1.SelectedRows[0].DataBoundItem;
+
+            txtDescripcion.Text = tareaSeleccionada_62FD.Descripcion_62FD;
+            cmbResultadoObtenido.Text = tareaSeleccionada_62FD.ResultadoObtenido_62FD;
+            txtObservaciones.Text = tareaSeleccionada_62FD.observacionesTecnicas_62FD;
+
+            if (tareaSeleccionada_62FD.HorasInsumidas_62FD >= nudHorasInsumidas.Minimum && tareaSeleccionada_62FD.HorasInsumidas_62FD <= nudHorasInsumidas.Maximum)
+            {
+                nudHorasInsumidas.Value = tareaSeleccionada_62FD.HorasInsumidas_62FD;
+            }
+            else
+            {
+                nudHorasInsumidas.Value = nudHorasInsumidas.Minimum;
+            }
+
+            btnModificarTarea.Enabled = true;
+        }
+
+        private void btnModificarTarea_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                btnModificarTarea.Enabled = false;
+
+                if (tareaSeleccionada_62FD == null)
+                {
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SeleccioneTarea"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(txtDescripcion.Text) || cmbResultadoObtenido.SelectedIndex < 0)
+                {
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_CompletarDatosTarea"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                if (nudHorasInsumidas.Value <= 0)
+                {
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_HorasMayorCero"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                Tarea_62FD tarea_62FD = new Tarea_62FD();
+                tarea_62FD.IdTarea_62FD = tareaSeleccionada_62FD.IdTarea_62FD;
+                tarea_62FD.IdIntervencion_62FD = intervencion_62FD.IdIntervencion_62FD;
+                tarea_62FD.Descripcion_62FD = txtDescripcion.Text.Trim();
+                tarea_62FD.HorasInsumidas_62FD = nudHorasInsumidas.Value;
+                tarea_62FD.ResultadoObtenido_62FD = cmbResultadoObtenido.Text;
+                tarea_62FD.observacionesTecnicas_62FD = txtObservaciones.Text.Trim();
+
+                if (!intervencionBLL_62FD.ModificarTarea_62FD(tarea_62FD))
+                {
+                    MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_NoSePudoModificarTarea"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                LimpiarTarea_62FD();
+                CargarGrillaTareas_62FD();
+            }
+            catch (Exception ex_62FD)
+            {
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ErrorModificarTarea"), ex_62FD.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                btnModificarTarea.Enabled = tareaSeleccionada_62FD != null;
+            }
         }
     }
 }

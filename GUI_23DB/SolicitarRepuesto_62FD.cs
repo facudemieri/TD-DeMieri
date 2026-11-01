@@ -213,7 +213,7 @@ namespace GUI_23DB
                     return;
                 }
 
-                RegistrarEventoBitacora_62FD("Solicitar Repuestos", 2);
+                RegistrarEventoBitacora_62FD("Solicitar Repuestos", 3);
 
                 MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SolicitudRepuestoRegistrada"), nroSolicitud_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -266,7 +266,7 @@ namespace GUI_23DB
                     return;
                 }
 
-                RegistrarEventoBitacora_62FD("Registrar Recepción de Repuestos", 2);
+                RegistrarEventoBitacora_62FD("Registrar Recepción de Repuestos", 3);
                 MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_RecepcionRegistrada"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 CargarGrilla_62FD();

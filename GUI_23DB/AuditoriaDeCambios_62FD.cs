@@ -42,14 +42,12 @@ namespace GUI_23DB
             dtpFechaDesde.Format = DateTimePickerFormat.Short;
             dtpFechaHasta.Format = DateTimePickerFormat.Short;
 
-            // No puede haber cambios registrados en el futuro: el tope es el último instante de hoy
             DateTime finDeHoy_62FD = DateTime.Today.AddDays(1).AddTicks(-1);
             dtpFechaDesde.MaxDate = finDeHoy_62FD;
             dtpFechaHasta.MaxDate = finDeHoy_62FD;
 
             ConfigurarGrilla_62FD(dataGridView1);
 
-            // Doce columnas: en Fill quedan ilegibles, así que cada una toma el ancho de su contenido y aparece la barra horizontal
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridView1.ScrollBars = ScrollBars.Both;
 
@@ -92,7 +90,6 @@ namespace GUI_23DB
             }
         }
 
-        // Se llama desde ActualizarIdioma_23DB para que los ToolTip también cambien de idioma
         private void AplicarToolTips_62FD()
         {
             ayuda_62FD.SetToolTip(btnAplicar, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_AyudaAplicarFiltroCambios"));
@@ -238,7 +235,7 @@ namespace GUI_23DB
         {
             try
             {
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Maestros", evento_62FD, 3);
+                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Maestros", evento_62FD, 2);
             }
             catch (Exception ex_62FD)
             {
@@ -274,11 +271,9 @@ namespace GUI_23DB
             Traductor_23DB.TraducirGrilla_23DB(dataGridView1, "AuditoriaDeCambios");
             LimpiarSeleccionGrilla_62FD(dataGridView1);
 
-            // El glifo se pierde al reenlazar, por eso se pone después
             dataGridView1.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = ordenAscendente_62FD ? SortOrder.Ascending : SortOrder.Descending;
         }
 
-        // Muestra los bool (Activa, Vigente) como Sí / No traducidos en lugar de True / False
         private void Grilla_CellFormatting_62FD(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.Value is bool)
@@ -292,9 +287,7 @@ namespace GUI_23DB
         {
             System.Reflection.PropertyInfo prop_62FD = typeof(T).GetProperty(propiedad_62FD);
             if (prop_62FD == null) return lista_62FD;
-            return ascendente_62FD
-                ? lista_62FD.OrderBy(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList()
-                : lista_62FD.OrderByDescending(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList();
+            return ascendente_62FD ? lista_62FD.OrderBy(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList() : lista_62FD.OrderByDescending(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList();
         }
 
         private void ConfigurarGrilla_62FD(DataGridView grilla_62FD)
@@ -354,11 +347,8 @@ namespace GUI_23DB
             DataGridView grilla_62FD = (DataGridView)sender;
             if (grilla_62FD.Rows.Count > 0) return;
 
-            Rectangle area_62FD = new Rectangle(0, grilla_62FD.ColumnHeadersHeight,
-                grilla_62FD.ClientSize.Width, grilla_62FD.ClientSize.Height - grilla_62FD.ColumnHeadersHeight);
-            TextRenderer.DrawText(e.Graphics, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_GrillaSinDatos"),
-                grilla_62FD.Font, area_62FD, Color.Gray,
-                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
+            Rectangle area_62FD = new Rectangle(0, grilla_62FD.ColumnHeadersHeight, grilla_62FD.ClientSize.Width, grilla_62FD.ClientSize.Height - grilla_62FD.ColumnHeadersHeight);
+            TextRenderer.DrawText(e.Graphics, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_GrillaSinDatos"), grilla_62FD.Font, area_62FD, Color.Gray, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
         }
 
         private void AuditoriaDeCambios_62FD_FormClosing(object sender, FormClosingEventArgs e)

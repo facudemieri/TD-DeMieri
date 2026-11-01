@@ -1,6 +1,7 @@
 ﻿using BE_23DB;
 using Mapper_23DB;
 using Services_23DB;
+using Services_23DB.Serializacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,13 @@ namespace BLL_23DB
         mapperVuelo_62FD mapperVuelo_62FD = new mapperVuelo_62FD();
         mapperAeronave_62FD mapperAeronave_62FD = new mapperAeronave_62FD();
         DVBLL_23DB dvBLL_23DB = new DVBLL_23DB();
+        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
+
+        public const int HorasMinimasEntreVuelos_62FD = 3;
+        public const int AeronaveConVueloCercano_62FD = -3;
+
+        // Detalle del último registro en bitácora que falló: lo necesita el aviso de la pantalla
+        public string ErrorBitacora_62FD { get; private set; }
 
         public List<Vuelo_62FD> BuscarVuelos_62FD(string origen_62FD, string destino_62FD, DateTime fechaPartida_62FD, int cantidadPasajeros_62FD)
         {
@@ -129,6 +137,39 @@ namespace BLL_23DB
             return mapperVuelo_62FD.ObtenerTodosLosVuelos_62FD();
         }
 
+        public void SerializarVuelos_62FD(List<Vuelo_62FD> listaVuelos_62FD, string rutaArchivo_62FD, out bool bitacoraRegistrada_62FD)
+        {
+            SerializarBLL_62FD serializarBLL_62FD = new SerializarBLL_62FD();
+            serializarBLL_62FD.Serializar_62DB(listaVuelos_62FD, rutaArchivo_62FD);
+
+            bitacoraRegistrada_62FD = RegistrarEventoSerializacion_62FD("Serializar Vuelos");
+        }
+
+        public List<Vuelo_62FD> DeserializarVuelos_62FD(string rutaArchivo_62FD, out bool bitacoraRegistrada_62FD)
+        {
+            DeserializarBLL_62FD deserializarBLL_62FD = new DeserializarBLL_62FD();
+            List<Vuelo_62FD> listaVuelos_62FD = deserializarBLL_62FD.Deserializar_62DB<Vuelo_62FD>(rutaArchivo_62FD);
+
+            bitacoraRegistrada_62FD = RegistrarEventoSerializacion_62FD("Deserializar Vuelos");
+
+            return listaVuelos_62FD;
+        }
+
+        private bool RegistrarEventoSerializacion_62FD(string evento_62FD)
+        {
+            try
+            {
+                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Maestros", evento_62FD, 4);
+                ErrorBitacora_62FD = null;
+                return true;
+            }
+            catch (Exception ex_62FD)
+            {
+                ErrorBitacora_62FD = ex_62FD.Message;
+                return false;
+            }
+        }
+
         public bool ExisteAeronave_62FD(string matricula_62FD)
         {
             return mapperAeronave_62FD.ObtenerTodas_62FD().Exists(a_62FD => a_62FD.Matricula_62FD == matricula_62FD && a_62FD.Activo_62FD);
@@ -139,6 +180,11 @@ namespace BLL_23DB
             if (!ExisteAeronave_62FD(vuelo_62FD.Matricula_62FD))
             {
                 return -2;
+            }
+
+            if (mapperVuelo_62FD.ContarVuelosEnVentana_62FD(vuelo_62FD.Matricula_62FD, vuelo_62FD.FechaHoraSalida_62FD, HorasMinimasEntreVuelos_62FD, null) > 0)
+            {
+                return AeronaveConVueloCercano_62FD;
             }
 
             vuelo_62FD.EstadoVuelo_62FD = "Programado";
@@ -167,6 +213,11 @@ namespace BLL_23DB
                 return -2;
             }
 
+            if (vuelo_62FD.EstadoVuelo_62FD == "Programado" && mapperVuelo_62FD.ContarVuelosEnVentana_62FD(vuelo_62FD.Matricula_62FD, vuelo_62FD.FechaHoraSalida_62FD, HorasMinimasEntreVuelos_62FD, vuelo_62FD.NroVuelo_62FD) > 0)
+            {
+                return AeronaveConVueloCercano_62FD;
+            }
+
             if (mapperVuelo_62FD.Actualizar_62FD(vuelo_62FD) != 1)
             {
                 return -1;
@@ -188,5 +239,7 @@ namespace BLL_23DB
 
             return true;
         }
+
+
     }
 }
