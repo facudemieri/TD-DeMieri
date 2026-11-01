@@ -16,7 +16,6 @@ namespace GUI_23DB
     public partial class SolicitarRepuesto_62FD : Form, IIdiomaObserver_23DB
     {
         RepuestoBLL_62FD repuestoBLL_62FD = new RepuestoBLL_62FD();
-        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
 
         private Tarea_62FD tarea_62FD = null;
         private string matricula_62FD = "";
@@ -31,6 +30,7 @@ namespace GUI_23DB
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "solicitar-repuesto");
 
             tarea_62FD = tareaSeleccionada_62FD;
             matricula_62FD = matriculaAeronave_62FD;
@@ -204,7 +204,8 @@ namespace GUI_23DB
                 repuesto_62FD.nroParte_62FD = nroParte_62FD;
                 repuesto_62FD.cantidadSolicitada_62FD = Convert.ToInt32(numericUpDown1.Value);
 
-                int nroSolicitud_62FD = repuestoBLL_62FD.SolicitarRepuesto_62FD(repuesto_62FD);
+                bool bitacoraRegistrada_62FD;
+                int nroSolicitud_62FD = repuestoBLL_62FD.SolicitarRepuesto_62FD(repuesto_62FD, out bitacoraRegistrada_62FD);
 
                 if (nroSolicitud_62FD < 0)
                 {
@@ -213,7 +214,10 @@ namespace GUI_23DB
                     return;
                 }
 
-                RegistrarEventoBitacora_62FD("Solicitar Repuestos", 3);
+                if (!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), repuestoBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_SolicitudRepuestoRegistrada"), nroSolicitud_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -259,14 +263,20 @@ namespace GUI_23DB
                     return;
                 }
 
-                if (!repuestoBLL_62FD.RegistrarRecepcion_62FD(repuesto_62FD.nroSolicitud_62FD))
+                bool bitacoraRegistrada_62FD;
+
+                if (!repuestoBLL_62FD.RegistrarRecepcion_62FD(repuesto_62FD.nroSolicitud_62FD, out bitacoraRegistrada_62FD))
                 {
                     MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_DatoModificado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     CargarGrilla_62FD();
                     return;
                 }
 
-                RegistrarEventoBitacora_62FD("Registrar Recepción de Repuestos", 3);
+                if (!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), repuestoBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
                 MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_RecepcionRegistrada"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 CargarGrilla_62FD();
@@ -278,19 +288,6 @@ namespace GUI_23DB
             finally
             {
                 btnRegistrarRecepcion.Enabled = true;
-            }
-        }
-
-        // La Bitácora va en su propio try/catch: si falla, la operación de negocio ya está hecha y no se informa como error
-        private void RegistrarEventoBitacora_62FD(string evento_62FD, int criticidad_62FD)
-        {
-            try
-            {
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Mantenimiento", evento_62FD, criticidad_62FD);
-            }
-            catch (Exception ex_62FD)
-            {
-                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), ex_62FD.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

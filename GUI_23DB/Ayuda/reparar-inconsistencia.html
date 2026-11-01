@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reparar inconsistencia - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Reparar inconsistencia</h1>
+<p class="bajada">Aparece cuando el sistema detecta datos alterados por fuera de AeroManager, y
+permite al administrador decidir cómo resolverlo.</p>
+
+<h2>Para qué sirve</h2>
+<p>AeroManager protege sus datos con dígitos verificadores. Si alguien modifica, agrega o elimina
+información directamente en la base de datos, sin pasar por el sistema, esos dígitos dejan de
+coincidir y la inconsistencia se detecta al iniciar sesión.</p>
+<p>Mientras el problema no se resuelva, nadie puede usar el sistema. Esta pantalla ofrece dos
+caminos: aceptar los datos actuales recalculando los dígitos, o volver a un estado anterior
+restaurando un respaldo. La decisión depende de si la diferencia detectada es legítima.</p>
+
+<h2>Cómo se llega</h2>
+<p>No figura en el menú. Se abre sola al presionar <span class="boton">Login</span> en la pantalla
+de <a href="inicio-sesion.html">Inicio de sesión</a>, cuando hay inconsistencias y las credenciales
+corresponden a un usuario con el rol Administrador. Antes se muestra un aviso con el detalle de los
+datos afectados.</p>
+
+<figure>
+    <img src="img/reparar-inconsistencia.png" alt="Pantalla Reparar Inconsistencia de AeroManager">
+    <figcaption>Pantalla Reparar Inconsistencia, con los tres caminos disponibles.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control"><span class="boton">Recalcular DV</span></td>
+    <td>Vuelve a calcular los dígitos verificadores a partir de los datos actuales.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Restore BD</span></td>
+    <td>Abre <a href="gestion-respaldos.html">Gestión de respaldos</a> para restaurar una copia.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Cierra AeroManager sin resolver la inconsistencia.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo decidir qué camino tomar</h2>
+
+<ol class="pasos">
+<li>Leer el aviso inicial, que indica qué datos están afectados.</li>
+<li>Averiguar si la diferencia responde a un cambio legítimo o a una alteración indebida.</li>
+<li>Si los datos actuales son correctos, usar <span class="boton">Recalcular DV</span>.</li>
+<li>Si los datos actuales no son confiables y existe un respaldo adecuado, usar
+    <span class="boton">Restore BD</span>.</li>
+<li>Si todavía no se puede decidir, presionar <span class="boton salir">Salir</span>. El sistema
+    seguirá sin estar disponible para los demás usuarios.</li>
+</ol>
+
+<h2>Cómo recalcular los dígitos verificadores</h2>
+
+<ol class="pasos">
+<li>Presionar <span class="boton">Recalcular DV</span>.</li>
+<li>Aceptar el mensaje de confirmación.</li>
+<li>Presionar <span class="boton">Login</span> otra vez para ingresar al sistema.</li>
+</ol>
+
+<div class="atencion">
+<p><strong>Atención.</strong> Recalcular da por válidos los datos tal como están. Si hubo una
+alteración indebida, deja de ser detectada. Conviene usar esta opción solo después de confirmar que
+los datos son correctos.</p>
+</div>
+
+<h2>Cómo restaurar la base de datos</h2>
+
+<ol class="pasos">
+<li>Presionar <span class="boton">Restore BD</span>.</li>
+<li>En <strong>Gestión de Respaldos</strong>, elegir el archivo de respaldo y presionar
+    <span class="boton">Restore</span>.</li>
+<li>Confirmar la advertencia con <strong>Sí</strong> y aceptar el mensaje final.</li>
+<li>Presionar <span class="boton">Login</span> otra vez para ingresar al sistema.</li>
+</ol>
+
+<p>Si en <strong>Gestión de Respaldos</strong> se presiona
+<span class="boton salir">Cancelar</span>, se vuelve a esta pantalla sin haber restaurado nada.</p>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">"Se detectaron inconsistencias en los siguientes datos:" seguido de la
+        lista de tablas afectadas y de "Seleccione un camino."</td>
+    <td>Es el aviso inicial. Por cada grupo de datos afectado se indican los registros adulterados.
+        Al aceptarlo se muestra la pantalla de reparación.</td>
+</tr>
+<tr>
+    <td class="situacion">"se agregaron o eliminaron registros por fuera del sistema"</td>
+    <td>Aparece dentro del aviso cuando cambió la cantidad de registros de ese grupo de datos, sin
+        que se pueda señalar uno en particular.</td>
+</tr>
+<tr>
+    <td class="situacion">"... y" seguido de una cantidad, "registro(s) más sin mostrar."</td>
+    <td>Aparece dentro del aviso cuando hay más registros afectados que los que se listan.</td>
+</tr>
+<tr>
+    <td class="situacion">"DV recalculado correctamente. Inicie sesión nuevamente."</td>
+    <td>La inconsistencia quedó resuelta. Hay que volver a ingresar.</td>
+</tr>
+<tr>
+    <td class="situacion">"El sistema no está disponible en este momento. Contacte al
+        administrador."</td>
+    <td>Aparece en el inicio de sesión a los usuarios que no tienen el rol Administrador mientras
+        haya inconsistencias. Un administrador tiene que resolverlas.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>El aviso inicial muestra hasta 10 registros afectados por cada grupo de datos.</li>
+<li>Solo puede operar esta pantalla un usuario con el rol llamado exactamente Administrador.</li>
+<li>No hace falta tener la patente de respaldos para restaurar desde esta pantalla.</li>
+</ul>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="gestion-respaldos.html">Gestión de respaldos</a></li>
+<li><a href="inicio-sesion.html">Inicio de sesión</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Reparar inconsistencia
+</div>
+
+</div>
+</body>
+</html>

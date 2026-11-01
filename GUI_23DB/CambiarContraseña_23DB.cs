@@ -19,6 +19,7 @@ namespace GUI_23DB
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "cambiar-contrasena");
         }
 
         private UsuarioBLL_23DB usuarioBLL_23DB = new UsuarioBLL_23DB();
@@ -45,7 +46,8 @@ namespace GUI_23DB
             }
 
             string dni_23DB = SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB;
-            bool resultado_23DB = usuarioBLL_23DB.CambiarClave_23DB(dni_23DB, txtPasswordActual.Text, txtPasswordNueva.Text, txtConfirmarPassword.Text);
+            bool bitacoraRegistrada_62FD;
+            bool resultado_23DB = usuarioBLL_23DB.CambiarClave_23DB(dni_23DB, txtPasswordActual.Text, txtPasswordNueva.Text, txtConfirmarPassword.Text, out bitacoraRegistrada_62FD);
 
             if(!resultado_23DB)
             {
@@ -53,7 +55,11 @@ namespace GUI_23DB
                 return;
             }
 
-            eventoBLL_23DB.RegistrarEvento_23DB(dni_23DB, "Usuarios", "Cambiar Clave", 2);
+            if(!bitacoraRegistrada_62FD)
+            {
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), usuarioBLL_23DB.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
             MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ContrasenaActualizada"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             SessionManager_23DB.ObtenerInstancia_23DB().CerrarSesion_23DB();
             this.Close();

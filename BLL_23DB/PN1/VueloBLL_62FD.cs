@@ -157,9 +157,14 @@ namespace BLL_23DB
 
         private bool RegistrarEventoSerializacion_62FD(string evento_62FD)
         {
+            return RegistrarEventoBitacora_62FD(evento_62FD, 4);
+        }
+
+        private bool RegistrarEventoBitacora_62FD(string evento_62FD, int criticidad_62FD)
+        {
             try
             {
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Maestros", evento_62FD, 4);
+                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Maestros", evento_62FD, criticidad_62FD);
                 ErrorBitacora_62FD = null;
                 return true;
             }
@@ -175,8 +180,10 @@ namespace BLL_23DB
             return mapperAeronave_62FD.ObtenerTodas_62FD().Exists(a_62FD => a_62FD.Matricula_62FD == matricula_62FD && a_62FD.Activo_62FD);
         }
 
-        public int CrearVuelo_62FD(Vuelo_62FD vuelo_62FD)
+        public int CrearVuelo_62FD(Vuelo_62FD vuelo_62FD, out bool bitacoraRegistrada_62FD)
         {
+            bitacoraRegistrada_62FD = false;
+
             if (!ExisteAeronave_62FD(vuelo_62FD.Matricula_62FD))
             {
                 return -2;
@@ -203,11 +210,15 @@ namespace BLL_23DB
 
             dvBLL_23DB.RecalcularDVTabla_23DB("Vuelo_62FD");
 
+            bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD("Crear Vuelo", 3);
+
             return 1;
         }
 
-        public int ModificarVuelo_62FD(Vuelo_62FD vuelo_62FD)
+        public int ModificarVuelo_62FD(Vuelo_62FD vuelo_62FD, out bool bitacoraRegistrada_62FD)
         {
+            bitacoraRegistrada_62FD = false;
+
             if (!ExisteAeronave_62FD(vuelo_62FD.Matricula_62FD))
             {
                 return -2;
@@ -225,17 +236,23 @@ namespace BLL_23DB
 
             dvBLL_23DB.RecalcularDVTabla_23DB("Vuelo_62FD");
 
+            bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD("Modificar Vuelo", 3);
+
             return 1;
         }
 
-        public bool CancelarVuelo_62FD(string nroVuelo_62FD)
+        public bool CancelarVuelo_62FD(string nroVuelo_62FD, out bool bitacoraRegistrada_62FD)
         {
+            bitacoraRegistrada_62FD = false;
+
             if (mapperVuelo_62FD.ActualizarEstado_62FD(nroVuelo_62FD, "Cancelado") != 1)
             {
                 return false;
             }
 
             dvBLL_23DB.RecalcularDVTabla_23DB("Vuelo_62FD");
+
+            bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD("Cancelar Vuelo", 3);
 
             return true;
         }

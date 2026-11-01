@@ -13,9 +13,15 @@ namespace BLL_23DB
     {
         mapperRepuesto_62FD mapperRepuesto_62FD = new mapperRepuesto_62FD();
         DVBLL_23DB dvBLL_23DB = new DVBLL_23DB();
+        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
 
-        public int SolicitarRepuesto_62FD(Repuesto_62FD repuesto_62FD)
+        // Detalle del último registro en bitácora que falló: lo necesita el aviso de la pantalla
+        public string ErrorBitacora_62FD { get; private set; }
+
+        public int SolicitarRepuesto_62FD(Repuesto_62FD repuesto_62FD, out bool bitacoraRegistrada_62FD)
         {
+            bitacoraRegistrada_62FD = false;
+
             repuesto_62FD.nroSolicitud_62FD = mapperRepuesto_62FD.ObtenerProximoNroSolicitud_62FD();
             repuesto_62FD.estadoPedido_62FD = "Solicitado";
             repuesto_62FD.fechaSolicitud_62FD = DateTime.Now;
@@ -28,11 +34,15 @@ namespace BLL_23DB
 
             dvBLL_23DB.RecalcularDVTabla_23DB("Repuesto_62FD");
 
+            bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD("Solicitar Repuestos", 3);
+
             return repuesto_62FD.nroSolicitud_62FD;
         }
 
-        public bool RegistrarRecepcion_62FD(int nroSolicitud_62FD)
+        public bool RegistrarRecepcion_62FD(int nroSolicitud_62FD, out bool bitacoraRegistrada_62FD)
         {
+            bitacoraRegistrada_62FD = false;
+
             if (mapperRepuesto_62FD.RegistrarRecepcion_62FD(nroSolicitud_62FD, DateTime.Now) != 1)
             {
                 return false;
@@ -40,7 +50,24 @@ namespace BLL_23DB
 
             dvBLL_23DB.RecalcularDVTabla_23DB("Repuesto_62FD");
 
+            bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD("Registrar Recepción de Repuestos", 3);
+
             return true;
+        }
+
+        private bool RegistrarEventoBitacora_62FD(string evento_62FD, int criticidad_62FD)
+        {
+            try
+            {
+                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Mantenimiento", evento_62FD, criticidad_62FD);
+                ErrorBitacora_62FD = null;
+                return true;
+            }
+            catch (Exception ex_62FD)
+            {
+                ErrorBitacora_62FD = ex_62FD.Message;
+                return false;
+            }
         }
 
         public List<Repuesto_62FD> ObtenerRepuestosPorTarea_62FD(int idTarea_62FD)

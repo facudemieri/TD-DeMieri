@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bitácora de eventos - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Bitácora de eventos</h1>
+<p class="bajada">Muestra qué operaciones se hicieron en el sistema, quién las hizo y cuándo, y
+permite filtrarlas e imprimirlas.</p>
+
+<h2>Para qué sirve</h2>
+<p>La bitácora es el registro de auditoría de AeroManager. Cada ingreso, venta, cambio de datos o
+tarea de administración deja un evento con el usuario, la fecha, la hora, el módulo y la
+criticidad. Permite responder preguntas como quién modificó un dato o qué pasó en una fecha
+determinada.</p>
+<p>Es una pantalla de consulta: los eventos no se pueden cargar, cambiar ni borrar desde acá. El
+resultado se puede guardar en un PDF para presentarlo o archivarlo.</p>
+
+<h2>Cómo se llega</h2>
+<p>Desde el menú principal, en <strong>Administrador &rsaquo; Bitacora de Eventos</strong>. La
+opción aparece si el rol del usuario incluye la patente correspondiente.</p>
+
+<figure>
+    <img src="img/bitacora-eventos.png" alt="Pantalla Bitácora de Eventos de AeroManager">
+    <figcaption>Pantalla Bitácora de Eventos, con la grilla arriba y los filtros abajo.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Grilla de eventos</td>
+    <td>Muestra Id Evento, DNI, Fecha, Hora, Módulo, Evento y Criticidad. Al hacer clic en un
+        encabezado se ordena por esa columna.</td>
+</tr>
+<tr>
+    <td class="control">Nombre y Apellido</td>
+    <td>Se completan al hacer clic en un evento, con los datos de quien lo generó. No funcionan
+        como filtro.</td>
+</tr>
+<tr>
+    <td class="control">Login</td>
+    <td>Filtra por usuario.</td>
+</tr>
+<tr>
+    <td class="control">Fecha Ini. y Fecha Fin</td>
+    <td>Definen el período de la consulta.</td>
+</tr>
+<tr>
+    <td class="control">Modulo</td>
+    <td>Filtra por Usuarios, Administrador, Pasajes, Mantenimiento o Maestros.</td>
+</tr>
+<tr>
+    <td class="control">Evento</td>
+    <td>Filtra por un tipo de operación, como Login, Crear Usuario o Generar Reserva.</td>
+</tr>
+<tr>
+    <td class="control">Criticidad</td>
+    <td>Filtra por 1 - Crítico, 2 - Alto, 3 - Medio o 4 - Bajo.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Limpiar</span></td>
+    <td>Borra los filtros y vuelve a mostrar los últimos tres días.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Aplicar</span></td>
+    <td>Muestra los eventos que cumplen los filtros.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Imprimir</span></td>
+    <td>Guarda en un PDF lo que muestra la grilla y lo abre.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Cierra la pantalla.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo consultar los eventos</h2>
+
+<ol class="pasos">
+<li>Abrir la pantalla. La grilla muestra los eventos de los últimos tres días.</li>
+<li>Elegir <strong>Fecha Ini.</strong> y <strong>Fecha Fin</strong>. Al abrir la pantalla, ambas
+    fechas aparecen en el día de hoy, por lo que hay que ajustarlas antes de aplicar.</li>
+<li>Si hace falta, elegir <strong>Login</strong>, <strong>Modulo</strong>, <strong>Evento</strong> o
+    <strong>Criticidad</strong>. Los filtros que queden vacíos no se tienen en cuenta.</li>
+<li>Presionar <span class="boton">Aplicar</span>.</li>
+<li>Para ver a quién corresponde un evento, hacer clic en su fila: el nombre y el apellido aparecen
+    debajo de la grilla.</li>
+</ol>
+
+<h2>Cómo imprimir la bitácora</h2>
+
+<ol class="pasos">
+<li>Dejar en la grilla los eventos que se quieren imprimir.</li>
+<li>Presionar <span class="boton">Imprimir</span>.</li>
+<li>Elegir dónde guardar el archivo. El sistema propone un nombre con la fecha y la hora.</li>
+<li>El sistema confirma la generación y abre el PDF.</li>
+</ol>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">"La fecha de inicio no puede ser mayor a la fecha fin."</td>
+    <td>El período está invertido. Hay que corregir alguna de las dos fechas.</td>
+</tr>
+<tr>
+    <td class="situacion">"La fecha fin no puede ser posterior a la fecha actual."</td>
+    <td>Hay que elegir como máximo el día de hoy.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se encontraron eventos con los criterios ingresados."</td>
+    <td>Ningún evento cumple los filtros. Conviene ampliar el período o quitar algún filtro.</td>
+</tr>
+<tr>
+    <td class="situacion">"No hay datos para imprimir."</td>
+    <td>La grilla está vacía. Primero hay que hacer una consulta con resultados.</td>
+</tr>
+<tr>
+    <td class="situacion">"PDF generado correctamente."</td>
+    <td>El archivo quedó guardado en el lugar elegido y se abre a continuación.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al generar el PDF:" seguido del motivo</td>
+    <td>El archivo no se pudo crear. Después de los dos puntos se indica la causa técnica. Si el
+        archivo de destino está abierto, conviene cerrarlo o elegir otro nombre.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>Al abrir la pantalla, y al presionar <span class="boton">Limpiar</span>, se muestran los eventos
+    de los últimos tres días.</li>
+<li>Las fechas de consulta no pueden superar el día de hoy.</li>
+<li>La criticidad va de 1, la más alta, a 4, la más baja.</li>
+</ul>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="gestion-usuarios.html">Gestión de usuarios</a></li>
+<li><a href="auditoria-cambios.html">Auditoría de cambios</a></li>
+<li><a href="inicio-sesion.html">Inicio de sesión</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Bitácora de eventos
+</div>
+
+</div>
+</body>
+</html>

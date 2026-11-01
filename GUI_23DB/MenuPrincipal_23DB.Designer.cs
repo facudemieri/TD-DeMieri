@@ -209,6 +209,7 @@
             this.btnAyuda.TabIndex = 17;
             this.btnAyuda.Text = "Ayuda";
             this.btnAyuda.UseVisualStyleBackColor = false;
+            this.btnAyuda.Click += new System.EventHandler(this.btnAyuda_Click_1);
             // 
             // btnReportes
             // 

@@ -18,7 +18,6 @@ namespace GUI_23DB
         PasajeroBLL_62FD pasajeroBLL_62FD = new PasajeroBLL_62FD();
         AsientoBLL_62FD asientoBLL_62FD = new AsientoBLL_62FD();
         ReservaBLL_62FD reservaBLL_62FD = new ReservaBLL_62FD();
-        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
 
         private Vuelo_62FD vuelo_62FD = null;
         private Pasajero_62FD pasajeroActual_62FD = null;
@@ -38,6 +37,7 @@ namespace GUI_23DB
             dataGridView1.AutoGenerateColumns = false;
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "generar-reserva");
             ConfigurarControles_62FD();
         }
 
@@ -438,9 +438,13 @@ namespace GUI_23DB
                 reserva_62FD.NroVuelo_62FD = vuelo_62FD.NroVuelo_62FD;
                 reserva_62FD.Detalles_62FD = detalles_62FD;
 
-                string codReserva_62FD = reservaBLL_62FD.GenerarReserva_62FD(reserva_62FD);
+                bool bitacoraRegistrada_62FD;
+                string codReserva_62FD = reservaBLL_62FD.GenerarReserva_62FD(reserva_62FD, out bitacoraRegistrada_62FD);
 
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Pasajes", "Generar Reserva", 3);
+                if (!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), reservaBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ReservaCreada"), codReserva_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 

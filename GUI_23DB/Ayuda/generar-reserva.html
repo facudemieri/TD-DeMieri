@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generar reserva - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Generar reserva</h1>
+<p class="bajada">Es el primer paso de la venta: se elige el vuelo, se identifica a cada pasajero
+y se le asigna un asiento. El resultado es una reserva pendiente de pago.</p>
+
+<h2>Para qué sirve</h2>
+<p>Una reserva asegura los asientos de uno o varios pasajeros en un vuelo antes de cobrarlos. El
+flujo reúne tres pantallas: <strong>Seleccionar Vuelo</strong>, donde se busca el vuelo,
+<strong>Generar Reserva</strong>, donde se cargan los pasajeros y sus asientos, y
+<strong>Registrar Pasajero</strong>, que aparece solamente cuando la persona todavía no está
+cargada en el sistema.</p>
+<p>Al confirmar, el sistema entrega un código de reserva, la deja en estado
+<strong>Pendiente de Pago</strong> y marca los asientos como reservados, de modo que nadie más
+pueda venderlos. El cobro y la emisión de los pasajes se hacen después, en
+<a href="generar-pasaje.html">Generar pasaje</a>.</p>
+
+<h2>Cómo se llega</h2>
+<p>Desde el menú principal, en <strong>Venta de Pasajes &rsaquo; Vender Pasaje</strong>. La sección
+aparece si el rol del usuario incluye la patente de venta de pasajes. Primero se abre la búsqueda
+de vuelos, y al continuar se muestra la pantalla de la reserva.</p>
+
+<figure>
+    <img src="img/generar-reserva.png" alt="Pantalla Generar Reserva de AeroManager">
+    <figcaption>Pantalla Generar Reserva, con el vuelo arriba, el pasajero y los asientos en el
+    centro, y la lista de pasajeros de la reserva abajo.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<p><strong>Pantalla Seleccionar Vuelo</strong></p>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Origen y Destino</td>
+    <td>Listas con los orígenes y destinos de los vuelos cargados. Ambas son obligatorias para
+        buscar.</td>
+</tr>
+<tr>
+    <td class="control">Fecha Partida</td>
+    <td>Día exacto del vuelo buscado.</td>
+</tr>
+<tr>
+    <td class="control">Cantidad de Pasajeros</td>
+    <td>Muestra solamente los vuelos con al menos esa cantidad de asientos disponibles.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Buscar</span></td>
+    <td>Lista los vuelos que cumplen los criterios.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Limpiar</span></td>
+    <td>Borra los criterios y vuelve a mostrar todos los vuelos futuros con asientos libres.</td>
+</tr>
+<tr>
+    <td class="control">Grilla de vuelos</td>
+    <td>Muestra Nro Vuelo, Ruta, Fecha y Hora de Salida, Asientos Disponibles y Precio. Al hacer
+        clic en un encabezado se ordena por esa columna.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Continuar</span></td>
+    <td>Se habilita al elegir un vuelo de la grilla y pasa a la pantalla de la reserva.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Abandona la operación y vuelve al menú principal.</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Pantalla Generar Reserva</strong></p>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Vuelo seleccionado</td>
+    <td>Muestra Nro Vuelo, Ruta, Fecha y Hora de Salida, Aeronave y Precio. No se puede editar.</td>
+</tr>
+<tr>
+    <td class="control">Nro Documento</td>
+    <td>Documento del pasajero que se quiere agregar.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Buscar Pasajero</span></td>
+    <td>Busca a la persona, muestra sus datos y carga los asientos disponibles.</td>
+</tr>
+<tr>
+    <td class="control">Asientos Disponibles</td>
+    <td>Grilla con Nro Asiento, Clase y Estado. Se elige un asiento con un clic.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Agregar a la Reserva</span></td>
+    <td>Suma al pasajero, con el asiento elegido, a la lista de la reserva.</td>
+</tr>
+<tr>
+    <td class="control">Pasajeros de la Reserva</td>
+    <td>Grilla con Documento, Apellido y Nombre, Nro Asiento, Clase y Precio.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Quitar</span></td>
+    <td>Saca de la lista al pasajero seleccionado.</td>
+</tr>
+<tr>
+    <td class="control">Monto Total</td>
+    <td>Suma de los precios de los pasajeros agregados.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Aplicar</span></td>
+    <td>Se habilita con al menos un pasajero y crea la reserva.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Cancelar</span></td>
+    <td>Descarta los pasajeros cargados y deja la pantalla lista para empezar de nuevo.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Cierra la pantalla. No pide confirmación: lo que no se haya aplicado se pierde.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo generar una reserva</h2>
+
+<ol class="pasos">
+<li>Abrir <strong>Venta de Pasajes &rsaquo; Vender Pasaje</strong>. Se muestra
+    <strong>Seleccionar Vuelo</strong> con todos los vuelos futuros que tienen asientos libres.</li>
+<li>Si hace falta acotar la lista, elegir <strong>Origen</strong>, <strong>Destino</strong>,
+    <strong>Fecha Partida</strong> y <strong>Cantidad de Pasajeros</strong>, y presionar
+    <span class="boton">Buscar</span>.</li>
+<li>Hacer clic en el vuelo y presionar <span class="boton">Continuar</span>.</li>
+<li>Escribir el documento en <strong>Nro Documento</strong> y presionar
+    <span class="boton">Buscar Pasajero</span>. Si la persona no está registrada, seguir los pasos
+    del apartado siguiente.</li>
+<li>Hacer clic en un asiento de <strong>Asientos Disponibles</strong> y presionar
+    <span class="boton">Agregar a la Reserva</span>.</li>
+<li>Repetir los dos pasos anteriores por cada pasajero. Si alguno se cargó por error, seleccionarlo
+    en la lista y presionar <span class="boton">Quitar</span>.</li>
+<li>Revisar el monto total y presionar <span class="boton">Aplicar</span>.</li>
+<li>Anotar el código que informa el sistema. Con él se cobra la reserva en
+    <a href="generar-pasaje.html">Generar pasaje</a>.</li>
+</ol>
+
+<figure>
+    <img src="img/generar-reserva-02.png" alt="Pantalla Seleccionar Vuelo de AeroManager">
+    <figcaption>Pantalla Seleccionar Vuelo, con los criterios de búsqueda y la grilla de
+    vuelos.</figcaption>
+</figure>
+
+<h2>Cómo registrar un pasajero nuevo</h2>
+
+<p>Si el documento no está cargado, el sistema pregunta si se desea registrarlo. Al responder
+<strong>Sí</strong> se abre la pantalla <strong>Registrar Pasajero</strong>, con el documento ya
+completo y sin posibilidad de editarlo.</p>
+
+<figure>
+    <img src="img/registrar-pasajero.png" alt="Pantalla Registrar Pasajero de AeroManager">
+    <figcaption>Pantalla Registrar Pasajero, con los datos personales y de contacto.</figcaption>
+</figure>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Numero Documento</td>
+    <td>Documento buscado. Se muestra a modo informativo.</td>
+</tr>
+<tr>
+    <td class="control">Nombre y Apellido</td>
+    <td>Datos personales del pasajero. Son obligatorios.</td>
+</tr>
+<tr>
+    <td class="control">Fecha Nacimiento</td>
+    <td>Aparece vacía y hay que elegirla en el calendario.</td>
+</tr>
+<tr>
+    <td class="control">Correo Electronico</td>
+    <td>Obligatorio. Tiene que incluir el signo @.</td>
+</tr>
+<tr>
+    <td class="control">Telefono</td>
+    <td>Teléfono del pasajero. Es obligatorio.</td>
+</tr>
+<tr>
+    <td class="control">Contacto de Emergencia</td>
+    <td>Persona o teléfono a quien avisar. El sistema no lo exige.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Aplicar</span></td>
+    <td>Registra al pasajero y vuelve a la reserva con sus datos cargados.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Cancelar</span></td>
+    <td>Vuelve a la reserva sin registrar a nadie.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">"No se encontraron vuelos disponibles con los criterios ingresados."</td>
+    <td>Ningún vuelo de esa ruta, en ese día, tiene la cantidad de asientos pedida. Conviene probar
+        otra fecha o usar <span class="boton">Limpiar</span> para ver todos los vuelos.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al buscar vuelos:" seguido del motivo</td>
+    <td>Después de los dos puntos se indica la causa. Si dice "Los criterios de búsqueda son
+        inválidos.", faltó elegir el origen o el destino, o se eligió el mismo valor en ambos.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al cargar los vuelos:" seguido del motivo</td>
+    <td>No se pudo traer la lista de vuelos al abrir la pantalla. Después de los dos puntos se
+        indica la causa técnica. Si se repite, hay que avisarle al administrador.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar un vuelo."</td>
+    <td>No hay ningún vuelo elegido. Hay que hacer clic en una fila de la grilla.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe ingresar un número de documento."</td>
+    <td>Se presionó <span class="boton">Buscar Pasajero</span> con el campo vacío.</td>
+</tr>
+<tr>
+    <td class="situacion">"El pasajero no se encuentra registrado. ¿Desea registrarlo?"</td>
+    <td>El documento no existe en el sistema. Con <strong>Sí</strong> se abre
+        <strong>Registrar Pasajero</strong>; con <strong>No</strong> se puede corregir el número.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al buscar el pasajero:" seguido del motivo</td>
+    <td>No se pudo completar la búsqueda. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"No hay asientos disponibles para ese vuelo."</td>
+    <td>Ya no quedan asientos libres. Hay que salir y elegir otro vuelo.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe buscar un pasajero antes de agregarlo."</td>
+    <td>No hay un pasajero cargado. Primero hay que usar
+        <span class="boton">Buscar Pasajero</span>.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar un asiento."</td>
+    <td>Hay que hacer clic en un asiento de la grilla antes de agregar al pasajero.</td>
+</tr>
+<tr>
+    <td class="situacion">"El pasajero ya fue agregado a la reserva."</td>
+    <td>Cada persona puede figurar una sola vez en la reserva.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar un pasajero de la reserva."</td>
+    <td>Hay que elegir una fila de <strong>Pasajeros de la Reserva</strong> antes de presionar
+        <span class="boton">Quitar</span>.</td>
+</tr>
+<tr>
+    <td class="situacion">"¿Está seguro que desea descartar la reserva en curso?"</td>
+    <td>Aparece al presionar <span class="boton">Cancelar</span> con pasajeros cargados. Con
+        <strong>Sí</strong> se pierden; con <strong>No</strong> se sigue trabajando.</td>
+</tr>
+<tr>
+    <td class="situacion">"Reserva creada con éxito. Código:" seguido del código</td>
+    <td>La reserva quedó registrada. El código informado es el que se usa para cobrarla.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al generar la reserva:" seguido del motivo</td>
+    <td>La reserva no se pudo registrar. Después de los dos puntos se indica la causa.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe elegir la fecha de nacimiento del pasajero."</td>
+    <td>En <strong>Registrar Pasajero</strong>, falta elegir la fecha en el calendario.</td>
+</tr>
+<tr>
+    <td class="situacion">"Pasajero registrado correctamente."</td>
+    <td>La persona quedó cargada y se puede continuar con la reserva.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al registrar el pasajero:" seguido del motivo</td>
+    <td>Después de los dos puntos se indica la causa. Si dice "Los datos del pasajero son
+        inválidos.", falta un dato obligatorio, el correo no tiene @ o el documento no tiene ocho
+        caracteres. Si dice "El pasajero ya se encuentra registrado.", el documento ya existe.</td>
+</tr>
+<tr>
+    <td class="situacion">"La operación se registró correctamente, pero no pudo asentarse en la
+        Bitácora:" seguido del motivo</td>
+    <td>La reserva o el pasajero se guardaron, pero el evento no quedó en la bitácora. Después de
+        los dos puntos se muestra el motivo técnico. Conviene avisarle al administrador.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>El documento del pasajero tiene que tener exactamente ocho caracteres.</li>
+<li>La fecha de nacimiento puede ir desde cien años atrás hasta el día de ayer.</li>
+<li>Se admiten hasta 50 caracteres en nombre y apellido, 100 en correo y contacto de emergencia, y
+    20 en teléfono.</li>
+<li>La cantidad de pasajeros está limitada por los asientos disponibles del vuelo. La búsqueda pide
+    al menos un pasajero, y la fecha de partida no puede ser anterior a hoy.</li>
+<li>Cada pasajero paga el precio del vuelo, sin diferencia por la clase del asiento.</li>
+<li>Solo se ofrecen vuelos no cancelados cuya salida todavía no ocurrió.</li>
+</ul>
+
+<div class="nota">
+<p><strong>Otra reserva en el mismo vuelo.</strong> Después de aplicar, el vuelo sigue seleccionado
+y se puede cargar otra reserva de inmediato. Para trabajar con otro vuelo hay que presionar
+<span class="boton salir">Salir</span> y volver a entrar.</p>
+</div>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="generar-pasaje.html">Generar pasaje</a></li>
+<li><a href="maestro-vuelos.html">Maestro de vuelos</a></li>
+<li><a href="comprobantes-pasaje.html">Comprobantes de pasaje</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Generar reserva
+</div>
+
+</div>
+</body>
+</html>

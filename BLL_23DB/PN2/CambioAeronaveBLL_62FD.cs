@@ -13,6 +13,10 @@ namespace BLL_23DB.PN2
     {
         mapperAeronaveCambio_62FD mapperAeronaveCambio_62FD = new mapperAeronaveCambio_62FD();
         DVBLL_23DB dvBLL_23DB = new DVBLL_23DB();
+        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
+
+        // Detalle del último registro en bitácora que falló: lo necesita el aviso de la pantalla
+        public string ErrorBitacora_62FD { get; private set; }
 
         public List<AeronaveCambio_62FD> ObtenerCambios_62FD(string matricula_62FD, string modelo_62FD, DateTime? fechaDesde_62FD, DateTime? fechaHasta_62FD)
         {
@@ -29,8 +33,10 @@ namespace BLL_23DB.PN2
             return mapperAeronaveCambio_62FD.ObtenerModelos_62FD();
         }
 
-        public bool ActivarCambio_62FD(string matricula_62FD, DateTime fechaHoraCambio_62FD)
+        public bool ActivarCambio_62FD(string matricula_62FD, DateTime fechaHoraCambio_62FD, out bool bitacoraRegistrada_62FD)
         {
+            bitacoraRegistrada_62FD = false;
+
             if (mapperAeronaveCambio_62FD.Activar_62FD(matricula_62FD, fechaHoraCambio_62FD) <= 0)
             {
                 return false;
@@ -39,7 +45,24 @@ namespace BLL_23DB.PN2
             dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD");
             dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD_C");
 
+            bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD("Activar Cambio Aeronave");
+
             return true;
+        }
+
+        private bool RegistrarEventoBitacora_62FD(string evento_62FD)
+        {
+            try
+            {
+                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Maestros", evento_62FD, 2);
+                ErrorBitacora_62FD = null;
+                return true;
+            }
+            catch (Exception ex_62FD)
+            {
+                ErrorBitacora_62FD = ex_62FD.Message;
+                return false;
+            }
         }
     }
 }

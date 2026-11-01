@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Administrador de familias - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Administrador de familias</h1>
+<p class="bajada">Permite agrupar patentes en familias reutilizables, para asignar varios permisos
+de una sola vez a los roles.</p>
+
+<h2>Para qué sirve</h2>
+<p>Una patente habilita una función concreta del sistema. Cuando varias funciones suelen ir
+juntas, conviene agruparlas en una familia: en lugar de agregar las patentes una por una a cada
+rol, se agrega la familia completa.</p>
+<p>Una familia puede contener patentes y también otras familias. Además, al cambiar su contenido
+se mantiene un único lugar donde administrar ese conjunto de permisos.</p>
+
+<h2>Cómo se llega</h2>
+<p>Desde el menú principal, en <strong>Administrador &rsaquo; Gestion de Perfiles &rsaquo;
+Administrador de Familias</strong>. La opción aparece si el rol del usuario incluye la patente
+correspondiente.</p>
+
+<figure>
+    <img src="img/administrador-familias.png" alt="Pantalla Administrador de Familias de AeroManager">
+    <figcaption>Pantalla Administrador de Familias, con el nombre y los botones a la izquierda, el
+    contenido de la familia en el centro y los elementos disponibles a la derecha.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Nombre</td>
+    <td>Nombre de la familia.</td>
+</tr>
+<tr>
+    <td class="control">Lista del centro</td>
+    <td>Muestra en forma de árbol lo que contiene la familia que se está armando o modificando.</td>
+</tr>
+<tr>
+    <td class="control">Lista de la derecha</td>
+    <td>Muestra las patentes y las familias existentes. Con doble clic, un elemento pasa a la lista
+        del centro. Con un clic en una familia, se habilitan <span class="boton">Modificar</span> y
+        <span class="boton">Eliminar</span>.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Crear</span></td>
+    <td>Crea una familia con el nombre escrito y los elementos de la lista del centro.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Modificar</span></td>
+    <td>Carga la familia seleccionada para editarla.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Eliminar</span></td>
+    <td>Elimina la familia seleccionada.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Quitar</span></td>
+    <td>Durante una modificación, saca de la familia el elemento elegido en la lista del
+        centro.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Aplicar</span></td>
+    <td>Guarda los cambios de la modificación en curso.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Cancelar</span></td>
+    <td>Descarta lo cargado y deja la pantalla como al abrirla.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Cierra la pantalla.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo crear una familia</h2>
+
+<ol class="pasos">
+<li>Escribir el nombre en <strong>Nombre</strong>.</li>
+<li>Hacer doble clic en cada patente o familia de la lista de la derecha. Cada elemento pasa a la
+    lista del centro.</li>
+<li>Presionar <span class="boton">Crear</span>. No hace falta presionar
+    <span class="boton">Aplicar</span>.</li>
+<li>Si durante la carga se eligió un elemento por error, presionar
+    <span class="boton">Cancelar</span> y empezar de nuevo.</li>
+</ol>
+
+<h2>Cómo modificar una familia</h2>
+
+<ol class="pasos">
+<li>Hacer clic en la familia dentro de la lista de la derecha.</li>
+<li>Presionar <span class="boton">Modificar</span>. La lista del centro muestra la familia con su
+    contenido.</li>
+<li>Cambiar el <strong>Nombre</strong> si hace falta.</li>
+<li>Para sumar un elemento, hacer doble clic en él dentro de la lista de la derecha.</li>
+<li>Para sacar un elemento, seleccionarlo debajo de la familia en la lista del centro y presionar
+    <span class="boton">Quitar</span>.</li>
+<li>Presionar <span class="boton">Aplicar</span>.</li>
+</ol>
+
+<h2>Cómo eliminar una familia</h2>
+
+<p>Solo se puede eliminar una familia vacía, que además no esté en uso por ningún rol ni por otra
+familia.</p>
+
+<ol class="pasos">
+<li>Si la familia está en uso, sacarla primero de esos roles o familias.</li>
+<li>Si tiene contenido, modificarla, quitar todos sus elementos y presionar
+    <span class="boton">Aplicar</span>.</li>
+<li>Hacer clic en la familia dentro de la lista de la derecha.</li>
+<li>Presionar <span class="boton">Eliminar</span> y confirmar con <strong>Sí</strong>.</li>
+</ol>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">"Debe ingresar un nombre para la Familia."</td>
+    <td>El campo <strong>Nombre</strong> está vacío.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar al menos un elemento."</td>
+    <td>Una familia nueva necesita al menos una patente u otra familia.</td>
+</tr>
+<tr>
+    <td class="situacion">"Ya existe una Familia con ese nombre."</td>
+    <td>Hay que elegir otro nombre. La comparación no distingue mayúsculas de minúsculas.</td>
+</tr>
+<tr>
+    <td class="situacion">"Familia creada correctamente."</td>
+    <td>La familia ya se puede usar en
+        <a href="administrador-roles.html">Administrador de roles</a>.</td>
+</tr>
+<tr>
+    <td class="situacion">"La Familia contiene patentes que ya están incluidas."</td>
+    <td>Alguna patente de la familia elegida ya está en la lista del centro.</td>
+</tr>
+<tr>
+    <td class="situacion">"La patente '" seguido del nombre de la patente, "' ya está incluida."</td>
+    <td>Esa patente ya está en la lista del centro, sola o dentro de otra familia.</td>
+</tr>
+<tr>
+    <td class="situacion">"El elemento ya fue agregado."</td>
+    <td>Ese elemento ya figura en la lista del centro.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar una Familia."</td>
+    <td>Hay que hacer clic en una familia de la lista de la derecha.</td>
+</tr>
+<tr>
+    <td class="situacion">"Solo se pueden modificar Familias."</td>
+    <td>El elemento seleccionado es una patente.</td>
+</tr>
+<tr>
+    <td class="situacion">"Solo se pueden eliminar Familias."</td>
+    <td>El elemento seleccionado es una patente.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se puede eliminar una Familia que está siendo usada por un Rol."</td>
+    <td>Primero hay que quitarla de ese rol en
+        <a href="administrador-roles.html">Administrador de roles</a>.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se puede eliminar una Familia que está siendo usada por otra
+        Familia."</td>
+    <td>Primero hay que quitarla de la familia que la contiene.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se puede eliminar una Familia que tiene componentes."</td>
+    <td>Primero hay que modificarla y quitar todos sus elementos.</td>
+</tr>
+<tr>
+    <td class="situacion">"¿Está seguro que desea eliminar la Familia" seguido del nombre de la
+        familia</td>
+    <td>Con <strong>Sí</strong> la familia se elimina; con <strong>No</strong> no cambia nada.</td>
+</tr>
+<tr>
+    <td class="situacion">"Familia eliminada correctamente."</td>
+    <td>La familia dejó de existir.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar un elemento."</td>
+    <td>Hay que elegir un elemento de la lista del centro antes de presionar
+        <span class="boton">Quitar</span>.</td>
+</tr>
+<tr>
+    <td class="situacion">"Familia modificada correctamente."</td>
+    <td>Los cambios quedaron guardados.</td>
+</tr>
+<tr>
+    <td class="situacion">"La operación se registró correctamente, pero no pudo asentarse en la
+        Bitácora:" seguido del motivo</td>
+    <td>El cambio se guardó, pero el evento no quedó en la bitácora. Después de los dos puntos se
+        muestra el motivo técnico.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>El nombre de la familia admite hasta 50 caracteres y no se puede repetir.</li>
+<li>Una familia nueva necesita al menos un elemento.</li>
+<li>Una misma patente no se puede repetir dentro de la familia.</li>
+</ul>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="administrador-roles.html">Administrador de roles</a></li>
+<li><a href="gestion-usuarios.html">Gestión de usuarios</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Administrador de familias
+</div>
+
+</div>
+</body>
+</html>

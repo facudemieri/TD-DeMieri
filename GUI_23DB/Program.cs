@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Services_23DB.Singleton;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,8 @@ namespace GUI_23DB
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            RegistroManager_23DB.GarantizarUsuarioRecuperacion_23DB();  
+
             Application.Run(new InicioSesion_23DB());
         }
     }

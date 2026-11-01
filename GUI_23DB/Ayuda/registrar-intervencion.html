@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registrar intervención - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Registrar intervención</h1>
+<p class="bajada">Es la pantalla del técnico: inicia el trabajo sobre una orden asignada, registra
+las tareas realizadas y cierra la intervención.</p>
+
+<h2>Para qué sirve</h2>
+<p>Una orden de trabajo dice qué hay que hacer; la intervención deja asentado lo que realmente se
+hizo. Cada tarea queda registrada con su descripción, las horas insumidas, el resultado obtenido y
+las observaciones técnicas, y el sistema suma las horas para obtener el total del trabajo.</p>
+<p>La intervención tiene dos momentos. Al iniciarla, el sistema toma la fecha y hora de inicio y
+pasa la aeronave a <strong>En Mantenimiento</strong>. Al cerrarla, la intervención queda
+<strong>Finalizada</strong>, la orden pasa a <strong>Ejecutada</strong> y el trabajo queda a la
+espera de un inspector en <a href="certificar-intervencion.html">Certificar intervención</a>.</p>
+<p>No hace falta terminar todo en una sola sesión: una intervención en curso se puede dejar y
+retomar más adelante.</p>
+
+<h2>Cómo se llega</h2>
+<p>Desde el menú principal, en <strong>Mantenimiento de Aeronaves &rsaquo; Registrar
+Intervención</strong>. La opción aparece si el rol del usuario incluye la patente correspondiente.
+La lista de órdenes muestra solamente las asignadas al usuario que inició la sesión.</p>
+
+<figure>
+    <img src="img/registrar-intervencion.png" alt="Pantalla Registrar Intervención de AeroManager">
+    <figcaption>Pantalla Registrar Intervención, con la orden, los datos de la intervención, la
+    carga de tareas y la grilla de tareas.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Nro Orden</td>
+    <td>Lista de las órdenes asignadas al usuario, con número, matrícula y tipo.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Buscar</span></td>
+    <td>Inicia la intervención de la orden elegida o retoma la que está en curso.</td>
+</tr>
+<tr>
+    <td class="control">Datos de la orden</td>
+    <td>Matrícula, Tipo de Intervención, Estado de Orden y Fecha Límite. Son informativos.</td>
+</tr>
+<tr>
+    <td class="control">Fecha y Hora de Inicio</td>
+    <td>Se completa al iniciar la intervención y no se puede cambiar.</td>
+</tr>
+<tr>
+    <td class="control">Fecha y Hora de Fin</td>
+    <td>Momento en que terminó el trabajo. El sistema propone el actual.</td>
+</tr>
+<tr>
+    <td class="control">Estado de la Intervención</td>
+    <td>Muestra En Curso o Finalizada. Lo maneja el sistema.</td>
+</tr>
+<tr>
+    <td class="control">Total Horas Insumidas</td>
+    <td>Suma de las horas de todas las tareas.</td>
+</tr>
+<tr>
+    <td class="control">Descripción</td>
+    <td>Qué se hizo en la tarea. Es obligatoria.</td>
+</tr>
+<tr>
+    <td class="control">Horas Insumidas</td>
+    <td>Tiempo dedicado a la tarea. Avanza de a un cuarto de hora.</td>
+</tr>
+<tr>
+    <td class="control">Resultado Obtenido</td>
+    <td>Conforme, No Conforme o Pendiente. Es obligatorio.</td>
+</tr>
+<tr>
+    <td class="control">Observaciones Técnicas</td>
+    <td>Comentarios adicionales sobre la tarea. Son opcionales.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Agregar Tarea</span></td>
+    <td>Guarda una tarea nueva. También se activa con la tecla <kbd>Enter</kbd>.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Modificar Tarea</span></td>
+    <td>Se habilita al elegir una tarea y guarda los cambios hechos sobre ella.</td>
+</tr>
+<tr>
+    <td class="control">Tareas de la Intervención</td>
+    <td>Grilla con Nro Tarea, Descripción, Horas Insumidas, Resultado Obtenido, Observaciones
+        Técnicas y Repuestos. La última columna muestra un guion si no hay pedidos, o bien
+        Solicitado o Recibido.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Solicitar Repuestos</span></td>
+    <td>Abre <a href="solicitar-repuesto.html">Solicitar repuesto</a> para la tarea elegida.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Quitar Tarea</span></td>
+    <td>Elimina la tarea elegida, siempre que no tenga repuestos solicitados.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Aplicar</span></td>
+    <td>Cierra la intervención.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Cancelar</span></td>
+    <td>Deja la intervención en curso y limpia la pantalla. Las tareas cargadas se conservan.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Cierra la pantalla. También se activa con la tecla <kbd>Esc</kbd>.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo iniciar o retomar una intervención</h2>
+
+<ol class="pasos">
+<li>Elegir la orden en <strong>Nro Orden</strong>.</li>
+<li>Presionar <span class="boton">Buscar</span>.</li>
+<li>Si la orden todavía no tiene intervención, confirmar el inicio. Si ya tiene una en curso, el
+    sistema la abre directamente con sus tareas.</li>
+</ol>
+
+<h2>Cómo cargar las tareas</h2>
+
+<ol class="pasos">
+<li>Completar <strong>Descripción</strong>, <strong>Horas Insumidas</strong>,
+    <strong>Resultado Obtenido</strong> y, si hace falta, <strong>Observaciones Técnicas</strong>.</li>
+<li>Presionar <span class="boton">Agregar Tarea</span>. La tarea queda guardada en ese momento.</li>
+<li>Para corregir una tarea, hacer clic en ella, cambiar los datos y presionar
+    <span class="boton">Modificar Tarea</span>.</li>
+<li>Si la tarea necesita materiales, seleccionarla y presionar
+    <span class="boton">Solicitar Repuestos</span>.</li>
+</ol>
+
+<h2>Cómo cerrar la intervención</h2>
+
+<ol class="pasos">
+<li>Verificar que ninguna tarea tenga resultado Pendiente y que todos los repuestos estén
+    recibidos.</li>
+<li>Revisar <strong>Fecha y Hora de Fin</strong>.</li>
+<li>Presionar <span class="boton">Aplicar</span> y confirmar.</li>
+<li>El sistema informa el número de intervención y el total de horas, y la orden deja de figurar
+    en la lista.</li>
+</ol>
+
+<div class="atencion">
+<p><strong>Atención.</strong> Una intervención cerrada no se puede modificar: ya no se pueden
+agregar ni quitar tareas.</p>
+</div>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">"No tiene órdenes de trabajo asignadas pendientes de ejecución."</td>
+    <td>No hay órdenes a nombre del usuario. Si debería tener una, hay que revisar el técnico
+        elegido en <a href="generar-orden-trabajo.html">Generar orden de trabajo</a>.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al recuperar las órdenes de trabajo:" seguido del motivo</td>
+    <td>No se pudo cargar la lista. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar una orden de trabajo."</td>
+    <td>Se presionó <span class="boton">Buscar</span> sin elegir una orden.</td>
+</tr>
+<tr>
+    <td class="situacion">"¿Iniciar la intervención de la orden" seguido del número, "(aeronave"
+        seguido de la matrícula, ")? Se registrará la fecha y hora de inicio y la aeronave pasará a
+        En Mantenimiento."</td>
+    <td>Conviene confirmar solamente al empezar el trabajo real, porque la fecha de inicio no se
+        puede cambiar después.</td>
+</tr>
+<tr>
+    <td class="situacion">"La intervención Nro" seguido del número, "se inició, pero el estado de la
+        aeronave no se pudo actualizar a En Mantenimiento."</td>
+    <td>Se puede seguir trabajando, pero hay que avisarle al administrador para revisar el estado de
+        la aeronave.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al iniciar la intervención:" seguido del motivo</td>
+    <td>No se pudo abrir la intervención. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe completar la descripción y el resultado obtenido de la tarea."</td>
+    <td>Faltan datos obligatorios de la tarea.</td>
+</tr>
+<tr>
+    <td class="situacion">"Las horas insumidas deben ser un valor mayor que cero."</td>
+    <td>Hay que indicar el tiempo dedicado a la tarea.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al registrar la tarea:" seguido del motivo</td>
+    <td>La tarea no se guardó. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar una tarea de la grilla."</td>
+    <td>Hay que hacer clic en una tarea antes de usar el botón.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se puede quitar una tarea que tiene repuestos solicitados."</td>
+    <td>Una tarea con pedidos de repuestos, aunque ya estén recibidos, no se puede eliminar.</td>
+</tr>
+<tr>
+    <td class="situacion">"¿Quitar la tarea Nro" seguido del número y la descripción, "? Esta acción
+        no se puede deshacer."</td>
+    <td>Con <strong>Sí</strong> la tarea se elimina definitivamente.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al quitar la tarea:" seguido del motivo</td>
+    <td>La tarea no se eliminó. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al recuperar las tareas de la intervención:" seguido del motivo</td>
+    <td>No se pudo actualizar la lista de tareas. Después de los dos puntos se indica la causa
+        técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se pudo modificar la tarea. El registro pudo haber sido modificado por
+        otro usuario."</td>
+    <td>Conviene volver a seleccionar la tarea y repetir el cambio.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al modificar la tarea:" seguido del motivo</td>
+    <td>Los cambios no se guardaron. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe registrar al menos una tarea antes de cerrar la intervención."</td>
+    <td>No se puede cerrar una intervención sin tareas.</td>
+</tr>
+<tr>
+    <td class="situacion">"La fecha y hora de fin no puede ser anterior a la de inicio."</td>
+    <td>Hay que corregir <strong>Fecha y Hora de Fin</strong>.</td>
+</tr>
+<tr>
+    <td class="situacion">"La fecha y hora de fin no puede ser posterior al momento actual: no se
+        puede cerrar una intervención que todavía no terminó."</td>
+    <td>La fecha elegida es futura. Hay que corregirla o esperar a terminar el trabajo.</td>
+</tr>
+<tr>
+    <td class="situacion">"¿Cerrar la intervención Nro" seguido del número, "de la orden" seguido
+        del número, "(aeronave" seguido de la matrícula, ")? Una vez cerrada no se podrán agregar ni
+        quitar tareas."</td>
+    <td>Con <strong>Sí</strong> se cierra el trabajo; con <strong>No</strong> se puede seguir
+        cargando tareas.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se puede cerrar la intervención: hay tareas con resultado Pendiente.
+        Complételas o quítelas antes de cerrar."</td>
+    <td>Hay que cambiar el resultado de esas tareas o quitarlas.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se puede cerrar la intervención: hay repuestos solicitados que todavía
+        no se recibieron. Registre su recepción antes de cerrar."</td>
+    <td>Hay que registrar la llegada de esos repuestos en
+        <a href="solicitar-repuesto.html">Solicitar repuesto</a>.</td>
+</tr>
+<tr>
+    <td class="situacion">"Intervención registrada correctamente. Nro de Intervención:" seguido del
+        número, ". Total de horas insumidas:" seguido del total</td>
+    <td>El cierre se completó y el trabajo queda pendiente de certificación.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al cerrar la intervención:" seguido del motivo</td>
+    <td>El cierre no se completó. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"La intervención queda en estado En Curso y puede retomarse más
+        adelante."</td>
+    <td>Aparece al presionar <span class="boton">Cancelar</span>. Para continuar, hay que volver a
+        elegir la orden y presionar <span class="boton">Buscar</span>.</td>
+</tr>
+<tr>
+    <td class="situacion">"El registro fue modificado o ya no existe. Vuelva a buscarlo e intente
+        nuevamente."</td>
+    <td>La orden o la intervención cambió mientras se trabajaba. Hay que buscarla de nuevo.</td>
+</tr>
+<tr>
+    <td class="situacion">"La operación se registró correctamente, pero no pudo asentarse en la
+        Bitácora:" seguido del motivo</td>
+    <td>La intervención se cerró, pero el evento no quedó en la bitácora. Después de los dos puntos
+        se muestra el motivo técnico. Conviene avisarle al administrador.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>Cada tarea admite de 0,25 a 999,99 horas.</li>
+<li>La descripción y las observaciones de una tarea admiten hasta 500 caracteres cada una.</li>
+<li>Para cerrar hace falta al menos una tarea, ninguna con resultado Pendiente y ningún repuesto
+    sin recibir.</li>
+<li>La fecha y hora de fin no puede ser anterior al inicio ni posterior al momento actual.</li>
+</ul>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="generar-orden-trabajo.html">Generar orden de trabajo</a></li>
+<li><a href="solicitar-repuesto.html">Solicitar repuesto</a></li>
+<li><a href="certificar-intervencion.html">Certificar intervención</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Registrar intervención
+</div>
+
+</div>
+</body>
+</html>

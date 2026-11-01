@@ -21,6 +21,7 @@ namespace GUI_23DB
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "cambiar-idioma");
 
             // El idioma se elige de la lista de archivos disponibles: escribir uno a mano no tiene sentido
             cmbIdioma.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -58,10 +59,13 @@ namespace GUI_23DB
             idiomaBLL_23DB.CambiarIdioma_23DB(idiomaSeleccionado_23DB);
 
             UsuarioBLL_23DB usuarioBLL_23DB = new UsuarioBLL_23DB();
-            usuarioBLL_23DB.ActualizarUltimoIdioma_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, idiomaSeleccionado_23DB);
+            bool bitacoraRegistrada_62FD;
+            usuarioBLL_23DB.ActualizarUltimoIdioma_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, idiomaSeleccionado_23DB, out bitacoraRegistrada_62FD);
 
-            EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
-            eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Usuarios", "Cambiar Idioma", 4);
+            if(!bitacoraRegistrada_62FD)
+            {
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), usuarioBLL_23DB.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
             MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_IdiomaCambiado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();

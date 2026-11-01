@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Certificados de intervención - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Certificados de intervención</h1>
+<p class="bajada">Permite buscar los certificados ya emitidos y volver a imprimirlos.</p>
+
+<h2>Para qué sirve</h2>
+<p>El certificado es el respaldo de que una intervención fue inspeccionada, y puede hacer falta
+consultarlo mucho después de emitido. Este reporte reúne las certificaciones registradas y permite
+encontrarlas por número de intervención, matrícula, resultado o fecha.</p>
+<p>Es una consulta: no certifica nada ni modifica datos. Las certificaciones nuevas se registran en
+<a href="certificar-intervencion.html">Certificar intervención</a>.</p>
+
+<h2>Cómo se llega</h2>
+<p>Desde el menú principal, en <strong>Reportes &rsaquo; Certificados de Intervención</strong>. La
+opción aparece si el rol del usuario incluye la patente correspondiente.</p>
+
+<figure>
+    <img src="img/certificados-intervencion.png" alt="Pantalla Certificados de Intervención de AeroManager">
+    <figcaption>Pantalla Certificados de Intervención, con los criterios de búsqueda arriba y los
+    resultados abajo.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Nro de Intervención</td>
+    <td>Filtra por el número escrito, aunque sea solo una parte.</td>
+</tr>
+<tr>
+    <td class="control">Matrícula</td>
+    <td>Filtra por la matrícula escrita, aunque sea solo una parte.</td>
+</tr>
+<tr>
+    <td class="control">Resultado</td>
+    <td>(Todos), Satisfactorio o No Satisfactorio.</td>
+</tr>
+<tr>
+    <td class="control">Desde y Hasta</td>
+    <td>Definen el período de certificación. No pueden superar el día de hoy.</td>
+</tr>
+<tr>
+    <td class="control">Todo el período</td>
+    <td>Tildada, ignora las fechas y busca en todas las certificaciones.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Buscar</span></td>
+    <td>Muestra las certificaciones que cumplen los criterios.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Limpiar</span></td>
+    <td>Borra los criterios y vuelve a la consulta del último mes.</td>
+</tr>
+<tr>
+    <td class="control">Grilla de certificaciones</td>
+    <td>Muestra Nro Intervención, Nro Orden, Matrícula, Cód. Habilitante, Resultado y Fecha y Hora de
+        Certificación.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Imprimir Comprobante</span></td>
+    <td>Se habilita al elegir una certificación. Genera el certificado en PDF y lo abre.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Cierra la pantalla.</td>
+</tr>
+<tr>
+    <td class="control">Barra de estado</td>
+    <td>Muestra el estado de la consulta, la cantidad de registros y el usuario.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo buscar un certificado</h2>
+
+<ol class="pasos">
+<li>Abrir la pantalla. La grilla muestra las certificaciones del último mes.</li>
+<li>Completar <strong>Nro de Intervención</strong>, <strong>Matrícula</strong> o
+    <strong>Resultado</strong>, y ajustar <strong>Desde</strong> y <strong>Hasta</strong>. Para
+    buscar sin límite de fechas, tildar <strong>Todo el período</strong>.</li>
+<li>Presionar <span class="boton">Buscar</span>.</li>
+</ol>
+
+<h2>Cómo reimprimir un certificado</h2>
+
+<ol class="pasos">
+<li>Hacer clic en la certificación dentro de la grilla.</li>
+<li>Presionar <span class="boton">Imprimir Comprobante</span>.</li>
+<li>El sistema guarda el documento en la carpeta <strong>Documentos</strong> del usuario, dentro de
+    <strong>AeroManager\Certificados</strong>, y lo abre.</li>
+</ol>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">La grilla muestra "No hay datos para mostrar."</td>
+    <td>Ninguna certificación cumple los criterios, y la barra de estado indica "sin resultados".
+        Conviene ampliar el período o tildar <strong>Todo el período</strong>.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al recuperar las certificaciones:" seguido del motivo</td>
+    <td>No se pudo cargar la grilla. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar un certificado de la grilla."</td>
+    <td>Hay que hacer clic en una fila antes de imprimir.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se pudo recuperar la intervención del certificado."</td>
+    <td>No se encontró la intervención asociada y el documento no se generó. Conviene avisarle al
+        administrador.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al generar el certificado:" seguido del motivo</td>
+    <td>El PDF no se pudo crear. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>La consulta inicial abarca el último mes.</li>
+<li>Las fechas de búsqueda no pueden superar el día de hoy, y Hasta no puede ser anterior a
+    Desde.</li>
+</ul>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="certificar-intervencion.html">Certificar intervención</a></li>
+<li><a href="registrar-intervencion.html">Registrar intervención</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Certificados de intervención
+</div>
+
+</div>
+</body>
+</html>

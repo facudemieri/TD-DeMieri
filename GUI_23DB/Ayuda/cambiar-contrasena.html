@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cambiar contraseña - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Cambiar contraseña</h1>
+<p class="bajada">Permite que cada usuario reemplace su clave personal de acceso. Al terminar, el
+sistema cierra la sesión y pide ingresar de nuevo con la clave nueva.</p>
+
+<h2>Para qué sirve</h2>
+<p>La contraseña es lo que identifica a cada persona dentro del sistema, y todas las operaciones
+quedan registradas a nombre de quien inició la sesión. Por eso cada usuario puede cambiar su clave
+sin depender del administrador, por ejemplo en el primer ingreso, cuando todavía tiene la clave
+inicial, o cuando sospecha que otra persona pudo conocerla.</p>
+<p>El cambio alcanza solamente a la cuenta que tiene la sesión iniciada. Para pedirlo, el sistema
+exige la contraseña actual: de esa forma, nadie puede modificarla aprovechando una sesión que
+quedó abierta.</p>
+
+<h2>Cómo se llega</h2>
+<p>Desde el menú principal, en <strong>Usuario &rsaquo; Cambiar Contraseña</strong>. La opción
+aparece solamente si el rol del usuario incluye la patente correspondiente.</p>
+
+<figure>
+    <img src="img/cambiar-contrasena.png" alt="Pantalla Cambiar Contraseña de AeroManager">
+    <figcaption>Pantalla Cambiar Contraseña.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">LOGIN</td>
+    <td>Muestra el nombre del usuario que tiene la sesión iniciada. Es informativo: permite
+        verificar a qué cuenta se le va a cambiar la clave.</td>
+</tr>
+<tr>
+    <td class="control">Password Actual</td>
+    <td>La contraseña que se está usando hoy.</td>
+</tr>
+<tr>
+    <td class="control">Password Nuevo</td>
+    <td>La contraseña que va a reemplazar a la actual.</td>
+</tr>
+<tr>
+    <td class="control">Confirmar Password</td>
+    <td>La contraseña nueva escrita por segunda vez, para evitar errores de tipeo.</td>
+</tr>
+<tr>
+    <td class="control">Casillas de la derecha</td>
+    <td>Hay una por cada campo. Mientras está tildada, muestra en texto legible lo escrito en ese
+        campo.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Confirmar</span></td>
+    <td>Valida los datos y guarda la contraseña nueva.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Cancelar</span></td>
+    <td>Cierra la pantalla sin cambiar nada.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo cambiar la contraseña</h2>
+
+<ol class="pasos">
+<li>Verificar en <strong>LOGIN</strong> que la cuenta mostrada sea la propia.</li>
+<li>Escribir la clave en uso en <strong>Password Actual</strong>.</li>
+<li>Escribir la clave nueva en <strong>Password Nuevo</strong> y repetirla en
+    <strong>Confirmar Password</strong>. Si hace falta verificar lo escrito, tildar la casilla de
+    la derecha de cada campo.</li>
+<li>Presionar <span class="boton">Confirmar</span>.</li>
+<li>Aceptar el mensaje de confirmación. El sistema cierra la sesión y el menú principal, y muestra
+    la pantalla de inicio de sesión.</li>
+<li>Ingresar con el usuario de siempre y la contraseña nueva.</li>
+</ol>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">"Debe completar todos los campos."</td>
+    <td>Quedó vacío alguno de los tres campos de contraseña. Hay que completarlos y presionar
+        <span class="boton">Confirmar</span> otra vez.</td>
+</tr>
+<tr>
+    <td class="situacion">"Las contraseñas nuevas no coinciden."</td>
+    <td>Lo escrito en <strong>Password Nuevo</strong> y en <strong>Confirmar Password</strong> es
+        distinto. Conviene tildar las casillas de la derecha para comparar ambos textos.</td>
+</tr>
+<tr>
+    <td class="situacion">"La nueva contraseña debe ser distinta a la actual."</td>
+    <td>La clave nueva es igual a la que está en uso. Hay que elegir una diferente.</td>
+</tr>
+<tr>
+    <td class="situacion">"La contraseña actual es incorrecta."</td>
+    <td>Lo escrito en <strong>Password Actual</strong> no coincide con la clave vigente. La
+        contraseña no cambia y se puede volver a intentar. Si no se la recuerda, hay que pedir
+        ayuda a un administrador.</td>
+</tr>
+<tr>
+    <td class="situacion">"La operación se registró correctamente, pero no pudo asentarse en la
+        Bitácora:" seguido del motivo</td>
+    <td>La contraseña se cambió, pero el evento no quedó registrado en la bitácora. Después de los
+        dos puntos se muestra el motivo técnico del fallo. Conviene avisarle al administrador.</td>
+</tr>
+<tr>
+    <td class="situacion">"Contraseña actualizada correctamente. Debe iniciar sesión
+        nuevamente."</td>
+    <td>El cambio se realizó. Al aceptar, la sesión se cierra y hay que volver a ingresar con la
+        clave nueva.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>El sistema no exige un largo mínimo: alcanza con que la clave nueva no esté vacía, coincida
+    con la confirmación y sea distinta de la actual.</li>
+<li>Equivocarse en <strong>Password Actual</strong> no suma intentos fallidos de ingreso. El límite
+    de tres intentos se aplica en la pantalla de inicio de sesión.</li>
+<li>La clave inicial de cada usuario es su número de documento seguido del apellido, sin espacios
+    entre ambos. También vuelve a ese valor cuando un administrador desbloquea la cuenta, por lo que conviene
+    cambiarla en cuanto se recupera el acceso.</li>
+</ul>
+
+<div class="atencion">
+<p><strong>Atención.</strong> Al confirmar el cambio se cierra la sesión. Conviene terminar y
+guardar cualquier otra tarea antes de abrir esta pantalla.</p>
+</div>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="inicio-sesion.html">Inicio de sesión</a></li>
+<li><a href="gestion-usuarios.html">Gestión de usuarios</a></li>
+<li><a href="menu-principal.html">Menú principal</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Cambiar contraseña
+</div>
+
+</div>
+</body>
+</html>

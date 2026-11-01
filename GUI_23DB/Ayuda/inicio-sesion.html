@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inicio de sesión - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Inicio de sesión</h1>
+<p class="bajada">Es la primera pantalla del sistema. Identifica al usuario y determina a qué
+módulos va a poder acceder durante la sesión.</p>
+
+<h2>Para qué sirve</h2>
+<p>AeroManager no permite usar ninguna función sin una sesión iniciada. Esta pantalla valida el
+usuario y la contraseña contra la base de datos y, si son correctos, abre el menú principal con
+las opciones habilitadas para el rol de esa persona. Dos usuarios distintos ven menús distintos:
+lo que aparece depende de las patentes que tenga asignado su rol.</p>
+
+<h2>Cómo se llega</h2>
+<p>Es la pantalla que se abre sola al ejecutar el sistema. También vuelve a aparecer después de
+cambiar la contraseña, y desde la opción <strong>Usuario &rsaquo; Relogin</strong> del menú
+principal.</p>
+
+<figure>
+    <img src="img/inicio-sesion.png" alt="Pantalla de inicio de sesión de AeroManager">
+    <figcaption>Pantalla de inicio de sesión.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Usuario</td>
+    <td>Nombre de usuario asignado por el administrador. No es el nombre y apellido de la persona
+        ni su documento.</td>
+</tr>
+<tr>
+    <td class="control">Contraseña</td>
+    <td>Clave personal. Se muestra oculta mientras se escribe.</td>
+</tr>
+<tr>
+    <td class="control">Casilla de la derecha</td>
+    <td>Muestra la contraseña en texto legible mientras está tildada, para verificar lo que se
+        escribió antes de ingresar.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Login</span></td>
+    <td>Valida los datos ingresados y, si son correctos, abre el menú principal.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Cierra AeroManager sin iniciar sesión.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo iniciar sesión</h2>
+
+<ol class="pasos">
+<li>Escribir el nombre de usuario en el campo <strong>Usuario</strong>.</li>
+<li>Escribir la clave en el campo <strong>Contraseña</strong>. Si hace falta verificar lo escrito,
+    tildar la casilla de la derecha para verla.</li>
+<li>Presionar <span class="boton">Login</span>, o la tecla <kbd>Enter</kbd>.</li>
+<li>El sistema valida los datos y abre el menú principal con los módulos habilitados para el rol
+    del usuario.</li>
+</ol>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">El sistema avisa que el usuario o la contraseña son incorrectos</td>
+    <td>Alguno de los dos datos no coincide. Conviene tildar la casilla para verificar la clave
+        escrita y revisar que no haya quedado activado el bloqueo de mayúsculas. Cada intento
+        fallido queda contabilizado.</td>
+</tr>
+<tr>
+    <td class="situacion">El sistema avisa que el usuario está bloqueado</td>
+    <td>Se superó la cantidad de intentos fallidos permitida y el sistema bloqueó la cuenta como
+        medida de seguridad. El usuario no puede desbloquearse a sí mismo: tiene que pedirle a un
+        administrador que lo haga desde <strong>Administrador &rsaquo; Gestión de
+        Usuarios</strong>.</td>
+</tr>
+<tr>
+    <td class="situacion">El sistema avisa que el usuario está inactivo</td>
+    <td>La cuenta fue dada de baja. Un administrador tiene que reactivarla desde
+        <strong>Administrador &rsaquo; Gestión de Usuarios</strong> antes de poder usarla.</td>
+</tr>
+<tr>
+    <td class="situacion">Después de ingresar se abre la pantalla de reparación</td>
+    <td>El sistema detectó inconsistencias en los datos al validar los dígitos verificadores. Ver
+        el apartado siguiente.</td>
+</tr>
+<tr>
+    <td class="situacion">El menú principal aparece con pocas opciones</td>
+    <td>No es un error. El menú muestra únicamente los módulos habilitados por las patentes del rol
+        del usuario. Si falta una opción que debería estar, hay que pedirle al administrador que
+        revise el rol desde <strong>Administrador &rsaquo; Gestión de Perfiles</strong>.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Verificación de integridad al ingresar</h2>
+
+<p>Cada vez que alguien inicia sesión, AeroManager recalcula los dígitos verificadores de las
+tablas y los compara con los valores almacenados. Si algún dato fue alterado por fuera del
+sistema, la validación falla y no se abre el menú principal.</p>
+
+<div class="atencion">
+<p><strong>Atención.</strong> Si se detectan inconsistencias, el sistema abre la pantalla de
+reparación, y solamente puede operarla un usuario con rol de administrador. Desde ahí se puede
+recalcular los dígitos verificadores o restaurar la base desde un respaldo. Mientras las
+inconsistencias no se resuelvan, ningún usuario puede entrar al sistema.</p>
+</div>
+
+<p>El detalle de esa pantalla está en el tema
+<a href="reparar-inconsistencia.html">Reparar inconsistencia</a>.</p>
+
+<h2>Recomendaciones de seguridad</h2>
+
+<ul>
+<li>La contraseña es personal y no debe compartirse: todas las operaciones quedan registradas en la
+    bitácora de eventos a nombre del usuario que inició la sesión.</li>
+<li>Conviene cambiar la clave asignada por el administrador en el primer ingreso, desde
+    <strong>Usuario &rsaquo; Cambiar Contraseña</strong>.</li>
+<li>Al terminar de trabajar hay que cerrar la sesión y no dejar el sistema abierto en un equipo sin
+    supervisión.</li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Inicio de sesión
+</div>
+
+</div>
+</body>
+</html>

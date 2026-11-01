@@ -17,14 +17,21 @@ namespace BLL_23DB
         ReservaBLL_62FD reservaBLL_62FD = new ReservaBLL_62FD();
         AsientoBLL_62FD asientoBLL_62FD = new AsientoBLL_62FD();
         DVBLL_23DB dvBLL_23DB = new DVBLL_23DB();
+        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
+
+        // Detalle del último registro en bitácora que falló: lo necesita el aviso de la pantalla
+        public string ErrorBitacora_62FD { get; private set; }
+
         private List<Pasaje_62FD> pasajesEmitidos_62FD = new List<Pasaje_62FD>();
         public List<Pasaje_62FD> PasajesEmitidos_62FD
         {
             get { return pasajesEmitidos_62FD; }
         }
 
-        public Factura_62FD GenerarPasaje_62FD(Pago_62FD pago_62FD, Reserva_62FD reserva_62FD)
+        public Factura_62FD GenerarPasaje_62FD(Pago_62FD pago_62FD, Reserva_62FD reserva_62FD, out bool bitacoraRegistrada_62FD)
         {
+            bitacoraRegistrada_62FD = false;
+
             if (!ValidaDatosPago_62FD(pago_62FD))
             {
                 throw new Exception("Los datos de pago son inválidos.");
@@ -68,7 +75,24 @@ namespace BLL_23DB
             dvBLL_23DB.RecalcularDVTabla_23DB("Asiento_62FD");
             dvBLL_23DB.RecalcularDVTabla_23DB("Factura_62FD");
 
+            bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD("Generar Pasaje", 3);
+
             return factura_62FD;
+        }
+
+        private bool RegistrarEventoBitacora_62FD(string evento_62FD, int criticidad_62FD)
+        {
+            try
+            {
+                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Pasajes", evento_62FD, criticidad_62FD);
+                ErrorBitacora_62FD = null;
+                return true;
+            }
+            catch (Exception ex_62FD)
+            {
+                ErrorBitacora_62FD = ex_62FD.Message;
+                return false;
+            }
         }
 
         public bool ValidaDatosPago_62FD(Pago_62FD pago_62FD)

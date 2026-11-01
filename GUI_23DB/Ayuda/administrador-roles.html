@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Administrador de roles - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Administrador de roles</h1>
+<p class="bajada">Permite crear, modificar y eliminar los roles del sistema, armados con patentes
+y familias de patentes.</p>
+
+<h2>Para qué sirve</h2>
+<p>El rol define qué puede hacer cada persona dentro de AeroManager. Cada usuario tiene un rol, y
+las patentes de ese rol determinan qué opciones aparecen en su menú principal.</p>
+<p>Un rol se compone de patentes individuales, de familias que agrupan varias patentes, o de una
+combinación de ambas. Usar familias evita repetir la misma selección en cada rol: los permisos
+comunes se arman una vez y se reutilizan.</p>
+<p>El menú de cada usuario se arma al iniciar sesión, por lo que los cambios en un rol se ven en
+el siguiente ingreso de quienes lo tienen asignado.</p>
+
+<h2>Cómo se llega</h2>
+<p>Desde el menú principal, en <strong>Administrador &rsaquo; Gestion de Perfiles &rsaquo;
+Administrador de Roles</strong>. La opción aparece si el rol del usuario incluye la patente
+correspondiente.</p>
+
+<figure>
+    <img src="img/administrador-roles.png" alt="Pantalla Administrador de Roles de AeroManager">
+    <figcaption>Pantalla Administrador de Roles, con el nombre y los botones a la izquierda, el
+    contenido del rol en el centro y los elementos disponibles a la derecha.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Nombre</td>
+    <td>Nombre del rol.</td>
+</tr>
+<tr>
+    <td class="control">Lista del centro</td>
+    <td>Muestra en forma de árbol lo que contiene el rol que se está armando o modificando.</td>
+</tr>
+<tr>
+    <td class="control">Lista de la derecha</td>
+    <td>Muestra los roles, las patentes y las familias existentes. Con doble clic, una patente o
+        una familia pasa a la lista del centro. Con un clic en un rol, se habilitan
+        <span class="boton">Modificar</span> y <span class="boton">Eliminar</span>.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Crear</span></td>
+    <td>Crea un rol con el nombre escrito y los elementos de la lista del centro.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Modificar</span></td>
+    <td>Carga el rol seleccionado para editarlo.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Eliminar</span></td>
+    <td>Elimina el rol seleccionado.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Quitar</span></td>
+    <td>Durante una modificación, saca del rol el elemento elegido en la lista del centro.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Aplicar</span></td>
+    <td>Guarda los cambios de la modificación en curso.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Cancelar</span></td>
+    <td>Descarta lo cargado y deja la pantalla como al abrirla.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Cierra la pantalla.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo crear un rol</h2>
+
+<ol class="pasos">
+<li>Escribir el nombre en <strong>Nombre</strong>.</li>
+<li>Hacer doble clic en cada patente o familia de la lista de la derecha. Cada elemento pasa a la
+    lista del centro.</li>
+<li>Presionar <span class="boton">Crear</span>. No hace falta presionar
+    <span class="boton">Aplicar</span>.</li>
+<li>Si durante la carga se eligió un elemento por error, presionar
+    <span class="boton">Cancelar</span> y empezar de nuevo.</li>
+</ol>
+
+<h2>Cómo modificar un rol</h2>
+
+<ol class="pasos">
+<li>Hacer clic en el rol dentro de la lista de la derecha.</li>
+<li>Presionar <span class="boton">Modificar</span>. La lista del centro muestra el rol con su
+    contenido.</li>
+<li>Cambiar el <strong>Nombre</strong> si hace falta.</li>
+<li>Para sumar un elemento, hacer doble clic en él dentro de la lista de la derecha.</li>
+<li>Para sacar un elemento, seleccionarlo debajo del rol en la lista del centro y presionar
+    <span class="boton">Quitar</span>.</li>
+<li>Presionar <span class="boton">Aplicar</span>.</li>
+</ol>
+
+<h2>Cómo eliminar un rol</h2>
+
+<ol class="pasos">
+<li>Hacer clic en el rol dentro de la lista de la derecha.</li>
+<li>Presionar <span class="boton">Eliminar</span>.</li>
+<li>Confirmar con <strong>Sí</strong>.</li>
+</ol>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">"Debe ingresar un nombre para el Rol."</td>
+    <td>El campo <strong>Nombre</strong> está vacío.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar al menos un elemento."</td>
+    <td>Un rol nuevo necesita al menos una patente o una familia.</td>
+</tr>
+<tr>
+    <td class="situacion">"Ya existe un Rol con ese nombre."</td>
+    <td>Hay que elegir otro nombre. La comparación no distingue mayúsculas de minúsculas.</td>
+</tr>
+<tr>
+    <td class="situacion">"Rol creado correctamente."</td>
+    <td>El rol ya se puede asignar en <a href="gestion-usuarios.html">Gestión de usuarios</a>.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se puede agregar un Rol dentro de otro Rol."</td>
+    <td>Solo se pueden agregar patentes y familias.</td>
+</tr>
+<tr>
+    <td class="situacion">"La Familia contiene patentes que ya están incluidas."</td>
+    <td>Alguna patente de esa familia ya forma parte del rol. Hay que quitar el elemento repetido o
+        elegir otra familia.</td>
+</tr>
+<tr>
+    <td class="situacion">"La patente '" seguido del nombre de la patente, "' ya está incluida."</td>
+    <td>Esa patente ya forma parte del rol, sola o dentro de una familia.</td>
+</tr>
+<tr>
+    <td class="situacion">"El elemento ya fue agregado."</td>
+    <td>Ese elemento ya figura en la lista del centro.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar un Rol."</td>
+    <td>Hay que hacer clic en un rol de la lista de la derecha.</td>
+</tr>
+<tr>
+    <td class="situacion">"Solo se pueden eliminar Roles."</td>
+    <td>El elemento seleccionado es una patente o una familia.</td>
+</tr>
+<tr>
+    <td class="situacion">"Solo se pueden modificar Roles."</td>
+    <td>El elemento seleccionado es una patente o una familia.</td>
+</tr>
+<tr>
+    <td class="situacion">"No puede eliminar su propio Rol."</td>
+    <td>Es el rol de la sesión actual. Tiene que hacerlo otro usuario con otro rol.</td>
+</tr>
+<tr>
+    <td class="situacion">"No puede modificar su propio Rol."</td>
+    <td>Es el rol de la sesión actual. Tiene que hacerlo otro usuario con otro rol.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se puede eliminar un Rol que está asignado a usuarios."</td>
+    <td>Primero hay que asignarles otro rol a esos usuarios en
+        <a href="gestion-usuarios.html">Gestión de usuarios</a>.</td>
+</tr>
+<tr>
+    <td class="situacion">"¿Está seguro que desea eliminar el Rol" seguido del nombre del rol</td>
+    <td>Con <strong>Sí</strong> el rol se elimina; con <strong>No</strong> no cambia nada.</td>
+</tr>
+<tr>
+    <td class="situacion">"Rol eliminado correctamente."</td>
+    <td>El rol dejó de existir.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar un elemento."</td>
+    <td>Hay que elegir un elemento de la lista del centro antes de presionar
+        <span class="boton">Quitar</span>.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se puede quitar un elemento de dentro de una Familia. Quite la Familia
+        completa."</td>
+    <td>Las patentes de una familia no se quitan por separado desde un rol. Para cambiar su
+        contenido se usa <a href="administrador-familias.html">Administrador de familias</a>.</td>
+</tr>
+<tr>
+    <td class="situacion">"Rol modificado correctamente."</td>
+    <td>Los cambios quedaron guardados y se aplican en el siguiente ingreso de cada usuario.</td>
+</tr>
+<tr>
+    <td class="situacion">"La operación se registró correctamente, pero no pudo asentarse en la
+        Bitácora:" seguido del motivo</td>
+    <td>El cambio se guardó, pero el evento no quedó en la bitácora. Después de los dos puntos se
+        muestra el motivo técnico.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>El nombre del rol admite hasta 50 caracteres y no se puede repetir.</li>
+<li>Un rol nuevo necesita al menos un elemento.</li>
+<li>Un rol no puede contener a otro rol, ni repetir una patente.</li>
+<li>Nadie puede modificar ni eliminar el rol con el que inició la sesión.</li>
+<li>La pantalla de reparación de inconsistencias solo se habilita para el rol llamado exactamente
+    Administrador.</li>
+</ul>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="administrador-familias.html">Administrador de familias</a></li>
+<li><a href="gestion-usuarios.html">Gestión de usuarios</a></li>
+<li><a href="menu-principal.html">Menú principal</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Administrador de roles
+</div>
+
+</div>
+</body>
+</html>

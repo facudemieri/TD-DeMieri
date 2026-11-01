@@ -16,7 +16,6 @@ namespace GUI_23DB
         private RolBLL_23DB rolBLL_23DB = new RolBLL_23DB();
         private FamiliaBLL_23DB familiaBLL_23DB = new FamiliaBLL_23DB();
         private PatenteBLL_23DB patenteBLL_23DB = new PatenteBLL_23DB();
-        private EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
         private List<Rol_23DB> componentes_23DB = new List<Rol_23DB>();
         private Rol_23DB rolSeleccionado_23DB = null;
         private bool modoModificar_23DB = false;
@@ -45,6 +44,7 @@ namespace GUI_23DB
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "administrador-roles");
 
 
             txtNombre.MaxLength = 50;
@@ -140,8 +140,12 @@ namespace GUI_23DB
                 MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_RolExistente"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            rolBLL_23DB.CrearRol_23DB(txtNombre.Text, componentes_23DB);
-            eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Crear Rol", 2);
+            bool bitacoraRegistrada_62FD;
+            rolBLL_23DB.CrearRol_23DB(txtNombre.Text, componentes_23DB, out bitacoraRegistrada_62FD);
+            if(!bitacoraRegistrada_62FD)
+            {
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), rolBLL_23DB.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_RolCreado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             LimpiarCampos_23DB();
             CargarListBox_23DB();
@@ -298,8 +302,12 @@ namespace GUI_23DB
             DialogResult resultado_23DB = MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_ConfirmarEliminarRol"), rol_23DB.NombreRol_23DB), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Confirmar"), MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if(resultado_23DB == DialogResult.Yes)
             {
-                rolBLL_23DB.EliminarRol_23DB(rol_23DB.IdRol_23DB);
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Eliminar Rol", 2);
+                bool bitacoraRegistrada_62FD;
+                rolBLL_23DB.EliminarRol_23DB(rol_23DB.IdRol_23DB, out bitacoraRegistrada_62FD);
+                if(!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), rolBLL_23DB.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
                 MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_RolEliminado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LimpiarCampos_23DB();
                 CargarListBox_23DB();
@@ -452,8 +460,12 @@ namespace GUI_23DB
                 return;
             }
 
-            rolBLL_23DB.ModificarRol_23DB(rolSeleccionado_23DB.IdRol_23DB, txtNombre.Text, componentes_23DB);
-            eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Modificar Rol", 2);
+            bool bitacoraRegistrada_62FD;
+            rolBLL_23DB.ModificarRol_23DB(rolSeleccionado_23DB.IdRol_23DB, txtNombre.Text, componentes_23DB, out bitacoraRegistrada_62FD);
+            if(!bitacoraRegistrada_62FD)
+            {
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), rolBLL_23DB.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_RolModificado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
             modoModificar_23DB = false;
             rolSeleccionado_23DB = null;

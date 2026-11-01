@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generar pasaje - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Generar pasaje</h1>
+<p class="bajada">Es el segundo paso de la venta: se cobra una reserva pendiente, se emiten los
+pasajes y se genera la factura.</p>
+
+<h2>Para qué sirve</h2>
+<p>Una reserva por sí sola no es una venta cerrada: los asientos quedan apartados, pero falta el
+pago. En esta pantalla se registra el cobro, en efectivo o con tarjeta, y el sistema emite un
+pasaje por cada pasajero de la reserva y una factura por el total.</p>
+<p>Con el pago aprobado, la reserva pasa a estado <strong>Confirmada</strong>, los asientos quedan
+ocupados y la reserva deja de figurar entre las pendientes. Desde la misma pantalla se puede
+obtener el comprobante en PDF para entregárselo al cliente.</p>
+
+<h2>Cómo se llega</h2>
+<p>Desde el menú principal, en <strong>Venta de Pasajes &rsaquo; Generar Pasaje</strong>. La sección
+aparece si el rol del usuario incluye la patente de venta de pasajes.</p>
+
+<figure>
+    <img src="img/generar-pasaje.png" alt="Pantalla Generar Pasaje de AeroManager">
+    <figcaption>Pantalla Generar Pasaje, con las reservas pendientes a la izquierda y los datos de
+    la reserva y del pago a la derecha.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Codigo de Reserva</td>
+    <td>Código que informó el sistema al crear la reserva.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Buscar</span></td>
+    <td>Carga la reserva correspondiente al código escrito.</td>
+</tr>
+<tr>
+    <td class="control">Reservas Pendientes</td>
+    <td>Grilla con Codigo, Vuelo, Ruta, Fecha de Salida, Pasajeros y Monto de las reservas sin
+        cobrar. Un clic en una fila carga esa reserva.</td>
+</tr>
+<tr>
+    <td class="control">Datos de la Reserva</td>
+    <td>Muestra Nro Vuelo, Ruta, Fecha y Hora de Salida y Estado de la Reserva.</td>
+</tr>
+<tr>
+    <td class="control">Pasajeros de la Reserva</td>
+    <td>Grilla con Documento, Apellido y Nombre, Numero Asiento, Clase y Precio.</td>
+</tr>
+<tr>
+    <td class="control">Medio de Pago</td>
+    <td>Efectivo, Débito o Crédito. Este grupo se habilita al cargar una reserva.</td>
+</tr>
+<tr>
+    <td class="control">Entidad Financiera</td>
+    <td>Visa, Mastercard o American Express. Solo para pagos con tarjeta.</td>
+</tr>
+<tr>
+    <td class="control">Numero de Tarjeta</td>
+    <td>Número completo de la tarjeta. Solo acepta dígitos.</td>
+</tr>
+<tr>
+    <td class="control">Fecha de Vencimiento</td>
+    <td>Mes y año de vencimiento de la tarjeta.</td>
+</tr>
+<tr>
+    <td class="control">Codigo de Seguridad</td>
+    <td>Código de la tarjeta. Solo acepta dígitos.</td>
+</tr>
+<tr>
+    <td class="control">Monto Total</td>
+    <td>Importe total de la reserva.</td>
+</tr>
+<tr>
+    <td class="control">Numero de Factura</td>
+    <td>Después de emitir, muestra la factura generada.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Aplicar</span></td>
+    <td>Registra el pago y emite los pasajes y la factura.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Imprimir pasajes</span></td>
+    <td>Se habilita después de emitir. Genera el comprobante en PDF y lo abre.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Cancelar</span></td>
+    <td>Limpia la pantalla para empezar con otra reserva, sin cobrar nada.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Cierra la pantalla.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo cobrar una reserva</h2>
+
+<ol class="pasos">
+<li>Hacer clic en la reserva dentro de <strong>Reservas Pendientes</strong>, o escribir su código
+    en <strong>Codigo de Reserva</strong> y presionar <span class="boton">Buscar</span>.</li>
+<li>Controlar el vuelo, los pasajeros y el monto total con el cliente.</li>
+<li>Elegir el <strong>Medio de Pago</strong>.</li>
+<li>Si el pago es con Débito o Crédito, completar <strong>Entidad Financiera</strong>,
+    <strong>Numero de Tarjeta</strong>, <strong>Fecha de Vencimiento</strong> y
+    <strong>Codigo de Seguridad</strong>. Con Efectivo esos campos quedan deshabilitados.</li>
+<li>Presionar <span class="boton">Aplicar</span>.</li>
+<li>Tomar nota del número de factura que informa el sistema.</li>
+</ol>
+
+<h2>Cómo imprimir los pasajes</h2>
+
+<ol class="pasos">
+<li>Después de emitir, presionar <span class="boton">Imprimir pasajes</span>.</li>
+<li>El sistema guarda el comprobante en la carpeta <strong>Documentos</strong> del usuario, dentro
+    de <strong>AeroManager\Comprobantes</strong>, y lo abre para imprimirlo.</li>
+<li>Para seguir con otra reserva, presionar <span class="boton">Cancelar</span> y empezar de
+    nuevo.</li>
+</ol>
+
+<p>Si más adelante se necesita ese comprobante otra vez, se lo puede reimprimir desde
+<a href="comprobantes-pasaje.html">Comprobantes de pasaje</a>.</p>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">"Debe ingresar un código de reserva."</td>
+    <td>Se presionó <span class="boton">Buscar</span> con el campo vacío.</td>
+</tr>
+<tr>
+    <td class="situacion">"Reserva no válida o inexistente."</td>
+    <td>No hay ninguna reserva con ese código. Hay que revisarlo o elegir la reserva desde la
+        grilla.</td>
+</tr>
+<tr>
+    <td class="situacion">"La reserva no se encuentra pendiente de pago."</td>
+    <td>La reserva existe, pero ya no se puede cobrar, por ejemplo porque ya fue pagada. Sus
+        comprobantes se consultan en <a href="comprobantes-pasaje.html">Comprobantes de
+        pasaje</a>.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al buscar la reserva:" seguido del motivo</td>
+    <td>No se pudo completar la búsqueda. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar un medio de pago."</td>
+    <td>Hay que elegir Efectivo, Débito o Crédito antes de presionar
+        <span class="boton">Aplicar</span>.</td>
+</tr>
+<tr>
+    <td class="situacion">"El pago fue rechazado por la entidad financiera. Revise los datos de la
+        tarjeta e intente nuevamente."</td>
+    <td>El pago no se aprobó y no se emitió nada. La pantalla conserva la reserva para intentar de
+        nuevo, con otra tarjeta o con otro medio de pago.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al generar el pasaje:" seguido del motivo</td>
+    <td>Después de los dos puntos se indica la causa. Si dice "Los datos de pago son inválidos.",
+        faltó un dato de la tarjeta, el número está incompleto o la tarjeta está vencida. La
+        pantalla se limpia y la reserva sigue pendiente: hay que elegirla otra vez.</td>
+</tr>
+<tr>
+    <td class="situacion">"Pasajes generados correctamente. Factura:" seguido del número</td>
+    <td>El cobro se completó. Se informa el número de la factura emitida y ya se puede imprimir.</td>
+</tr>
+<tr>
+    <td class="situacion">"No hay un comprobante emitido para imprimir."</td>
+    <td>Todavía no se emitió ningún pasaje en esta operación. Primero hay que cobrar la
+        reserva.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al generar el documento:" seguido del motivo</td>
+    <td>Los pasajes ya están emitidos, pero no se pudo crear el PDF. Después de los dos puntos se
+        indica la causa. Se puede reintentar o usar
+        <a href="comprobantes-pasaje.html">Comprobantes de pasaje</a>.</td>
+</tr>
+<tr>
+    <td class="situacion">"No hay reservas pendientes de pago."</td>
+    <td>Es un aviso: no hay nada para cobrar. Las reservas se crean en
+        <a href="generar-reserva.html">Generar reserva</a>.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al cargar las reservas:" seguido del motivo</td>
+    <td>No se pudo traer la lista de pendientes. Después de los dos puntos se indica la causa
+        técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al cargar la reserva:" seguido del motivo</td>
+    <td>No se pudo abrir la reserva elegida en la grilla. Después de los dos puntos se indica la
+        causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"La operación se registró correctamente, pero no pudo asentarse en la
+        Bitácora:" seguido del motivo</td>
+    <td>Los pasajes se emitieron, pero el evento no quedó en la bitácora. Después de los dos puntos
+        se muestra el motivo técnico. Conviene avisarle al administrador.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>El número de tarjeta tiene que tener exactamente 16 dígitos.</li>
+<li>El código de seguridad es obligatorio con tarjeta y admite hasta 4 dígitos.</li>
+<li>La tarjeta no puede estar vencida. Se puede elegir desde el mes en curso en adelante.</li>
+<li>El código de reserva admite hasta 20 caracteres.</li>
+<li>El pago en efectivo se aprueba directamente.</li>
+</ul>
+
+<div class="atencion">
+<p><strong>Atención.</strong> En esta versión del sistema, la autorización del pago está simulada:
+AeroManager no se conecta con una entidad financiera real. El pago con tarjeta se aprueba cuando
+el último dígito del número es par y se rechaza cuando es impar.</p>
+</div>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="generar-reserva.html">Generar reserva</a></li>
+<li><a href="comprobantes-pasaje.html">Comprobantes de pasaje</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Generar pasaje
+</div>
+
+</div>
+</body>
+</html>

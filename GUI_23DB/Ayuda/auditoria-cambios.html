@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auditoría de cambios - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Auditoría de cambios</h1>
+<p class="bajada">Muestra el historial de cada aeronave y permite restaurarla a un estado
+anterior sin perder ese historial.</p>
+
+<h2>Para qué sirve</h2>
+<p>Los datos de una aeronave cambian con el tiempo, y a veces hace falta saber cómo estaban en una
+fecha determinada o volver atrás después de un error. Esta pantalla lo permite: cada fila de la
+grilla es el estado en que quedó la aeronave después de un cambio, con la fecha y la hora en que
+ocurrió.</p>
+<p>Para cada aeronave, una sola fila está marcada como vigente en la columna
+<strong>Vigente</strong>: es la que coincide con los datos actuales.</p>
+<p>Activar una fila anterior restaura esos valores sobre la aeronave. La operación no borra nada
+del historial: todas las filas siguen disponibles para consultarlas.</p>
+
+<h2>Cómo se llega</h2>
+<p>No se abre desde el menú. Se llega desde <a href="maestro-aeronaves.html">Maestro de
+aeronaves</a>, con el botón <span class="boton">Ver Bitácora de Cambios</span>.</p>
+
+<figure>
+    <img src="img/auditoria-cambios.png" alt="Pantalla Auditoría de Cambios de AeroManager">
+    <figcaption>Pantalla Auditoría de Cambios, con el historial arriba y los filtros y botones
+    abajo.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Grilla de cambios</td>
+    <td>Muestra Matrícula, Fecha, Hora, Nro de Serie, Modelo, Fabricante, Estado Operativo, Horas de
+        Vuelo, Intervalo (días), Próxima Revisión, Activa y Vigente. Al hacer clic en un encabezado
+        se ordena por esa columna.</td>
+</tr>
+<tr>
+    <td class="control">Matrícula</td>
+    <td>Filtra por aeronave. Vacío, incluye todas.</td>
+</tr>
+<tr>
+    <td class="control">Modelo</td>
+    <td>Filtra por modelo. Vacío, incluye todos.</td>
+</tr>
+<tr>
+    <td class="control">Fecha Desde y Fecha Hasta</td>
+    <td>Definen el período de la consulta. No pueden superar el día de hoy.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">APLICAR</span></td>
+    <td>Aplica el filtrado seleccionado y presenta en la grilla el resultado de la consulta.
+        También se activa con la tecla <kbd>Enter</kbd>.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">LIMPIAR</span></td>
+    <td>Limpia los filtros y vuelve a mostrar la consulta inicial, tal como al ingresar a la
+        pantalla.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">ACTIVAR</span></td>
+    <td>Restaura la aeronave a los valores de la fila seleccionada.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">SALIR</span></td>
+    <td>Vuelve al Maestro de Aeronaves. También se activa con la tecla <kbd>Esc</kbd>.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo consultar el historial</h2>
+
+<ol class="pasos">
+<li>Abrir la pantalla. La grilla muestra los cambios del último mes.</li>
+<li>Elegir <strong>Matrícula</strong>, <strong>Modelo</strong>, <strong>Fecha Desde</strong> y
+    <strong>Fecha Hasta</strong> según lo que se quiera ver.</li>
+<li>Presionar <span class="boton">APLICAR</span>.</li>
+<li>Revisar la columna <strong>Vigente</strong> para identificar el estado actual de cada
+    aeronave.</li>
+</ol>
+
+<h2>Cómo restaurar un estado anterior</h2>
+
+<ol class="pasos">
+<li>Filtrar el historial hasta encontrar la fila deseada.</li>
+<li>Hacer clic en esa fila. Tiene que tener <strong>No</strong> en la columna
+    <strong>Vigente</strong>.</li>
+<li>Presionar <span class="boton">ACTIVAR</span>.</li>
+<li>Leer la confirmación, que indica la aeronave, la fecha y la hora, y responder
+    <strong>Sí</strong>.</li>
+<li>Aceptar el mensaje final. Los filtros vuelven a la consulta inicial y la grilla se
+    actualiza.</li>
+</ol>
+
+<div class="atencion">
+<p><strong>Atención.</strong> Al activar una fila, los datos actuales de la aeronave se reemplazan
+por los de ese registro.</p>
+</div>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">"Error al cargar los filtros:" seguido del motivo</td>
+    <td>No se pudieron cargar las listas de matrículas y modelos. Después de los dos puntos se
+        indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al recuperar la bitácora de cambios:" seguido del motivo</td>
+    <td>No se pudo cargar la grilla. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"La fecha hasta no puede ser anterior a la fecha desde."</td>
+    <td>El período está invertido. Hay que corregir alguna de las dos fechas.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar un registro de la grilla."</td>
+    <td>Hay que hacer clic en una fila antes de presionar
+        <span class="boton">ACTIVAR</span>.</td>
+</tr>
+<tr>
+    <td class="situacion">"El registro seleccionado ya es el vigente para esa aeronave."</td>
+    <td>Esa fila ya coincide con los datos actuales: no hay nada que restaurar.</td>
+</tr>
+<tr>
+    <td class="situacion">"¿Confirma restaurar la aeronave" seguido de la matrícula, "al estado del"
+        seguido de la fecha y la hora, "? Los datos actuales serán reemplazados por los de ese
+        registro."</td>
+    <td>Con <strong>Sí</strong> se restaura; con <strong>No</strong> no cambia nada.</td>
+</tr>
+<tr>
+    <td class="situacion">"La aeronave fue restaurada al estado del registro seleccionado."</td>
+    <td>La operación se completó y esa fila pasa a ser la vigente.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se pudo activar el registro seleccionado."</td>
+    <td>La aeronave no cambió. Conviene presionar <span class="boton">LIMPIAR</span> y volver a
+        intentar.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al activar el registro:" seguido del motivo</td>
+    <td>La operación no se completó. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"La operación se registró correctamente, pero no pudo asentarse en la
+        Bitácora:" seguido del motivo</td>
+    <td>La aeronave se restauró, pero el evento no quedó en la bitácora. Después de los dos puntos
+        se muestra el motivo técnico. Conviene avisarle al administrador.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>La consulta inicial abarca el último mes.</li>
+<li>Las fechas de consulta no pueden superar el día de hoy.</li>
+<li>Cada aeronave tiene una sola fila vigente.</li>
+<li>Una fila vigente no se puede activar de nuevo.</li>
+</ul>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="maestro-aeronaves.html">Maestro de aeronaves</a></li>
+<li><a href="bitacora-eventos.html">Bitácora de eventos</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Auditoría de cambios
+</div>
+
+</div>
+</body>
+</html>

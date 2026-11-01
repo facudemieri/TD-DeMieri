@@ -16,6 +16,10 @@ namespace BLL_23DB
         mapperOrdenTrabajo_62FD mapperOrdenTrabajo_62FD = new mapperOrdenTrabajo_62FD();
         mapperAeronave_62FD mapperAeronave_62FD = new mapperAeronave_62FD();
         DVBLL_23DB dvBLL_23DB = new DVBLL_23DB();
+        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
+
+        // Detalle del último registro en bitácora que falló: lo necesita el aviso de la pantalla
+        public string ErrorBitacora_62FD { get; private set; }
 
         // Códigos de resultado de IniciarIntervencion_62FD
         public const int IntervencionIniciada_62FD = 1;
@@ -132,8 +136,10 @@ namespace BLL_23DB
             return true;
         }
 
-        public int CerrarIntervencion_62FD(Intervencion_62FD intervencion_62FD)
+        public int CerrarIntervencion_62FD(Intervencion_62FD intervencion_62FD, out bool bitacoraRegistrada_62FD)
         {
+            bitacoraRegistrada_62FD = false;
+
             List<Tarea_62FD> tareas_62FD = mapperTarea_62FD.ObtenerTareasPorIntervencion_62FD(intervencion_62FD.IdIntervencion_62FD);
 
             if (tareas_62FD.Count == 0)
@@ -177,7 +183,24 @@ namespace BLL_23DB
 
             dvBLL_23DB.RecalcularDVTabla_23DB("OrdenTrabajo_62FD");
 
+            bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD("Registrar Intervención", 3);
+
             return IntervencionCerrada_62FD;
+        }
+
+        private bool RegistrarEventoBitacora_62FD(string evento_62FD, int criticidad_62FD)
+        {
+            try
+            {
+                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Mantenimiento", evento_62FD, criticidad_62FD);
+                ErrorBitacora_62FD = null;
+                return true;
+            }
+            catch (Exception ex_62FD)
+            {
+                ErrorBitacora_62FD = ex_62FD.Message;
+                return false;
+            }
         }
 
         public bool ModificarTarea_62FD(Tarea_62FD tarea_62FD)

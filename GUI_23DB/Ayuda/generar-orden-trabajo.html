@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generar orden de trabajo - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Generar orden de trabajo</h1>
+<p class="bajada">Abre una orden de mantenimiento para una aeronave: define qué tipo de trabajo se
+hará, dónde, cuándo y qué técnico queda a cargo.</p>
+
+<h2>Para qué sirve</h2>
+<p>Todo trabajo de mantenimiento empieza con una orden. La orden deja asentado el tipo de
+intervención, el hangar, las fechas planificadas y el técnico responsable, y es la base sobre la
+que después se registra lo que realmente se hizo.</p>
+<p>El flujo tiene dos pantallas. En <strong>Seleccionar Aeronave</strong> se busca la aeronave
+dentro de la flota, con la posibilidad de ver solamente las que tienen la revisión vencida. En
+<strong>Generar Orden de Trabajo</strong> se cargan los datos de la orden y se consultan las
+órdenes anteriores de esa aeronave.</p>
+<p>Una orden nueva queda en estado <strong>Asignada</strong> y a disposición del técnico elegido,
+que la retoma en <a href="registrar-intervencion.html">Registrar intervención</a>.</p>
+
+<h2>Cómo se llega</h2>
+<p>Desde el menú principal, en <strong>Mantenimiento de Aeronaves &rsaquo; Generar Orden de
+Trabajo</strong>. La opción aparece si el rol del usuario incluye la patente correspondiente.
+Primero se abre <strong>Seleccionar Aeronave</strong>, y la pantalla de la orden se abre con el
+botón <span class="boton">Continuar</span>.</p>
+
+<figure>
+    <img src="img/generar-orden-trabajo.png" alt="Pantalla Generar Orden de Trabajo de AeroManager">
+    <figcaption>Pantalla Generar Orden de Trabajo, con los datos de la aeronave, los de la orden y
+    el historial de órdenes.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<p><strong>Pantalla Seleccionar Aeronave</strong></p>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Matrícula y Modelo</td>
+    <td>Filtran por el texto escrito, aunque sea solo una parte.</td>
+</tr>
+<tr>
+    <td class="control">Estado Operativo</td>
+    <td>En Servicio, En Mantenimiento o Fuera de Servicio.</td>
+</tr>
+<tr>
+    <td class="control">Fabricante</td>
+    <td>Boeing, Airbus o Embraer.</td>
+</tr>
+<tr>
+    <td class="control">Solo aeronaves con revisión vencida</td>
+    <td>Deja únicamente las aeronaves cuya próxima revisión es hoy o una fecha anterior.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Buscar</span></td>
+    <td>Aplica los criterios. También se activa con la tecla <kbd>Enter</kbd>.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Limpiar</span></td>
+    <td>Borra los criterios y vuelve a mostrar toda la flota.</td>
+</tr>
+<tr>
+    <td class="control">Grilla de aeronaves</td>
+    <td>Muestra Matrícula, Nro de Serie, Modelo, Fabricante, Estado Operativo, Horas de Vuelo,
+        Intervalo de Revisión y Próxima Revisión. Al hacer clic en un encabezado se ordena por esa
+        columna.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Continuar</span></td>
+    <td>Abre la orden para la aeronave seleccionada.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Vuelve al menú principal. También se activa con la tecla <kbd>Esc</kbd>.</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Pantalla Generar Orden de Trabajo</strong></p>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Aeronave Seleccionada</td>
+    <td>Muestra Matrícula, Modelo, Fabricante, Horas Vuelo Acumuladas y Fecha Próxima Revisión. No
+        se puede editar.</td>
+</tr>
+<tr>
+    <td class="control">Tipo de Intervención</td>
+    <td>Preventivo o Correctivo.</td>
+</tr>
+<tr>
+    <td class="control">Hangar</td>
+    <td>Hangar 1, Hangar 2 o Hangar 3.</td>
+</tr>
+<tr>
+    <td class="control">Legajo Técnico</td>
+    <td>Técnico a cargo, elegido entre los usuarios activos con rol de técnico aeronáutico. Se
+        muestra su apellido, nombre y documento.</td>
+</tr>
+<tr>
+    <td class="control">Fecha Inicio Planificada</td>
+    <td>Día previsto para empezar el trabajo.</td>
+</tr>
+<tr>
+    <td class="control">Fecha Límite</td>
+    <td>Día máximo para terminarlo.</td>
+</tr>
+<tr>
+    <td class="control">Descripción</td>
+    <td>Detalle del trabajo a realizar. La tecla <kbd>Enter</kbd> agrega una línea nueva.</td>
+</tr>
+<tr>
+    <td class="control">Órdenes de Trabajo de la Aeronave</td>
+    <td>Historial con Nro Orden, Tipo de Intervención, Estado, Inicio Planificado, Fecha Límite,
+        Hangar y Legajo Técnico.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Aplicar</span></td>
+    <td>Valida los datos y genera la orden.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Cancelar</span></td>
+    <td>Borra lo cargado en los datos de la orden.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Vuelve a <strong>Seleccionar Aeronave</strong>, sin pedir confirmación.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo generar una orden de trabajo</h2>
+
+<ol class="pasos">
+<li>Abrir <strong>Mantenimiento de Aeronaves &rsaquo; Generar Orden de Trabajo</strong>. Se muestra
+    <strong>Seleccionar Aeronave</strong> con la flota completa.</li>
+<li>Si hace falta, completar los criterios de búsqueda y presionar
+    <span class="boton">Buscar</span>.</li>
+<li>Hacer clic en la aeronave y presionar <span class="boton">Continuar</span>.</li>
+<li>Revisar en <strong>Órdenes de Trabajo de la Aeronave</strong> que no haya una orden abierta.</li>
+<li>Elegir <strong>Tipo de Intervención</strong>, <strong>Hangar</strong> y
+    <strong>Legajo Técnico</strong>.</li>
+<li>Ajustar <strong>Fecha Inicio Planificada</strong> y <strong>Fecha Límite</strong>.</li>
+<li>Escribir la <strong>Descripción</strong>.</li>
+<li>Presionar <span class="boton">Aplicar</span> y anotar el número de orden que informa el
+    sistema.</li>
+<li>Presionar <span class="boton salir">Salir</span> para volver a la búsqueda. Una vez generada la
+    orden, la pantalla queda en modo consulta y no admite otra carga.</li>
+</ol>
+
+<figure>
+    <img src="img/generar-orden-trabajo-02.png" alt="Pantalla Seleccionar Aeronave de AeroManager">
+    <figcaption>Pantalla Seleccionar Aeronave, con los criterios de búsqueda y la grilla de la
+    flota.</figcaption>
+</figure>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">"Debe seleccionar una aeronave de la grilla."</td>
+    <td>Se presionó <span class="boton">Continuar</span> sin elegir una fila.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se encontraron aeronaves que cumplan los criterios de búsqueda."</td>
+    <td>Ninguna aeronave coincide con los filtros. Conviene usar
+        <span class="boton">Limpiar</span> y buscar con menos criterios.</td>
+</tr>
+<tr>
+    <td class="situacion">"No hay aeronaves registradas en la flota."</td>
+    <td>No hay aeronaves activas para mostrar. Se cargan desde
+        <a href="maestro-aeronaves.html">Maestro de aeronaves</a>.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al recuperar las aeronaves:" seguido del motivo</td>
+    <td>No se pudo traer la flota. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"No hay técnicos aeronáuticos activos registrados en el sistema."</td>
+    <td>La lista <strong>Legajo Técnico</strong> queda vacía y no se puede completar la orden. Un
+        administrador tiene que dar de alta o reactivar un técnico en
+        <a href="gestion-usuarios.html">Gestión de usuarios</a>.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al recuperar los técnicos:" seguido del motivo</td>
+    <td>No se pudo cargar la lista de técnicos. Después de los dos puntos se indica la causa
+        técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al recuperar las órdenes de trabajo:" seguido del motivo</td>
+    <td>No se pudo cargar el historial de la aeronave. Después de los dos puntos se indica la causa
+        técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe completar todos los campos obligatorios de la orden de
+        trabajo."</td>
+    <td>Falta el tipo de intervención, el hangar, el técnico o la descripción.</td>
+</tr>
+<tr>
+    <td class="situacion">"La fecha límite de finalización no puede ser anterior a la fecha de
+        inicio planificada."</td>
+    <td>Hay que corregir alguna de las dos fechas. Pueden ser el mismo día.</td>
+</tr>
+<tr>
+    <td class="situacion">"La aeronave ya posee una orden de trabajo abierta. No es posible generar
+        otra hasta que se ejecute."</td>
+    <td>Hay una orden de esa aeronave que todavía no llegó al estado Ejecutada. Hay que completarla
+        antes de abrir una nueva. Se la puede ver en el historial de la misma pantalla.</td>
+</tr>
+<tr>
+    <td class="situacion">"El registro fue modificado o ya no existe. Vuelva a buscarlo e intente
+        nuevamente."</td>
+    <td>No se pudo guardar la orden. El historial se actualiza: hay que revisarlo y volver a
+        intentar.</td>
+</tr>
+<tr>
+    <td class="situacion">"Orden de trabajo generada correctamente. Nro de Orden:" seguido del
+        número</td>
+    <td>La orden quedó registrada con el número informado y figura en el historial.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al generar la orden de trabajo:" seguido del motivo</td>
+    <td>La orden no se guardó. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"La operación se registró correctamente, pero no pudo asentarse en la
+        Bitácora:" seguido del motivo</td>
+    <td>La orden se generó, pero el evento no quedó en la bitácora. Después de los dos puntos se
+        muestra el motivo técnico. Conviene avisarle al administrador.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>Cada aeronave puede tener una sola orden abierta por vez.</li>
+<li>Las dos fechas tienen que ser de hoy en adelante, y la límite no puede ser anterior a la de
+    inicio.</li>
+<li>La descripción admite hasta 500 caracteres.</li>
+<li>En la búsqueda, la matrícula admite hasta 20 caracteres y el modelo hasta 50.</li>
+<li>La búsqueda muestra solamente las aeronaves activas: las dadas de baja no aparecen.</li>
+</ul>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="registrar-intervencion.html">Registrar intervención</a></li>
+<li><a href="maestro-aeronaves.html">Maestro de aeronaves</a></li>
+<li><a href="gestion-usuarios.html">Gestión de usuarios</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Generar orden de trabajo
+</div>
+
+</div>
+</body>
+</html>

@@ -16,7 +16,6 @@ namespace GUI_23DB
     public partial class AuditoriaDeCambios_62FD : Form, IIdiomaObserver_23DB
     {
         CambioAeronaveBLL_62FD cambioAeronaveBLL_62FD = new CambioAeronaveBLL_62FD();
-        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
 
         private List<AeronaveCambio_62FD> listaCambios_62FD = new List<AeronaveCambio_62FD>();
         private string columnaOrden_62FD = null;
@@ -29,6 +28,7 @@ namespace GUI_23DB
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "auditoria-cambios");
 
             dataGridView1.AutoGenerateColumns = false;
             ConfigurarControles_62FD();
@@ -202,13 +202,18 @@ namespace GUI_23DB
                     return;
                 }
 
-                if (!cambioAeronaveBLL_62FD.ActivarCambio_62FD(cambio_62FD.Matricula_62FD, cambio_62FD.FechaHoraCambio_62FD))
+                bool bitacoraRegistrada_62FD;
+
+                if (!cambioAeronaveBLL_62FD.ActivarCambio_62FD(cambio_62FD.Matricula_62FD, cambio_62FD.FechaHoraCambio_62FD, out bitacoraRegistrada_62FD))
                 {
                     MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_NoSePudoActivarCambio"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                RegistrarEventoBitacora_62FD("Activar Cambio Aeronave");
+                if (!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), cambioAeronaveBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_CambioActivado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -229,18 +234,6 @@ namespace GUI_23DB
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void RegistrarEventoBitacora_62FD(string evento_62FD)
-        {
-            try
-            {
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Maestros", evento_62FD, 2);
-            }
-            catch (Exception ex_62FD)
-            {
-                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), ex_62FD.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
         }
 
         private void ActualizarBarraEstado_62FD(string claveModo_62FD)

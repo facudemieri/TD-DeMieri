@@ -17,7 +17,6 @@ namespace GUI_23DB
     {
 
         OrdenTrabajoBLL_62FD ordenTrabajoBLL_62FD = new OrdenTrabajoBLL_62FD();
-        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
 
         private Aeronave_62FD aeronave_62FD = null;
         private List<Usuario_23DB> listaTecnicos_62FD = new List<Usuario_23DB>();
@@ -31,6 +30,7 @@ namespace GUI_23DB
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "generar-orden-trabajo");
             dataGridView1.AutoGenerateColumns = false;
             aeronave_62FD = aeronaveSeleccionada_62FD;
             ConfigurarControles_62FD();
@@ -243,7 +243,8 @@ namespace GUI_23DB
                 orden_62FD.Hangar_62FD = cmbHangar.Text;
                 orden_62FD.LegajoTecnico_62FD = listaTecnicos_62FD[cmbLegajoTecnico.SelectedIndex].DNI_23DB;
 
-                int resultado_62FD = ordenTrabajoBLL_62FD.GenerarOrdenTrabajo_62FD(orden_62FD);
+                bool bitacoraRegistrada_62FD;
+                int resultado_62FD = ordenTrabajoBLL_62FD.GenerarOrdenTrabajo_62FD(orden_62FD, out bitacoraRegistrada_62FD);
 
                 if (resultado_62FD == 0)
                 {
@@ -258,7 +259,10 @@ namespace GUI_23DB
                     return;
                 }
 
-                RegistrarEventoBitacora_62FD("Generar Orden de Trabajo", 3);
+                if (!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), ordenTrabajoBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OrdenGenerada"), resultado_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -273,19 +277,6 @@ namespace GUI_23DB
             {
                 // Solo queda habilitado si el formulario sigue en modo alta
                 btnAplicar.Enabled = groupBox2.Enabled;
-            }
-        }
-
-        // La Bitácora va en su propio try/catch: si falla, la operación de negocio ya está hecha y no se informa como error
-        private void RegistrarEventoBitacora_62FD(string evento_62FD, int criticidad_62FD)
-        {
-            try
-            {
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Mantenimiento", evento_62FD, criticidad_62FD);
-            }
-            catch (Exception ex_62FD)
-            {
-                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), ex_62FD.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

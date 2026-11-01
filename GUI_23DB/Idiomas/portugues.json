@@ -917,5 +917,7 @@
   "Msg_GraficoPreventivo": "Preventivo",
   "Msg_GraficoCorrectivo": "Corretivo",
   "MenuPrincipal_btnReportes": "Relatórios",
-  "MenuPrincipal_btnAyuda": "Ajuda"
+  "MenuPrincipal_btnAyuda": "Ajuda",
+  "Msg_AyudaNoDisponible": "A ajuda on-line não está disponível neste computador.",
+  "Msg_ErrorAbrirAyuda": "Erro ao abrir a ajuda: {0}"
 }

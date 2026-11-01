@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analítica de mantenimiento - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Analítica de mantenimiento</h1>
+<p class="bajada">Resume el estado de la flota con indicadores y gráficos, y estima la carga de
+revisiones de los próximos meses.</p>
+
+<h2>Para qué sirve</h2>
+<p>Esta pantalla ofrece una vista general para planificar el mantenimiento: cuántas aeronaves
+tienen la revisión vencida o a punto de vencer, cómo está compuesta la flota según su estado, qué
+tipo de intervenciones se hicieron y cuántas revisiones se esperan por mes.</p>
+<p>Es una consulta: no modifica datos. El resultado se puede guardar en un documento PDF.</p>
+
+<h2>Cómo se llega</h2>
+<p>Desde el menú principal, en <strong>Reportes &rsaquo; Analítica de Mantenimiento</strong>. La
+opción aparece si el rol del usuario incluye la patente correspondiente. Al abrir la pantalla, la
+información se calcula automáticamente.</p>
+
+<figure>
+    <img src="img/analitica-mantenimiento.png" alt="Pantalla Analítica de Mantenimiento de AeroManager">
+    <figcaption>Pantalla Analítica de Mantenimiento, con los parámetros, los indicadores y los tres
+    gráficos.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Desde y Hasta</td>
+    <td>Definen el período del gráfico Intervenciones por tipo. No afectan al resto de la
+        pantalla.</td>
+</tr>
+<tr>
+    <td class="control">Proyección (meses)</td>
+    <td>Cantidad de meses del gráfico Revisiones proyectadas por mes.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Actualizar</span></td>
+    <td>Vuelve a calcular toda la información con los parámetros elegidos.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Generar PDF</span></td>
+    <td>Se habilita después de calcular. Guarda el documento y lo abre.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Cierra la pantalla.</td>
+</tr>
+<tr>
+    <td class="control">Barra de estado</td>
+    <td>Muestra el estado de la pantalla, la cantidad de aeronaves activas y el usuario.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Qué significa cada indicador</h2>
+
+<table>
+<thead>
+<tr><th>Indicador</th><th>Qué muestra</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Revisión vencida</td>
+    <td>Cantidad de aeronaves activas cuya próxima revisión es hoy o una fecha anterior.</td>
+</tr>
+<tr>
+    <td class="control">Vence en 30 días</td>
+    <td>Cantidad de aeronaves activas cuya próxima revisión cae después de hoy y dentro de los
+        próximos 30 días.</td>
+</tr>
+<tr>
+    <td class="control">Días promedio de reposición</td>
+    <td>Promedio de días entre la solicitud y la recepción de los repuestos ya recibidos. Considera
+        todas las recepciones registradas, no solamente las del período elegido. Si todavía no hay
+        ninguna, muestra "Sin datos".</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Qué significa cada gráfico</h2>
+
+<table>
+<thead>
+<tr><th>Gráfico</th><th>Qué muestra</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Estado operativo de la flota</td>
+    <td>Cuántas aeronaves activas hay hoy En Servicio, En Mantenimiento y Fuera de Servicio.</td>
+</tr>
+<tr>
+    <td class="control">Intervenciones por tipo</td>
+    <td>Cuántas intervenciones de tipo Preventivo y Correctivo se iniciaron entre las fechas
+        Desde y Hasta.</td>
+</tr>
+<tr>
+    <td class="control">Revisiones proyectadas por mes</td>
+    <td>Cuántas revisiones se estiman en cada mes, desde el mes en curso y por la cantidad de meses
+        elegida en Proyección (meses).</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo se calcula la proyección de revisiones</h2>
+
+<p>El gráfico <strong>Revisiones proyectadas por mes</strong> no muestra revisiones agendadas. Son
+revisiones estimadas a partir del intervalo de revisión de cada aeronave:</p>
+
+<ol class="pasos">
+<li>El cálculo parte de la fecha de próxima revisión de cada aeronave activa. Si esa fecha ya pasó,
+    parte del día de hoy.</li>
+<li>Cuenta una revisión en el mes de esa fecha.</li>
+<li>Suma el intervalo de revisión, en días, para estimar la siguiente, y repite el paso hasta
+    llegar al final de la proyección.</li>
+<li>El gráfico muestra el total de revisiones estimadas de la flota en cada mes.</li>
+</ol>
+
+<div class="nota">
+<p><strong>Cómo leer el gráfico.</strong> Una misma aeronave puede sumar varias revisiones si su
+intervalo es corto. Además, las aeronaves con la revisión vencida cuentan en el mes en curso.</p>
+</div>
+
+<h2>Cómo actualizar la analítica</h2>
+
+<ol class="pasos">
+<li>Elegir <strong>Desde</strong> y <strong>Hasta</strong> para el gráfico de intervenciones.</li>
+<li>Elegir la cantidad de meses en <strong>Proyección (meses)</strong>.</li>
+<li>Presionar <span class="boton">Actualizar</span>.</li>
+</ol>
+
+<h2>Cómo generar el PDF</h2>
+
+<ol class="pasos">
+<li>Actualizar la analítica con los parámetros deseados.</li>
+<li>Presionar <span class="boton">Generar PDF</span>.</li>
+<li>El sistema guarda el documento en la carpeta <strong>Documentos</strong> del usuario, dentro de
+    <strong>AeroManager\Analitica</strong>, y lo abre.</li>
+</ol>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">"La fecha hasta no puede ser anterior a la fecha desde."</td>
+    <td>El período está invertido. Hay que corregirlo y presionar
+        <span class="boton">Actualizar</span>.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al calcular la analítica:" seguido del motivo</td>
+    <td>La información no se pudo calcular. Después de los dos puntos se indica la causa
+        técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe actualizar la analítica antes de generar el documento."</td>
+    <td>Hay que presionar <span class="boton">Actualizar</span> y esperar el resultado.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al generar el documento:" seguido del motivo</td>
+    <td>El PDF no se pudo crear. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>La proyección va de 3 a 12 meses, y al abrir la pantalla es de 6.</li>
+<li>El período inicial es de los últimos 12 meses, y las fechas no pueden superar el día de
+    hoy.</li>
+<li>El indicador de vencimientos cubre siempre 30 días.</li>
+</ul>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="maestro-aeronaves.html">Maestro de aeronaves</a></li>
+<li><a href="registrar-intervencion.html">Registrar intervención</a></li>
+<li><a href="solicitar-repuesto.html">Solicitar repuesto</a></li>
+<li><a href="certificar-intervencion.html">Certificar intervención</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Analítica de mantenimiento
+</div>
+
+</div>
+</body>
+</html>

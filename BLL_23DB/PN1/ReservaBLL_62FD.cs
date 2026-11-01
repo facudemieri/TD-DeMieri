@@ -14,9 +14,15 @@ namespace BLL_23DB
         mapperReserva_62FD mapperReserva_62FD = new mapperReserva_62FD();
         AsientoBLL_62FD asientoBLL_62FD = new AsientoBLL_62FD();
         DVBLL_23DB dvBLL_23DB = new DVBLL_23DB();
+        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
 
-        public string GenerarReserva_62FD(Reserva_62FD reserva_62FD)
+        // Detalle del último registro en bitácora que falló: lo necesita el aviso de la pantalla
+        public string ErrorBitacora_62FD { get; private set; }
+
+        public string GenerarReserva_62FD(Reserva_62FD reserva_62FD, out bool bitacoraRegistrada_62FD)
         {
+            bitacoraRegistrada_62FD = false;
+
             if (!ValidarDatos_62FD(reserva_62FD))
             {
                 throw new Exception("Debe seleccionar al menos un pasajero con su asiento.");
@@ -52,7 +58,24 @@ namespace BLL_23DB
             dvBLL_23DB.RecalcularDVTabla_23DB("ReservaDetalle_62FD");
             dvBLL_23DB.RecalcularDVTabla_23DB("Asiento_62FD");
 
+            bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD("Generar Reserva", 3);
+
             return reserva_62FD.CodReserva_62FD;
+        }
+
+        private bool RegistrarEventoBitacora_62FD(string evento_62FD, int criticidad_62FD)
+        {
+            try
+            {
+                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Pasajes", evento_62FD, criticidad_62FD);
+                ErrorBitacora_62FD = null;
+                return true;
+            }
+            catch (Exception ex_62FD)
+            {
+                ErrorBitacora_62FD = ex_62FD.Message;
+                return false;
+            }
         }
 
         public bool ValidarDatos_62FD(Reserva_62FD reserva_62FD)

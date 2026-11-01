@@ -13,16 +13,25 @@ namespace GUI_23DB
 {
     public partial class GestionRespaldo_23DB : Form, IIdiomaObserver_23DB
     {
-        private EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
         private RespaldoBLL_23DB respaldoBLL_23DB = new RespaldoBLL_23DB();
-        
+
 
         public bool SoloRestore_23DB { get; set; } = false;
+        public string DniOperador_62FD { get; set; }
         public GestionRespaldo_23DB()
         {
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "gestion-respaldos");
+        }
+
+        private void AvisarBitacoraFallida_62FD(bool bitacoraRegistrada_62FD)
+        {
+            if(!bitacoraRegistrada_62FD)
+            {
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), respaldoBLL_23DB.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         void LimpiarCampos()
@@ -61,16 +70,9 @@ namespace GUI_23DB
 
             try
             {
-                string rutaCompleta_23DB = respaldoBLL_23DB.GenerarBackup_23DB(txtRutaBackup.Text);
-                // El backup ya se genero: un fallo de la bitacora no debe informarse como error del backup.
-                try
-                {
-                    eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Backup BD", 2);
-                }
-                catch(Exception exEvento_23DB)
-                {
-                    System.Diagnostics.Debug.WriteLine(exEvento_23DB);
-                }
+                bool bitacoraRegistrada_62FD;
+                string rutaCompleta_23DB = respaldoBLL_23DB.GenerarBackup_23DB(txtRutaBackup.Text, out bitacoraRegistrada_62FD);
+                AvisarBitacoraFallida_62FD(bitacoraRegistrada_62FD);
                 MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_BackupGenerado"), rutaCompleta_23DB), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LimpiarCampos();
             }
@@ -93,7 +95,12 @@ namespace GUI_23DB
 
             try
             {
-                respaldoBLL_23DB.RestaurarBackup_23DB(txtRutaRestore.Text);
+                // Desde la reparación todavía no hay sesión: el DNI lo informa quien abrió la pantalla
+                string dniOperador_62FD = SoloRestore_23DB ? DniOperador_62FD : SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB;
+
+                bool bitacoraRegistrada_62FD;
+                respaldoBLL_23DB.RestaurarBackup_23DB(txtRutaRestore.Text, dniOperador_62FD, out bitacoraRegistrada_62FD);
+                AvisarBitacoraFallida_62FD(bitacoraRegistrada_62FD);
 
                 if(SoloRestore_23DB)
                 {
@@ -104,15 +111,6 @@ namespace GUI_23DB
                 }
                 else
                 {
-                    // La base ya se restauro: un fallo de la bitacora no debe informarse como error del restore.
-                    try
-                    {
-                        eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Restore BD", 1);
-                    }
-                    catch(Exception exEvento_23DB)
-                    {
-                        System.Diagnostics.Debug.WriteLine(exEvento_23DB);
-                    }
                     MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_RestoreCorrecto"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarCampos();                    
                 }

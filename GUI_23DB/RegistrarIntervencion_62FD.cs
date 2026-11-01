@@ -16,7 +16,6 @@ namespace GUI_23DB
     public partial class RegistrarIntervencion_62FD : Form, IIdiomaObserver_23DB
     {
         IntervencionBLL_62FD intervencionBLL_62FD = new IntervencionBLL_62FD();
-        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
 
         private List<OrdenTrabajo_62FD> listaOrdenes_62FD = new List<OrdenTrabajo_62FD>();
         private List<Tarea_62FD> listaTareas_62FD = new List<Tarea_62FD>();
@@ -32,6 +31,7 @@ namespace GUI_23DB
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "registrar-intervencion");
             dataGridView1.AutoGenerateColumns = false;
             ConfigurarControles_62FD();
         }
@@ -385,7 +385,8 @@ namespace GUI_23DB
 
                 intervencion_62FD.fechaHoraFin_62FD = dtpFechaFin.Value;
 
-                int resultado_62FD = intervencionBLL_62FD.CerrarIntervencion_62FD(intervencion_62FD);
+                bool bitacoraRegistrada_62FD;
+                int resultado_62FD = intervencionBLL_62FD.CerrarIntervencion_62FD(intervencion_62FD, out bitacoraRegistrada_62FD);
 
                 if (resultado_62FD == IntervencionBLL_62FD.SinTareas_62FD)
                 {
@@ -414,7 +415,11 @@ namespace GUI_23DB
                     return;
                 }
 
-                RegistrarEventoBitacora_62FD("Registrar Intervención", 3);
+                if (!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), intervencionBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
                 MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_IntervencionRegistrada"), intervencion_62FD.IdIntervencion_62FD, intervencion_62FD.totalHorasInsumidas_62FD.ToString("N2")), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 cmbEstadoIntervencion.Text = "Finalizada";
@@ -431,19 +436,6 @@ namespace GUI_23DB
             {
                 // Solo queda habilitado si sigue habiendo una intervención en registro
                 btnAplicar.Enabled = intervencion_62FD != null;
-            }
-        }
-
-        // La Bitácora va en su propio try/catch: si falla, la operación de negocio ya está hecha y no se informa como error
-        private void RegistrarEventoBitacora_62FD(string evento_62FD, int criticidad_62FD)
-        {
-            try
-            {
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Mantenimiento", evento_62FD, criticidad_62FD);
-            }
-            catch (Exception ex_62FD)
-            {
-                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), ex_62FD.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

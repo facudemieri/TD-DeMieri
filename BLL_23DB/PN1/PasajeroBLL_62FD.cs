@@ -14,14 +14,20 @@ namespace BLL_23DB
         mapperPasajero_62FD mapperPasajero_62FD = new mapperPasajero_62FD();
 
         DVBLL_23DB dVBLL_23DB = new DVBLL_23DB();
+        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
+
+        // Detalle del último registro en bitácora que falló: lo necesita el aviso de la pantalla
+        public string ErrorBitacora_62FD { get; private set; }
 
         public Pasajero_62FD ObtenerPasajero_62FD(string numeroDocumento_62FD)
         {
             return mapperPasajero_62FD.ObtenerPasajeroPorDocumento_62FD(numeroDocumento_62FD);
         }
 
-        public void RegistrarPasajero_62FD(Pasajero_62FD pasajero_62FD)
+        public void RegistrarPasajero_62FD(Pasajero_62FD pasajero_62FD, out bool bitacoraRegistrada_62FD)
         {
+            bitacoraRegistrada_62FD = false;
+
             if (!ValidaDatos_62FD(pasajero_62FD))
             {
                 throw new Exception("Los datos del pasajero son inválidos.");
@@ -40,6 +46,23 @@ namespace BLL_23DB
             }
 
             dVBLL_23DB.RecalcularDVTabla_23DB("Pasajero_62FD");
+
+            bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD("Registrar Pasajero", 3);
+        }
+
+        private bool RegistrarEventoBitacora_62FD(string evento_62FD, int criticidad_62FD)
+        {
+            try
+            {
+                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Pasajes", evento_62FD, criticidad_62FD);
+                ErrorBitacora_62FD = null;
+                return true;
+            }
+            catch (Exception ex_62FD)
+            {
+                ErrorBitacora_62FD = ex_62FD.Message;
+                return false;
+            }
         }
 
         public bool ValidaDatos_62FD(Pasajero_62FD pasajero_62FD)

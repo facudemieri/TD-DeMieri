@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menú principal - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Menú principal</h1>
+<p class="bajada">Es la pantalla desde la que se accede a todos los módulos del sistema y la que
+permanece abierta durante toda la sesión.</p>
+
+<h2>Para qué sirve</h2>
+<p>El menú principal es el centro del sistema. Muestra quién tiene la sesión iniciada y con qué
+rol, y agrupa el acceso a los módulos en seis secciones. Todas las pantallas se abren desde acá y
+vuelven acá al cerrarse.</p>
+
+<h2>Cómo se llega</h2>
+<p>Se abre automáticamente al iniciar sesión correctamente. Ver
+<a href="inicio-sesion.html">Inicio de sesión</a>.</p>
+
+<figure>
+    <img src="img/menu-principal.png" alt="Menú principal de AeroManager">
+    <figcaption>Menú principal, con el panel de secciones a la izquierda y la barra de sesión
+    arriba.</figcaption>
+</figure>
+
+<h2>Las zonas de la pantalla</h2>
+
+<table>
+<thead>
+<tr><th>Zona</th><th>Qué muestra</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Barra superior</td>
+    <td>El nombre del usuario que tiene la sesión iniciada y el rol con el que ingresó. Sirve para
+        verificar de un vistazo con qué permisos se está trabajando.</td>
+</tr>
+<tr>
+    <td class="control">Panel izquierdo</td>
+    <td>Las secciones del sistema. Al hacer clic en una, se despliegan las opciones que
+        contiene.</td>
+</tr>
+<tr>
+    <td class="control">Área central</td>
+    <td>Queda vacía. Las pantallas del sistema se abren como ventanas propias por encima del
+        menú.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Las secciones</h2>
+
+<table>
+<thead>
+<tr><th>Sección</th><th>Opciones que contiene</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Usuario</td>
+    <td><a href="cambiar-contrasena.html">Cambiar Contraseña</a>,
+        <a href="cambiar-idioma.html">Cambiar Idioma</a> y Relogin.</td>
+</tr>
+<tr>
+    <td class="control">Venta de Pasajes</td>
+    <td><a href="generar-reserva.html">Vender Pasaje</a>, para armar una reserva, y
+        <a href="generar-pasaje.html">Generar Pasaje</a>, para cobrarla y emitir los
+        pasajes.</td>
+</tr>
+<tr>
+    <td class="control">Mantenimiento de Aeronaves</td>
+    <td><a href="generar-orden-trabajo.html">Generar Orden de Trabajo</a>,
+        <a href="registrar-intervencion.html">Registrar Intervención</a> y
+        <a href="certificar-intervencion.html">Certificar Intervención</a>.</td>
+</tr>
+<tr>
+    <td class="control">Administrador</td>
+    <td><a href="gestion-usuarios.html">Gestión de Usuarios</a>,
+        <a href="bitacora-eventos.html">Bitácora de Eventos</a>, Gestión de Perfiles, que a su vez
+        contiene <a href="administrador-roles.html">Administrador de Roles</a> y
+        <a href="administrador-familias.html">Administrador de Familias</a>, y
+        <a href="gestion-respaldos.html">Gestión de Respaldos</a>.</td>
+</tr>
+<tr>
+    <td class="control">Maestros</td>
+    <td><a href="maestro-aeronaves.html">Maestro de Aeronaves</a> y
+        <a href="maestro-vuelos.html">Maestro de Vuelos</a>.</td>
+</tr>
+<tr>
+    <td class="control">Reportes</td>
+    <td><a href="comprobantes-pasaje.html">Comprobantes de Pasaje</a>,
+        <a href="certificados-intervencion.html">Certificados de Intervención</a> y
+        <a href="analitica-mantenimiento.html">Analítica de Mantenimiento</a>.</td>
+</tr>
+<tr>
+    <td class="control">Ayuda</td>
+    <td>Abre esta ayuda en el navegador, en el índice general.</td>
+</tr>
+<tr>
+    <td class="control">Salir</td>
+    <td>Cierra la sesión y termina AeroManager.</td>
+</tr>
+</tbody>
+</table>
+
+<div class="nota">
+<p><strong>Por qué no veo todas las secciones.</strong> El menú muestra únicamente las opciones
+habilitadas por las patentes del rol del usuario, de modo que dos personas con roles distintos ven
+menús distintos. Las secciones Ayuda y Salir están siempre disponibles. Si falta una opción que
+debería estar, hay que pedirle al administrador que revise el rol desde
+<a href="administrador-roles.html">Administrador de Roles</a>.</p>
+</div>
+
+<h2>La ayuda en línea</h2>
+
+<p>El botón <strong>Ayuda</strong> del panel izquierdo abre el índice general de esta ayuda en el
+navegador. Desde cualquier pantalla del sistema también se puede presionar la tecla <kbd>F1</kbd>
+para abrir directamente el tema correspondiente a esa pantalla, sin pasar por el índice.</p>
+
+<h2>Una sola sesión por vez</h2>
+
+<p>AeroManager mantiene una única sesión activa mientras el programa está en ejecución. La opción
+<strong>Usuario &rsaquo; Relogin</strong> vuelve a mostrar la pantalla de inicio de sesión, pero el
+sistema no permite que se abra una segunda sesión sobre la que ya está activa.</p>
+
+<div class="atencion">
+<p><strong>Atención.</strong> Para trabajar con otro usuario hay que salir del sistema con el botón
+<span class="boton salir">Salir</span> y volver a abrir AeroManager. Esto es intencional: garantiza
+que todas las operaciones de la bitácora de eventos queden atribuidas sin ambigüedad al usuario que
+realmente las hizo.</p>
+</div>
+
+<h2>Cerrar la sesión</h2>
+
+<p>El botón <strong>Salir</strong> del panel izquierdo cierra la sesión y termina el programa.
+Conviene usarlo siempre al terminar de trabajar, en lugar de dejar el sistema abierto, porque
+cualquier operación realizada desde esa sesión queda registrada a nombre del usuario que
+ingresó.</p>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Menú principal
+</div>
+
+</div>
+</body>
+</html>

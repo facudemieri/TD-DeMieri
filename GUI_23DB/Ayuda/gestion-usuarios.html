@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestión de usuarios - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Gestión de usuarios</h1>
+<p class="bajada">Permite al administrador dar de alta usuarios, modificar sus datos, activarlos o
+desactivarlos y desbloquear cuentas.</p>
+
+<h2>Para qué sirve</h2>
+<p>Cada persona que trabaja con AeroManager necesita una cuenta propia. Desde esta pantalla, el
+administrador la crea y le asigna un rol, y ese rol determina qué módulos va a ver en el menú.</p>
+<p>Los usuarios no se eliminan: cuando alguien deja de operar el sistema, su cuenta se desactiva.
+Así se conserva el historial de lo que hizo, y la cuenta se puede volver a activar si hace falta.</p>
+<p>También es el lugar donde se resuelve una cuenta bloqueada. Un usuario que agotó sus intentos
+de ingreso no puede desbloquearse solo: tiene que hacerlo un administrador.</p>
+
+<h2>Cómo se llega</h2>
+<p>Desde el menú principal, en <strong>Administrador &rsaquo; Gestion de Usuarios</strong>. La
+opción aparece si el rol del usuario incluye la patente correspondiente.</p>
+
+<figure>
+    <img src="img/gestion-usuarios.png" alt="Pantalla Gestión de Usuarios de AeroManager">
+    <figcaption>Pantalla Gestión de Usuarios, con la grilla arriba, los datos abajo a la izquierda
+    y los botones a la derecha.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Grilla de usuarios</td>
+    <td>Muestra DNI, Apellido, Nombre, Email, Login, Id Rol, Bloqueado, Activo, Intentos Fallidos,
+        Último Idioma y Fecha Último Intento. Un clic en una fila carga ese usuario.</td>
+</tr>
+<tr>
+    <td class="control">Activos, Inactivos, Todos</td>
+    <td>Filtran la grilla. Se usa una opción por vez.</td>
+</tr>
+<tr>
+    <td class="control">Cuadro de modo</td>
+    <td>Indica el modo de la pantalla: Modo Consulta, Modo Añadir o Modo Modificar.</td>
+</tr>
+<tr>
+    <td class="control">Numero de usuarios</td>
+    <td>Cantidad de usuarios que muestra la grilla.</td>
+</tr>
+<tr>
+    <td class="control">DNI</td>
+    <td>Documento del usuario. Se carga al crearlo y después no se puede cambiar.</td>
+</tr>
+<tr>
+    <td class="control">Apellido y Nombre</td>
+    <td>Se cargan al crear el usuario y después no se pueden cambiar.</td>
+</tr>
+<tr>
+    <td class="control">Email</td>
+    <td>Correo del usuario. Es obligatorio y se puede modificar.</td>
+</tr>
+<tr>
+    <td class="control">Rol</td>
+    <td>Rol del usuario. Se puede modificar.</td>
+</tr>
+<tr>
+    <td class="control">Login</td>
+    <td>Nombre con el que ingresa. Lo genera el sistema con el nombre y el apellido.</td>
+</tr>
+<tr>
+    <td class="control">Bloqueado y Activo</td>
+    <td>Muestran el estado del usuario elegido, con los valores True o False.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Crear</span></td>
+    <td>Prepara la pantalla para cargar un usuario nuevo.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Desbloquear</span></td>
+    <td>Desbloquea al usuario elegido y restablece su contraseña.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Modificar</span></td>
+    <td>Habilita la edición de Email y Rol del usuario elegido.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Act. / Desact.</span></td>
+    <td>Cambia al usuario elegido de activo a inactivo, o al revés.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Aplicar</span></td>
+    <td>Guarda el alta o la modificación en curso.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Cancelar</span></td>
+    <td>Descarta lo cargado y vuelve al modo consulta.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Cierra la pantalla.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo crear un usuario</h2>
+
+<ol class="pasos">
+<li>Presionar <span class="boton">Crear</span>.</li>
+<li>Completar <strong>DNI</strong>, <strong>Apellido</strong>, <strong>Nombre</strong> y
+    <strong>Email</strong>, y elegir el <strong>Rol</strong>.</li>
+<li>Presionar <span class="boton">Aplicar</span>.</li>
+<li>Informarle a la persona su login, que es su nombre, un punto y su apellido, y su contraseña
+    inicial, que es su documento seguido del apellido.</li>
+</ol>
+
+<h2>Cómo modificar un usuario</h2>
+
+<ol class="pasos">
+<li>Hacer clic en el usuario dentro de la grilla.</li>
+<li>Presionar <span class="boton">Modificar</span>.</li>
+<li>Cambiar <strong>Email</strong> o <strong>Rol</strong>.</li>
+<li>Presionar <span class="boton">Aplicar</span>.</li>
+</ol>
+
+<h2>Cómo activar o desactivar un usuario</h2>
+
+<ol class="pasos">
+<li>Hacer clic en el usuario dentro de la grilla.</li>
+<li>Presionar <span class="boton">Act. / Desact.</span>. El cambio se aplica enseguida, sin pedir
+    confirmación.</li>
+</ol>
+
+<h2>Cómo desbloquear un usuario</h2>
+
+<ol class="pasos">
+<li>Hacer clic en el usuario bloqueado dentro de la grilla.</li>
+<li>Presionar <span class="boton">Desbloquear</span>. El cambio se aplica enseguida, sin pedir
+    confirmación.</li>
+<li>Avisarle a la persona que su contraseña volvió a ser la inicial, y recomendarle cambiarla en
+    <a href="cambiar-contrasena.html">Cambiar contraseña</a>.</li>
+</ol>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">"Debe seleccionar un usuario."</td>
+    <td>Hay que hacer clic en una fila de la grilla antes de usar el botón.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe completar todos los campos obligatorios."</td>
+    <td>Al crear, falta el DNI, el apellido, el nombre o el email. Al modificar, falta el email.</td>
+</tr>
+<tr>
+    <td class="situacion">"El DNI debe tener exactamente 8 dígitos."</td>
+    <td>Hay que completar los ocho dígitos del documento.</td>
+</tr>
+<tr>
+    <td class="situacion">"El DNI solo puede contener números."</td>
+    <td>Hay que quitar letras, puntos o espacios.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar un Rol."</td>
+    <td>Hay que elegir un rol de la lista.</td>
+</tr>
+<tr>
+    <td class="situacion">"Usuario creado correctamente."</td>
+    <td>La cuenta ya se puede usar con el login y la contraseña inicial.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al crear el usuario:" seguido del motivo</td>
+    <td>El usuario no se creó. Después de los dos puntos se indica la causa, por ejemplo que ya
+        existe un usuario con ese DNI o con ese nombre y apellido.</td>
+</tr>
+<tr>
+    <td class="situacion">"Usuario modificado correctamente."</td>
+    <td>Los cambios quedaron guardados.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al modificar el usuario:" seguido del motivo</td>
+    <td>Los cambios no se guardaron. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Usuario desactivado correctamente."</td>
+    <td>La persona ya no puede ingresar al sistema.</td>
+</tr>
+<tr>
+    <td class="situacion">"Usuario activado correctamente."</td>
+    <td>La persona puede volver a ingresar.</td>
+</tr>
+<tr>
+    <td class="situacion">"El usuario no está bloqueado."</td>
+    <td>No hay nada que desbloquear, y la contraseña no cambia.</td>
+</tr>
+<tr>
+    <td class="situacion">"Usuario desbloqueado y contraseña restablecida correctamente."</td>
+    <td>La cuenta quedó habilitada, con la contraseña inicial y los intentos fallidos en cero.</td>
+</tr>
+<tr>
+    <td class="situacion">"La operación se registró correctamente, pero no pudo asentarse en la
+        Bitácora:" seguido del motivo</td>
+    <td>El cambio se guardó, pero el evento no quedó en la bitácora. Después de los dos puntos se
+        muestra el motivo técnico.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>El documento tiene que tener exactamente ocho dígitos, solo numéricos.</li>
+<li>La contraseña inicial es el documento seguido del apellido, sin espacios entre ambos. Al
+    desbloquear a alguien, la contraseña vuelve a ser esa.</li>
+<li>Una cuenta se bloquea al llegar a tres intentos de ingreso fallidos.</li>
+<li>El contador de intentos se reinicia cinco horas después del último intento, pero eso no
+    desbloquea una cuenta que ya está bloqueada.</li>
+<li>El login admite hasta 20 caracteres, el apellido y el nombre hasta 50 cada uno, y el email
+    hasta 100.</li>
+</ul>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="inicio-sesion.html">Inicio de sesión</a></li>
+<li><a href="cambiar-contrasena.html">Cambiar contraseña</a></li>
+<li><a href="administrador-roles.html">Administrador de roles</a></li>
+<li><a href="bitacora-eventos.html">Bitácora de eventos</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Gestión de usuarios
+</div>
+
+</div>
+</body>
+</html>

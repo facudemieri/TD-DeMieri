@@ -16,10 +16,12 @@ namespace GUI_23DB
         private DVBLL_23DB dvBLL_23DB = new DVBLL_23DB();
         private EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
         private List<DV_23DB> inconsistencias_23DB;
+        public string DniOperador_62FD { get; set; }
 
         public RepararInconsistencia_23DB(List<DV_23DB> inconsistencias_23DB)
         {
             InitializeComponent();
+            Ayuda_62FD.Vincular_23DB(this, "reparar-inconsistencia");
             this.inconsistencias_23DB = inconsistencias_23DB;
 
         }
@@ -48,6 +50,7 @@ namespace GUI_23DB
         {
             GestionRespaldo_23DB gestionRespaldo_23DB = new GestionRespaldo_23DB();
             gestionRespaldo_23DB.SoloRestore_23DB = true;
+            gestionRespaldo_23DB.DniOperador_62FD = DniOperador_62FD;
             DialogResult resultado_23DB = gestionRespaldo_23DB.ShowDialog();
             
             if(resultado_23DB == DialogResult.OK)

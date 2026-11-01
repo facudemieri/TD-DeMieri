@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solicitar repuesto - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Solicitar repuesto</h1>
+<p class="bajada">Registra los repuestos que necesita una tarea de mantenimiento y deja asentado
+cuándo llegó cada uno.</p>
+
+<h2>Para qué sirve</h2>
+<p>Durante una intervención puede hacer falta un material que no estaba previsto. Esta pantalla
+deja constancia del pedido, asociado a la tarea que lo necesita, y permite seguirlo hasta su
+llegada. Cada solicitud recibe un número y nace en estado <strong>Solicitado</strong>; al registrar
+la recepción pasa a <strong>Recibido</strong>.</p>
+<p>El seguimiento tiene un efecto directo sobre el trabajo: una intervención no se puede cerrar
+mientras tenga repuestos sin recibir. Además, los repuestos utilizados figuran luego en la
+información que revisa el inspector al certificar.</p>
+
+<h2>Cómo se llega</h2>
+<p>No se abre desde el menú. En <a href="registrar-intervencion.html">Registrar intervención</a>,
+hay que seleccionar una tarea de la grilla y presionar el botón
+<span class="boton">Solicitar Repuestos</span>. Por eso requiere la misma patente que esa
+pantalla.</p>
+
+<figure>
+    <img src="img/solicitar-repuesto.png" alt="Pantalla Solicitar Repuesto de AeroManager">
+    <figcaption>Pantalla Solicitar Repuesto, con la tarea, los datos del repuesto y las solicitudes
+    registradas.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Tarea</td>
+    <td>Muestra Nro de Tarea, Descripción, Nro de Intervención y Matrícula. No se puede editar.</td>
+</tr>
+<tr>
+    <td class="control">Nombre del Repuesto</td>
+    <td>Se elige de la lista de repuestos ya pedidos alguna vez o se escribe uno nuevo.</td>
+</tr>
+<tr>
+    <td class="control">Nro de Parte</td>
+    <td>Identificador del repuesto. Se completa solo al elegirlo de la lista.</td>
+</tr>
+<tr>
+    <td class="control">Cantidad Solicitada</td>
+    <td>Unidades que se necesitan.</td>
+</tr>
+<tr>
+    <td class="control">Repuestos Solicitados</td>
+    <td>Grilla con Nro Solicitud, Nro de Parte, Nombre del Repuesto, Cantidad Solicitada, Estado del
+        Pedido, Fecha de Solicitud y Fecha de Recepción de esta tarea.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Registrar Recepción</span></td>
+    <td>Marca como recibida la solicitud seleccionada en la grilla.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Aplicar</span></td>
+    <td>Registra la solicitud. También se activa con la tecla <kbd>Enter</kbd>.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Cancelar</span></td>
+    <td>Borra los datos del repuesto. No afecta las solicitudes ya registradas.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Vuelve a Registrar Intervención. También se activa con la tecla <kbd>Esc</kbd>.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo solicitar un repuesto</h2>
+
+<ol class="pasos">
+<li>En <strong>Registrar Intervención</strong>, seleccionar la tarea y presionar
+    <span class="boton">Solicitar Repuestos</span>.</li>
+<li>Elegir el repuesto en <strong>Nombre del Repuesto</strong>. Si es la primera vez que se pide,
+    escribir el nombre y completar <strong>Nro de Parte</strong>.</li>
+<li>Indicar la <strong>Cantidad Solicitada</strong>.</li>
+<li>Presionar <span class="boton">Aplicar</span>. El sistema informa el número de solicitud y la
+    agrega a la grilla.</li>
+</ol>
+
+<h2>Cómo registrar la recepción</h2>
+
+<ol class="pasos">
+<li>Volver a la tarea desde <strong>Registrar Intervención</strong>.</li>
+<li>Seleccionar en <strong>Repuestos Solicitados</strong> la solicitud que llegó.</li>
+<li>Presionar <span class="boton">Registrar Recepción</span> y confirmar.</li>
+<li>La solicitud pasa a <strong>Recibido</strong> y queda registrada la fecha de recepción.</li>
+</ol>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">"Debe completar el nombre del repuesto y el número de parte."</td>
+    <td>Falta alguno de los dos datos.</td>
+</tr>
+<tr>
+    <td class="situacion">"La cantidad solicitada debe ser mayor que cero."</td>
+    <td>Hay que indicar al menos una unidad.</td>
+</tr>
+<tr>
+    <td class="situacion">"El número de parte no corresponde al repuesto" seguido del nombre del
+        repuesto, "del catálogo. Vuelva a seleccionarlo de la lista."</td>
+    <td>El nombre ya existe, pero con otro número de parte. Hay que elegirlo de la lista para que el
+        número se complete solo.</td>
+</tr>
+<tr>
+    <td class="situacion">"Solicitud de repuesto registrada correctamente. Nro de Solicitud:"
+        seguido del número</td>
+    <td>El pedido quedó registrado con el número informado, en estado Solicitado.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al registrar la solicitud de repuesto:" seguido del motivo</td>
+    <td>El pedido no se guardó. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar una solicitud de la grilla."</td>
+    <td>Hay que hacer clic en una solicitud antes de presionar
+        <span class="boton">Registrar Recepción</span>.</td>
+</tr>
+<tr>
+    <td class="situacion">"La solicitud seleccionada ya se encuentra recibida."</td>
+    <td>Esa solicitud ya figura como recibida: no hay nada más que registrar.</td>
+</tr>
+<tr>
+    <td class="situacion">"¿Registrar la recepción de la solicitud Nro" seguido del número, del
+        nombre del repuesto y de la cantidad</td>
+    <td>Conviene verificar el material recibido antes de confirmar con <strong>Sí</strong>. La
+        recepción se registra por el total de la solicitud.</td>
+</tr>
+<tr>
+    <td class="situacion">"Recepción registrada correctamente."</td>
+    <td>La solicitud quedó en estado Recibido.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al registrar la recepción:" seguido del motivo</td>
+    <td>La recepción no se guardó. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al recuperar los repuestos:" seguido del motivo</td>
+    <td>No se pudo cargar la lista o la grilla. Después de los dos puntos se indica la causa
+        técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"El registro fue modificado o ya no existe. Vuelva a buscarlo e intente
+        nuevamente."</td>
+    <td>La grilla se actualiza. Hay que revisar la solicitud y volver a intentar.</td>
+</tr>
+<tr>
+    <td class="situacion">"La operación se registró correctamente, pero no pudo asentarse en la
+        Bitácora:" seguido del motivo</td>
+    <td>El pedido o la recepción se guardó, pero el evento no quedó en la bitácora. Después de los
+        dos puntos se muestra el motivo técnico. Conviene avisarle al administrador.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>La cantidad solicitada va de 1 a 999 unidades.</li>
+<li>El nombre del repuesto admite hasta 100 caracteres y el número de parte hasta 50.</li>
+<li>Si el nombre ya existe en la lista, el número de parte tiene que ser uno de los suyos.</li>
+<li>La intervención no se puede cerrar con solicitudes sin recibir.</li>
+<li>Una tarea con solicitudes registradas no se puede quitar de la intervención.</li>
+</ul>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="registrar-intervencion.html">Registrar intervención</a></li>
+<li><a href="certificar-intervencion.html">Certificar intervención</a></li>
+<li><a href="analitica-mantenimiento.html">Analítica de mantenimiento</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Solicitar repuesto
+</div>
+
+</div>
+</body>
+</html>

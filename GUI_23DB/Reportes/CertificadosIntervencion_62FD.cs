@@ -30,6 +30,7 @@ namespace GUI_23DB
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             this.FormClosing += CertificadosIntervencion_62FD_FormClosing;
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "certificados-intervencion");
         }
 
         private void CertificadosIntervencion_62FD_Load(object sender, EventArgs e)

@@ -21,6 +21,7 @@ namespace GUI_23DB
             CargarDatosSesion_23DB();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "menu-principal");
             AplicarPatentes_23DB(patentes_23DB);
         }
         private void AplicarPatentes_23DB(List<string> patentes_23DB)
@@ -311,6 +312,11 @@ namespace GUI_23DB
         {
             AnaliticaMantenimiento_62FD formulario_62FD = new AnaliticaMantenimiento_62FD();
             formulario_62FD.ShowDialog();
+        }
+
+        private void btnAyuda_Click_1(object sender, EventArgs e)
+        {
+            Ayuda_62FD.Mostrar_23DB("index");
         }
     }
 }

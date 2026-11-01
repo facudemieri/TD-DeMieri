@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maestro de vuelos - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Maestro de vuelos</h1>
+<p class="bajada">Administra los vuelos y sus asientos, y permite exportarlos a un archivo XML e
+importarlos para consultarlos.</p>
+
+<h2>Para qué sirve</h2>
+<p>Para vender un pasaje, primero tiene que existir el vuelo con sus asientos. Este maestro permite
+programar vuelos, indicando ruta, fecha, precio y aeronave, y cargar los asientos que se ofrecen a
+la venta.</p>
+<p>Los vuelos no se borran: cuando uno no se va a realizar, se cancela. Un vuelo cancelado deja de
+estar disponible para la venta de pasajes.</p>
+<p>La pantalla también permite guardar en un archivo XML los vuelos de la grilla, y cargar uno de
+esos archivos para ver su contenido.</p>
+
+<h2>Cómo se llega</h2>
+<p>Desde el menú principal, en <strong>Maestros &rsaquo; Maestro - Vuelos</strong>. La opción
+aparece si el rol del usuario incluye la patente correspondiente.</p>
+
+<figure>
+    <img src="img/maestro-vuelos.png" alt="Pantalla Maestro de Vuelos de AeroManager">
+    <figcaption>Pantalla Maestro de Vuelos, con los vuelos, sus datos, los asientos y la
+    serialización a XML.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Grilla Vuelos</td>
+    <td>Muestra Nro de Vuelo, Origen, Destino, Fecha y Hora de Salida, Matrícula, Precio Base y
+        Estado. Al elegir un vuelo se cargan sus asientos.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Actualizar</span></td>
+    <td>Vuelve a consultar los vuelos en la base de datos y los muestra en la grilla.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Añadir</span></td>
+    <td>Prepara los datos para registrar un vuelo nuevo.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Modificar</span></td>
+    <td>Carga el vuelo seleccionado para editarlo.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Cancelar Vuelo</span></td>
+    <td>Cancela el vuelo seleccionado.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Limpiar</span></td>
+    <td>Limpia la grilla y la deja vacía.</td>
+</tr>
+<tr>
+    <td class="control">Nro de Vuelo</td>
+    <td>Identifica al vuelo. Se carga en el alta y después no se puede cambiar.</td>
+</tr>
+<tr>
+    <td class="control">Origen y Destino</td>
+    <td>Códigos IATA de tres letras, como AEP o EZE.</td>
+</tr>
+<tr>
+    <td class="control">Fecha y Hora de Salida</td>
+    <td>Momento de partida del vuelo.</td>
+</tr>
+<tr>
+    <td class="control">Precio Base</td>
+    <td>Importe del pasaje.</td>
+</tr>
+<tr>
+    <td class="control">Matrícula</td>
+    <td>Aeronave asignada, elegida entre las activas de la flota.</td>
+</tr>
+<tr>
+    <td class="control">Estado</td>
+    <td>Programado o Cancelado.</td>
+</tr>
+<tr>
+    <td class="control">Asientos del Vuelo Seleccionado</td>
+    <td>Grilla con Id, Nro de Asiento, Clase y Estado. Se habilita al elegir un vuelo.</td>
+</tr>
+<tr>
+    <td class="control">Nro de Asiento</td>
+    <td>Identificador del asiento dentro del vuelo.</td>
+</tr>
+<tr>
+    <td class="control">Clase</td>
+    <td>Ejecutiva o Economica.</td>
+</tr>
+<tr>
+    <td class="control">Estado del asiento</td>
+    <td>Disponible, Reservado u Ocupado.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Añadir Asiento</span></td>
+    <td>Agrega un asiento al vuelo seleccionado.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Modificar Asiento</span></td>
+    <td>Guarda la clase y el estado del asiento seleccionado.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Eliminar Asiento</span></td>
+    <td>Elimina el asiento seleccionado.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">SERIALIZAR</span></td>
+    <td>Guarda en el archivo elegido los vuelos de la grilla.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">DES-SERIALIZAR</span></td>
+    <td>Muestra en la grilla los vuelos del archivo elegido.</td>
+</tr>
+<tr>
+    <td class="control">Botones con carpeta</td>
+    <td>Permiten elegir el archivo XML de cada operación. La ruta se muestra al lado.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Aplicar</span></td>
+    <td>Guarda el alta o la modificación del vuelo.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Cancelar</span></td>
+    <td>Descarta lo cargado en los datos del vuelo.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Cierra la pantalla. También se activa con la tecla <kbd>Esc</kbd>.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo registrar un vuelo</h2>
+
+<ol class="pasos">
+<li>Presionar <span class="boton">Añadir</span>.</li>
+<li>Completar <strong>Nro de Vuelo</strong>, <strong>Origen</strong>, <strong>Destino</strong>,
+    <strong>Fecha y Hora de Salida</strong> y <strong>Precio Base</strong>.</li>
+<li>Elegir <strong>Matrícula</strong> y <strong>Estado</strong>. Un vuelo nuevo siempre queda
+    Programado.</li>
+<li>Presionar <span class="boton">Aplicar</span>.</li>
+<li>Hacer clic en el vuelo dentro de la grilla y cargarle los asientos.</li>
+</ol>
+
+<h2>Cómo modificar o cancelar un vuelo</h2>
+
+<ol class="pasos">
+<li>Hacer clic en el vuelo dentro de la grilla.</li>
+<li>Para modificarlo, presionar <span class="boton">Modificar</span>, cambiar los datos y presionar
+    <span class="boton">Aplicar</span>.</li>
+<li>Para cancelarlo, presionar <span class="boton">Cancelar Vuelo</span> y confirmar con
+    <strong>Sí</strong>.</li>
+</ol>
+
+<h2>Cómo administrar los asientos</h2>
+
+<ol class="pasos">
+<li>Hacer clic en el vuelo dentro de la grilla <strong>Vuelos</strong>.</li>
+<li>Para agregar un asiento, completar <strong>Nro de Asiento</strong> y <strong>Clase</strong>, y
+    presionar <span class="boton">Añadir Asiento</span>. Queda en estado Disponible.</li>
+<li>Para modificar uno, hacer clic en él, cambiar <strong>Clase</strong> o <strong>Estado</strong> y
+    presionar <span class="boton">Modificar Asiento</span>.</li>
+<li>Para eliminar uno, hacer clic en él, presionar <span class="boton">Eliminar Asiento</span> y
+    confirmar con <strong>Sí</strong>.</li>
+</ol>
+
+<h2>Serialización a XML</h2>
+
+<p>La serialización guarda en un archivo XML los vuelos que muestra la grilla. La
+des-serialización hace el camino inverso: carga un archivo en la grilla para consultarlo. Ninguna
+de las dos operaciones modifica los vuelos del sistema.</p>
+
+<p><strong>Cómo exportar los vuelos</strong></p>
+
+<ol class="pasos">
+<li>Dejar en la grilla <strong>Vuelos</strong> los vuelos que se quieren exportar.</li>
+<li>Presionar el botón con la carpeta que está junto a
+    <span class="boton">SERIALIZAR</span>, y elegir el lugar y el nombre del archivo.</li>
+<li>Presionar <span class="boton">SERIALIZAR</span>.</li>
+<li>El sistema informa cuántos vuelos guardó.</li>
+</ol>
+
+<p><strong>Cómo importar un archivo</strong></p>
+
+<ol class="pasos">
+<li>Presionar el botón con la carpeta que está junto a
+    <span class="boton">DES-SERIALIZAR</span> y elegir el archivo XML.</li>
+<li>Presionar <span class="boton">DES-SERIALIZAR</span>. La grilla muestra los vuelos del
+    archivo.</li>
+<li>Al terminar la consulta, presionar <span class="boton">Actualizar</span> para volver a los
+    vuelos del sistema.</li>
+</ol>
+
+<div class="atencion">
+<p><strong>Atención.</strong> Mientras la grilla muestra un archivo, no se pueden añadir, modificar
+ni cancelar vuelos, ni administrar asientos. Hay que presionar
+<span class="boton">Actualizar</span> para volver a los datos reales.</p>
+</div>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">"Debe seleccionar un vuelo."</td>
+    <td>Hay que hacer clic en una fila de la grilla <strong>Vuelos</strong>.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe completar todos los datos del vuelo."</td>
+    <td>Falta el número, el origen, el destino, la matrícula o el estado.</td>
+</tr>
+<tr>
+    <td class="situacion">"El origen y el destino deben ser códigos IATA de exactamente tres letras
+        (por ejemplo, AEP o EZE)."</td>
+    <td>Hay que corregir el código. Solo se admiten letras de la A a la Z.</td>
+</tr>
+<tr>
+    <td class="situacion">"El origen y el destino no pueden ser iguales."</td>
+    <td>Hay que corregir alguno de los dos códigos.</td>
+</tr>
+<tr>
+    <td class="situacion">"El precio base debe ser un número mayor que cero, de hasta 99.999.999,99 y
+        con no más de dos decimales."</td>
+    <td>Hay que corregir el importe.</td>
+</tr>
+<tr>
+    <td class="situacion">"La fecha y hora de salida no puede ser anterior al momento actual."</td>
+    <td>En el alta, hay que elegir un momento futuro.</td>
+</tr>
+<tr>
+    <td class="situacion">"La matrícula ingresada no corresponde a ninguna aeronave activa de la
+        flota."</td>
+    <td>La aeronave no está activa. Hay que elegir otra o reactivarla en
+        <a href="maestro-aeronaves.html">Maestro de aeronaves</a>.</td>
+</tr>
+<tr>
+    <td class="situacion">"La aeronave ya tiene otro vuelo programado dentro de las 3 horas. Debe
+        respetarse un tiempo mínimo de rotación entre vuelos."</td>
+    <td>Hay que cambiar el horario o elegir otra aeronave.</td>
+</tr>
+<tr>
+    <td class="situacion">"Ya existe un vuelo registrado con ese número."</td>
+    <td>Hay que usar otro número de vuelo.</td>
+</tr>
+<tr>
+    <td class="situacion">"Vuelo registrado correctamente. Ahora puede cargarle los asientos
+        seleccionándolo en la grilla."</td>
+    <td>El vuelo ya existe. Falta cargarle los asientos.</td>
+</tr>
+<tr>
+    <td class="situacion">"Vuelo modificado correctamente."</td>
+    <td>Los cambios quedaron guardados.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se pudo guardar el vuelo. El registro pudo haber sido modificado por
+        otro usuario."</td>
+    <td>Conviene presionar <span class="boton">Cancelar</span>, usar
+        <span class="boton">Actualizar</span> y repetir el cambio.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al guardar el vuelo:" seguido del motivo</td>
+    <td>Los datos no se guardaron. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"El vuelo seleccionado ya se encuentra cancelado."</td>
+    <td>No hay nada más que hacer sobre ese vuelo.</td>
+</tr>
+<tr>
+    <td class="situacion">"¿Confirma cancelar el vuelo" seguido del número, "? El vuelo dejará de
+        estar disponible para la venta de pasajes."</td>
+    <td>Con <strong>Sí</strong> el vuelo pasa a estado Cancelado.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se pudo cancelar el vuelo."</td>
+    <td>La cancelación no se completó. Conviene actualizar la grilla y volver a intentar.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al cancelar el vuelo:" seguido del motivo</td>
+    <td>La cancelación no se completó. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar un asiento."</td>
+    <td>Hay que hacer clic en un asiento de la grilla.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe completar el número de asiento y la clase."</td>
+    <td>Faltan datos para agregar el asiento.</td>
+</tr>
+<tr>
+    <td class="situacion">"Ese número de asiento ya existe en el vuelo seleccionado."</td>
+    <td>Hay que usar otro número.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se pudo agregar el asiento."</td>
+    <td>El asiento no se guardó. Conviene volver a intentar.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al agregar el asiento:" seguido del motivo</td>
+    <td>El asiento no se guardó. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe completar la clase y el estado del asiento."</td>
+    <td>Faltan datos para modificar el asiento.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se pudo modificar el asiento. El registro pudo haber sido modificado
+        por otro usuario."</td>
+    <td>Conviene volver a seleccionar el vuelo y repetir el cambio.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al modificar el asiento:" seguido del motivo</td>
+    <td>Los cambios no se guardaron. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"¿Confirma eliminar el asiento" seguido del asiento, "del vuelo" seguido
+        del número de vuelo</td>
+    <td>Con <strong>Sí</strong> el asiento se elimina.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se puede eliminar un asiento que está reservado u ocupado."</td>
+    <td>Solo se pueden eliminar asientos disponibles.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se pudo eliminar el asiento."</td>
+    <td>El asiento sigue en el vuelo. Conviene volver a intentar.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al eliminar el asiento:" seguido del motivo</td>
+    <td>El asiento no se eliminó. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar la ubicación donde guardar el archivo XML."</td>
+    <td>Hay que elegir el archivo con el botón de la carpeta.</td>
+</tr>
+<tr>
+    <td class="situacion">"No hay información en la grilla para serializar."</td>
+    <td>La grilla está vacía. Hay que presionar <span class="boton">Actualizar</span>.</td>
+</tr>
+<tr>
+    <td class="situacion">"Se serializaron" seguido de la cantidad, "vuelos en el archivo
+        seleccionado."</td>
+    <td>El archivo quedó guardado.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al serializar la información:" seguido del motivo</td>
+    <td>El archivo no se pudo guardar. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar el archivo XML a des-serializar."</td>
+    <td>Hay que elegir el archivo con el botón de la carpeta.</td>
+</tr>
+<tr>
+    <td class="situacion">"Se cargaron" seguido de la cantidad, "vuelos desde el archivo. La
+        información proviene del archivo y no de la base de datos: use Actualizar para volver a los
+        datos reales."</td>
+    <td>La grilla muestra el contenido del archivo.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al des-serializar el archivo:" seguido del motivo</td>
+    <td>El archivo no se pudo leer. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al recuperar los vuelos:" seguido del motivo</td>
+    <td>No se pudo cargar la grilla. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al recuperar los asientos del vuelo:" seguido del motivo</td>
+    <td>No se pudieron cargar los asientos. Después de los dos puntos se indica la causa
+        técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al recuperar las aeronaves:" seguido del motivo</td>
+    <td>No se pudo cargar la lista de matrículas. Después de los dos puntos se indica la causa
+        técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"La operación se registró correctamente, pero no pudo asentarse en la
+        Bitácora:" seguido del motivo</td>
+    <td>La operación se completó, pero el evento no quedó en la bitácora. Después de los dos puntos
+        se muestra el motivo técnico. Conviene avisarle al administrador.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>El número de vuelo admite hasta 10 caracteres y el número de asiento hasta 5.</li>
+<li>Origen y destino son códigos de exactamente tres letras, distintos entre sí.</li>
+<li>El precio base va de más de cero hasta 99.999.999,99, con dos decimales como máximo.</li>
+<li>En el alta, la salida no puede ser anterior al momento actual.</li>
+<li>Una aeronave debe respetar una separación mínima de 3 horas entre vuelos.</li>
+<li>Los asientos reservados u ocupados no se pueden eliminar.</li>
+</ul>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="maestro-aeronaves.html">Maestro de aeronaves</a></li>
+<li><a href="generar-reserva.html">Generar reserva</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Maestro de vuelos
+</div>
+
+</div>
+</body>
+</html>

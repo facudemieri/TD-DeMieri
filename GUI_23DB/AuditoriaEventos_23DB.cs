@@ -19,6 +19,7 @@ namespace GUI_23DB
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "bitacora-eventos");
 
 
             cmbLogin.DropDownStyle = ComboBoxStyle.DropDownList;

@@ -15,7 +15,6 @@ namespace GUI_23DB
     {
         private UsuarioBLL_23DB usuarioBLL_23DB = new UsuarioBLL_23DB();
         private RolBLL_23DB rolBLL_23DB = new RolBLL_23DB();
-        private EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
         private string modoActual_23DB = "Consulta";
 
 
@@ -33,6 +32,7 @@ namespace GUI_23DB
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "gestion-usuarios");
 
             ConfigurarGrilla_62FD(dataGridUsuarios);
             // Once columnas visibles: en Fill quedan ilegibles, cada una toma el ancho de su contenido con barra horizontal
@@ -68,6 +68,14 @@ namespace GUI_23DB
         private void MostrarExito_23DB(string clave_23DB)
         {
             MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB(clave_23DB), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Exito"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void AvisarBitacoraFallida_62FD(bool bitacoraRegistrada_62FD)
+        {
+            if (!bitacoraRegistrada_62FD)
+            {
+                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), usuarioBLL_23DB.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void MostrarError_23DB(string clave_23DB, Exception ex_23DB)
@@ -375,8 +383,9 @@ namespace GUI_23DB
 
             try
             {
-                usuarioBLL_23DB.ModificarUsuario_23DB(usuario_23DB);
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Modificar Usuario", 2);
+                bool bitacoraRegistrada_62FD;
+                usuarioBLL_23DB.ModificarUsuario_23DB(usuario_23DB, out bitacoraRegistrada_62FD);
+                AvisarBitacoraFallida_62FD(bitacoraRegistrada_62FD);
                 MostrarExito_23DB("Msg_UsuarioModificado");
                 CargarGrilla_23DB(ObtenerFiltroActual_23DB());
                 ModoConsulta_23DB();
@@ -432,8 +441,9 @@ namespace GUI_23DB
 
             try
             {
-                usuarioBLL_23DB.CrearUsuario_23DB(usuario_23DB);
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Crear Usuario", 2);
+                bool bitacoraRegistrada_62FD;
+                usuarioBLL_23DB.CrearUsuario_23DB(usuario_23DB, out bitacoraRegistrada_62FD);
+                AvisarBitacoraFallida_62FD(bitacoraRegistrada_62FD);
                 MostrarExito_23DB("Msg_UsuarioCreado");
                 CargarGrilla_23DB(ObtenerFiltroActual_23DB());
                 ModoConsulta_23DB();
@@ -452,8 +462,9 @@ namespace GUI_23DB
                 return;
             }
             bool estadoActual_23DB = txtActivo.Text == "True";
-            usuarioBLL_23DB.CambiarEstado_23DB(txtDni.Text, !estadoActual_23DB);
-            eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Activar / Desactivar Usuario", 1);
+            bool bitacoraRegistrada_62FD;
+            usuarioBLL_23DB.CambiarEstado_23DB(txtDni.Text, !estadoActual_23DB, out bitacoraRegistrada_62FD);
+            AvisarBitacoraFallida_62FD(bitacoraRegistrada_62FD);
             MostrarExito_23DB(estadoActual_23DB ? "Msg_UsuarioDesactivado" : "Msg_UsuarioActivado");
             CargarGrilla_23DB(ObtenerFiltroActual_23DB());
             ModoConsulta_23DB();
@@ -471,8 +482,9 @@ namespace GUI_23DB
                 MostrarInformacion_23DB("Msg_UsuarioNoBloqueado");
                 return;
             }
-            usuarioBLL_23DB.DesbloquearUsuario_23DB(txtDni.Text, txtApellido.Text);
-            eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Administrador", "Desbloquear Usuario", 1);
+            bool bitacoraRegistrada_62FD;
+            usuarioBLL_23DB.DesbloquearUsuario_23DB(txtDni.Text, txtApellido.Text, out bitacoraRegistrada_62FD);
+            AvisarBitacoraFallida_62FD(bitacoraRegistrada_62FD);
             MostrarExito_23DB("Msg_UsuarioDesbloqueado");
             CargarGrilla_23DB(ObtenerFiltroActual_23DB());
             ModoConsulta_23DB();

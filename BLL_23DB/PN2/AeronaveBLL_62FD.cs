@@ -14,6 +14,10 @@ namespace BLL_23DB
         mapperAeronave_62FD mapperAeronave_62FD = new mapperAeronave_62FD();
         mapperOrdenTrabajo_62FD mapperOrdenTrabajo_62FD = new mapperOrdenTrabajo_62FD();
         DVBLL_23DB dvBLL_23DB = new DVBLL_23DB();
+        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
+
+        // Detalle del último registro en bitácora que falló: lo necesita el aviso de la pantalla
+        public string ErrorBitacora_62FD { get; private set; }
 
         public List<Aeronave_62FD> ObtenerAeronaves_62FD(string matricula_62FD, string modelo_62FD, string fabricante_62FD, string estadoOperativo_62FD, bool soloRevisionVencida_62FD)
         {
@@ -32,8 +36,10 @@ namespace BLL_23DB
             return mapperAeronave_62FD.ObtenerTodas_62FD();
         }
 
-        public int CrearAeronave_62FD(Aeronave_62FD aeronave_62FD)
+        public int CrearAeronave_62FD(Aeronave_62FD aeronave_62FD, out bool bitacoraRegistrada_62FD)
         {
+            bitacoraRegistrada_62FD = false;
+
             int filas_62FD = mapperAeronave_62FD.Insertar_62FD(aeronave_62FD);
 
             if (filas_62FD == 0)
@@ -48,11 +54,16 @@ namespace BLL_23DB
 
             dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD");
             dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD_C");
+
+            bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD("Crear Aeronave");
+
             return 1;
         }
 
-        public bool ModificarAeronave_62FD(Aeronave_62FD aeronave_62FD)
+        public bool ModificarAeronave_62FD(Aeronave_62FD aeronave_62FD, out bool bitacoraRegistrada_62FD)
         {
+            bitacoraRegistrada_62FD = false;
+
             if (mapperAeronave_62FD.Actualizar_62FD(aeronave_62FD) != 1)
             {
                 return false;
@@ -60,11 +71,16 @@ namespace BLL_23DB
 
             dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD");
             dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD_C");
+
+            bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD("Modificar Aeronave");
+
             return true;
         }
 
-        public int CambiarEstadoAlta_62FD(string matricula_62FD, bool activo_62FD)
+        public int CambiarEstadoAlta_62FD(string matricula_62FD, bool activo_62FD, out bool bitacoraRegistrada_62FD)
         {
+            bitacoraRegistrada_62FD = false;
+
             if (!activo_62FD && mapperOrdenTrabajo_62FD.ContarOrdenesAbiertas_62FD(matricula_62FD) > 0)
             {
                 return 0;
@@ -77,7 +93,25 @@ namespace BLL_23DB
 
             dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD");
             dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD_C");
+
+            bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD(activo_62FD ? "Reactivar Aeronave" : "Dar de Baja Aeronave");
+
             return 1;
+        }
+
+        private bool RegistrarEventoBitacora_62FD(string evento_62FD)
+        {
+            try
+            {
+                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Maestros", evento_62FD, 3);
+                ErrorBitacora_62FD = null;
+                return true;
+            }
+            catch (Exception ex_62FD)
+            {
+                ErrorBitacora_62FD = ex_62FD.Message;
+                return false;
+            }
         }
 
         public int ContarRevisionesVencidas_62FD()

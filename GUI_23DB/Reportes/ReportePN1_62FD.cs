@@ -30,6 +30,7 @@ namespace GUI_23DB
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             this.FormClosing += ComprobantePasajes_62FD_FormClosing;
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "comprobantes-pasaje");
         }
 
         public void ActualizarIdioma_23DB(Dictionary<string, string> configuracion_23DB)

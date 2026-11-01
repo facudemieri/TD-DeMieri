@@ -16,7 +16,6 @@ namespace GUI_23DB
     public partial class MaestroAeronaves_62FD : Form, IIdiomaObserver_23DB
     {
         AeronaveBLL_62FD aeronaveBLL_62FD = new AeronaveBLL_62FD();
-        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
 
         private string modoActual_62FD = "Consulta";
         private Aeronave_62FD aeronaveSeleccionada_62FD = null;
@@ -29,6 +28,7 @@ namespace GUI_23DB
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "maestro-aeronaves");
 
             dataGridView1.AutoGenerateColumns = false;
             ConfigurarControles_62FD();
@@ -276,7 +276,8 @@ namespace GUI_23DB
                     return;
                 }
 
-                int resultado_62FD = aeronaveBLL_62FD.CambiarEstadoAlta_62FD(aeronave_62FD.Matricula_62FD, nuevoEstado_62FD);
+                bool bitacoraRegistrada_62FD;
+                int resultado_62FD = aeronaveBLL_62FD.CambiarEstadoAlta_62FD(aeronave_62FD.Matricula_62FD, nuevoEstado_62FD, out bitacoraRegistrada_62FD);
 
                 if (resultado_62FD == 0)
                 {
@@ -290,7 +291,10 @@ namespace GUI_23DB
                     return;
                 }
 
-                RegistrarEventoBitacora_62FD(nuevoEstado_62FD ? "Reactivar Aeronave" : "Dar de Baja Aeronave");
+                if (!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), aeronaveBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 CargarGrilla_62FD();
                 ModoConsulta_62FD();
@@ -329,9 +333,11 @@ namespace GUI_23DB
                 aeronave_62FD.IntervaloRevision_62FD = Convert.ToInt32(txtIntervaloProxRevision.Text.Trim());
                 aeronave_62FD.FechaProximaRevision_62FD = dateTimePicker1.Value.Date;
 
+                bool bitacoraRegistrada_62FD;
+
                 if (modoActual_62FD == "Alta")
                 {
-                    int resultado_62FD = aeronaveBLL_62FD.CrearAeronave_62FD(aeronave_62FD);
+                    int resultado_62FD = aeronaveBLL_62FD.CrearAeronave_62FD(aeronave_62FD, out bitacoraRegistrada_62FD);
 
                     if (resultado_62FD == 0)
                     {
@@ -345,18 +351,26 @@ namespace GUI_23DB
                         return;
                     }
 
-                    RegistrarEventoBitacora_62FD("Crear Aeronave");
+                    if (!bitacoraRegistrada_62FD)
+                    {
+                        MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), aeronaveBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
                     MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_AeronaveRegistrada"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    if (!aeronaveBLL_62FD.ModificarAeronave_62FD(aeronave_62FD))
+                    if (!aeronaveBLL_62FD.ModificarAeronave_62FD(aeronave_62FD, out bitacoraRegistrada_62FD))
                     {
                         MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_NoSePudoModificarAeronave"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
-                    RegistrarEventoBitacora_62FD("Modificar Aeronave");
+                    if (!bitacoraRegistrada_62FD)
+                    {
+                        MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), aeronaveBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+
                     MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_AeronaveModificada"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
@@ -405,18 +419,6 @@ namespace GUI_23DB
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
-            }
-        }
-
-        private void RegistrarEventoBitacora_62FD(string evento_62FD)
-        {
-            try
-            {
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Maestros", evento_62FD, 3);
-            }
-            catch (Exception ex_62FD)
-            {
-                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), ex_62FD.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

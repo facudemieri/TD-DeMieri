@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Certificar intervención - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Certificar intervención</h1>
+<p class="bajada">Es el último paso del mantenimiento: un inspector revisa el trabajo terminado y
+decide si la aeronave vuelve al servicio.</p>
+
+<h2>Para qué sirve</h2>
+<p>Una aeronave no vuelve a volar solo porque el técnico terminó su trabajo. La certificación es
+el control independiente que lo habilita: el inspector revisa la intervención y sus tareas, deja
+registrado el resultado y lo firma con su código habilitante.</p>
+<p>El resultado define el estado de la aeronave. Con <strong>Satisfactorio</strong> queda
+<strong>En Servicio</strong>. Con <strong>No Satisfactorio</strong> queda
+<strong>Fuera de Servicio</strong> y hace falta una nueva orden de trabajo.</p>
+<p>La certificación no se puede deshacer. Una vez registrada, se puede imprimir el certificado en
+PDF, que luego también está disponible en
+<a href="certificados-intervencion.html">Certificados de intervención</a>.</p>
+
+<h2>Cómo se llega</h2>
+<p>Desde el menú principal, en <strong>Mantenimiento de Aeronaves &rsaquo; Certificar
+Intervención</strong>. La opción aparece si el rol del usuario incluye la patente
+correspondiente.</p>
+
+<figure>
+    <img src="img/certificar-intervencion.png" alt="Pantalla Certificar Intervención de AeroManager">
+    <figcaption>Pantalla Certificar Intervención, con las intervenciones pendientes, sus tareas y
+    los datos de la certificación.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Intervenciones Pendientes de Certificación</td>
+    <td>Grilla con Nro Intervención, Nro Orden, Matrícula, Fecha y Hora de Fin y Total Horas
+        Insumidas de los trabajos finalizados sin certificar. Un clic carga la intervención.</td>
+</tr>
+<tr>
+    <td class="control">Tareas de la Intervención seleccionada</td>
+    <td>Grilla con Descripción, Resultado Obtenido, Horas Insumidas, Repuestos Utilizados y
+        Observaciones Técnicas.</td>
+</tr>
+<tr>
+    <td class="control">Intervención Seleccionada</td>
+    <td>Muestra Nro Intervención, Nro Orden, Matrícula, Fecha y Hora de Fin y Total Horas Insumidas.
+        No se puede editar.</td>
+</tr>
+<tr>
+    <td class="control">Código Habilitante del Inspector</td>
+    <td>Código que acredita al inspector. Es obligatorio.</td>
+</tr>
+<tr>
+    <td class="control">Resultado de la Inspección</td>
+    <td>Satisfactorio o No Satisfactorio. Es obligatorio.</td>
+</tr>
+<tr>
+    <td class="control">Fecha y Hora de Certificación</td>
+    <td>La completa el sistema y no se puede cambiar.</td>
+</tr>
+<tr>
+    <td class="control">Observaciones</td>
+    <td>Comentarios del inspector. Son opcionales. La tecla <kbd>Enter</kbd> agrega una línea.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Aplicar</span></td>
+    <td>Registra la certificación.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Imprimir Certificado</span></td>
+    <td>Se habilita después de certificar. Genera el certificado en PDF y lo abre.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Cancelar</span></td>
+    <td>Limpia la selección y los datos cargados.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Cierra la pantalla. También se activa con la tecla <kbd>Esc</kbd>.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo certificar una intervención</h2>
+
+<ol class="pasos">
+<li>Hacer clic en la intervención dentro de <strong>Intervenciones Pendientes de
+    Certificación</strong>.</li>
+<li>Revisar sus datos y las tareas realizadas.</li>
+<li>Escribir el <strong>Código Habilitante del Inspector</strong>.</li>
+<li>Elegir el <strong>Resultado de la Inspección</strong> y, si hace falta, escribir
+    <strong>Observaciones</strong>.</li>
+<li>Presionar <span class="boton">Aplicar</span>.</li>
+<li>Leer la confirmación, que indica en qué estado quedará la aeronave, y responder
+    <strong>Sí</strong> para registrar la certificación.</li>
+</ol>
+
+<h2>Cómo imprimir el certificado</h2>
+
+<ol class="pasos">
+<li>Después de certificar, presionar <span class="boton">Imprimir Certificado</span>.</li>
+<li>El sistema guarda el documento en la carpeta <strong>Documentos</strong> del usuario, dentro de
+    <strong>AeroManager\Certificados</strong>, y lo abre.</li>
+<li>Presionar <span class="boton">Cancelar</span> para limpiar la pantalla y seguir con otra
+    intervención.</li>
+</ol>
+
+<div class="atencion">
+<p><strong>Atención.</strong> La certificación no se puede deshacer. Conviene revisar el resultado
+elegido antes de confirmar, porque cambia el estado de la aeronave.</p>
+</div>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">"Error al recuperar las intervenciones pendientes de certificación:"
+        seguido del motivo</td>
+    <td>No se pudo cargar la grilla. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al recuperar las tareas de la intervención:" seguido del motivo</td>
+    <td>No se pudieron cargar las tareas. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar una intervención de la grilla."</td>
+    <td>Hay que elegir una intervención antes de presionar <span class="boton">Aplicar</span>.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe completar el código habilitante y el resultado de la
+        inspección."</td>
+    <td>Falta alguno de los dos datos obligatorios.</td>
+</tr>
+<tr>
+    <td class="situacion">"¿Certificar la intervención Nro" seguido del número, "de la aeronave"
+        seguido de la matrícula, "con resultado" seguido del resultado, "? La aeronave quedará"
+        seguido del estado, ". Esta acción no se puede deshacer."</td>
+    <td>El estado será En Servicio o Fuera de Servicio, según el resultado. Con
+        <strong>No</strong> se puede corregir antes de registrar.</td>
+</tr>
+<tr>
+    <td class="situacion">"La intervención seleccionada ya posee una certificación
+        registrada."</td>
+    <td>Esa intervención ya fue certificada y no admite otra certificación.</td>
+</tr>
+<tr>
+    <td class="situacion">"No puede certificar esta intervención porque la orden de trabajo está
+        asignada a usted. Debe certificarla otro inspector."</td>
+    <td>Nadie puede certificar su propio trabajo. Tiene que hacerlo otro usuario.</td>
+</tr>
+<tr>
+    <td class="situacion">"El registro fue modificado o ya no existe. Vuelva a buscarlo e intente
+        nuevamente."</td>
+    <td>La grilla se actualiza. Hay que elegir de nuevo la intervención.</td>
+</tr>
+<tr>
+    <td class="situacion">"La certificación de la intervención Nro" seguido del número, "quedó
+        registrada, pero el estado de la aeronave no se actualizó."</td>
+    <td>La certificación es válida, pero la aeronave no cambió de estado. Hay que avisarle al
+        administrador para revisarla.</td>
+</tr>
+<tr>
+    <td class="situacion">"Certificación registrada correctamente. Nro de Certificación:" seguido
+        del número, ". La aeronave queda En Servicio."</td>
+    <td>La aeronave vuelve a estar disponible. El número informado coincide con el de la
+        intervención.</td>
+</tr>
+<tr>
+    <td class="situacion">"Certificación registrada correctamente. Nro de Certificación:" seguido
+        del número, ". La aeronave queda Fuera de Servicio y debe generarse una nueva orden de
+        trabajo."</td>
+    <td>Hay que abrir otra orden en <a href="generar-orden-trabajo.html">Generar orden de
+        trabajo</a>. El número informado coincide con el de la intervención.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al registrar la certificación:" seguido del motivo</td>
+    <td>La certificación no se completó. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe registrar la certificación antes de imprimir el certificado."</td>
+    <td>Primero hay que certificar la intervención seleccionada.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al generar el documento:" seguido del motivo</td>
+    <td>La certificación ya está registrada, pero no se pudo crear el PDF. Se puede reintentar o
+        usar <a href="certificados-intervencion.html">Certificados de intervención</a>.</td>
+</tr>
+<tr>
+    <td class="situacion">"La operación se registró correctamente, pero no pudo asentarse en la
+        Bitácora:" seguido del motivo</td>
+    <td>La certificación se registró, pero el evento no quedó en la bitácora. Después de los dos
+        puntos se muestra el motivo técnico. Conviene avisarle al administrador.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>El código habilitante admite hasta 50 caracteres y las observaciones hasta 500.</li>
+<li>Cada intervención se certifica una sola vez.</li>
+<li>El técnico asignado a la orden no puede certificar esa intervención.</li>
+<li>Si la intervención es de tipo Preventivo y el resultado es Satisfactorio, la próxima revisión
+    de la aeronave se calcula sumando su intervalo de revisión a la fecha de certificación. En los
+    demás casos, esa fecha no cambia.</li>
+</ul>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="registrar-intervencion.html">Registrar intervención</a></li>
+<li><a href="generar-orden-trabajo.html">Generar orden de trabajo</a></li>
+<li><a href="certificados-intervencion.html">Certificados de intervención</a></li>
+<li><a href="maestro-aeronaves.html">Maestro de aeronaves</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Certificar intervención
+</div>
+
+</div>
+</body>
+</html>

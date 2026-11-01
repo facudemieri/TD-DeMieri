@@ -20,8 +20,6 @@ namespace GUI_23DB
         AeronaveBLL_62FD aeronaveBLL_62FD = new AeronaveBLL_62FD(); 
         AsientoBLL_62FD asientoBLL_62FD = new AsientoBLL_62FD();
 
-        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
-
         private const decimal precioMaximo_62FD = 99999999.99m;
 
         private string modoActual_62FD = "Consulta";
@@ -40,6 +38,7 @@ namespace GUI_23DB
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "maestro-vuelos");
 
             dgvVuelos.AutoGenerateColumns = false;
             dgvAsientos.AutoGenerateColumns = false;
@@ -346,13 +345,18 @@ namespace GUI_23DB
                     return;
                 }
 
-                if (!vueloBLL_62FD.CancelarVuelo_62FD(vuelo_62FD.NroVuelo_62FD))
+                bool bitacoraRegistrada_62FD;
+
+                if (!vueloBLL_62FD.CancelarVuelo_62FD(vuelo_62FD.NroVuelo_62FD, out bitacoraRegistrada_62FD))
                 {
                     MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_NoSePudoCancelarVuelo"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                RegistrarEventoBitacora_62FD("Cancelar Vuelo", 3);
+                if (!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), vueloBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 CargarGrillaVuelos_62FD();
                 ModoConsulta_62FD();
@@ -411,14 +415,15 @@ namespace GUI_23DB
                 vuelo_62FD.EstadoVuelo_62FD = cmbEstado.Text;
 
                 int resultado_62FD;
+                bool bitacoraRegistrada_62FD;
 
                 if (modoActual_62FD == "Alta")
                 {
-                    resultado_62FD = vueloBLL_62FD.CrearVuelo_62FD(vuelo_62FD);
+                    resultado_62FD = vueloBLL_62FD.CrearVuelo_62FD(vuelo_62FD, out bitacoraRegistrada_62FD);
                 }
                 else
                 {
-                    resultado_62FD = vueloBLL_62FD.ModificarVuelo_62FD(vuelo_62FD);
+                    resultado_62FD = vueloBLL_62FD.ModificarVuelo_62FD(vuelo_62FD, out bitacoraRegistrada_62FD);
                 }
 
                 if (resultado_62FD == -2)
@@ -445,14 +450,17 @@ namespace GUI_23DB
                     return;
                 }
 
+                if (!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), vueloBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
                 if (modoActual_62FD == "Alta")
                 {
-                    RegistrarEventoBitacora_62FD("Crear Vuelo", 3);
                     MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_VueloRegistrado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    RegistrarEventoBitacora_62FD("Modificar Vuelo", 3);
                     MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_VueloModificado"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
@@ -529,7 +537,8 @@ namespace GUI_23DB
                 asiento_62FD.NroAsiento_62FD = txtNroAsiento.Text.Trim().ToUpper();
                 asiento_62FD.Clase_62FD = cmbClase.Text;
 
-                int resultado_62FD = asientoBLL_62FD.AgregarAsiento_62FD(asiento_62FD);
+                bool bitacoraRegistrada_62FD;
+                int resultado_62FD = asientoBLL_62FD.AgregarAsiento_62FD(asiento_62FD, out bitacoraRegistrada_62FD);
 
                 if (resultado_62FD == 0)
                 {
@@ -543,7 +552,10 @@ namespace GUI_23DB
                     return;
                 }
 
-                RegistrarEventoBitacora_62FD("Agregar Asiento", 3);
+                if (!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), asientoBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 CargarGrillaAsientos_62FD();
             }
@@ -581,13 +593,18 @@ namespace GUI_23DB
                 asiento_62FD.Clase_62FD = cmbClase.Text;
                 asiento_62FD.EstadoAsiento_62FD = cmbEstadoAsiento.Text;
 
-                if (!asientoBLL_62FD.ModificarAsiento_62FD(asiento_62FD))
+                bool bitacoraRegistrada_62FD;
+
+                if (!asientoBLL_62FD.ModificarAsiento_62FD(asiento_62FD, out bitacoraRegistrada_62FD))
                 {
                     MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_NoSePudoModificarAsiento"), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                RegistrarEventoBitacora_62FD("Modificar Asiento", 3);
+                if (!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), asientoBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 CargarGrillaAsientos_62FD();
             }
@@ -619,7 +636,8 @@ namespace GUI_23DB
                     return;
                 }
 
-                int resultado_62FD = asientoBLL_62FD.EliminarAsiento_62FD(asiento_62FD.IdAsiento_62FD);
+                bool bitacoraRegistrada_62FD;
+                int resultado_62FD = asientoBLL_62FD.EliminarAsiento_62FD(asiento_62FD.IdAsiento_62FD, out bitacoraRegistrada_62FD);
 
                 if (resultado_62FD == 0)
                 {
@@ -633,7 +651,10 @@ namespace GUI_23DB
                     return;
                 }
 
-                RegistrarEventoBitacora_62FD("Eliminar Asiento", 3);
+                if (!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), asientoBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 CargarGrillaAsientos_62FD();
             }
@@ -831,18 +852,6 @@ namespace GUI_23DB
             }
 
             e.Handled = true;
-        }
-
-        private void RegistrarEventoBitacora_62FD(string evento_62FD, int criticidad_62FD)
-        {
-            try
-            {
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Maestros", evento_62FD, criticidad_62FD);
-            }
-            catch (Exception ex_62FD)
-            {
-                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), ex_62FD.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
         }
 
         private void ActualizarBarraEstado_62FD()

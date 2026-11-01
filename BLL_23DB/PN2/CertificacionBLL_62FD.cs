@@ -15,6 +15,10 @@ namespace BLL_23DB
         mapperAeronave_62FD mapperAeronave_62FD = new mapperAeronave_62FD();
         mapperOrdenTrabajo_62FD mapperOrdenTrabajo_62FD = new mapperOrdenTrabajo_62FD();
         DVBLL_23DB dvBLL_23DB = new DVBLL_23DB();
+        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
+
+        // Detalle del último registro en bitácora que falló: lo necesita el aviso de la pantalla
+        public string ErrorBitacora_62FD { get; private set; }
 
         // Códigos de resultado de CertificarIntervencion_62FD
         public const int YaCertificada_62FD = 0;
@@ -29,8 +33,10 @@ namespace BLL_23DB
 
         // Devuelve el nro de intervención si todo salió bien, o uno de los códigos de arriba.
         // Con AeronaveNoActualizada_62FD la certificación SÍ quedó registrada.
-        public int CertificarIntervencion_62FD(Certificacion_62FD certificacion_62FD, int idOrden_62FD)
+        public int CertificarIntervencion_62FD(Certificacion_62FD certificacion_62FD, int idOrden_62FD, out bool bitacoraRegistrada_62FD)
         {
+            bitacoraRegistrada_62FD = false;
+
             if (mapperCertificacion_62FD.ExisteCertificacion_62FD(certificacion_62FD.IdIntervencion_62FD))
             {
                 return YaCertificada_62FD;
@@ -71,17 +77,37 @@ namespace BLL_23DB
             catch (Exception)
             {
                 // La certificación ya está grabada: se informa como aeronave no actualizada en lugar de como error total
+                bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD("Certificar Intervención", 3);
                 return AeronaveNoActualizada_62FD;
             }
 
             if (filasAeronave_62FD != 1)
             {
+                bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD("Certificar Intervención", 3);
                 return AeronaveNoActualizada_62FD;
             }
 
             dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD");
             dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD_C");
+
+            bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD("Certificar Intervención", 3);
+
             return certificacion_62FD.IdIntervencion_62FD;
+        }
+
+        private bool RegistrarEventoBitacora_62FD(string evento_62FD, int criticidad_62FD)
+        {
+            try
+            {
+                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Mantenimiento", evento_62FD, criticidad_62FD);
+                ErrorBitacora_62FD = null;
+                return true;
+            }
+            catch (Exception ex_62FD)
+            {
+                ErrorBitacora_62FD = ex_62FD.Message;
+                return false;
+            }
         }
 
         public List<Certificacion_62FD> ObtenerCertificacionesEmitidas_62FD()

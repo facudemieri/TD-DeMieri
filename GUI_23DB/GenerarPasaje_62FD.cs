@@ -18,7 +18,6 @@ namespace GUI_23DB
     {
         ReservaBLL_62FD reservaBLL_62FD = new ReservaBLL_62FD();
         PasajeBLL_62FD pasajeBLL_62FD = new PasajeBLL_62FD();
-        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
         private Factura_62FD facturaEmitida_62FD = null;
         private List<Pasaje_62FD> pasajesEmitidos_62FD = new List<Pasaje_62FD>();
         private Reserva_62FD reserva_62FD = null;
@@ -33,6 +32,7 @@ namespace GUI_23DB
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "generar-pasaje");
             dataGridView1.AutoGenerateColumns = false;
             dataGridView2.AutoGenerateColumns = false;
             ConfigurarControles_62FD();
@@ -432,7 +432,8 @@ namespace GUI_23DB
                 }
 
 
-                Factura_62FD factura_62FD = pasajeBLL_62FD.GenerarPasaje_62FD(pago_62FD, reserva_62FD);
+                bool bitacoraRegistrada_62FD;
+                Factura_62FD factura_62FD = pasajeBLL_62FD.GenerarPasaje_62FD(pago_62FD, reserva_62FD, out bitacoraRegistrada_62FD);
 
                 if (factura_62FD == null)
                 {
@@ -440,7 +441,10 @@ namespace GUI_23DB
                     return;
                 }
 
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Pasajes", "Generar Pasaje", 3);
+                if (!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), pasajeBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 nroFacturaMostrada_62FD = factura_62FD.NroFactura_62FD; // label4 es el de Numero de Factura
                 MostrarTextosEstado_62FD();

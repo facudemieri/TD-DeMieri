@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comprobantes de pasaje - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Comprobantes de pasaje</h1>
+<p class="bajada">Permite buscar los comprobantes ya emitidos y volver a imprimirlos.</p>
+
+<h2>Para qué sirve</h2>
+<p>Después de la venta, un cliente puede pedir una copia de su comprobante, o puede hacer falta
+revisar qué se facturó en un período. Este reporte reúne los comprobantes emitidos y permite
+encontrarlos por número de factura, por documento o por fecha.</p>
+<p>Es una consulta: no genera ventas ni modifica datos. La reimpresión produce nuevamente el
+documento en PDF a partir de la información registrada.</p>
+
+<h2>Cómo se llega</h2>
+<p>Desde el menú principal, en <strong>Reportes &rsaquo; Comprobantes de Pasaje</strong>. La opción
+aparece si el rol del usuario incluye la patente correspondiente.</p>
+
+<figure>
+    <img src="img/comprobantes-pasaje.png" alt="Pantalla Comprobantes de Pasaje de AeroManager">
+    <figcaption>Pantalla Comprobantes de Pasaje, con los criterios de búsqueda arriba y los
+    resultados abajo.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Nro de Factura</td>
+    <td>Filtra por el número escrito, aunque sea solo una parte.</td>
+</tr>
+<tr>
+    <td class="control">Documento</td>
+    <td>Filtra por el documento de un pasajero, aunque sea solo una parte.</td>
+</tr>
+<tr>
+    <td class="control">Desde y Hasta</td>
+    <td>Definen el período de emisión. No pueden superar el día de hoy.</td>
+</tr>
+<tr>
+    <td class="control">Todo el período</td>
+    <td>Tildada, ignora las fechas y busca en todos los comprobantes.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Buscar</span></td>
+    <td>Muestra los comprobantes que cumplen los criterios.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Limpiar</span></td>
+    <td>Borra los criterios y vuelve a la consulta del último mes.</td>
+</tr>
+<tr>
+    <td class="control">Grilla de comprobantes</td>
+    <td>Muestra Nro Factura, Cód. Reserva, Documento, Pasajero, Fecha Emisión, Medio de Pago y
+        Total.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Imprimir Comprobante</span></td>
+    <td>Se habilita al elegir un comprobante. Genera el PDF y lo abre.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Cierra la pantalla.</td>
+</tr>
+<tr>
+    <td class="control">Barra de estado</td>
+    <td>Muestra el estado de la consulta, la cantidad de registros y el usuario.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo buscar un comprobante</h2>
+
+<ol class="pasos">
+<li>Abrir la pantalla. La grilla muestra los comprobantes del último mes.</li>
+<li>Completar <strong>Nro de Factura</strong> o <strong>Documento</strong>, y ajustar
+    <strong>Desde</strong> y <strong>Hasta</strong>. Para buscar sin límite de fechas, tildar
+    <strong>Todo el período</strong>.</li>
+<li>Presionar <span class="boton">Buscar</span>.</li>
+</ol>
+
+<h2>Cómo reimprimir un comprobante</h2>
+
+<ol class="pasos">
+<li>Hacer clic en el comprobante dentro de la grilla.</li>
+<li>Presionar <span class="boton">Imprimir Comprobante</span>.</li>
+<li>El sistema guarda el documento en la carpeta <strong>Documentos</strong> del usuario, dentro de
+    <strong>AeroManager\Comprobantes</strong>, y lo abre.</li>
+</ol>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">La grilla muestra "No hay datos para mostrar."</td>
+    <td>Ningún comprobante cumple los criterios, y la barra de estado indica "sin resultados".
+        Conviene ampliar el período o tildar <strong>Todo el período</strong>.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al recuperar los comprobantes:" seguido del motivo</td>
+    <td>No se pudo cargar la grilla. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar un comprobante de la grilla."</td>
+    <td>Hay que hacer clic en una fila antes de imprimir.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se pudo recuperar la reserva del comprobante."</td>
+    <td>No se encontró la reserva asociada y el documento no se generó. Conviene avisarle al
+        administrador.</td>
+</tr>
+<tr>
+    <td class="situacion">"El comprobante no tiene pasajes emitidos asociados."</td>
+    <td>El documento no se generó porque no hay pasajes para incluir. Conviene avisarle al
+        administrador.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al generar el comprobante:" seguido del motivo</td>
+    <td>El PDF no se pudo crear. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>La consulta inicial abarca el último mes.</li>
+<li>Las fechas de búsqueda no pueden superar el día de hoy, y Hasta no puede ser anterior a
+    Desde.</li>
+</ul>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="generar-pasaje.html">Generar pasaje</a></li>
+<li><a href="generar-reserva.html">Generar reserva</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Comprobantes de pasaje
+</div>
+
+</div>
+</body>
+</html>

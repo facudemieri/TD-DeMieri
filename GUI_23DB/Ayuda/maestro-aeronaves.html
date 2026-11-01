@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maestro de aeronaves - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Maestro de aeronaves</h1>
+<p class="bajada">Administra la flota: permite registrar aeronaves, modificar sus datos, darlas de
+baja y reactivarlas.</p>
+
+<h2>Para qué sirve</h2>
+<p>Las aeronaves son la base tanto de la operación de vuelos como del mantenimiento. Este maestro
+reúne sus datos: matrícula, número de serie, modelo, fabricante, estado operativo, horas de vuelo
+acumuladas, intervalo de revisión y fecha de la próxima revisión.</p>
+<p>Las aeronaves no se borran. Cuando una deja de operar se da de baja: sale de la lista activa,
+pero sus datos se conservan y se puede reactivar más adelante. Desde esta pantalla también se
+accede al historial de cambios de cada aeronave.</p>
+
+<h2>Cómo se llega</h2>
+<p>Desde el menú principal, en <strong>Maestros &rsaquo; Maestro - Aeronaves</strong>. La opción
+aparece si el rol del usuario incluye la patente correspondiente.</p>
+
+<figure>
+    <img src="img/maestro-aeronaves.png" alt="Pantalla Maestro de Aeronaves de AeroManager">
+    <figcaption>Pantalla Maestro de Aeronaves, con la grilla de la flota arriba y los datos de la
+    aeronave abajo.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Grilla de aeronaves</td>
+    <td>Muestra Matrícula, Nro de Serie, Modelo, Fabricante, Estado Operativo, Horas de Vuelo,
+        Intervalo (días), Próxima Revisión y Activo. Al hacer clic en un encabezado se ordena por
+        esa columna.</td>
+</tr>
+<tr>
+    <td class="control">Aeronaves inactivas</td>
+    <td>Tildada, la grilla muestra las aeronaves dadas de baja. Sin tildar, las activas.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Actualizar</span></td>
+    <td>Vuelve a cargar la grilla.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Añadir</span></td>
+    <td>Prepara los datos para registrar una aeronave nueva.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Modificar</span></td>
+    <td>Carga la aeronave seleccionada para editarla.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Dar de Baja</span></td>
+    <td>Da de baja la aeronave seleccionada. Con <strong>Aeronaves inactivas</strong> tildada, el
+        botón dice <span class="boton">Reactivar</span> y la vuelve a activar.</td>
+</tr>
+<tr>
+    <td class="control">Matrícula</td>
+    <td>Identifica a la aeronave. Se carga en el alta y después no se puede cambiar.</td>
+</tr>
+<tr>
+    <td class="control">Nro de Serie, Modelo y Fabricante</td>
+    <td>Datos de identificación de la aeronave.</td>
+</tr>
+<tr>
+    <td class="control">Estado Operativo</td>
+    <td>En Servicio, En Mantenimiento o Fuera de Servicio.</td>
+</tr>
+<tr>
+    <td class="control">Horas de Vuelo Acumuladas</td>
+    <td>Total de horas voladas. Solo acepta dígitos.</td>
+</tr>
+<tr>
+    <td class="control">Intervalo de Revisión (en días)</td>
+    <td>Días entre una revisión y la siguiente. Solo acepta dígitos.</td>
+</tr>
+<tr>
+    <td class="control">Fecha Próxima Revisión</td>
+    <td>Día en que vence la próxima revisión.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Aplicar</span></td>
+    <td>Guarda el alta o la modificación en curso.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Cancelar</span></td>
+    <td>Descarta lo cargado.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Ver Bitácora de Cambios</span></td>
+    <td>Abre <a href="auditoria-cambios.html">Auditoría de cambios</a>.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Salir</span></td>
+    <td>Cierra la pantalla. También se activa con la tecla <kbd>Esc</kbd>.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo registrar una aeronave</h2>
+
+<ol class="pasos">
+<li>Presionar <span class="boton">Añadir</span>.</li>
+<li>Completar <strong>Matrícula</strong>, <strong>Nro de Serie</strong>, <strong>Modelo</strong>,
+    <strong>Fabricante</strong>, <strong>Estado Operativo</strong>,
+    <strong>Horas de Vuelo Acumuladas</strong> e
+    <strong>Intervalo de Revisión (en días)</strong>.</li>
+<li>Elegir una <strong>Fecha Próxima Revisión</strong> posterior a hoy.</li>
+<li>Presionar <span class="boton">Aplicar</span>.</li>
+</ol>
+
+<h2>Cómo modificar una aeronave</h2>
+
+<ol class="pasos">
+<li>Hacer clic en la aeronave dentro de la grilla.</li>
+<li>Presionar <span class="boton">Modificar</span>.</li>
+<li>Cambiar los datos necesarios. La matrícula no se puede editar.</li>
+<li>Presionar <span class="boton">Aplicar</span>.</li>
+</ol>
+
+<h2>Cómo dar de baja o reactivar una aeronave</h2>
+
+<ol class="pasos">
+<li>Para reactivar, tildar primero <strong>Aeronaves inactivas</strong>.</li>
+<li>Hacer clic en la aeronave dentro de la grilla.</li>
+<li>Presionar <span class="boton">Dar de Baja</span> o <span class="boton">Reactivar</span>, según
+    corresponda.</li>
+<li>Confirmar con <strong>Sí</strong>. La grilla se actualiza.</li>
+</ol>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">"Debe seleccionar una aeronave de la grilla."</td>
+    <td>Hay que hacer clic en una fila antes de usar el botón.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al recuperar las aeronaves:" seguido del motivo</td>
+    <td>No se pudo cargar la grilla. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe completar todos los datos de la aeronave."</td>
+    <td>Falta la matrícula, el número de serie, el modelo, el fabricante o el estado operativo.</td>
+</tr>
+<tr>
+    <td class="situacion">"Las horas de vuelo acumuladas deben ser un número entero igual o mayor
+        que cero."</td>
+    <td>El campo está vacío o el valor no es válido.</td>
+</tr>
+<tr>
+    <td class="situacion">"El intervalo de revisión debe ser un número entero mayor que cero."</td>
+    <td>El campo está vacío, vale cero o el valor no es válido.</td>
+</tr>
+<tr>
+    <td class="situacion">"La fecha de próxima revisión debe ser posterior a la fecha de hoy."</td>
+    <td>En el alta, hay que elegir una fecha a partir de mañana.</td>
+</tr>
+<tr>
+    <td class="situacion">"Ya existe una aeronave registrada con esa matrícula."</td>
+    <td>La matrícula ya está cargada. Hay que revisarla.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se pudo registrar la aeronave."</td>
+    <td>El alta no se completó. Conviene volver a intentar.</td>
+</tr>
+<tr>
+    <td class="situacion">"Aeronave registrada correctamente."</td>
+    <td>La aeronave ya figura en la flota.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se pudo modificar la aeronave. El registro pudo haber sido modificado
+        por otro usuario."</td>
+    <td>Conviene presionar <span class="boton">Cancelar</span>, usar
+        <span class="boton">Actualizar</span> y repetir el cambio.</td>
+</tr>
+<tr>
+    <td class="situacion">"Aeronave modificada correctamente."</td>
+    <td>Los cambios quedaron guardados.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al guardar la aeronave:" seguido del motivo</td>
+    <td>Los datos no se guardaron. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"¿Confirma dar de baja la aeronave" seguido de la matrícula</td>
+    <td>Con <strong>Sí</strong> la aeronave pasa a la lista de inactivas.</td>
+</tr>
+<tr>
+    <td class="situacion">"¿Confirma reactivar la aeronave" seguido de la matrícula</td>
+    <td>Con <strong>Sí</strong> la aeronave vuelve a la lista de activas.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se puede dar de baja una aeronave que tiene una orden de trabajo
+        abierta."</td>
+    <td>Primero hay que completar esa orden. Se la puede ver en
+        <a href="generar-orden-trabajo.html">Generar orden de trabajo</a>.</td>
+</tr>
+<tr>
+    <td class="situacion">"No se pudo cambiar el estado de la aeronave."</td>
+    <td>La baja o la reactivación no se completó. Conviene actualizar la grilla y volver a
+        intentar.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al cambiar el estado de la aeronave:" seguido del motivo</td>
+    <td>La operación no se completó. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"La operación se registró correctamente, pero no pudo asentarse en la
+        Bitácora:" seguido del motivo</td>
+    <td>El cambio se guardó, pero el evento no quedó en la bitácora. Después de los dos puntos se
+        muestra el motivo técnico. Conviene avisarle al administrador.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>La matrícula admite hasta 20 caracteres, y el número de serie, el modelo y el fabricante hasta
+    50 cada uno.</li>
+<li>Las horas de vuelo son un número entero de hasta 9 dígitos, igual o mayor que cero.</li>
+<li>El intervalo de revisión se expresa en días y es un número entero de hasta 9 dígitos, mayor que
+    cero.</li>
+<li>Al registrar una aeronave, la próxima revisión tiene que ser posterior a hoy.</li>
+<li>Una aeronave con una orden de trabajo abierta no se puede dar de baja.</li>
+</ul>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="auditoria-cambios.html">Auditoría de cambios</a></li>
+<li><a href="maestro-vuelos.html">Maestro de vuelos</a></li>
+<li><a href="generar-orden-trabajo.html">Generar orden de trabajo</a></li>
+<li><a href="certificar-intervencion.html">Certificar intervención</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Maestro de aeronaves
+</div>
+
+</div>
+</body>
+</html>

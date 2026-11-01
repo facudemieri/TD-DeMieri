@@ -61,6 +61,7 @@
     <Compile Include="AdministradorRoles_23DB.Designer.cs">
       <DependentUpon>AdministradorRoles_23DB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ayuda_62FD.cs" />
     <Compile Include="Reportes\AnaliticaMantenimiento_62FD.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -334,4 +335,9 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+	<ItemGroup>
+		<Content Include="Ayuda\**\*.*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 </Project>

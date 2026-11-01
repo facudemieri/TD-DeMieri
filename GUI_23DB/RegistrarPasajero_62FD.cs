@@ -16,7 +16,6 @@ namespace GUI_23DB
     public partial class RegistrarPasajero_62FD : Form, IIdiomaObserver_23DB
     {
         PasajeroBLL_62FD pasajeroBLL_62FD = new PasajeroBLL_62FD();
-        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
         private Pasajero_62FD pasajeroRegistrado_62FD = null;
         private string claveEstado_62FD = null; // clave del texto de estado, para reconstruirlo al cambiar de idioma
         private bool fechaNacimientoElegida_62FD = false;
@@ -29,6 +28,7 @@ namespace GUI_23DB
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "generar-reserva");
 
             txtDNI.Text = DNI_62FD;
             txtDNI.Enabled = false;
@@ -111,9 +111,13 @@ namespace GUI_23DB
                 pasajero_62FD.Telefono_62FD = txtTelefono.Text;
                 pasajero_62FD.ContactoEmergencia_62FD = txtContactoEmergencia.Text;
 
-                pasajeroBLL_62FD.RegistrarPasajero_62FD(pasajero_62FD);
+                bool bitacoraRegistrada_62FD;
+                pasajeroBLL_62FD.RegistrarPasajero_62FD(pasajero_62FD, out bitacoraRegistrada_62FD);
 
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Pasajes", "Registrar Pasajero", 3);
+                if (!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), pasajeroBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
                 pasajeroRegistrado_62FD = pasajero_62FD;
 

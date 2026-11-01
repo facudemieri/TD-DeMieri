@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gestión de respaldos - Ayuda de AeroManager</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<div class="barra">
+    <div class="sistema">AeroManager <span>&middot; Ayuda en línea</span></div>
+</div>
+
+<div class="hoja">
+
+<a class="volver" href="index.html">&#8592; Volver al índice</a>
+
+<h1>Gestión de respaldos</h1>
+<p class="bajada">Permite generar copias de seguridad de la base de datos y restaurarla desde una
+copia anterior.</p>
+
+<h2>Para qué sirve</h2>
+<p>Toda la información de AeroManager, desde las ventas hasta el mantenimiento de la flota, está
+en su base de datos. Un respaldo es una copia completa de esa información en un archivo, que
+permite recuperarla si ocurre un problema.</p>
+<p>La pantalla tiene dos operaciones. <strong>Back Up</strong> genera una copia nueva sin alterar
+los datos. <strong>Restore</strong> reemplaza la base completa por el contenido de un respaldo, de
+modo que todo lo registrado después de esa copia se pierde.</p>
+
+<h2>Cómo se llega</h2>
+<p>Desde el menú principal, en <strong>Administrador &rsaquo; Gestion de Respaldos</strong>. La
+opción aparece si el rol del usuario incluye la patente correspondiente.</p>
+<p>También se abre desde el botón <span class="boton">Restore BD</span> de la pantalla
+<a href="reparar-inconsistencia.html">Reparar inconsistencia</a>. En ese caso solamente se puede
+restaurar: la parte de Back Up queda deshabilitada.</p>
+
+<figure>
+    <img src="img/gestion-respaldos.png" alt="Pantalla Gestión de Respaldos de AeroManager">
+    <figcaption>Pantalla Gestión de Respaldos, con la generación de la copia arriba y la
+    restauración abajo.</figcaption>
+</figure>
+
+<h2>Los controles</h2>
+
+<table>
+<thead>
+<tr><th>Control</th><th>Para qué se usa</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="control">Campo superior</td>
+    <td>Muestra la carpeta donde se va a guardar el respaldo.</td>
+</tr>
+<tr>
+    <td class="control">Carpeta superior</td>
+    <td>Abre el cuadro "Seleccione la carpeta donde guardar el backup".</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Back Up</span></td>
+    <td>Genera el respaldo en la carpeta elegida.</td>
+</tr>
+<tr>
+    <td class="control">Campo inferior</td>
+    <td>Muestra el archivo de respaldo que se va a restaurar.</td>
+</tr>
+<tr>
+    <td class="control">Carpeta inferior</td>
+    <td>Abre el cuadro "Seleccione el archivo de backup". Muestra los archivos con extensión
+        .bak.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton">Restore</span></td>
+    <td>Reemplaza la base de datos por el contenido del archivo elegido.</td>
+</tr>
+<tr>
+    <td class="control"><span class="boton salir">Cancelar</span></td>
+    <td>Cierra la pantalla.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Cómo generar un respaldo</h2>
+
+<ol class="pasos">
+<li>Presionar el botón con la carpeta de la parte superior y elegir dónde guardar el respaldo.</li>
+<li>Presionar <span class="boton">Back Up</span>.</li>
+<li>El sistema crea un archivo .bak con la fecha y la hora en su nombre, e informa dónde quedó
+    guardado.</li>
+</ol>
+
+<h2>Cómo restaurar un respaldo</h2>
+
+<ol class="pasos">
+<li>Presionar el botón con la carpeta de la parte inferior y elegir el archivo .bak.</li>
+<li>Presionar <span class="boton">Restore</span>.</li>
+<li>Leer la advertencia y confirmar con <strong>Sí</strong>.</li>
+<li>Aceptar el mensaje final. Si se llegó desde la reparación de inconsistencias, hay que volver a
+    iniciar sesión.</li>
+</ol>
+
+<div class="atencion">
+<p><strong>Atención.</strong> Restaurar reemplaza toda la base de datos. Las operaciones registradas
+después de la fecha del respaldo se pierden.</p>
+</div>
+
+<h2>Situaciones frecuentes</h2>
+
+<table>
+<thead>
+<tr><th>Situación</th><th>Qué significa y qué hacer</th></tr>
+</thead>
+<tbody>
+<tr>
+    <td class="situacion">"Debe seleccionar una ruta para el backup."</td>
+    <td>Hay que elegir la carpeta antes de presionar <span class="boton">Back Up</span>.</td>
+</tr>
+<tr>
+    <td class="situacion">"Backup generado correctamente:" seguido de la ruta del archivo</td>
+    <td>El respaldo quedó guardado en la ubicación informada.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al generar el backup:" seguido del motivo</td>
+    <td>El respaldo no se generó. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"Debe seleccionar un archivo de backup."</td>
+    <td>Hay que elegir el archivo antes de presionar <span class="boton">Restore</span>.</td>
+</tr>
+<tr>
+    <td class="situacion">"¿Está seguro que desea restaurar la base de datos? Se perderán los datos
+        posteriores al backup."</td>
+    <td>Aparece en el cuadro "Confirmar Restore". Con <strong>Sí</strong> comienza la restauración;
+        con <strong>No</strong> no cambia nada.</td>
+</tr>
+<tr>
+    <td class="situacion">"Base de datos restaurada correctamente."</td>
+    <td>La base quedó con el contenido del respaldo.</td>
+</tr>
+<tr>
+    <td class="situacion">"Base de datos restaurada correctamente. Inicie sesión nuevamente."</td>
+    <td>Aparece al restaurar desde la reparación de inconsistencias. Hay que volver a ingresar.</td>
+</tr>
+<tr>
+    <td class="situacion">"Error al restaurar la base de datos:" seguido del motivo</td>
+    <td>La restauración no se completó. Después de los dos puntos se indica la causa técnica.</td>
+</tr>
+<tr>
+    <td class="situacion">"La operación se registró correctamente, pero no pudo asentarse en la
+        Bitácora:" seguido del motivo</td>
+    <td>El respaldo o la restauración se completó, pero el evento no quedó en la bitácora. Después
+        de los dos puntos se muestra el motivo técnico.</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Reglas a tener en cuenta</h2>
+
+<ul>
+<li>El sistema espera hasta 120 segundos para generar un respaldo y hasta 300 segundos para
+    restaurarlo.</li>
+<li>Después de restaurar, el sistema vuelve a calcular los dígitos verificadores de los datos.</li>
+</ul>
+
+<h2>Temas relacionados</h2>
+
+<ul>
+<li><a href="reparar-inconsistencia.html">Reparar inconsistencia</a></li>
+<li><a href="bitacora-eventos.html">Bitácora de eventos</a></li>
+</ul>
+
+<div class="pie">
+    AeroManager &middot; Ayuda en línea &middot; Gestión de respaldos
+</div>
+
+</div>
+</body>
+</html>

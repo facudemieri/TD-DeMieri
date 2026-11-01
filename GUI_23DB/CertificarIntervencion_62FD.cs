@@ -20,7 +20,6 @@ namespace GUI_23DB
         IntervencionBLL_62FD intervencionBLL_62FD = new IntervencionBLL_62FD();
         AeronaveBLL_62FD aeronaveBLL_62FD = new AeronaveBLL_62FD();
         UsuarioBLL_23DB usuarioBLL_23DB = new UsuarioBLL_23DB();
-        EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
 
         private Intervencion_62FD intervencionSeleccionada_62FD = null;
         private Certificacion_62FD certificacionRegistrada_62FD = null;
@@ -37,6 +36,7 @@ namespace GUI_23DB
             InitializeComponent();
             Observer_23DB.ObtenerInstancia_23DB().Suscribir_23DB(this);
             AplicarIdiomaActual_23DB();
+            Ayuda_62FD.Vincular_23DB(this, "certificar-intervencion");
 
             dataGridView1.AutoGenerateColumns = false;
             dataGridView2.AutoGenerateColumns = false;
@@ -229,7 +229,8 @@ namespace GUI_23DB
                 certificacion_62FD.resultadoInspeccion_62FD = cmbResultadoInspeccion.Text;
                 certificacion_62FD.Observaciones_62FD = txtObservaciones.Text.Trim();
 
-                int resultado_62FD = certificacionBLL_62FD.CertificarIntervencion_62FD(certificacion_62FD, intervencionSeleccionada_62FD.IdOrden_62FD);
+                bool bitacoraRegistrada_62FD;
+                int resultado_62FD = certificacionBLL_62FD.CertificarIntervencion_62FD(certificacion_62FD, intervencionSeleccionada_62FD.IdOrden_62FD, out bitacoraRegistrada_62FD);
 
                 if (resultado_62FD == CertificacionBLL_62FD.YaCertificada_62FD)
                 {
@@ -252,7 +253,11 @@ namespace GUI_23DB
                 }
 
                 // A partir de acá la certificación quedó registrada (con o sin la aeronave actualizada)
-                RegistrarEventoBitacora_62FD("Certificar Intervención", 3);
+                if (!bitacoraRegistrada_62FD)
+                {
+                    MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), certificacionBLL_62FD.ErrorBitacora_62FD), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
                 certificacionRegistrada_62FD = certificacion_62FD;
                 dtpFechaHoraCertificacion.Value = certificacion_62FD.fechaHoraCertificacion_62FD;
 
@@ -279,19 +284,6 @@ namespace GUI_23DB
             finally
             {
                 btnAplicar.Enabled = true;
-            }
-        }
-
-        // La Bitácora va en su propio try/catch: si falla, la operación de negocio ya está hecha y no se informa como error
-        private void RegistrarEventoBitacora_62FD(string evento_62FD, int criticidad_62FD)
-        {
-            try
-            {
-                eventoBLL_23DB.RegistrarEvento_23DB(SessionManager_23DB.ObtenerInstancia_23DB().DNI_23DB, "Mantenimiento", evento_62FD, criticidad_62FD);
-            }
-            catch (Exception ex_62FD)
-            {
-                MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_OperacionSinBitacora"), ex_62FD.Message), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Advertencia"), MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
