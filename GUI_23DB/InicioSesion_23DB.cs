@@ -45,13 +45,18 @@ namespace GUI_23DB
             {
                 usuarioPorLogin_23DB = usuarioBLL_23DB.ObtenerUsuarioPorLogin_23DB(txtUsuario.Text);
             }
-            catch (SqlException)
+            catch (Exception ex_23DB)
             {
-                // La base no responde. Unico camino posible: modo recuperacion contra el registro.
-                IngresarModoRecuperacion_23DB();
+                if (EsErrorDeConexion_23DB(ex_23DB))
+                {
+                    IngresarModoRecuperacion_23DB();
+                    return;
+                }
+
+                MessageBox.Show(ex_23DB.Message, IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
- 
+
             List<DV_23DB> inconsistencias_23DB = usuarioBLL_23DB.VerificarConsistenciaDV_23DB();
             bool hayInconsistencias_23DB = inconsistencias_23DB.Count > 0;
 
@@ -231,6 +236,25 @@ namespace GUI_23DB
         private void InicioSesion_23DB_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private static readonly int[] ErroresConexion_23DB = { -2, 2, 53, 4060, 4064, 10060, 10061, 11001, 40613 };
+
+        private bool EsErrorDeConexion_23DB(Exception ex_23DB)
+        {
+            Exception actual_23DB = ex_23DB;
+
+            while (actual_23DB != null)
+            {
+                SqlException sql_23DB = actual_23DB as SqlException;
+                if (sql_23DB != null)
+                {
+                    return Array.IndexOf(ErroresConexion_23DB, sql_23DB.Number) >= 0;
+                }
+                actual_23DB = actual_23DB.InnerException;
+            }
+
+            return false;
         }
     }
 }

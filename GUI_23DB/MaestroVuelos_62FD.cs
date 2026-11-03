@@ -295,7 +295,7 @@ namespace GUI_23DB
 
         private void btnAñadir_Click(object sender, EventArgs e)
         {
-            CargarMatriculas_62FD(); //nuevo: en Alta solo se ofrecen matrículas activas
+            CargarMatriculas_62FD(); 
             LimpiarCamposVuelo_62FD();
             ModoAlta_62FD();
         }
@@ -314,8 +314,8 @@ namespace GUI_23DB
             txtOrigen.Text = vueloSeleccionado_62FD.Origen_62FD;
             txtDestino.Text = vueloSeleccionado_62FD.Destino_62FD;
             dtFechaHoraSalida.Value = vueloSeleccionado_62FD.FechaHoraSalida_62FD;
-            CargarMatriculas_62FD(); //nuevo: recarga para descartar valores agregados en una modificación anterior
-            SeleccionarMatricula_62FD(vueloSeleccionado_62FD.Matricula_62FD); //nuevo
+            CargarMatriculas_62FD(); 
+            SeleccionarMatricula_62FD(vueloSeleccionado_62FD.Matricula_62FD); 
             txtPrecioBase.Text = vueloSeleccionado_62FD.Precio_62FD.ToString("N2");
             cmbEstado.Text = vueloSeleccionado_62FD.EstadoVuelo_62FD;
 
@@ -693,6 +693,7 @@ namespace GUI_23DB
                 }
 
                 MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_VuelosSerializados"), listaVuelos_62FD.Count), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtRutaSerializar.Clear();
             }
             catch (Exception ex_62FD)
             {
@@ -751,6 +752,7 @@ namespace GUI_23DB
                 }
 
                 MessageBox.Show(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_VuelosDeserializados"), listaVuelos_62FD.Count), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtRutaDeserializar.Clear();
             }
             catch (Exception ex_62FD)
             {
@@ -763,7 +765,7 @@ namespace GUI_23DB
             txtNroVuelo.Clear();
             txtOrigen.Clear();
             txtDestino.Clear();
-            cmbMatricula.SelectedIndex = -1; //nuevo
+            cmbMatricula.SelectedIndex = -1;
             txtPrecioBase.Clear();
             cmbEstado.SelectedIndex = -1;
             dtFechaHoraSalida.Value = DateTime.Now;
@@ -808,7 +810,6 @@ namespace GUI_23DB
             ActualizarBarraEstado_62FD();
         }
 
-        // Código IATA: exactamente tres letras A-Z (sin tildes ni ñ), sin importar mayúsculas
         private bool EsCodigoIata_62FD(string texto_62FD)
         {
             string codigo_62FD = texto_62FD.Trim().ToUpperInvariant();
@@ -829,7 +830,6 @@ namespace GUI_23DB
             return true;
         }
 
-        // Solo letras A-Z al tipear; lo pegado lo sigue frenando la validación de btnAplicar_Click
         private void SoloLetras_62FD(object sender, KeyPressEventArgs e)
         {
             char tecla_62FD = char.ToUpperInvariant(e.KeyChar);
@@ -840,7 +840,6 @@ namespace GUI_23DB
             }
         }
 
-        // Solo dígitos y los separadores de la cultura actual; lo pegado lo sigue frenando la validación de btnAplicar_Click
         private void SoloImporte_62FD(object sender, KeyPressEventArgs e)
         {
             NumberFormatInfo formato_62FD = CultureInfo.CurrentCulture.NumberFormat;
@@ -885,13 +884,11 @@ namespace GUI_23DB
 
             listaVuelos_62FD = Ordenar_62FD(listaVuelos_62FD, columna_62FD.DataPropertyName, ascendente_62FD);
             EnlazarGrillaVuelos_62FD();
-            // Al reenlazar se dispara SelectionChanged: los asientos se vacían igual que al recargar los vuelos
             LimpiarAsientos_62FD();
 
             columnaOrdenVuelos_62FD = columna_62FD.DataPropertyName;
             ordenAscendenteVuelos_62FD = ascendente_62FD;
 
-            // El glifo se pierde al reenlazar, por eso se pone después
             dgvVuelos.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = ascendente_62FD ? SortOrder.Ascending : SortOrder.Descending;
         }
 
@@ -908,7 +905,6 @@ namespace GUI_23DB
             LimpiarSeleccionGrilla_62FD(dgvAsientos);
             LimpiarCamposAsiento_62FD();
 
-            // El glifo se pierde al reenlazar, por eso se pone después
             dgvAsientos.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = ordenAscendenteAsientos_62FD ? SortOrder.Ascending : SortOrder.Descending;
         }
 
@@ -916,9 +912,7 @@ namespace GUI_23DB
         {
             System.Reflection.PropertyInfo prop_62FD = typeof(T).GetProperty(propiedad_62FD);
             if (prop_62FD == null) return lista_62FD;
-            return ascendente_62FD
-                ? lista_62FD.OrderBy(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList()
-                : lista_62FD.OrderByDescending(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList();
+            return ascendente_62FD ? lista_62FD.OrderBy(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList() : lista_62FD.OrderByDescending(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList();
         }
 
         private void ConfigurarGrilla_62FD(DataGridView grilla_62FD)
@@ -978,11 +972,8 @@ namespace GUI_23DB
             DataGridView grilla_62FD = (DataGridView)sender;
             if (grilla_62FD.Rows.Count > 0) return;
 
-            Rectangle area_62FD = new Rectangle(0, grilla_62FD.ColumnHeadersHeight,
-                grilla_62FD.ClientSize.Width, grilla_62FD.ClientSize.Height - grilla_62FD.ColumnHeadersHeight);
-            TextRenderer.DrawText(e.Graphics, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_GrillaSinDatos"),
-                grilla_62FD.Font, area_62FD, Color.Gray,
-                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
+            Rectangle area_62FD = new Rectangle(0, grilla_62FD.ColumnHeadersHeight, grilla_62FD.ClientSize.Width, grilla_62FD.ClientSize.Height - grilla_62FD.ColumnHeadersHeight);
+            TextRenderer.DrawText(e.Graphics, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_GrillaSinDatos"), grilla_62FD.Font, area_62FD, Color.Gray, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
         }
 
         private void MaestroVuelos_62FD_FormClosing(object sender, FormClosingEventArgs e)

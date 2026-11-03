@@ -101,6 +101,10 @@ namespace GUI_23DB
         {
             AuditoriaDeCambios_62FD auditoriaCambios_62FD = new AuditoriaDeCambios_62FD();
             auditoriaCambios_62FD.ShowDialog();
+
+            LimpiarCampos_62FD();
+            ModoConsulta_62FD();
+            CargarGrilla_62FD();
         }
 
         private void MaestroAeronaves_62FD_FormClosing(object sender, FormClosingEventArgs e)

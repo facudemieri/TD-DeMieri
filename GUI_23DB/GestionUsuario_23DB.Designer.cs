@@ -178,6 +178,7 @@
             this.dataGridUsuarios.Size = new System.Drawing.Size(658, 179);
             this.dataGridUsuarios.TabIndex = 7;
             this.dataGridUsuarios.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridUsuarios_CellClick);
+            this.dataGridUsuarios.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridUsuarios_CellFormatting);
             // 
             // label1
             // 

@@ -54,6 +54,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.dtpFechaInicio = new System.Windows.Forms.DateTimePicker();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnModificarTarea = new System.Windows.Forms.Button();
             this.txtObservaciones = new System.Windows.Forms.TextBox();
             this.btnAgregarTarea = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
@@ -81,7 +82,7 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
-            this.btnModificarTarea = new System.Windows.Forms.Button();
+            this.btnLimpiarTarea = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -346,6 +347,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnLimpiarTarea);
             this.groupBox3.Controls.Add(this.btnModificarTarea);
             this.groupBox3.Controls.Add(this.txtObservaciones);
             this.groupBox3.Controls.Add(this.btnAgregarTarea);
@@ -358,6 +360,17 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Carga de Tareas";
             // 
+            // btnModificarTarea
+            // 
+            this.btnModificarTarea.Enabled = false;
+            this.btnModificarTarea.Location = new System.Drawing.Point(858, 69);
+            this.btnModificarTarea.Name = "btnModificarTarea";
+            this.btnModificarTarea.Size = new System.Drawing.Size(120, 30);
+            this.btnModificarTarea.TabIndex = 22;
+            this.btnModificarTarea.Text = "Modificar Tarea";
+            this.btnModificarTarea.UseVisualStyleBackColor = true;
+            this.btnModificarTarea.Click += new System.EventHandler(this.btnModificarTarea_Click);
+            // 
             // txtObservaciones
             // 
             this.txtObservaciones.Location = new System.Drawing.Point(187, 78);
@@ -369,7 +382,7 @@
             // 
             // btnAgregarTarea
             // 
-            this.btnAgregarTarea.Location = new System.Drawing.Point(858, 51);
+            this.btnAgregarTarea.Location = new System.Drawing.Point(858, 33);
             this.btnAgregarTarea.Name = "btnAgregarTarea";
             this.btnAgregarTarea.Size = new System.Drawing.Size(120, 30);
             this.btnAgregarTarea.TabIndex = 19;
@@ -504,6 +517,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(837, 138);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // colIdTarea
@@ -605,16 +619,15 @@
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
-            // btnModificarTarea
+            // btnLimpiarTarea
             // 
-            this.btnModificarTarea.Enabled = false;
-            this.btnModificarTarea.Location = new System.Drawing.Point(858, 87);
-            this.btnModificarTarea.Name = "btnModificarTarea";
-            this.btnModificarTarea.Size = new System.Drawing.Size(120, 30);
-            this.btnModificarTarea.TabIndex = 22;
-            this.btnModificarTarea.Text = "Modificar Tarea";
-            this.btnModificarTarea.UseVisualStyleBackColor = true;
-            this.btnModificarTarea.Click += new System.EventHandler(this.btnModificarTarea_Click);
+            this.btnLimpiarTarea.Location = new System.Drawing.Point(858, 104);
+            this.btnLimpiarTarea.Name = "btnLimpiarTarea";
+            this.btnLimpiarTarea.Size = new System.Drawing.Size(120, 30);
+            this.btnLimpiarTarea.TabIndex = 19;
+            this.btnLimpiarTarea.Text = "Limpiar";
+            this.btnLimpiarTarea.UseVisualStyleBackColor = true;
+            this.btnLimpiarTarea.Click += new System.EventHandler(this.btnLimpiarTarea_Click);
             // 
             // RegistrarIntervencion_62FD
             // 
@@ -715,5 +728,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colObservacionesTarea;
         private System.Windows.Forms.DataGridViewTextBoxColumn colRepuestos;
         private System.Windows.Forms.Button btnModificarTarea;
+        private System.Windows.Forms.Button btnLimpiarTarea;
     }
 }

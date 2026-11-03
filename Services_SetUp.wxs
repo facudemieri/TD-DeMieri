@@ -3,45 +3,75 @@
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
 
   <!--
-    Instalador de AeroManager Pro.
-    Compilar (desde la carpeta de la solución, D:\4to Año\Ing de Sw\ServicesIngSW_23DB):
-      candle.exe Services_SetUp.wxs
-      light.exe Services_SetUp.wixobj -ext WixUIExtension -ext WixSqlExtension
+    Instalador de AeroManager.
+    Compilar la solución en Release y después, desde esta carpeta:
+      MSBuild Services_SetUp.wixproj /p:Configuration=Release
+    El .msi queda en Instalador\bin.
   -->
 
+  <?ifndef BinDir?>
+    <?define BinDir="GUI_23DB\bin\Release"?>
+  <?endif?>
+
+  <!-- Subir Version en CADA entrega: MSI solo compara los tres primeros números, y con la
+       misma versión no reemplaza la instalación anterior sino que quedan dos conviviendo. -->
   <Product Id="*"
-           Name="Services_SetUp"
+           Name="AeroManager"
            Language="1033"
-           Version="1.0.0"
+           Codepage="1252"
+           Version="1.0.1"
            Manufacturer="UAI"
            UpgradeCode="78D1D09A-C777-43B1-81A5-9D81DD2AC281">
 
     <Package InstallerVersion="500"
              Compressed="yes"
              InstallScope="perMachine"
-             Description="Instalador de AeroManager Pro"
+             Description="Instalador de AeroManager"
              Manufacturer="UAI" />
 
     <MajorUpgrade DowngradeErrorMessage="Ya hay instalada una versión más nueva de [ProductName]." />
 
     <Media Id="1" Cabinet="AeroManager.cab" EmbedCab="yes" />
 
-    <!-- Propiedad con el nombre del servidor SQL, valor por defecto "." -->
-    <Property Id="SQLSERVERNAME" Value="." Secure="yes" />
+    <!-- ==================== Requisito: .NET Framework 4.7.2 ==================== -->
+    <!--
+      NETFRAMEWORK45 (WixNetFxExtension) trae el valor Release de
+      HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full con formato "#nnnnnn".
+      461808 es la clave del 4.7.2; con >= se aceptan las versiones posteriores.
+      "Installed OR" deja reparar y desinstalar aunque el runtime ya no esté.
+    -->
+    <PropertyRef Id="NETFRAMEWORK45" />
+    <Condition Message="AeroManager requiere Microsoft .NET Framework 4.7.2 o una versión posterior, y no se encontró en este equipo. Instálelo desde el sitio de Microsoft y vuelva a ejecutar este instalador.">
+      <![CDATA[Installed OR (NETFRAMEWORK45 AND NETFRAMEWORK45 >= "#461808")]]>
+    </Condition>
 
-    <Icon Id="GuiIcon.exe" SourceFile="GUI_23DB\bin\Debug\GUI_23DB.exe" />
+    <!-- Servidor SQL: toma el valor ya configurado, en la vista de 32 bits que es donde lo
+         guarda este paquete y donde lo lee Conexion_23DB. Si no existe, queda ".". -->
+    <Property Id="SQLSERVERNAME" Value="." Secure="yes">
+      <RegistrySearch Id="BuscarServidorSql" Root="HKLM" Key="SOFTWARE\AeroManager" Name="Server" Type="raw" Win64="no" />
+    </Property>
+
+    <!-- Las completa ValidarServidorSql: ruta de sqlcmd y carpeta temporal del usuario -->
+    <Property Id="SQLCMDEXE" Secure="yes" />
+    <Property Id="SQLLOGDIR" Secure="yes" />
+
+    <Binary Id="InstaladorCA" SourceFile="$(var.CaDll)" />
+
+    <Icon Id="GuiIcon.exe" SourceFile="$(var.BinDir)\GUI_23DB.exe" />
     <Property Id="ARPPRODUCTICON" Value="GuiIcon.exe" />
 
     <!-- ==================== Estructura de directorios ==================== -->
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
-        <Directory Id="INSTALLFOLDER" Name="AeroManager Pro">
+        <Directory Id="INSTALLFOLDER" Name="AeroManager">
           <Directory Id="IDIOMASFOLDER" Name="Idiomas" />
+          <!-- Lo completa heat (AyudaComponents); la aplicación busca Ayuda junto al ejecutable -->
+          <Directory Id="AYUDAFOLDER" Name="Ayuda" />
         </Directory>
       </Directory>
 
       <Directory Id="ProgramMenuFolder">
-        <Directory Id="ApplicationProgramsFolder" Name="AeroManager Pro" />
+        <Directory Id="ApplicationProgramsFolder" Name="AeroManager" />
       </Directory>
 
       <Directory Id="DesktopFolder" />
@@ -52,91 +82,62 @@
 
       <!-- Ejecutable principal: incluye los accesos directos de escritorio y menú inicio -->
       <Component Id="MainExecutable" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="GUI_23DB.exe" Name="GUI_23DB.exe" Source="GUI_23DB\bin\Debug\GUI_23DB.exe" KeyPath="yes" />
+        <File Id="GUI_23DB.exe" Name="GUI_23DB.exe" Source="$(var.BinDir)\GUI_23DB.exe" KeyPath="yes" />
       </Component>
 
       <Component Id="CompGuiConfig" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="GUI_23DB.exe.config" Name="GUI_23DB.exe.config" Source="GUI_23DB\bin\Debug\GUI_23DB.exe.config" KeyPath="yes" />
-      </Component>
-
-      <Component Id="CompGuiPdb" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="GUI_23DB.pdb" Name="GUI_23DB.pdb" Source="GUI_23DB\bin\Debug\GUI_23DB.pdb" KeyPath="yes" />
+        <File Id="GUI_23DB.exe.config" Name="GUI_23DB.exe.config" Source="$(var.BinDir)\GUI_23DB.exe.config" KeyPath="yes" />
       </Component>
 
       <Component Id="CompBEDll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="BE_23DB.dll" Name="BE_23DB.dll" Source="GUI_23DB\bin\Debug\BE_23DB.dll" KeyPath="yes" />
-      </Component>
-
-      <Component Id="CompBEPdb" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="BE_23DB.pdb" Name="BE_23DB.pdb" Source="GUI_23DB\bin\Debug\BE_23DB.pdb" KeyPath="yes" />
+        <File Id="BE_23DB.dll" Name="BE_23DB.dll" Source="$(var.BinDir)\BE_23DB.dll" KeyPath="yes" />
       </Component>
 
       <Component Id="CompBLLDll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="BLL_23DB.dll" Name="BLL_23DB.dll" Source="GUI_23DB\bin\Debug\BLL_23DB.dll" KeyPath="yes" />
-      </Component>
-
-      <Component Id="CompBLLPdb" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="BLL_23DB.pdb" Name="BLL_23DB.pdb" Source="GUI_23DB\bin\Debug\BLL_23DB.pdb" KeyPath="yes" />
+        <File Id="BLL_23DB.dll" Name="BLL_23DB.dll" Source="$(var.BinDir)\BLL_23DB.dll" KeyPath="yes" />
       </Component>
 
       <Component Id="CompBouncyCastle" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="BouncyCastle.Crypto.dll" Name="BouncyCastle.Crypto.dll" Source="GUI_23DB\bin\Debug\BouncyCastle.Crypto.dll" KeyPath="yes" />
+        <File Id="BouncyCastle.Crypto.dll" Name="BouncyCastle.Crypto.dll" Source="$(var.BinDir)\BouncyCastle.Crypto.dll" KeyPath="yes" />
       </Component>
 
       <Component Id="CompDALDll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="DAL_23DB.dll" Name="DAL_23DB.dll" Source="GUI_23DB\bin\Debug\DAL_23DB.dll" KeyPath="yes" />
+        <File Id="DAL_23DB.dll" Name="DAL_23DB.dll" Source="$(var.BinDir)\DAL_23DB.dll" KeyPath="yes" />
       </Component>
 
-      <Component Id="CompDALPdb" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="DAL_23DB.pdb" Name="DAL_23DB.pdb" Source="GUI_23DB\bin\Debug\DAL_23DB.pdb" KeyPath="yes" />
+      <!-- Mappers de vuelos y mantenimiento: BLL_23DB depende de esta DLL -->
+      <Component Id="CompMapperDll" Directory="INSTALLFOLDER" Guid="*">
+        <File Id="Mapper_23DB.dll" Name="Mapper_23DB.dll" Source="$(var.BinDir)\Mapper_23DB.dll" KeyPath="yes" />
       </Component>
-
-      <!-- Mapper_23DB.dll y su .pdb se quitaron del paquete: tras mover los
-           mappers de servicios a Services_23DB, el proyecto Mapper_23DB quedo
-           sin clases y GUI_23DB ya no lo arrastra a su carpeta de salida.
-           Volver a agregarlos cuando se pueble con los mappers de vuelos y
-           mantenimiento. -->
 
       <Component Id="CompItextsharpDll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="itextsharp.dll" Name="itextsharp.dll" Source="GUI_23DB\bin\Debug\itextsharp.dll" KeyPath="yes" />
-      </Component>
-
-      <Component Id="CompItextsharpXml" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="itextsharp.xml" Name="itextsharp.xml" Source="GUI_23DB\bin\Debug\itextsharp.xml" KeyPath="yes" />
+        <File Id="itextsharp.dll" Name="itextsharp.dll" Source="$(var.BinDir)\itextsharp.dll" KeyPath="yes" />
       </Component>
 
       <Component Id="CompNewtonsoftDll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="GUI_23DB\bin\Debug\Newtonsoft.Json.dll" KeyPath="yes" />
-      </Component>
-
-      <Component Id="CompNewtonsoftXml" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Newtonsoft.Json.xml" Name="Newtonsoft.Json.xml" Source="GUI_23DB\bin\Debug\Newtonsoft.Json.xml" KeyPath="yes" />
+        <File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="$(var.BinDir)\Newtonsoft.Json.dll" KeyPath="yes" />
       </Component>
 
       <Component Id="CompServicesDll" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Services_23DB.dll" Name="Services_23DB.dll" Source="GUI_23DB\bin\Debug\Services_23DB.dll" KeyPath="yes" />
-      </Component>
-
-      <Component Id="CompServicesPdb" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="Services_23DB.pdb" Name="Services_23DB.pdb" Source="GUI_23DB\bin\Debug\Services_23DB.pdb" KeyPath="yes" />
+        <File Id="Services_23DB.dll" Name="Services_23DB.dll" Source="$(var.BinDir)\Services_23DB.dll" KeyPath="yes" />
       </Component>
 
       <!-- Script SQL, se copia junto al resto para poder ejecutarlo con sqlcmd -->
       <Component Id="CompSqlScript" Directory="INSTALLFOLDER" Guid="*">
-        <File Id="INGSW_23DB_Setup.sql" Name="INGSW_23DB_Setup.sql" Source="INGSW_23DB_Setup.sql" KeyPath="yes" />
+        <File Id="TD_62FD.sql" Name="TD_62FD.sql" Source="TD_62FD.sql" KeyPath="yes" />
       </Component>
 
       <!-- Carpeta Idiomas con los tres JSON -->
       <Component Id="CompIdiomaEspanol" Directory="IDIOMASFOLDER" Guid="*">
-        <File Id="Idioma_espanol_json" Name="español.json" Source="GUI_23DB\bin\Debug\Idiomas\español.json" KeyPath="yes" />
+        <File Id="Idioma_espanol_json" Name="español.json" Source="$(var.BinDir)\Idiomas\español.json" KeyPath="yes" />
       </Component>
 
       <Component Id="CompIdiomaIngles" Directory="IDIOMASFOLDER" Guid="*">
-        <File Id="Idioma_ingles_json" Name="ingles.json" Source="GUI_23DB\bin\Debug\Idiomas\ingles.json" KeyPath="yes" />
+        <File Id="Idioma_ingles_json" Name="ingles.json" Source="$(var.BinDir)\Idiomas\ingles.json" KeyPath="yes" />
       </Component>
 
       <Component Id="CompIdiomaPortugues" Directory="IDIOMASFOLDER" Guid="*">
-        <File Id="Idioma_portugues_json" Name="portugues.json" Source="GUI_23DB\bin\Debug\Idiomas\portugues.json" KeyPath="yes" />
+        <File Id="Idioma_portugues_json" Name="portugues.json" Source="$(var.BinDir)\Idiomas\portugues.json" KeyPath="yes" />
       </Component>
 
     </ComponentGroup>
@@ -146,22 +147,22 @@
 
       <Component Id="DesktopShortcutComponent" Directory="DesktopFolder" Guid="*">
         <Shortcut Id="DesktopShortcut"
-                  Name="AeroManager Pro"
-                  Description="Iniciar AeroManager Pro"
+                  Name="AeroManager"
+                  Description="Iniciar AeroManager"
                   Target="[#GUI_23DB.exe]"
                   WorkingDirectory="INSTALLFOLDER" />
         <RemoveFolder Id="RemoveDesktopFolder" Directory="DesktopFolder" On="uninstall" />
-        <RegistryValue Root="HKCU" Key="Software\UAI\AeroManagerPro" Name="DesktopShortcut" Type="integer" Value="1" KeyPath="yes" />
+        <RegistryValue Root="HKCU" Key="Software\UAI\AeroManager" Name="DesktopShortcut" Type="integer" Value="1" KeyPath="yes" />
       </Component>
 
       <Component Id="StartMenuShortcutComponent" Directory="ApplicationProgramsFolder" Guid="*">
         <Shortcut Id="StartMenuShortcut"
-                  Name="AeroManager Pro"
-                  Description="Iniciar AeroManager Pro"
+                  Name="AeroManager"
+                  Description="Iniciar AeroManager"
                   Target="[#GUI_23DB.exe]"
                   WorkingDirectory="INSTALLFOLDER" />
         <RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
-        <RegistryValue Root="HKCU" Key="Software\UAI\AeroManagerPro" Name="StartMenuShortcut" Type="integer" Value="1" KeyPath="yes" />
+        <RegistryValue Root="HKCU" Key="Software\UAI\AeroManager" Name="StartMenuShortcut" Type="integer" Value="1" KeyPath="yes" />
       </Component>
 
     </ComponentGroup>
@@ -189,63 +190,51 @@
 
     </ComponentGroup>
 
-    <Feature Id="MainFeature" Title="AeroManager Pro" Level="1">
+    <Feature Id="MainFeature" Title="AeroManager" Level="1">
       <ComponentGroupRef Id="ProductComponents" />
       <ComponentGroupRef Id="ShortcutComponents" />
       <ComponentGroupRef Id="RegistryComponents" />
+      <ComponentGroupRef Id="AyudaComponents" />
     </Feature>
+
+    <!-- ==================== Validación del servidor SQL ==================== -->
+    <!--
+      ValidarServidorSql busca sqlcmd y prueba la conexión con seguridad integrada. Corre al
+      presionar Siguiente en SqlServerDlg, antes de copiar nada, y otra vez al comienzo de la
+      ejecución para cubrir la instalación silenciosa, que no pasa por el asistente. Si algo
+      falla deja el motivo en SQLCHECK_MSG y SQLCHECK_OK vacío.
+    -->
+    <CustomAction Id="ValidarServidorSql"
+                  BinaryKey="InstaladorCA"
+                  DllEntry="ValidarServidorSql"
+                  Execute="immediate"
+                  Return="check" />
+
+    <CustomAction Id="CancelarSinSql" Error="[SQLCHECK_MSG]" />
 
     <!-- ==================== Ejecución del script SQL con sqlcmd ==================== -->
     <!--
-      Patrón CustomActionData para CustomAction diferidas:
-      Una CustomAction diferida corre en un contexto restringido (puede ser fuera de
-      proceso/elevado) donde NO hay acceso de lectura al Property table de la sesión;
-      solo puede leer la property especial "CustomActionData". La forma estándar de
-      pasarle datos es declarar una CustomAction INMEDIATA (Set*) cuyo atributo
-      Property tiene un nombre propio (aquí *Cmd) con el valor ya resueto usando
-      [SQLSERVERNAME]/[INSTALLFOLDER] (esa resolución sí puede leer properties porque
-      corre en modo inmediato, antes del límite de elevación), y luego la CustomAction
-      diferida referencia ese valor mediante ExeCommand="[NombreDePropiedad]". Así el
-      comando completo de sqlcmd ya viaja armado dentro de esa property/CustomActionData
-      cuando la acción diferida se ejecuta.
-      SQLSERVERNAME se carga desde el diálogo SqlServerDlg (ver <UI> más abajo) y está
-      declarada con Secure="yes" para que cruce el límite de elevación UAC entre el
-      InstallUISequence (donde corre el diálogo) y el InstallExecuteSequence (donde
-      corren las Set* y las CustomAction diferidas).
+      Patrón para CustomAction diferidas: la acción inmediata SetRunSqlScript arma el comando
+      con las propiedades ya resueltas, y la diferida lo toma con ExeCommand="[RunSqlScriptCmd]".
 
-      Impersonate="yes" en ambas CustomAction diferidas: corren con el token del
-      usuario que ejecuta la instalación (no LocalSystem), para que sqlcmd se
-      autentique contra SQL Server con esas credenciales/permisos (necesario si el
-      login de Windows del usuario es el que tiene permisos para crear la base).
+      Impersonate="yes": corre con el usuario que instala, no con LocalSystem, porque sqlcmd
+      se autentica con seguridad integrada y ese usuario es el que tiene permiso para crear
+      la base.
 
-      TestSqlConnection corre "SELECT 1" antes de aplicar el script, para aislar si
-      un fallo es de conectividad/login al servidor o del contenido del script; queda
-      con Return="ignore" porque es solo un chequeo diagnóstico y no debe abortar la
-      instalación por sí solo. RunSqlScript usa Return="check": si sqlcmd devuelve un
-      código de salida distinto de 0 al aplicar INGSW_23DB_Setup.sql, la instalación
-      falla y hace rollback.
+      Parámetros de sqlcmd:
+        -E  seguridad integrada.
+        -C  confía en el certificado del servidor: la versión 18 cifra por defecto y falla
+            con certificados autofirmados. Las versiones anteriores también lo aceptan.
+        -I  QUOTED_IDENTIFIER en ON, que sqlcmd deja en OFF por defecto.
+        -b  devuelve error si falla un lote: Return="check" cancela la instalación.
+        -o  el registro va a la carpeta temporal del usuario, no a Program Files.
 
-      Se envuelve con cmd.exe /c para redirigir stdout+stderr (2>&1) de sqlcmd a un
-      archivo .log, ya que sqlcmd -o no siempre captura los errores de login. Patrón
-      probado: cmd /c ""exe" args > "log" 2>&1" (una sola capa de comillas por
-      token, sin doblar) evita el problema de parseo de cmd cuando tanto la ruta de
-      sqlcmd como INSTALLFOLDER tienen espacios.
+      Condición NOT Installed: también corre al actualizar desde una versión anterior, y eso
+      es correcto porque TD_62FD.sql se puede ejecutar varias veces sin pisar los datos.
     -->
-    <CustomAction Id="SetTestSqlConnection"
-                  Property="TestSqlConnectionCmd"
-                  Value="cmd.exe /c &quot;&quot;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\SQLCMD.EXE&quot; -S &quot;[SQLSERVERNAME]&quot; -Q &quot;SELECT 1&quot; -o &quot;[INSTALLFOLDER]sqlcmd_test.log&quot; 2&gt;&amp;1&quot;"
-                  Execute="immediate" />
-
-    <CustomAction Id="TestSqlConnection"
-                  Directory="INSTALLFOLDER"
-                  ExeCommand="[TestSqlConnectionCmd]"
-                  Execute="deferred"
-                  Return="ignore"
-                  Impersonate="yes" />
-
     <CustomAction Id="SetRunSqlScript"
                   Property="RunSqlScriptCmd"
-                  Value="cmd.exe /c &quot;&quot;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\SQLCMD.EXE&quot; -S &quot;[SQLSERVERNAME]&quot; -i &quot;[INSTALLFOLDER]INGSW_23DB_Setup.sql&quot; -o &quot;[INSTALLFOLDER]sqlcmd_install.log&quot; -b 2&gt;&amp;1&quot;"
+                  Value="cmd.exe /c &quot;&quot;[SQLCMDEXE]&quot; -S &quot;[SQLSERVERNAME]&quot; -E -C -I -b -i &quot;[#TD_62FD.sql]&quot; -o &quot;[SQLLOGDIR]AeroManager_sqlcmd_install.log&quot; 2&gt;&amp;1&quot;"
                   Execute="immediate" />
 
     <CustomAction Id="RunSqlScript"
@@ -256,9 +245,9 @@
                   Impersonate="yes" />
 
     <InstallExecuteSequence>
-      <Custom Action="SetTestSqlConnection" After="InstallFiles">NOT Installed</Custom>
-      <Custom Action="TestSqlConnection" After="SetTestSqlConnection">NOT Installed</Custom>
-      <Custom Action="SetRunSqlScript" After="TestSqlConnection">NOT Installed</Custom>
+      <Custom Action="ValidarServidorSql" Before="InstallInitialize">NOT Installed AND NOT REMOVE</Custom>
+      <Custom Action="CancelarSinSql" After="ValidarServidorSql"><![CDATA[NOT Installed AND NOT REMOVE AND SQLCHECK_OK<>"1"]]></Custom>
+      <Custom Action="SetRunSqlScript" After="InstallFiles">NOT Installed</Custom>
       <Custom Action="RunSqlScript" After="SetRunSqlScript">NOT Installed</Custom>
     </InstallExecuteSequence>
 
@@ -287,9 +276,21 @@
         <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="Siguiente &gt;">
           <Condition Action="disable"><![CDATA[SQLSERVERNAME=""]]></Condition>
           <Condition Action="enable"><![CDATA[SQLSERVERNAME<>""]]></Condition>
+          <Publish Event="DoAction" Value="ValidarServidorSql" Order="1">1</Publish>
+          <Publish Event="SpawnDialog" Value="SqlErrorDlg" Order="2"><![CDATA[SQLCHECK_OK<>"1"]]></Publish>
+          <Publish Event="NewDialog" Value="VerifyReadyDlg" Order="3"><![CDATA[SQLCHECK_OK="1"]]></Publish>
         </Control>
         <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="Cancelar">
           <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+        </Control>
+      </Dialog>
+
+      <!-- Muestra por qué no se puede avanzar: sqlcmd ausente o instancia que no responde -->
+      <Dialog Id="SqlErrorDlg" Width="300" Height="150" Title="[ProductName] Setup" NoMinimize="yes">
+        <Control Id="Mensaje" Type="Text" X="15" Y="15" Width="270" Height="100" NoPrefix="yes"
+                  Text="[SQLCHECK_MSG]" />
+        <Control Id="Aceptar" Type="PushButton" X="122" Y="122" Width="56" Height="17" Default="yes" Cancel="yes" Text="Aceptar">
+          <Publish Event="EndDialog" Value="Return">1</Publish>
         </Control>
       </Dialog>
 
@@ -314,7 +315,6 @@
         <![CDATA[WIXUI_DONTVALIDATEPATH OR WIXUI_INSTALLDIR_VALID="1"]]>
       </Publish>
       <Publish Dialog="SqlServerDlg" Control="Back" Event="NewDialog" Value="InstallDirDlg">1</Publish>
-      <Publish Dialog="SqlServerDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
       <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="SqlServerDlg" Order="2">1</Publish>
     </UI>
 

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Instalador de AeroManager. Compila contra GUI_23DB\bin\Release, así que hay que compilar
+  antes la solución en Release. Desde la consola:
+    MSBuild Services_SetUp.wixproj /p:Configuration=Release
+  El .msi queda en Instalador\bin.
+-->
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.14</ProductVersion>
+    <ProjectGuid>{A1D5E0C4-2B7F-4E0A-8C55-6D2E9F13B7A2}</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>AeroManager_Setup</OutputName>
+    <OutputType>Package</OutputType>
+    <OutputPath>Instalador\bin\</OutputPath>
+    <IntermediateOutputPath>Instalador\obj\</IntermediateOutputPath>
+    <WixToolPath>$(MSBuildProgramFiles32)\WiX Toolset v3.14\bin\</WixToolPath>
+    <WixTasksPath>$(WixToolPath)WixTasks.dll</WixTasksPath>
+    <WixExtDir>$(WixToolPath)</WixExtDir>
+    <WixTargetsPath>$(MSBuildProgramFiles32)\MSBuild\Microsoft\WiX\v3.x\wix.targets</WixTargetsPath>
+    <BinDir>GUI_23DB\bin\Release</BinDir>
+    <CaDll>Instalador\InstaladorCA\bin\Release\InstaladorCA.CA.dll</CaDll>
+    <DefineConstants>BinDir=$(BinDir);CaDll=$(CaDll);AyudaDir=$(BinDir)\Ayuda</DefineConstants>
+    <HarvestDirectorySuppressUniqueIds>false</HarvestDirectorySuppressUniqueIds>
+    <SuppressIces>ICE69</SuppressIces>
+    <DefineSolutionProperties>false</DefineSolutionProperties>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Services_SetUp.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Ayuda se genera con heat en cada compilación: un tema nuevo entra solo al paquete -->
+    <HarvestDirectory Include="$(BinDir)\Ayuda">
+      <ComponentGroupName>AyudaComponents</ComponentGroupName>
+      <DirectoryRefId>AYUDAFOLDER</DirectoryRefId>
+      <PreprocessorVariable>var.AyudaDir</PreprocessorVariable>
+      <SuppressRootDirectory>true</SuppressRootDirectory>
+      <SuppressCom>true</SuppressCom>
+      <SuppressRegistry>true</SuppressRegistry>
+      <AutogenerateGuids>true</AutogenerateGuids>
+    </HarvestDirectory>
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixToolPath)WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+    <!-- NETFRAMEWORK45: condición de inicio que exige .NET Framework 4.7.2 -->
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixToolPath)WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Instalador\InstaladorCA\InstaladorCA.csproj">
+      <Name>InstaladorCA</Name>
+      <Project>{3F0C7E52-6C0B-4B57-9B7E-0E5B2C4A7D11}</Project>
+      <DoNotHarvest>True</DoNotHarvest>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" />
+</Project>

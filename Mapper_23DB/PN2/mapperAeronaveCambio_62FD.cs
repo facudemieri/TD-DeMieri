@@ -77,10 +77,13 @@ namespace Mapper_23DB.PN2
 
         public int Activar_62FD(string matricula_62FD, DateTime fechaHoraCambio_62FD)
         {
+            SqlParameter paramFecha_62FD = new SqlParameter("@FechaHoraCambio", SqlDbType.DateTime2);
+            paramFecha_62FD.Scale = 3;
+            paramFecha_62FD.Value = fechaHoraCambio_62FD;
+
             SqlParameter[] parametros_62FD = new SqlParameter[]
             {
-                new SqlParameter("@Matricula", matricula_62FD),
-                new SqlParameter("@FechaHoraCambio", fechaHoraCambio_62FD)
+                new SqlParameter("@Matricula", matricula_62FD), paramFecha_62FD
             };
 
             return acceso_23DB.Escribir_23DB("ActivarCambioAeronave_62FD", parametros_62FD);

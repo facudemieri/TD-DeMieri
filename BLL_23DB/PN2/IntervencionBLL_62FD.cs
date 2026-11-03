@@ -18,16 +18,16 @@ namespace BLL_23DB
         DVBLL_23DB dvBLL_23DB = new DVBLL_23DB();
         EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
 
-        // Detalle del último registro en bitácora que falló: lo necesita el aviso de la pantalla
+        // Detalle del ultimo registro en bitacora que fallo
         public string ErrorBitacora_62FD { get; private set; }
 
-        // Códigos de resultado de IniciarIntervencion_62FD
+        // Codigos de resultado de IniciarIntervencion_62FD
         public const int IntervencionIniciada_62FD = 1;
         public const int IntervencionRetomada_62FD = 2;
         public const int DatoModificado_62FD = -1;
         public const int AeronaveNoActualizada_62FD = -2;
 
-        // Códigos de resultado de CerrarIntervencion_62FD (DatoModificado_62FD también aplica)
+        // Codigos de resultado de CerrarIntervencion_62FD 
         public const int IntervencionCerrada_62FD = 1;
         public const int SinTareas_62FD = -3;
         public const int TareasPendientes_62FD = -4;
@@ -54,8 +54,7 @@ namespace BLL_23DB
             return mapperIntervencion_62FD.ObtenerEnCursoPorOrden_62FD(idOrden_62FD);
         }
 
-        // Devuelve un código de resultado; con IntervencionIniciada_62FD, IntervencionRetomada_62FD
-        // y AeronaveNoActualizada_62FD la intervención queda cargada en intervencion_62FD.
+
         public int IniciarIntervencion_62FD(int idOrden_62FD, out Intervencion_62FD intervencion_62FD)
         {
             intervencion_62FD = mapperIntervencion_62FD.ObtenerEnCursoPorOrden_62FD(idOrden_62FD);

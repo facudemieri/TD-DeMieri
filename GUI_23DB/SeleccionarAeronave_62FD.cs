@@ -190,7 +190,6 @@ namespace GUI_23DB
             Traductor_23DB.TraducirGrilla_23DB(dataGridView1, "SeleccionarAeronave");
             LimpiarSeleccionGrilla_62FD(dataGridView1);
 
-            // El glifo se pierde al reenlazar, por eso se pone después
             dataGridView1.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = ordenAscendente_62FD ? SortOrder.Ascending : SortOrder.Descending;
         }
 
@@ -198,9 +197,7 @@ namespace GUI_23DB
         {
             System.Reflection.PropertyInfo prop_62FD = typeof(T).GetProperty(propiedad_62FD);
             if (prop_62FD == null) return lista_62FD;
-            return ascendente_62FD
-                ? lista_62FD.OrderBy(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList()
-                : lista_62FD.OrderByDescending(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList();
+            return ascendente_62FD ? lista_62FD.OrderBy(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList() : lista_62FD.OrderByDescending(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList();
         }
 
         private void ConfigurarGrilla_62FD(DataGridView grilla_62FD)
@@ -260,11 +257,8 @@ namespace GUI_23DB
             DataGridView grilla_62FD = (DataGridView)sender;
             if (grilla_62FD.Rows.Count > 0) return;
 
-            Rectangle area_62FD = new Rectangle(0, grilla_62FD.ColumnHeadersHeight,
-                grilla_62FD.ClientSize.Width, grilla_62FD.ClientSize.Height - grilla_62FD.ColumnHeadersHeight);
-            TextRenderer.DrawText(e.Graphics, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_GrillaSinDatos"),
-                grilla_62FD.Font, area_62FD, Color.Gray,
-                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
+            Rectangle area_62FD = new Rectangle(0, grilla_62FD.ColumnHeadersHeight, grilla_62FD.ClientSize.Width, grilla_62FD.ClientSize.Height - grilla_62FD.ColumnHeadersHeight);
+            TextRenderer.DrawText(e.Graphics, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_GrillaSinDatos"), grilla_62FD.Font, area_62FD, Color.Gray, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
         }
 
         private void ActualizarBarraEstado_62FD(string claveModo_62FD)

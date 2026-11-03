@@ -18,7 +18,7 @@ namespace Services_23DB
 
         public string GenerarBackup_23DB(string rutaDestino_23DB, out bool bitacoraRegistrada_62FD)
         {
-            string nombreArchivo_23DB = $"INGSW_23DB_{DateTime.Now:yyyyMMdd_HHmmss}.bak";
+            string nombreArchivo_23DB = $"TD_62FD_{DateTime.Now:yyyyMMdd_HHmmss}.bak";
             string rutaCompleta_23DB = Path.Combine(rutaDestino_23DB, nombreArchivo_23DB);
             mapperRespaldo_23DB.GenerarBackup_23DB(rutaCompleta_23DB);
 
@@ -49,11 +49,10 @@ namespace Services_23DB
 
         private bool RegistrarEventoBitacora_62FD(string dniOperador_62FD, string evento_62FD, int criticidad_62FD)
         {
-            // Sin DNI no se intenta el insert: la clave foránea de Eventos_23DB hacia Usuario_23DB lo rechazaría
-            if(string.IsNullOrEmpty(dniOperador_62FD))
+            if (string.IsNullOrEmpty(dniOperador_62FD))
             {
-                ErrorBitacora_62FD = "No se pudo identificar al usuario que realizó la operación.";
-                return false;
+                ErrorBitacora_62FD = null;
+                return true;
             }
 
             try
@@ -62,7 +61,7 @@ namespace Services_23DB
                 ErrorBitacora_62FD = null;
                 return true;
             }
-            catch(Exception ex_62FD)
+            catch (Exception ex_62FD)
             {
                 ErrorBitacora_62FD = ex_62FD.Message;
                 return false;

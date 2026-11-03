@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3F0C7E52-6C0B-4B57-9B7E-0E5B2C4A7D11}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>InstaladorCA</RootNamespace>
+    <AssemblyName>InstaladorCA</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <WixRaiz>$(MSBuildProgramFiles32)\WiX Toolset v3.14\</WixRaiz>
+    <WixCATargetsPath>$(MSBuildProgramFiles32)\MSBuild\Microsoft\WiX\v3.x\wix.ca.targets</WixCATargetsPath>
+    <WixSdkPath>$(WixRaiz)SDK\</WixSdkPath>
+    <WixToolPath>$(WixRaiz)bin\</WixToolPath>
+    <WixCATargetsImported>false</WixCATargetsImported>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Deployment.WindowsInstaller">
+      <HintPath>$(WixRaiz)SDK\Microsoft.Deployment.WindowsInstaller.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccionesSql.cs" />
+    <Content Include="CustomAction.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(WixCATargetsPath)" />
+</Project>

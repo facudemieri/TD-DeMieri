@@ -15,7 +15,7 @@ namespace BLL_23DB.PN2
         DVBLL_23DB dvBLL_23DB = new DVBLL_23DB();
         EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
 
-        // Detalle del último registro en bitácora que falló: lo necesita el aviso de la pantalla
+        // Detalle del ultimo registro en bitacora que fallo
         public string ErrorBitacora_62FD { get; private set; }
 
         public List<AeronaveCambio_62FD> ObtenerCambios_62FD(string matricula_62FD, string modelo_62FD, DateTime? fechaDesde_62FD, DateTime? fechaHasta_62FD)
@@ -42,8 +42,15 @@ namespace BLL_23DB.PN2
                 return false;
             }
 
-            dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD");
-            dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD_C");
+            try
+            {
+                dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD");
+                dvBLL_23DB.RecalcularDVTabla_23DB("Aeronave_62FD_C");
+            }
+            catch (Exception ex_62FD)
+            {
+                System.Diagnostics.Debug.WriteLine(ex_62FD);
+            }
 
             bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD("Activar Cambio Aeronave");
 

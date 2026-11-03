@@ -16,7 +16,7 @@ namespace BLL_23DB
         DVBLL_23DB dvBLL_23DB = new DVBLL_23DB();
         EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
 
-        // Detalle del último registro en bitácora que falló: lo necesita el aviso de la pantalla
+        // Detalle del ultimo registro en bitacora que fallo
         public string ErrorBitacora_62FD { get; private set; }
 
         public List<Aeronave_62FD> ObtenerAeronaves_62FD(string matricula_62FD, string modelo_62FD, string fabricante_62FD, string estadoOperativo_62FD, bool soloRevisionVencida_62FD)

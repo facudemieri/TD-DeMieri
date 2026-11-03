@@ -35,17 +35,14 @@ namespace GUI_23DB
             Ayuda_62FD.Vincular_23DB(this, "gestion-usuarios");
 
             ConfigurarGrilla_62FD(dataGridUsuarios);
-            // Once columnas visibles: en Fill quedan ilegibles, cada una toma el ancho de su contenido con barra horizontal
             dataGridUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridUsuarios.ScrollBars = ScrollBars.Both;
             dataGridUsuarios.Paint += Grilla_Paint_62FD;
             dataGridUsuarios.ColumnHeaderMouseClick += dataGridUsuarios_ColumnHeaderMouseClick;
             this.Shown += (s_62FD, e_62FD) => LimpiarSeleccionGrilla_62FD(dataGridUsuarios);
 
-            // El rol se elige de la lista: con texto libre SelectedValue quedaba en null y el casteo a int fallaba
             cmbRol.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            // Largos iguales a las columnas de Usuario_23DB y a los parámetros de Insertar / Modificar
             txtDni.MaxLength = 8;
             txtApellido.MaxLength = 50;
             txtNombre.MaxLength = 50;
@@ -53,8 +50,7 @@ namespace GUI_23DB
             txtLogin.MaxLength = 20;
         }
 
-        // Avisos al usuario con el mismo criterio de íconos y títulos que el resto del sistema:
-        // información para indicaciones, advertencia para datos incompletos o inválidos, éxito para operaciones terminadas.
+
         private void MostrarInformacion_23DB(string clave_23DB)
         {
             MessageBox.Show(IdiomaBLL_23DB.ObtenerTexto_23DB(clave_23DB), IdiomaBLL_23DB.ObtenerTexto_23DB("Titulo_Informacion"), MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -183,7 +179,6 @@ namespace GUI_23DB
             MostrarTextos_23DB();
         }
 
-        // Las columnas son autogeneradas y se recrean en cada enlace: traducción, columna oculta, formatos y modo de orden se aplican cada vez
         private void EnlazarGrilla_23DB(List<Usuario_23DB> lista_23DB)
         {
             listaUsuarios_23DB = lista_23DB;
@@ -239,7 +234,6 @@ namespace GUI_23DB
             columnaOrden_23DB = propiedad_23DB;
             ordenAscendente_23DB = ascendente_23DB;
 
-            // Las columnas se recrearon al reenlazar: el glifo se pone sobre la columna nueva
             dataGridUsuarios.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = ascendente_23DB ? SortOrder.Ascending : SortOrder.Descending;
         }
 
@@ -309,11 +303,8 @@ namespace GUI_23DB
             DataGridView grilla_62FD = (DataGridView)sender;
             if (grilla_62FD.Rows.Count > 0) return;
 
-            Rectangle area_62FD = new Rectangle(0, grilla_62FD.ColumnHeadersHeight,
-                grilla_62FD.ClientSize.Width, grilla_62FD.ClientSize.Height - grilla_62FD.ColumnHeadersHeight);
-            TextRenderer.DrawText(e.Graphics, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_GrillaSinDatos"),
-                grilla_62FD.Font, area_62FD, Color.Gray,
-                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
+            Rectangle area_62FD = new Rectangle(0, grilla_62FD.ColumnHeadersHeight, grilla_62FD.ClientSize.Width, grilla_62FD.ClientSize.Height - grilla_62FD.ColumnHeadersHeight);
+            TextRenderer.DrawText(e.Graphics, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_GrillaSinDatos"), grilla_62FD.Font, area_62FD, Color.Gray, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
         }
 
         private void CargarRoles_23DB()
@@ -536,7 +527,6 @@ namespace GUI_23DB
             MostrarTextos_23DB();
         }
 
-        // La etiqueta Mensaje queda solo para el modo de la pantalla; los avisos van por MessageBox
         private void MostrarMensaje_23DB(string claveMensaje_23DB)
         {
             this.claveMensaje_23DB = claveMensaje_23DB;
@@ -568,6 +558,31 @@ namespace GUI_23DB
             {
                 IdiomaBLL_23DB idiomaBLL_23DB = new IdiomaBLL_23DB();
                 ActualizarIdioma_23DB(idiomaBLL_23DB.CargarConfiguracion_23DB(idiomaActual_23DB));
+            }
+        }
+
+        private void dataGridUsuarios_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.Value == null)
+            {
+                return;
+            }
+
+            DataGridView grilla_62FD = (DataGridView)sender;
+            string columna_62FD = grilla_62FD.Columns[e.ColumnIndex].Name;
+
+            if (columna_62FD != "Bloqueado_23DB" && columna_62FD != "Activo_23DB")
+            {
+                return;
+            }
+
+            bool valor_62FD;
+
+            if (bool.TryParse(e.Value.ToString(), out valor_62FD))
+            {
+                e.Value = valor_62FD ? IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_Si") : IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_No");
+
+                e.FormattingApplied = true;
             }
         }
     }

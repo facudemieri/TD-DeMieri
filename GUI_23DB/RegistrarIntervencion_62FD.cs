@@ -46,6 +46,12 @@ namespace GUI_23DB
             txtObservaciones.MaxLength = 500;
             txtObservaciones.AcceptsReturn = true;
 
+            dtpFechaInicio.Format = DateTimePickerFormat.Custom;
+            dtpFechaInicio.CustomFormat = "dd/MM/yyyy HH:mm";
+
+            dtpFechaFin.Format = DateTimePickerFormat.Custom;
+            dtpFechaFin.CustomFormat = "dd/MM/yyyy HH:mm";
+
             nudHorasInsumidas.DecimalPlaces = 2;
             nudHorasInsumidas.Increment = 0.25m;
             nudHorasInsumidas.Maximum = 999.99m;
@@ -228,7 +234,6 @@ namespace GUI_23DB
 
         private void btnAgregarTarea_Click(object sender, EventArgs e)
         {
-            // Evita que un doble clic cargue la tarea dos veces
             btnAgregarTarea.Enabled = false;
 
             try
@@ -268,7 +273,7 @@ namespace GUI_23DB
             }
             finally
             {
-                btnAgregarTarea.Enabled = true;
+                btnAgregarTarea.Enabled = tareaSeleccionada_62FD == null;
             }
         }
 
@@ -434,7 +439,6 @@ namespace GUI_23DB
             }
             finally
             {
-                // Solo queda habilitado si sigue habiendo una intervención en registro
                 btnAplicar.Enabled = intervencion_62FD != null;
             }
         }
@@ -473,7 +477,6 @@ namespace GUI_23DB
             btnCancelar.Enabled = false;
             dtpFechaFin.Enabled = false;
 
-            // Enter busca o inicia la intervención de la orden elegida
             this.AcceptButton = button1;
 
             ActualizarBarraEstado_62FD("Msg_NombreModoConsulta");
@@ -487,7 +490,6 @@ namespace GUI_23DB
             btnCancelar.Enabled = true;
             dtpFechaFin.Enabled = true;
 
-            // Mientras se cargan tareas, Enter agrega la tarea
             this.AcceptButton = btnAgregarTarea;
             this.ActiveControl = txtDescripcion;
 
@@ -506,7 +508,6 @@ namespace GUI_23DB
             Traductor_23DB.TraducirGrilla_23DB(dataGridView1, "RegistrarIntervencion");
             LimpiarSeleccionGrilla_62FD(dataGridView1);
 
-            // El glifo se pierde al reenlazar, por eso se pone después
             dataGridView1.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = ordenAscendente_62FD ? SortOrder.Ascending : SortOrder.Descending;
         }
 
@@ -514,9 +515,7 @@ namespace GUI_23DB
         {
             System.Reflection.PropertyInfo prop_62FD = typeof(T).GetProperty(propiedad_62FD);
             if (prop_62FD == null) return lista_62FD;
-            return ascendente_62FD
-                ? lista_62FD.OrderBy(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList()
-                : lista_62FD.OrderByDescending(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList();
+            return ascendente_62FD ? lista_62FD.OrderBy(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList() : lista_62FD.OrderByDescending(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList(); 
         }
 
         private void ConfigurarGrilla_62FD(DataGridView grilla_62FD)
@@ -576,11 +575,8 @@ namespace GUI_23DB
             DataGridView grilla_62FD = (DataGridView)sender;
             if (grilla_62FD.Rows.Count > 0) return;
 
-            Rectangle area_62FD = new Rectangle(0, grilla_62FD.ColumnHeadersHeight,
-                grilla_62FD.ClientSize.Width, grilla_62FD.ClientSize.Height - grilla_62FD.ColumnHeadersHeight);
-            TextRenderer.DrawText(e.Graphics, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_GrillaSinDatos"),
-                grilla_62FD.Font, area_62FD, Color.Gray,
-                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
+            Rectangle area_62FD = new Rectangle(0, grilla_62FD.ColumnHeadersHeight, grilla_62FD.ClientSize.Width, grilla_62FD.ClientSize.Height - grilla_62FD.ColumnHeadersHeight);
+            TextRenderer.DrawText(e.Graphics, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_GrillaSinDatos"), grilla_62FD.Font, area_62FD, Color.Gray, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
         }
 
         private void ActualizarBarraEstado_62FD(string claveModo_62FD)
@@ -611,6 +607,8 @@ namespace GUI_23DB
             {
                 tareaSeleccionada_62FD = null;
                 btnModificarTarea.Enabled = false;
+                LimpiarCamposTarea_62FD();
+                btnAgregarTarea.Enabled = true;
                 return;
             }
 
@@ -630,6 +628,7 @@ namespace GUI_23DB
             }
 
             btnModificarTarea.Enabled = true;
+            btnAgregarTarea.Enabled = false;
         }
 
         private void btnModificarTarea_Click(object sender, EventArgs e)
@@ -680,6 +679,31 @@ namespace GUI_23DB
             finally
             {
                 btnModificarTarea.Enabled = tareaSeleccionada_62FD != null;
+            }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        private void LimpiarCamposTarea_62FD()
+        {
+            txtDescripcion.Clear();
+            cmbResultadoObtenido.SelectedIndex = -1;
+            txtObservaciones.Clear();
+            nudHorasInsumidas.Value = nudHorasInsumidas.Minimum;
+        }
+
+        private void btnLimpiarTarea_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
+            {
+
+                dataGridView1.ClearSelection();
+            }
+            else
+            {
+                LimpiarCamposTarea_62FD();
             }
         }
     }

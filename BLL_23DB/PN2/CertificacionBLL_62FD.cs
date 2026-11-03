@@ -17,10 +17,10 @@ namespace BLL_23DB
         DVBLL_23DB dvBLL_23DB = new DVBLL_23DB();
         EventoBLL_23DB eventoBLL_23DB = new EventoBLL_23DB();
 
-        // Detalle del último registro en bitácora que falló: lo necesita el aviso de la pantalla
+        // Detalle del ultimo registro en bitacora que fallo
         public string ErrorBitacora_62FD { get; private set; }
 
-        // Códigos de resultado de CertificarIntervencion_62FD
+        // Códigos de resultado de CertificarIntervencion
         public const int YaCertificada_62FD = 0;
         public const int DatoModificado_62FD = -1;
         public const int AeronaveNoActualizada_62FD = -2;
@@ -31,8 +31,6 @@ namespace BLL_23DB
             return mapperCertificacion_62FD.ObtenerPendientes_62FD();
         }
 
-        // Devuelve el nro de intervención si todo salió bien, o uno de los códigos de arriba.
-        // Con AeronaveNoActualizada_62FD la certificación SÍ quedó registrada.
         public int CertificarIntervencion_62FD(Certificacion_62FD certificacion_62FD, int idOrden_62FD, out bool bitacoraRegistrada_62FD)
         {
             bitacoraRegistrada_62FD = false;
@@ -42,7 +40,7 @@ namespace BLL_23DB
                 return YaCertificada_62FD;
             }
 
-            // Una sola lectura de la orden: sirve para la autocertificación, el tipo de intervención y la matrícula
+
             OrdenTrabajo_62FD orden_62FD = mapperOrdenTrabajo_62FD.ObtenerOrdenPorId_62FD(idOrden_62FD);
 
             if (orden_62FD == null)
@@ -76,7 +74,6 @@ namespace BLL_23DB
             }
             catch (Exception)
             {
-                // La certificación ya está grabada: se informa como aeronave no actualizada en lugar de como error total
                 bitacoraRegistrada_62FD = RegistrarEventoBitacora_62FD("Certificar Intervención", 3);
                 return AeronaveNoActualizada_62FD;
             }

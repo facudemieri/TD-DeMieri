@@ -1,4 +1,5 @@
 ﻿using BE_23DB;
+using Services_23DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +59,7 @@ namespace GUI_23DB
                     celdaMarca_62FD.VerticalAlignment = Element.ALIGN_MIDDLE;
                     banda_62FD.AddCell(celdaMarca_62FD);
 
-                    PdfPCell celdaTipo_62FD = new PdfPCell(new Phrase("PASAJE AÉREO / BOARDING PASS", fuenteBanda_62FD));
+                    PdfPCell celdaTipo_62FD = new PdfPCell(new Phrase(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeTitulo"), fuenteBanda_62FD));
                     celdaTipo_62FD.BackgroundColor = azul_62FD;
                     celdaTipo_62FD.Border = iTextSharp.text.Rectangle.NO_BORDER;
                     celdaTipo_62FD.Padding = 14f;
@@ -75,7 +76,7 @@ namespace GUI_23DB
 
                     PdfPCell celdaVuelo_62FD = new PdfPCell();
                     celdaVuelo_62FD.Border = iTextSharp.text.Rectangle.NO_BORDER;
-                    celdaVuelo_62FD.AddElement(new Paragraph("VUELO", fuenteEtiqueta_62FD));
+                    celdaVuelo_62FD.AddElement(new Paragraph(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeVuelo"), fuenteEtiqueta_62FD));
                     celdaVuelo_62FD.AddElement(new Paragraph(reserva_62FD.NroVuelo_62FD, fuenteVuelo_62FD));
                     vuelo_62FD.AddCell(celdaVuelo_62FD);
 
@@ -96,7 +97,7 @@ namespace GUI_23DB
 
                     PdfPCell celdaRuta_62FD = new PdfPCell();
                     celdaRuta_62FD.Border = iTextSharp.text.Rectangle.NO_BORDER;
-                    celdaRuta_62FD.AddElement(new Paragraph("RUTA", fuenteEtiqueta_62FD));
+                    celdaRuta_62FD.AddElement(new Paragraph(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeRuta"), fuenteEtiqueta_62FD));
                     celdaRuta_62FD.AddElement(parrafoRuta_62FD);
                     vuelo_62FD.AddCell(celdaRuta_62FD);
 
@@ -104,9 +105,9 @@ namespace GUI_23DB
 
                     string[,] datosPasaje_62FD = new string[,]
                     {
-                        { "PASAJERO", detalleReserva_62FD.NombreCompleto_62FD, "DOCUMENTO", detalleReserva_62FD.NumeroDocumento_62FD },
-                        { "FECHA DE SALIDA", reserva_62FD.FechaHoraSalida_62FD.ToString("dd/MM/yyyy"), "HORA DE SALIDA", reserva_62FD.FechaHoraSalida_62FD.ToString("HH:mm") },
-                        { "ASIENTO", detalleReserva_62FD.NroAsiento_62FD, "CLASE", detalleReserva_62FD.Clase_62FD }
+                        { IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajePasajero"), detalleReserva_62FD.NombreCompleto_62FD, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeDocumento"), detalleReserva_62FD.NumeroDocumento_62FD },
+                        { IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeFechaSalida"), reserva_62FD.FechaHoraSalida_62FD.ToString("dd/MM/yyyy"), IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeHoraSalida"), reserva_62FD.FechaHoraSalida_62FD.ToString("HH:mm") },
+                        { IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeAsiento"), detalleReserva_62FD.NroAsiento_62FD, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeClase"), detalleReserva_62FD.Clase_62FD }
                     };
 
                     PdfPTable bloque_62FD = new PdfPTable(3);
@@ -147,7 +148,7 @@ namespace GUI_23DB
                     celdaCodigo_62FD.Padding = 10f;
                     celdaCodigo_62FD.PaddingBottom = 14f;
 
-                    Paragraph etiquetaCodigo_62FD = new Paragraph("CÓDIGO DE PASAJE", fuenteEtiqueta_62FD);
+                    Paragraph etiquetaCodigo_62FD = new Paragraph(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeCodigo"), fuenteEtiqueta_62FD);
                     etiquetaCodigo_62FD.Alignment = Element.ALIGN_CENTER;
                     celdaCodigo_62FD.AddElement(etiquetaCodigo_62FD);
                     Paragraph valorCodigo_62FD = new Paragraph(pasaje_62FD.CodPasaje_62FD, fuenteCodigo_62FD);
@@ -177,7 +178,7 @@ namespace GUI_23DB
                     cb_62FD.Stroke();
                     cb_62FD.RestoreState();
 
-                    ColumnText.ShowTextAligned(cb_62FD, Element.ALIGN_CENTER, new Phrase("Conserve este comprobante", fuenteChica_62FD), anchoPagina_62FD / 2f, yCorte_62FD - 14f, 0f);
+                    ColumnText.ShowTextAligned(cb_62FD, Element.ALIGN_CENTER, new Phrase(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeConserve"), fuenteChica_62FD), anchoPagina_62FD / 2f, yCorte_62FD - 14f, 0f);
                 }
 
                 // Documento 2: factura en A4 vertical, última página
@@ -211,9 +212,9 @@ namespace GUI_23DB
                 celdaComprobante_62FD.Border = iTextSharp.text.Rectangle.BOX;
                 celdaComprobante_62FD.BorderColor = azul_62FD;
                 celdaComprobante_62FD.Padding = 14f;
-                celdaComprobante_62FD.AddElement(new Paragraph("FACTURA", fuenteFactura_62FD));
-                celdaComprobante_62FD.AddElement(new Paragraph("N° " + factura_62FD.NroFactura_62FD, fuenteTextoNegrita_62FD));
-                celdaComprobante_62FD.AddElement(new Paragraph("Fecha de emisión: " + factura_62FD.FechaEmision_62FD.ToString("dd/MM/yyyy HH:mm"), fuenteTexto_62FD));
+                celdaComprobante_62FD.AddElement(new Paragraph(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeFactura"), fuenteFactura_62FD));
+                celdaComprobante_62FD.AddElement(new Paragraph(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeNroFactura"), factura_62FD.NroFactura_62FD), fuenteTextoNegrita_62FD));
+                celdaComprobante_62FD.AddElement(new Paragraph(string.Format(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeFechaEmision"), factura_62FD.FechaEmision_62FD.ToString("dd/MM/yyyy HH:mm")), fuenteTexto_62FD));
                 cabecera_62FD.AddCell(celdaComprobante_62FD);
 
                 doc_62FD.Add(cabecera_62FD);
@@ -223,7 +224,7 @@ namespace GUI_23DB
                 operacion_62FD.SpacingAfter = 16f;
 
                 Phrase fraseReserva_62FD = new Phrase();
-                fraseReserva_62FD.Add(new Chunk("Código de reserva: ", fuenteTextoNegrita_62FD));
+                fraseReserva_62FD.Add(new Chunk(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeCodigoReserva") + " ", fuenteTextoNegrita_62FD));
                 fraseReserva_62FD.Add(new Chunk(reserva_62FD.CodReserva_62FD, fuenteTabla_62FD));
                 PdfPCell celdaReserva_62FD = new PdfPCell(fraseReserva_62FD);
                 celdaReserva_62FD.Border = iTextSharp.text.Rectangle.BOTTOM_BORDER;
@@ -232,7 +233,7 @@ namespace GUI_23DB
                 operacion_62FD.AddCell(celdaReserva_62FD);
 
                 Phrase fraseMedioPago_62FD = new Phrase();
-                fraseMedioPago_62FD.Add(new Chunk("Medio de pago: ", fuenteTextoNegrita_62FD));
+                fraseMedioPago_62FD.Add(new Chunk(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeMedioPago") + " ", fuenteTextoNegrita_62FD));
                 fraseMedioPago_62FD.Add(new Chunk(medioPago_62FD, fuenteTabla_62FD));
                 PdfPCell celdaMedioPago_62FD = new PdfPCell(fraseMedioPago_62FD);
                 celdaMedioPago_62FD.Border = iTextSharp.text.Rectangle.BOTTOM_BORDER;
@@ -248,11 +249,11 @@ namespace GUI_23DB
                 detalle_62FD.SetWidths(new float[] { 32f, 22f, 12f, 14f, 20f });
                 detalle_62FD.HeaderRows = 1;
 
-                AgregarEncabezado_62FD(detalle_62FD, "Pasajero", azul_62FD, Element.ALIGN_LEFT);
-                AgregarEncabezado_62FD(detalle_62FD, "Código de Pasaje", azul_62FD, Element.ALIGN_LEFT);
-                AgregarEncabezado_62FD(detalle_62FD, "Asiento", azul_62FD, Element.ALIGN_LEFT);
-                AgregarEncabezado_62FD(detalle_62FD, "Clase", azul_62FD, Element.ALIGN_LEFT);
-                AgregarEncabezado_62FD(detalle_62FD, "Precio", azul_62FD, Element.ALIGN_RIGHT);
+                AgregarEncabezado_62FD(detalle_62FD, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeColPasajero"), azul_62FD, Element.ALIGN_LEFT);
+                AgregarEncabezado_62FD(detalle_62FD, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeColCodigo"), azul_62FD, Element.ALIGN_LEFT);
+                AgregarEncabezado_62FD(detalle_62FD, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeColAsiento"), azul_62FD, Element.ALIGN_LEFT);
+                AgregarEncabezado_62FD(detalle_62FD, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeColClase"), azul_62FD, Element.ALIGN_LEFT);
+                AgregarEncabezado_62FD(detalle_62FD, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeColPrecio"), azul_62FD, Element.ALIGN_RIGHT);
 
                 foreach (Pasaje_62FD pasaje_62FD in pasajes_62FD)
                 {
@@ -261,7 +262,7 @@ namespace GUI_23DB
                     AgregarFila_62FD(detalle_62FD, detalleReserva_62FD, pasaje_62FD.CodPasaje_62FD, fuenteTabla_62FD, grisBorde_62FD);
                 }
 
-                PdfPCell celdaTotalTexto_62FD = new PdfPCell(new Phrase("TOTAL", fuenteTotal_62FD));
+                PdfPCell celdaTotalTexto_62FD = new PdfPCell(new Phrase(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeTotal"), fuenteTotal_62FD));
                 celdaTotalTexto_62FD.Colspan = 4;
                 celdaTotalTexto_62FD.BackgroundColor = grisFondo_62FD;
                 celdaTotalTexto_62FD.Border = iTextSharp.text.Rectangle.NO_BORDER;
@@ -278,7 +279,7 @@ namespace GUI_23DB
 
                 doc_62FD.Add(detalle_62FD);
 
-                ColumnText.ShowTextAligned(cb_62FD, Element.ALIGN_CENTER, new Phrase("Documento no válido como comprobante fiscal - Sistema académico", fuenteChica_62FD), doc_62FD.PageSize.Width / 2f, 30f, 0f);
+                ColumnText.ShowTextAligned(cb_62FD, Element.ALIGN_CENTER, new Phrase(IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_PasajeNotaSistema"), fuenteChica_62FD), doc_62FD.PageSize.Width / 2f, 30f, 0f);
 
                 doc_62FD.Close();
             }

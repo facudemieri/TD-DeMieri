@@ -10,16 +10,7 @@ using DAL_23DB;
 namespace Services_23DB
 {
 
-    // El restore se conecta a master, no a INGSW_23DB, porque una base no
-    //   puede restaurarse a si misma mientras esta en uso. Acceso_23DB siempre
-    //   toma la cadena de Conexion_23DB.ObtenerCadena_23DB(), que apunta a
-    //   INGSW_23DB, asi que no sirve para este caso.
-    // Ambas necesitan CommandTimeout muy por encima de los 30 segundos por
-    //   defecto de SqlCommand, y Acceso_23DB no expone forma de configurarlo.
- 
-    // Por eso las dos mantienen SqlConnection / SqlCommand directo. El BACKUP
-    // igual pasa por el stored procedure GenerarBackup, para que la ruta viaje
-    // como parametro y no interpolada en el texto del comando.
+
     public class mapperRespaldo_23DB
     {
         private const int TimeoutBackupSegundos_23DB = 120;
@@ -40,22 +31,29 @@ namespace Services_23DB
 
         public void RestaurarBackup_23DB(string rutaArchivo_23DB)
         {
-            // Conectarse a master para poder restaurar INGSW_23DB.
+            // Conectarse a master para poder restaurar TD_62FD.
 
             SqlConnectionStringBuilder constructor_23DB = new SqlConnectionStringBuilder(Conexion_23DB.ObtenerCadena_23DB());
             constructor_23DB.InitialCatalog = "master";
             string cadenamaster_23DB = constructor_23DB.ConnectionString;
 
-            string query_23DB = $@"ALTER DATABASE INGSW_23DB SET SINGLE_USER WITH ROLLBACK IMMEDIATE; RESTORE DATABASE INGSW_23DB FROM DISK = '{rutaArchivo_23DB}' WITH REPLACE; ALTER DATABASE INGSW_23DB SET MULTI_USER;";
+            string query_23DB = @"IF DB_ID('TD_62FD') IS NOT NULL ALTER DATABASE TD_62FD SET SINGLE_USER WITH ROLLBACK IMMEDIATE; 
+                                    BEGIN TRY RESTORE DATABASE TD_62FD FROM DISK = @Ruta WITH REPLACE; 
+                                    END TRY
+                                    BEGIN CATCH
+                                        IF DB_ID('TD_62FD') IS NOT NULL ALTER DATABASE TD_62FD SET MULTI_USER;
+                                            THROW;
+                                            END CATCH
+                                                IF DB_ID('TD_62FD') IS NOT NULL ALTER DATABASE TD_62FD SET MULTI_USER;";
 
-            using(SqlConnection conn_23DB = new SqlConnection(cadenamaster_23DB))
+            using (SqlConnection conn_23DB = new SqlConnection(cadenamaster_23DB))
             {
                 conn_23DB.Open();
                 SqlCommand cmd_23DB = new SqlCommand(query_23DB, conn_23DB);
                 cmd_23DB.CommandTimeout = TimeoutRestoreSegundos_23DB;
+                cmd_23DB.Parameters.Add(new SqlParameter("@Ruta", SqlDbType.NVarChar, 260) { Value = rutaArchivo_23DB });
                 cmd_23DB.ExecuteNonQuery();
             }
-
         }
     }
 }

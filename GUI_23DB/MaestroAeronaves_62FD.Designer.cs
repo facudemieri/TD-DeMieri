@@ -31,15 +31,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.colMatricula = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNroSerie = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colModelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colFabricante = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colEstadoOperativo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colHorasVuelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIntervaloRevision = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colProximaRevision = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colActivo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnAñadir = new System.Windows.Forms.Button();
             this.btnModificar = new System.Windows.Forms.Button();
@@ -71,6 +62,15 @@
             this.btnAplicar = new System.Windows.Forms.Button();
             this.btnBitacoraCambios = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.colMatricula = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNroSerie = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colModelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFabricante = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colEstadoOperativo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colHorasVuelo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colIntervaloRevision = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colProximaRevision = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colActivo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -119,60 +119,6 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(769, 302);
             this.dataGridView1.TabIndex = 12;
-            // 
-            // colMatricula
-            // 
-            this.colMatricula.DataPropertyName = "Matricula_62FD";
-            this.colMatricula.HeaderText = "Matrícula";
-            this.colMatricula.Name = "colMatricula";
-            // 
-            // colNroSerie
-            // 
-            this.colNroSerie.DataPropertyName = "NroSerie_62FD";
-            this.colNroSerie.HeaderText = "Nro de Serie";
-            this.colNroSerie.Name = "colNroSerie";
-            // 
-            // colModelo
-            // 
-            this.colModelo.DataPropertyName = "Modelo_62FD";
-            this.colModelo.HeaderText = "Modelo";
-            this.colModelo.Name = "colModelo";
-            // 
-            // colFabricante
-            // 
-            this.colFabricante.DataPropertyName = "Fabricante_62FD";
-            this.colFabricante.HeaderText = "Fabricante";
-            this.colFabricante.Name = "colFabricante";
-            // 
-            // colEstadoOperativo
-            // 
-            this.colEstadoOperativo.DataPropertyName = "EstadoOperativo_62FD";
-            this.colEstadoOperativo.HeaderText = "Estado Operativo";
-            this.colEstadoOperativo.Name = "colEstadoOperativo";
-            // 
-            // colHorasVuelo
-            // 
-            this.colHorasVuelo.DataPropertyName = "HorasVueloAcumuladas_62FD";
-            this.colHorasVuelo.HeaderText = "Horas de Vuelo";
-            this.colHorasVuelo.Name = "colHorasVuelo";
-            // 
-            // colIntervaloRevision
-            // 
-            this.colIntervaloRevision.DataPropertyName = "IntervaloRevision_62FD";
-            this.colIntervaloRevision.HeaderText = "Intervalo (hs)";
-            this.colIntervaloRevision.Name = "colIntervaloRevision";
-            // 
-            // colProximaRevision
-            // 
-            this.colProximaRevision.DataPropertyName = "FechaProximaRevision_62FD";
-            this.colProximaRevision.HeaderText = "Próxima Revisión";
-            this.colProximaRevision.Name = "colProximaRevision";
-            // 
-            // colActivo
-            // 
-            this.colActivo.DataPropertyName = "Activo_62FD";
-            this.colActivo.HeaderText = "Activo";
-            this.colActivo.Name = "colActivo";
             // 
             // btnActualizar
             // 
@@ -316,9 +262,9 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(273, 79);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(214, 17);
+            this.label8.Size = new System.Drawing.Size(205, 17);
             this.label8.TabIndex = 6;
-            this.label8.Text = "Intervalo de Revisión (en horas):";
+            this.label8.Text = "Intervalo de Revisión (en dias):";
             // 
             // label9
             // 
@@ -469,6 +415,60 @@
             this.checkBox1.Text = "Aeronaves inactivas";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // colMatricula
+            // 
+            this.colMatricula.DataPropertyName = "Matricula_62FD";
+            this.colMatricula.HeaderText = "Matrícula";
+            this.colMatricula.Name = "colMatricula";
+            // 
+            // colNroSerie
+            // 
+            this.colNroSerie.DataPropertyName = "NroSerie_62FD";
+            this.colNroSerie.HeaderText = "Nro de Serie";
+            this.colNroSerie.Name = "colNroSerie";
+            // 
+            // colModelo
+            // 
+            this.colModelo.DataPropertyName = "Modelo_62FD";
+            this.colModelo.HeaderText = "Modelo";
+            this.colModelo.Name = "colModelo";
+            // 
+            // colFabricante
+            // 
+            this.colFabricante.DataPropertyName = "Fabricante_62FD";
+            this.colFabricante.HeaderText = "Fabricante";
+            this.colFabricante.Name = "colFabricante";
+            // 
+            // colEstadoOperativo
+            // 
+            this.colEstadoOperativo.DataPropertyName = "EstadoOperativo_62FD";
+            this.colEstadoOperativo.HeaderText = "Estado Operativo";
+            this.colEstadoOperativo.Name = "colEstadoOperativo";
+            // 
+            // colHorasVuelo
+            // 
+            this.colHorasVuelo.DataPropertyName = "HorasVueloAcumuladas_62FD";
+            this.colHorasVuelo.HeaderText = "Horas de Vuelo";
+            this.colHorasVuelo.Name = "colHorasVuelo";
+            // 
+            // colIntervaloRevision
+            // 
+            this.colIntervaloRevision.DataPropertyName = "IntervaloRevision_62FD";
+            this.colIntervaloRevision.HeaderText = "Intervalo (días)";
+            this.colIntervaloRevision.Name = "colIntervaloRevision";
+            // 
+            // colProximaRevision
+            // 
+            this.colProximaRevision.DataPropertyName = "FechaProximaRevision_62FD";
+            this.colProximaRevision.HeaderText = "Próxima Revisión";
+            this.colProximaRevision.Name = "colProximaRevision";
+            // 
+            // colActivo
+            // 
+            this.colActivo.DataPropertyName = "Activo_62FD";
+            this.colActivo.HeaderText = "Activo";
+            this.colActivo.Name = "colActivo";
             // 
             // MaestroAeronaves_62FD
             // 

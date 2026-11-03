@@ -47,11 +47,12 @@ namespace GUI_23DB
         {
             cmbResultadoInspeccion.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            // Largos iguales a las columnas y a los parámetros de InsertarCertificacion_62FD
             txtCodigoHabilitante.MaxLength = 50;
             txtObservaciones.MaxLength = 500;
-            // Es multilínea: Enter tiene que hacer salto de línea y no disparar el botón Aplicar
             txtObservaciones.AcceptsReturn = true;
+
+            dtpFechaHoraCertificacion.Format = DateTimePickerFormat.Custom;
+            dtpFechaHoraCertificacion.CustomFormat = "dd/MM/yyyy HH:mm";
 
             ConfigurarGrilla_62FD(dataGridView1);
             ConfigurarGrilla_62FD(dataGridView2);
@@ -174,6 +175,7 @@ namespace GUI_23DB
 
                 dtpFechaHoraCertificacion.Value = DateTime.Now;
                 certificacionRegistrada_62FD = null;
+                HabilitarEdicionCertificacion_62FD(true);
                 btnImprimir.Enabled = false;
 
                 ActualizarBarraEstado_62FD("Msg_NombreModoCertificacion");
@@ -195,9 +197,16 @@ namespace GUI_23DB
             LimpiarSeleccionGrilla_62FD(dataGridView2);
         }
 
+        private void HabilitarEdicionCertificacion_62FD(bool habilitar_62FD)
+        {
+            txtCodigoHabilitante.Enabled = habilitar_62FD;
+            cmbResultadoInspeccion.Enabled = habilitar_62FD;
+            txtObservaciones.Enabled = habilitar_62FD;
+            dtpFechaHoraCertificacion.Enabled = habilitar_62FD;
+            btnAplicar.Enabled = habilitar_62FD;
+        }
         private void btnAplicar_Click(object sender, EventArgs e)
         {
-            // Evita que un doble clic intente certificar dos veces
             btnAplicar.Enabled = false;
 
             try
@@ -275,6 +284,7 @@ namespace GUI_23DB
                 }
 
                 btnImprimir.Enabled = true;
+                HabilitarEdicionCertificacion_62FD(false);
                 CargarGrilla_62FD();
             }
             catch (Exception ex_62FD)
@@ -283,7 +293,10 @@ namespace GUI_23DB
             }
             finally
             {
-                btnAplicar.Enabled = true;
+                if (certificacionRegistrada_62FD == null)
+                {
+                    btnAplicar.Enabled = true;
+                }
             }
         }
 
@@ -306,9 +319,7 @@ namespace GUI_23DB
 
                 string ruta_62FD = Path.Combine(carpeta_62FD, "Certificado_" + certificacionRegistrada_62FD.IdIntervencion_62FD + ".pdf");
 
-                // Datos que el formulario no tiene cargados se recuperan con las BLL existentes
-                Aeronave_62FD aeronave_62FD = aeronaveBLL_62FD.ObtenerAeronaves_62FD(intervencionSeleccionada_62FD.Matricula_62FD, string.Empty, string.Empty, string.Empty, false)
-                    .Find(a_62FD => a_62FD.Matricula_62FD == intervencionSeleccionada_62FD.Matricula_62FD);
+                Aeronave_62FD aeronave_62FD = aeronaveBLL_62FD.ObtenerAeronaves_62FD(intervencionSeleccionada_62FD.Matricula_62FD, string.Empty, string.Empty, string.Empty, false).Find(a_62FD => a_62FD.Matricula_62FD == intervencionSeleccionada_62FD.Matricula_62FD);
                 OrdenTrabajo_62FD orden_62FD = intervencionBLL_62FD.ObtenerOrdenPorId_62FD(intervencionSeleccionada_62FD.IdOrden_62FD);
                 List<Tarea_62FD> tareas_62FD = intervencionBLL_62FD.ObtenerTareas_62FD(intervencionSeleccionada_62FD.IdIntervencion_62FD);
                 string nombreInspector_62FD = ObtenerNombreInspector_62FD();
@@ -328,9 +339,7 @@ namespace GUI_23DB
         {
             Usuario_23DB inspector_62FD = usuarioBLL_23DB.ObtenerUsuarioPorLogin_23DB(SessionManager_23DB.ObtenerInstancia_23DB().Login_23DB);
 
-            return inspector_62FD != null
-                ? inspector_62FD.Apellido_23DB + ", " + inspector_62FD.Nombre_23DB
-                : SessionManager_23DB.ObtenerInstancia_23DB().Login_23DB;
+            return inspector_62FD != null ? inspector_62FD.Apellido_23DB + ", " + inspector_62FD.Nombre_23DB : SessionManager_23DB.ObtenerInstancia_23DB().Login_23DB;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -378,7 +387,6 @@ namespace GUI_23DB
             Traductor_23DB.TraducirGrilla_23DB(dataGridView1, "CertificarIntervencion");
             LimpiarSeleccionGrilla_62FD(dataGridView1);
 
-            // El glifo se pierde al reenlazar, por eso se pone después
             dataGridView1.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = ordenAscendentePendientes_62FD ? SortOrder.Ascending : SortOrder.Descending;
         }
 
@@ -394,7 +402,6 @@ namespace GUI_23DB
             Traductor_23DB.TraducirGrilla_23DB(dataGridView2, "CertificarIntervencion");
             LimpiarSeleccionGrilla_62FD(dataGridView2);
 
-            // El glifo se pierde al reenlazar, por eso se pone después
             dataGridView2.Columns[e.ColumnIndex].HeaderCell.SortGlyphDirection = ordenAscendenteTareas_62FD ? SortOrder.Ascending : SortOrder.Descending;
         }
 
@@ -402,9 +409,7 @@ namespace GUI_23DB
         {
             System.Reflection.PropertyInfo prop_62FD = typeof(T).GetProperty(propiedad_62FD);
             if (prop_62FD == null) return lista_62FD;
-            return ascendente_62FD
-                ? lista_62FD.OrderBy(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList()
-                : lista_62FD.OrderByDescending(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList();
+            return ascendente_62FD ? lista_62FD.OrderBy(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList() : lista_62FD.OrderByDescending(x_62FD => prop_62FD.GetValue(x_62FD, null)).ToList();
         }
 
         private void ConfigurarGrilla_62FD(DataGridView grilla_62FD)
@@ -464,11 +469,8 @@ namespace GUI_23DB
             DataGridView grilla_62FD = (DataGridView)sender;
             if (grilla_62FD.Rows.Count > 0) return;
 
-            System.Drawing.Rectangle area_62FD = new System.Drawing.Rectangle(0, grilla_62FD.ColumnHeadersHeight,
-                grilla_62FD.ClientSize.Width, grilla_62FD.ClientSize.Height - grilla_62FD.ColumnHeadersHeight);
-            TextRenderer.DrawText(e.Graphics, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_GrillaSinDatos"),
-                grilla_62FD.Font, area_62FD, Color.Gray,
-                TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
+            System.Drawing.Rectangle area_62FD = new System.Drawing.Rectangle(0, grilla_62FD.ColumnHeadersHeight, grilla_62FD.ClientSize.Width, grilla_62FD.ClientSize.Height - grilla_62FD.ColumnHeadersHeight);
+            TextRenderer.DrawText(e.Graphics, IdiomaBLL_23DB.ObtenerTexto_23DB("Msg_GrillaSinDatos"), grilla_62FD.Font, area_62FD, Color.Gray, TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak);
         }
 
         private void ActualizarBarraEstado_62FD(string claveModo_62FD)
